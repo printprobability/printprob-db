@@ -17,12 +17,10 @@ build:
 rebuild:
 	docker-compose build --no-cache web
 wipe: stop
-	docker-compose exec postgres psql -U app -d postgres -c 'DROP DATABASE app;'
-	docker-compose exec postgres psql -U app -d postgres -c 'CREATE DATABASE app;'
+	docker-compose exec postgres psql -U app -d postgres -c 'DROP DATABASE pp;'
+	docker-compose exec postgres psql -U app -d postgres -c 'CREATE DATABASE pp;'
 	$(MAKE) restart
 	docker-compose exec web python manage.py migrate
-reload: wipe
-	docker-compose exec web python manage.py loaddata /vol/data/json/app.json
 dumptest:
 	docker-compose exec web python manage.py dumpdata --indent 2 -e admin.logentry -e auth.permission -e contenttypes -e sessions -o abstracts/fixtures/test.json
 loadtest: wipe
