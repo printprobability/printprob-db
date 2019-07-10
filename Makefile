@@ -12,6 +12,8 @@ db:
 	docker-compose exec postgres psql -U app
 restart:
 	docker-compose restart web nginx
+build:
+	docker-compose build
 rebuild:
 	docker-compose build --no-cache web
 wipe: stop
