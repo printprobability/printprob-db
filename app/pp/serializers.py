@@ -2,6 +2,24 @@ from rest_framework import serializers
 from . import models
 
 
+class CharacterClassSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.CharacterClass
+        fields = ["pk", "classname"]
+
+
+class ClassAssignmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ClassAssignment
+        fields = [
+            "pk",
+            "created_by_run",
+            "character",
+            "character_class",
+            "log_probability",
+        ]
+
+
 class BadCaptureSeralizer(serializers.ModelSerializer):
     class Meta:
         model = models.BadCapture
@@ -12,94 +30,144 @@ class BadCaptureSeralizer(serializers.ModelSerializer):
 class ImageFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ImageFile
-        fields = ["filetype", "date_uploaded"]
-        read_only_fields = ["filetype", "date_uploaded"]
+        fields = ["parent_image", "filetype", "date_uploaded", "filepath"]
+        read_only_fields = ["date_uploaded"]
 
 
 class ImageSerializer(serializers.ModelSerializer):
-    files = ImageFileSerializer(many=True)
-    bad_capture = serializers.BooleanField()
+    files = ImageFileSerializer(many=True, read_only=True)
 
     class Meta:
         model = models.Image
-        fields = ["pk", "basename", "web_url", "files", "created_by_run", "bad_capture"]
-        read_only_fields = ["pk", "basename", "web_file", "files", "web_url"]
+        fields = ["pk", "basename", "web_url", "files", "created_by_run"]
 
 
 class CharacterDetailSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
+    class_assignments = ClassAssignmentSerializer(many=True, read_only=True)
 
     class Meta:
         model = models.Character
-        fields = ["pk", "line", "sequence", "images"]
+        fields = [
+            "pk",
+            "created_by_run",
+            "line",
+            "sequence",
+            "images",
+            "x_min",
+            "x_max",
+            "class_assignments",
+        ]
 
 
 class CharacterListSerializer(serializers.ModelSerializer):
-    pref_image = ImageSerializer(many=False)
-
     class Meta:
         model = models.Character
-        fields = ["pk", "line", "sequence", "pref_image"]
+        fields = ["pk", "created_by_run", "line", "sequence", "x_min", "x_max"]
 
 
 class LineDetailSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
-    pref_image = ImageSerializer(many=False)
 
     class Meta:
         model = models.Line
-        fields = ["pk", "page", "sequence", "images", "characters", "pref_image"]
+        fields = [
+            "pk",
+            "created_by_run",
+            "page",
+            "sequence",
+            "images",
+            "characters",
+            "y_min",
+            "y_max",
+        ]
+        read_only_fields = ["characters"]
 
 
 class LineListSerializer(serializers.ModelSerializer):
-    n_chars = serializers.IntegerField()
-    pref_image = ImageSerializer(many=False)
-
     class Meta:
         model = models.Line
-        fields = ["pk", "page", "sequence", "n_chars", "n_images", "pref_image"]
+        fields = ["pk", "created_by_run", "page", "sequence", "y_min", "y_max"]
 
 
 class PageDetailSerializer(serializers.ModelSerializer):
     lines = LineDetailSerializer(many=True)
     images = ImageSerializer(many=True)
-    pref_image = ImageSerializer(many=False)
 
     class Meta:
         model = models.Page
         fields = [
             "pk",
-            "spread__book",
+            "created_by_run",
+            "spread",
             "book_title",
-            "spread__sequence",
             "side",
             "images",
             "lines",
-            "pref_image",
+            "x_min",
+            "x_max",
         ]
 
 
 class PageListSerializer(serializers.ModelSerializer):
-    n_lines = serializers.IntegerField()
-    pref_image = ImageSerializer(many=False)
-
     class Meta:
         model = models.Page
-        fields = ["pk", "book", "sequence", "side", "n_lines", "pref_image"]
+        fields = ["pk", "created_by_run", "spread", "side", "x_min", "x_max"]
+
+
+class SpreadSeralizer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Spread
+        fields = ["pk", "book", "sequence", "images"]
+
+
+class BookLineHeightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProposedBookLineHeight
+        fields = ["pk", "created_by_run", "book", "line_height"]
 
 
 class BookListSerializer(serializers.ModelSerializer):
-    cover_page = PageListSerializer()
-
     class Meta:
         model = models.Book
-        fields = ["pk", "title", "estc", "year_early", "n_pages", "cover_page"]
+        fields = ["estc", "vid", "publisher", "title"]
 
 
 class BookDetailSerializer(serializers.ModelSerializer):
-    cover_page = PageListSerializer()
-    pages = PageListSerializer(many=True)
+    proposed_line_heights = BookLineHeightSerializer(many=True)
 
     class Meta:
         model = models.Book
-        fields = ["pk", "title", "estc", "year_early", "n_pages", "pages", "cover_page"]
+        fields = [
+            "estc",
+            "vid",
+            "publisher",
+            "title",
+            "spreads",
+            "proposed_line_heights",
+        ]
+
+
+class RunListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Run
+        fields = ["pk", "date_started", "notes"]
+        read_only_fields = ["pk", "date_entered"]
+
+
+class RunDetailSerializer(serializers.ModelSerializer):
+    pages_created = PageListSerializer(many=True)
+    lines_created = LineListSerializer(many=True)
+    characters_created = CharacterListSerializer(many=True)
+
+    class Meta:
+        model = models.Run
+        fields = [
+            "pk",
+            "date_started",
+            "notes",
+            "pages_created",
+            "lines_created",
+            "characters_created",
+        ]
+

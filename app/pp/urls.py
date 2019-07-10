@@ -5,15 +5,20 @@ from rest_framework.documentation import include_docs_urls
 from . import views
 
 router = routers.DefaultRouter()
+router.register(r"runs", views.RunViewSet)
 router.register(r"books", views.BookViewSet)
+router.register(r"spreads", views.SpreadViewSet)
 router.register(r"pages", views.PageViewSet)
 router.register(r"lines", views.LineViewSet)
 router.register(r"characters", views.CharacterViewSet)
 router.register(r"images", views.ImageViewSet)
+router.register(r"files", views.ImageFileViewSet)
 router.register(r"captures", views.BadCaptureViewSet)
+router.register(r"character_classes", views.CharacterClassViewset)
+router.register(r"character_class_assignments", views.ClassAssignmentViewset)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("api-auth/", include("rest_framework.urls", namespace="rest_auth")),
+    # path("api-auth/", include("rest_framework.urls", namespace="rest_auth")),
     path("docs/", include_docs_urls(title="P & P Pipeline API")),
 ]

@@ -18,6 +18,19 @@ class Run(models.Model):
     def __str__(self):
         return f"{self.pk}-{self.date_started}"
 
+    @staticmethod
+    def most_recent_run():
+        return Run.objects.order_by("-date_started").first()
+
+    def pages_created(self):
+        return Page.objects.filter(created_by_run=self).all()
+
+    def lines_created(self):
+        return Line.objects.filter(created_by_run=self).all()
+
+    def characters_created(self):
+        return Character.objects.filter(created_by_run=self).all()
+
 
 class Attempt(models.Model):
     created_by_run = models.ForeignKey(
@@ -51,7 +64,6 @@ class BadCapture(Task):
 
 class Image(Attempt):
     basename = models.CharField(
-        unique=True,
         max_length=500,
         help_text="Standard identifier using the printer/id/location schema, without any filetype name",
     )
@@ -66,12 +78,16 @@ class Image(Attempt):
 
     class Meta:
         ordering = ["basename"]
+        unique_together = ("basename", "created_by_run")
 
     def __str__(self):
         return f"Run {created_by_run} {basename}"
 
     def web_url(self):
-        return f"/img/{self.web_file.filepath}"
+        if self.web_file is not None:
+            return f"/img/{self.web_file.filepath}"
+        else:
+            return None
 
     def bad_capture(self):
         return BadCapture.objects.filter(image=self).exists()
@@ -91,10 +107,8 @@ class ImageFile(models.Model):
     date_uploaded = models.DateTimeField(
         auto_now_add=True, help_text="Date this file was added to the server"
     )
-    filepath = models.FilePathField(
-        path="/vol/images/",
-        recursive=True,
-        allow_files=True,
+    filepath = models.CharField(
+        max_length=2000,
         help_text="relative file path to root directory containing all images",
     )
 
@@ -106,29 +120,19 @@ class ImageFile(models.Model):
         return self.filepath
 
 
-class Printer(models.Model):
-    """
-    Printer identity from ESTC
-    """
-
-    name = models.CharField(max_length=1000, unique=True)
-
-    class Meta:
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
-
-
 class Book(models.Model):
-    estc = models.CharField(max_length=200, unique=True, help_text="ESTC identifier")
+    estc = models.PositiveIntegerField(
+        primary_key=True, unique=True, help_text="ESTC ID number"
+    )
+    vid = models.PositiveIntegerField(unique=True, help_text="Alternate ID number")
     title = models.CharField(
         max_length=1000, db_index=True, help_text="Title (as cataloged by ESTC)"
     )
-    cataloged_printers = models.ManyToManyField(
-        Printer,
-        help_text="The printers of this book according to ESTC cataloging",
-        related_name="books_printed",
+    publisher = models.CharField(
+        blank=True,
+        null=False,
+        max_length=500,
+        help_text="Publisher (as cataloged by ESTC)",
     )
     pdf = models.ForeignKey(
         ImageFile,
@@ -155,14 +159,16 @@ class Book(models.Model):
         """
         Get all pages for this book based on the most recent run in the database
         """
-        most_recent_run = models.Run.objects.order_by("-date_started")[0]
-        return ordered_pages_run(self, most_recent_run)
+        return ordered_pages_run(self, Run.most_recent_run())
 
     def cover_page(self):
         return self.pages.first()
 
+    def n_spreads(self):
+        return self.spreads.count()
+
     def n_pages(self):
-        return self.pages.count()
+        return ordered_pages.count()
 
 
 class ProposedBookLineHeight(Attempt):
@@ -173,7 +179,9 @@ class ProposedBookLineHeight(Attempt):
     book = models.ForeignKey(
         Book, on_delete=models.CASCADE, related_name="proposed_line_heights"
     )
-    line_height = models.IntegerField(help_text="Proposed line height for a book")
+    line_height = models.PositiveIntegerField(
+        help_text="Proposed line height for a book"
+    )
 
     class Meta:
         unique_together = (("book", "created_by_run"),)
@@ -181,13 +189,10 @@ class ProposedBookLineHeight(Attempt):
 
 class Spread(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="spreads")
-    sequence = models.IntegerField(
+    sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of this page in a given book"
     )
-    images = models.ManyToManyField(Image, related_name="depicted_spreads")
-    page_split_x = models.IntegerField(
-        help_text="X-axis index marking the location of the page split on the spread image"
-    )
+    images = models.ManyToManyField(Image, blank=True, related_name="depicted_spreads")
 
     class Meta:
         unique_together = (("book", "sequence"),)
@@ -208,11 +213,11 @@ class Page(Attempt):
         choices=SPREAD_SIDE,
         help_text="Side of the spread this has been segmented to",
     )
-    images = models.ManyToManyField(Image, related_name="depicted_pages")
-    x_min = models.IntegerField(
+    images = models.ManyToManyField(Image, blank=True, related_name="depicted_pages")
+    x_min = models.PositiveIntegerField(
         help_text="Starting x-axis location of the page on the original spread image"
     )
-    x_max = models.IntegerField(
+    x_max = models.PositiveIntegerField(
         help_text="Ending x-axis location of the page on the original spread image"
     )
 
@@ -239,19 +244,19 @@ class Line(Attempt):
     """
 
     page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="lines")
-    sequence = models.IntegerField(
+    sequence = models.PositiveIntegerField(
         db_index=True, help_text="Order on page, from top to bottom"
     )
     images = models.ManyToManyField(Image, blank=True)
-    y_min = models.IntegerField(
+    y_min = models.PositiveIntegerField(
         help_text="Y-axis index for the start of this line on the Page image"
     )
-    y_max = models.IntegerField(
+    y_max = models.PositiveIntegerField(
         help_text="Y-axis index for the end of this line on the Page image"
     )
 
     class Meta:
-        unique_together: (("created_by_run", "page", "sequence"),)
+        unique_together = (("created_by_run", "page", "sequence"),)
         ordering = ["created_by_run", "page", "sequence"]
 
     def __str__(self):
@@ -288,13 +293,13 @@ class Character(Attempt):
 
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name="characters")
     images = models.ManyToManyField(Image, related_name="characters", blank=True)
-    sequence = models.IntegerField(
+    sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of characters on the line"
     )
-    x_min = models.IntegerField(
+    x_min = models.PositiveIntegerField(
         help_text="X-axis index for the start of this character on the line image"
     )
-    x_max = models.IntegerField(
+    x_max = models.PositiveIntegerField(
         help_text="X-axis index for the end of this character on the line image"
     )
 
@@ -342,7 +347,7 @@ class ClassAssignment(Attempt):
 
     class Meta:
         unique_together = ("created_by_run", "character", "character_class")
-        ordering = ["created_by_run__date_started"]
+        ordering = ["created_by_run__date_started", "character", "-log_probability"]
 
     def _str__(self):
         return f"run {created_by_run}: chr {character} - {character_class} {log_probability}"
