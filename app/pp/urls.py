@@ -1,0 +1,19 @@
+from django.urls import path, include
+import django.contrib.auth.views as auth_views
+from rest_framework import routers
+from rest_framework.documentation import include_docs_urls
+from . import views
+
+router = routers.DefaultRouter()
+router.register(r"books", views.BookViewSet)
+router.register(r"pages", views.PageViewSet)
+router.register(r"lines", views.LineViewSet)
+router.register(r"characters", views.CharacterViewSet)
+router.register(r"images", views.ImageViewSet)
+router.register(r"captures", views.BadCaptureViewSet)
+
+urlpatterns = [
+    path("", include(router.urls)),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_auth")),
+    path("docs/", include_docs_urls(title="P & P Pipeline API")),
+]

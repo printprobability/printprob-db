@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+
+  postgres:
+    image: postgres:11
+    volumes:
+      - pp:/var/lib/postgresql/data
+    expose:
+      - "${POSTGRES_PORT}"
+    env_file: .env
+
+  start_dependencies:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+     - "postgres"
+    command: "postgres:${POSTGRES_PORT}"
+
+  web:
+    build: .
+    restart: always
+    command: "bash -c ${SERVE_COMMAND}"
+    volumes:
+      - ./app:/vol/app
+      - ${IMAGEDIR}:/vol/raw
+      - ppstatic:/vol/static_files
+    expose:
+      - 8000
+    links:
+      - "postgres:postgres"
+    env_file: .env
+    depends_on:
+      - start_dependencies
+
+  nginx:
+    image: nginx:1.17
+    restart: always
+    volumes:
+      - ppstatic:/vol/static_files
+      - ${IMAGEDIR}:/vol/raw
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "${NGINX_PORT}:4000"
+    env_file: .env
+    links:
+      - "web:web"
+    depends_on:
+      - start_dependencies
+      - web
+
+volumes:
+  pp:
+  ppstatic:
