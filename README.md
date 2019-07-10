@@ -2,4 +2,4 @@ A Django-powered REST API for powering the data transformation and tagging pipli
 
 ## Contact
 
-Maintained by [Matthew Lincoln][https://github.com/mdlincoln]
+Maintained by [Matthew Lincoln](https://github.com/mdlincoln)
