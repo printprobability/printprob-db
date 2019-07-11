@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from rest_framework import viewsets, views, generics
+from rest_framework import viewsets, views, generics, status
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
+from django.db import transaction
 from django.db.models import Count
 from rest_framework import permissions
 
@@ -33,6 +35,36 @@ class ImageViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Image.objects.all()
     serializer_class = serializers.ImageSerializer
+
+    @action(detail=False, methods=["post"])
+    @transaction.atomic
+    def quick_create(self, request):
+        """
+        Supply a tif and jpeg filepath of the same image to quickly create Image and ImageFile instances.
+        """
+        quick_image = serializers.QuickImageSerializer(data=request.data)
+        if quick_image.is_valid():
+            # Create a new Image instance
+            image = models.Image.objects.create(notes=quick_image.data["notes"])
+
+            # Create ImageFile instances
+            jpeg_file = models.ImageFile.objects.create(
+                parent_image=image, filetype="jpg", filepath=quick_image.data["jpeg"]
+            )
+            tiff_file = models.ImageFile.objects.create(
+                parent_image=image, filetype="tif", filepath=quick_image.data["tiff"]
+            )
+
+            # Hook the Image web_file image up
+            image.web_file = jpeg_file
+            image.save()
+
+            # Return the serialized Image object
+            serialized_image = serializers.ImageSerializer(image)
+            return Response(serialized_image.data)
+        else:
+            # Otherwise return an error
+            return Response(quick_image.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ImageFileViewSet(viewsets.ModelViewSet):

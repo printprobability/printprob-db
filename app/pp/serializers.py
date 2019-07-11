@@ -42,6 +42,22 @@ class ImageSerializer(serializers.ModelSerializer):
         fields = ["pk", "notes", "web_file", "files", "web_url"]
 
 
+class QuickImageSerializer(serializers.Serializer):
+    jpeg = serializers.CharField(
+        max_length=2000,
+        help_text="relative file path of the JPEG version of this image",
+    )
+    tiff = serializers.CharField(
+        max_length=2000, help_text="relative file path of the TIF version of this image"
+    )
+    notes = serializers.CharField(
+        max_length=500,
+        help_text="Standard identifier using the printer/id/location schema, without any filetype name",
+        required=False,
+        default="",
+    )
+
+
 class CharacterDetailSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
     class_assignments = ClassAssignmentSerializer(many=True, read_only=True)

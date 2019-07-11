@@ -114,6 +114,7 @@ class ImageFile(models.Model):
     filepath = models.CharField(
         max_length=2000,
         help_text="relative file path to root directory containing all images",
+        unique=True,
     )
 
     class Meta:
