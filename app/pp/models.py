@@ -18,7 +18,7 @@ class Run(models.Model):
         ordering = ["date_started"]
 
     def __str__(self):
-        return f"{self.pk}-{self.date_started}"
+        return f"{str(self.id)}-{self.date_started}"
 
     @staticmethod
     def most_recent_run():
@@ -84,7 +84,7 @@ class Image(models.Model):
     )
 
     def __str__(self):
-        return id
+        return str(self.id)
 
     def web_url(self):
         if self.web_file is not None:
@@ -150,7 +150,7 @@ class Book(models.Model):
         ordering = ["estc"]
 
     def __str__(self):
-        return self.title
+        return f"{self.estc} - {self.title}"
 
     def ordered_pages_run(self, run):
         """
@@ -178,7 +178,7 @@ class ProposedBookLineHeight(Attempt):
     """
     Book line heights are proposed per-run
     """
-
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     book = models.ForeignKey(
         Book, on_delete=models.CASCADE, related_name="proposed_line_heights"
     )
@@ -188,6 +188,9 @@ class ProposedBookLineHeight(Attempt):
 
     class Meta:
         unique_together = (("book", "created_by_run"),)
+
+    def __str__(self):
+        return str(self.id)
 
 
 class Spread(models.Model):
@@ -202,7 +205,7 @@ class Spread(models.Model):
         unique_together = (("book", "sequence"),)
 
     def __str__(self):
-        return f"{self.book.title} s. {self.sequence}"
+        return f"{self.book.title} spread {self.sequence}"
 
 
 class Page(Attempt):
@@ -230,7 +233,7 @@ class Page(Attempt):
         ordering = ["created_by_run", "spread", "side"]
 
     def __str__(self):
-        return f"{self.spread.book.title} p. {self.spread.sequence}{self.side}"
+        return f"{self.spread.book.title} p. {self.spread.sequence}-{self.side}"
 
     def n_lines(self):
         return self.lines.count()
