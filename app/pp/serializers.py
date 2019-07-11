@@ -3,6 +3,13 @@ from django.db import transaction
 from . import models
 
 
+class RunListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Run
+        fields = ["pk", "date_started", "notes"]
+        read_only_fields = ["pk", "date_entered"]
+
+
 class CharacterClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CharacterClass
@@ -83,6 +90,9 @@ class CharacterListSerializer(serializers.ModelSerializer):
         fields = ["pk", "created_by_run", "line", "sequence", "x_min", "x_max"]
 
 
+# Lines ----
+
+
 class LineDetailSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
 
@@ -107,7 +117,53 @@ class LineListSerializer(serializers.ModelSerializer):
         fields = ["pk", "created_by_run", "page", "sequence", "y_min", "y_max"]
 
 
+class LineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Line
+        fields = [
+            "pk",
+            "created_by_run",
+            "page",
+            "sequence",
+            "y_min",
+            "y_max",
+            "images",
+        ]
+
+    @transaction.atomic
+    def create(self, validated_data):
+        """
+        Allow a list of image UUIDs to be associated with the line
+        """
+        images_data = validated_data.pop("images")
+        line = models.Line.objects.create(**validated_data)
+        for image in images_data:
+            line.images.add(image)
+        return line
+
+
+# Pages ----
+
+
+class PageListSerializer(serializers.ModelSerializer):
+    created_by_run = RunListSerializer(many=False)
+
+    class Meta:
+        model = models.Page
+        fields = [
+            "pk",
+            "created_by_run",
+            "spread",
+            "book_title",
+            "side",
+            "x_min",
+            "x_max",
+            "pref_image_url",
+        ]
+
+
 class PageDetailSerializer(serializers.ModelSerializer):
+    created_by_run = RunListSerializer(many=False)
     lines = LineDetailSerializer(many=True)
     images = ImageSerializer(many=True)
 
@@ -119,18 +175,18 @@ class PageDetailSerializer(serializers.ModelSerializer):
             "spread",
             "book_title",
             "side",
-            "images",
-            "lines",
             "x_min",
             "x_max",
+            "lines",
+            "images",
+            "pref_image_url",
         ]
 
 
-class PageListSerializer(serializers.ModelSerializer):
+class PageSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Page
         fields = ["pk", "created_by_run", "spread", "side", "x_min", "x_max", "images"]
-        write_only_fields = ["images"]
 
     @transaction.atomic
     def create(self, validated_data):
@@ -144,7 +200,16 @@ class PageListSerializer(serializers.ModelSerializer):
         return page
 
 
-class ReadSpreadSeralizer(serializers.ModelSerializer):
+# Spreads ----
+
+
+class SpreadListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Spread
+        fields = ["pk", "book", "sequence", "pref_image_url"]
+
+
+class SpreadDetailSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
 
     class Meta:
@@ -152,8 +217,10 @@ class ReadSpreadSeralizer(serializers.ModelSerializer):
         fields = ["pk", "book", "sequence", "images", "pref_image_url"]
 
 
-class SpreadSeralizer(ReadSpreadSeralizer):
-    images = None
+class SpreadSeralizer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Spread
+        fields = ["pk", "book", "sequence", "images"]
 
     @transaction.atomic
     def create(self, validated_data):
@@ -176,7 +243,7 @@ class BookLineHeightSerializer(serializers.ModelSerializer):
 class BookListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Book
-        fields = ["estc", "vid", "publisher", "title"]
+        fields = ["estc", "vid", "publisher", "title", "pdf"]
 
 
 class BookDetailSerializer(serializers.ModelSerializer):
@@ -194,14 +261,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
         ]
 
 
-class RunListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Run
-        fields = ["pk", "date_started", "notes"]
-        read_only_fields = ["pk", "date_entered"]
-
-
-class RunDetailSerializer(serializers.HyperlinkedModelSerializer):
+class RunDetailSerializer(serializers.ModelSerializer):
     pages_created = PageListSerializer(many=True)
     lines_created = LineListSerializer(many=True)
     characters_created = CharacterListSerializer(many=True)

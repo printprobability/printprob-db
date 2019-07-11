@@ -89,9 +89,11 @@ class SpreadViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.SpreadSeralizer
 
     def get_serializer_class(self):
-        if self.action in ["create", "update", "partial_update"]:
-            return serializers.SpreadSeralizer
-        return serializers.ReadSpreadSeralizer
+        if self.action == "retrieve":
+            return serializers.SpreadDetailSerializer
+        elif self.action == "list":
+            return serializers.SpreadListSerializer
+        return serializers.SpreadSeralizer
 
 
 class PageViewSet(viewsets.ModelViewSet):
@@ -101,7 +103,9 @@ class PageViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == "retrieve":
             return serializers.PageDetailSerializer
-        return serializers.PageListSerializer
+        elif self.action == "list":
+            return serializers.PageListSerializer
+        return serializers.PageSerializer
 
 
 class LineViewSet(viewsets.ModelViewSet):
@@ -113,7 +117,9 @@ class LineViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == "retrieve":
             return serializers.LineDetailSerializer
-        return serializers.LineListSerializer
+        elif self.action == "list":
+            return serializers.LineListSerializer
+        return serializers.LineSerializer
 
 
 class CharacterViewSet(viewsets.ModelViewSet):

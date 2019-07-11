@@ -78,7 +78,7 @@ class Image(models.Model):
         "ImageFile",
         null=True,
         blank=True,
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         limit_choices_to={"filetype": "jpg"},
         help_text="direct pointer to the path of the JPG version of this image, if it exists",
     )
@@ -242,11 +242,11 @@ class Page(Attempt):
     def n_lines(self):
         return self.lines.count()
 
-    def pref_image(self):
-        return self.images.first()
+    def pref_image_url(self):
+        return self.images.first().web_url()
 
     def book_title(self):
-        return self.book.title
+        return self.spread.book.title
 
 
 class Line(Attempt):
@@ -279,8 +279,11 @@ class Line(Attempt):
     def n_images(self):
         return self.images.count()
 
-    def pref_image(self):
-        return self.images.first()
+    def pref_image_url(self):
+        return self.images.first().web_url()
+
+    def book_title(self):
+        return self.page.spread.book.title
 
     def line_height(self):
         return self.y_max - self.y_min
@@ -321,8 +324,8 @@ class Character(Attempt):
     def __str__(self):
         return f"{self.line} c. {self.sequence}"
 
-    def pref_image(self):
-        return self.images.first()
+    def pref_image_url(self):
+        return self.images.first().web_url()
 
     def absolute_coords(self):
         """
