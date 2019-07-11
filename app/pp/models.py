@@ -178,6 +178,7 @@ class ProposedBookLineHeight(Attempt):
     """
     Book line heights are proposed per-run
     """
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     book = models.ForeignKey(
         Book, on_delete=models.CASCADE, related_name="proposed_line_heights"
@@ -206,6 +207,9 @@ class Spread(models.Model):
 
     def __str__(self):
         return f"{self.book.title} spread {self.sequence}"
+
+    def pref_image_url(self):
+        return self.images.first().web_url()
 
 
 class Page(Attempt):

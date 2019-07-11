@@ -129,13 +129,31 @@ class PageDetailSerializer(serializers.ModelSerializer):
 class PageListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Page
-        fields = ["pk", "created_by_run", "spread", "side", "x_min", "x_max"]
+        fields = ["pk", "created_by_run", "spread", "side", "x_min", "x_max", "images"]
+        write_only_fields = ["images"]
+
+    @transaction.atomic
+    def create(self, validated_data):
+        """
+        Allow a list of image UUIDs to be associated with the page
+        """
+        images_data = validated_data.pop("images")
+        page = models.Page.objects.create(**validated_data)
+        for image in images_data:
+            page.images.add(image)
+        return page
 
 
-class SpreadSeralizer(serializers.ModelSerializer):
+class ReadSpreadSeralizer(serializers.ModelSerializer):
+    images = ImageSerializer(many=True)
+
     class Meta:
         model = models.Spread
-        fields = ["pk", "book", "sequence", "images"]
+        fields = ["pk", "book", "sequence", "images", "pref_image_url"]
+
+
+class SpreadSeralizer(ReadSpreadSeralizer):
+    images = None
 
     @transaction.atomic
     def create(self, validated_data):

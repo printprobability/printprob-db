@@ -88,6 +88,11 @@ class SpreadViewSet(viewsets.ModelViewSet):
     queryset = models.Spread.objects.all()
     serializer_class = serializers.SpreadSeralizer
 
+    def get_serializer_class(self):
+        if self.action in ["create", "update", "partial_update"]:
+            return serializers.SpreadSeralizer
+        return serializers.ReadSpreadSeralizer
+
 
 class PageViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
