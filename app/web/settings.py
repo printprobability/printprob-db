@@ -125,3 +125,5 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = "/vol/static_files"
+
+APPEND_SLASH = False

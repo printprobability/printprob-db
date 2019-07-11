@@ -1,8 +1,10 @@
 from django.db import models
 from collections import namedtuple
+import uuid
 
 
 class Run(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date_started = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(
         blank=True,
@@ -33,6 +35,7 @@ class Run(models.Model):
 
 
 class Attempt(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_by_run = models.ForeignKey(
         Run,
         on_delete=models.CASCADE,
@@ -44,6 +47,7 @@ class Attempt(models.Model):
 
 
 class Task(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date_entered = models.DateTimeField(
         auto_now=True, help_text="Date this classification was made"
     )
@@ -62,8 +66,11 @@ class BadCapture(Task):
     )
 
 
-class Image(Attempt):
-    basename = models.CharField(
+class Image(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    notes = models.CharField(
+        blank=True,
+        null=False,
         max_length=500,
         help_text="Standard identifier using the printer/id/location schema, without any filetype name",
     )
@@ -76,12 +83,8 @@ class Image(Attempt):
         help_text="direct pointer to the path of the JPG version of this image, if it exists",
     )
 
-    class Meta:
-        ordering = ["basename"]
-        unique_together = ("basename", "created_by_run")
-
     def __str__(self):
-        return f"Run {created_by_run} {basename}"
+        return id
 
     def web_url(self):
         if self.web_file is not None:
@@ -95,6 +98,7 @@ class Image(Attempt):
 
 class ImageFile(models.Model):
     TYPES = (("png", "png"), ("jpg", "jpeg"), ("tif", "tiff"), ("pdf", "pdf"))
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     parent_image = models.ForeignKey(
         Image,
         on_delete=models.CASCADE,
@@ -117,13 +121,11 @@ class ImageFile(models.Model):
         ordering = ["image", "date_uploaded"]
 
     def __str__(self):
-        return self.filepath
+        return str(self.id)
 
 
 class Book(models.Model):
-    estc = models.PositiveIntegerField(
-        primary_key=True, unique=True, help_text="ESTC ID number"
-    )
+    estc = models.PositiveIntegerField(primary_key=True, help_text="ESTC ID number")
     vid = models.PositiveIntegerField(unique=True, help_text="Alternate ID number")
     title = models.CharField(
         max_length=1000, db_index=True, help_text="Title (as cataloged by ESTC)"
@@ -188,6 +190,7 @@ class ProposedBookLineHeight(Attempt):
 
 
 class Spread(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="spreads")
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of this page in a given book"
@@ -327,8 +330,9 @@ class Character(Attempt):
 
 class CharacterClass(models.Model):
     classname = models.CharField(
-        unique=True,
+        primary_key=True,
         max_length=50,
+        editable=False,
         help_text="A human-readable, unique class identifier",
     )
 

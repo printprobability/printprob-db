@@ -30,7 +30,7 @@ class BadCaptureSeralizer(serializers.ModelSerializer):
 class ImageFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ImageFile
-        fields = ["parent_image", "filetype", "date_uploaded", "filepath"]
+        fields = ["pk", "parent_image", "filetype", "date_uploaded", "filepath"]
         read_only_fields = ["date_uploaded"]
 
 
@@ -39,7 +39,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Image
-        fields = ["pk", "basename", "web_url", "files", "created_by_run"]
+        fields = ["pk", "notes", "web_file", "files", "web_url"]
 
 
 class CharacterDetailSerializer(serializers.ModelSerializer):
