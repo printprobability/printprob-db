@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.db import transaction
 from . import models
 
 
@@ -136,6 +137,17 @@ class SpreadSeralizer(serializers.ModelSerializer):
         model = models.Spread
         fields = ["pk", "book", "sequence", "images"]
 
+    @transaction.atomic
+    def create(self, validated_data):
+        """
+        Allow a list of image UUIDs to be associated with the spread
+        """
+        images_data = validated_data.pop("images")
+        spread = models.Spread.objects.create(**validated_data)
+        for image in images_data:
+            spread.images.add(image)
+        return spread
+
 
 class BookLineHeightSerializer(serializers.ModelSerializer):
     class Meta:
@@ -171,7 +183,7 @@ class RunListSerializer(serializers.ModelSerializer):
         read_only_fields = ["pk", "date_entered"]
 
 
-class RunDetailSerializer(serializers.ModelSerializer):
+class RunDetailSerializer(serializers.HyperlinkedModelSerializer):
     pages_created = PageListSerializer(many=True)
     lines_created = LineListSerializer(many=True)
     characters_created = CharacterListSerializer(many=True)
