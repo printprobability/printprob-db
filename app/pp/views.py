@@ -196,6 +196,9 @@ class CharacterFilter(filters.FilterSet):
     )
     sequence = filters.NumberFilter()
     created_by_run = filters.ModelChoiceFilter(queryset=models.Run.objects.all())
+    character_class = filters.ModelChoiceFilter(
+        queryset=models.CharacterClass.objects.all()
+    )
 
 
 class CharacterViewSet(viewsets.ModelViewSet):
