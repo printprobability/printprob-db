@@ -4,7 +4,7 @@ import re
 from glob import glob
 from uuid import UUID
 
-b = "http://localhost/"
+b = os.environ['TEST_HOST']
 ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
 
 books = glob("/Volumes/data_mdlincoln/pp/books/*")
@@ -43,7 +43,7 @@ for book in books:
         print(image_id)
         spread_id = requests.post(
             f"{b}spreads/",
-            data={"book": int(bnames[1]), "sequence": int(snames), "images": image_id},
+            data={"book": int(bnames[1]), "sequence": int(snames), "primary_image": image_id},
             headers=ht,
         ).json()["pk"]
         print(spread_id)
@@ -66,7 +66,7 @@ for book in books:
                 "created_by_run": run_id,
                 "x_min": 0,
                 "x_max": 0,
-                "images": left_page_pic,
+                "primary_image": left_page_pic,
             },
             headers=ht,
         ).json()["pk"]
@@ -83,7 +83,7 @@ for book in books:
                 "created_by_run": run_id,
                 "x_min": 0,
                 "x_max": 0,
-                "images": right_page_pic,
+                "primary_image": right_page_pic,
             },
             headers=ht,
         ).json()["pk"]
@@ -108,7 +108,7 @@ for book in books:
                     "sequence": lseq,
                     "y_min": 0,
                     "y_max": 0,
-                    "images": l_image_id,
+                    "primary_image": l_image_id,
                 },
                 headers=ht,
             ).json()["pk"]
@@ -133,7 +133,7 @@ for book in books:
                     "sequence": lseq,
                     "y_min": 0,
                     "y_max": 0,
-                    "images": l_image_id,
+                    "primary_image": l_image_id,
                 },
                 headers=ht,
             ).json()["pk"]

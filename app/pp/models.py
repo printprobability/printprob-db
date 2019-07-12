@@ -3,8 +3,14 @@ from collections import namedtuple
 import uuid
 
 
-class Run(models.Model):
+class uuidModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    class Meta:
+        abstract = True
+
+
+class Run(uuidModel):
     date_started = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(
         blank=True,
@@ -34,8 +40,7 @@ class Run(models.Model):
         return Character.objects.filter(created_by_run=self).all()
 
 
-class Attempt(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+class Attempt(uuidModel):
     created_by_run = models.ForeignKey(
         Run,
         on_delete=models.CASCADE,
@@ -46,8 +51,7 @@ class Attempt(models.Model):
         abstract = True
 
 
-class Task(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+class Task(uuidModel):
     date_entered = models.DateTimeField(
         auto_now=True, help_text="Date this classification was made"
     )
@@ -66,8 +70,7 @@ class BadCapture(Task):
     )
 
 
-class Image(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+class Image(uuidModel):
     notes = models.CharField(
         blank=True,
         null=False,
@@ -96,9 +99,8 @@ class Image(models.Model):
         return BadCapture.objects.filter(image=self).exists()
 
 
-class ImageFile(models.Model):
+class ImageFile(uuidModel):
     TYPES = (("png", "png"), ("jpg", "jpeg"), ("tif", "tiff"), ("pdf", "pdf"))
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     parent_image = models.ForeignKey(
         Image,
         on_delete=models.CASCADE,
@@ -180,7 +182,6 @@ class ProposedBookLineHeight(Attempt):
     Book line heights are proposed per-run
     """
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     book = models.ForeignKey(
         Book, on_delete=models.CASCADE, related_name="proposed_line_heights"
     )
@@ -197,11 +198,22 @@ class ProposedBookLineHeight(Attempt):
 
 class Spread(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="spreads", help_text="Book to which this spread belongs")
+    book = models.ForeignKey(
+        Book,
+        on_delete=models.CASCADE,
+        related_name="spreads",
+        help_text="Book to which this spread belongs",
+    )
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of this page in a given book"
     )
-    images = models.ManyToManyField(Image, blank=True, related_name="depicted_spreads", help_text="Images depicting this spread")
+    primary_image = models.ForeignKey(
+        Image,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="depicted_spreads",
+        help_text="Image depicting this spread",
+    )
 
     class Meta:
         unique_together = (("book", "sequence"),)
@@ -210,7 +222,10 @@ class Spread(models.Model):
         return f"{self.book.title} spread {self.sequence}"
 
     def pref_image_url(self):
-        return self.images.first().web_url()
+        if self.primary_image is not None:
+            return self.primary_image.web_url()
+        else:
+            return None
 
 
 class Page(Attempt):
@@ -225,7 +240,9 @@ class Page(Attempt):
         choices=SPREAD_SIDE,
         help_text="Side of the spread this has been segmented to",
     )
-    images = models.ManyToManyField(Image, blank=True, related_name="depicted_pages")
+    primary_image = models.ForeignKey(
+        Image, blank=True, on_delete=models.CASCADE, related_name="depicted_pages"
+    )
     x_min = models.PositiveIntegerField(
         help_text="Starting x-axis location of the page on the original spread image"
     )
@@ -244,7 +261,10 @@ class Page(Attempt):
         return self.lines.count()
 
     def pref_image_url(self):
-        return self.images.first().web_url()
+        if self.primary_image is not None:
+            return self.primary_image.web_url()
+        else:
+            return None
 
     def book_title(self):
         return self.spread.book.title
@@ -259,7 +279,9 @@ class Line(Attempt):
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Order on page, from top to bottom"
     )
-    images = models.ManyToManyField(Image, blank=True, related_name="depicted_lines")
+    primary_image = models.ForeignKey(
+        Image, blank=True, on_delete=models.CASCADE, related_name="depicted_lines"
+    )
     y_min = models.PositiveIntegerField(
         help_text="Y-axis index for the start of this line on the Page image"
     )
@@ -277,11 +299,11 @@ class Line(Attempt):
     def n_chars(self):
         return self.characters.count()
 
-    def n_images(self):
-        return self.images.count()
-
     def pref_image_url(self):
-        return self.images.first().web_url()
+        if self.primary_image is not None:
+            return self.primary_image.web_url()
+        else:
+            return None
 
     def book_title(self):
         return self.page.spread.book.title
@@ -318,7 +340,9 @@ class Character(Attempt):
     """
 
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name="characters")
-    images = models.ManyToManyField(Image, related_name="depicted_characters", blank=True)
+    primary_image = models.ForeignKey(
+        Image, related_name="depicted_characters", on_delete=models.CASCADE, blank=True
+    )
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of characters on the line"
     )
@@ -328,7 +352,9 @@ class Character(Attempt):
     x_max = models.PositiveIntegerField(
         help_text="X-axis index for the end of this character on the line image"
     )
-    character_class = models.ForeignKey(CharacterClass, on_delete=models.CASCADE, related_name="assigned_to")
+    character_class = models.ForeignKey(
+        CharacterClass, on_delete=models.CASCADE, related_name="assigned_to"
+    )
     class_probability = models.FloatField()
 
     class Meta:
@@ -339,7 +365,10 @@ class Character(Attempt):
         return f"{self.line} c. {self.sequence} ({self.character_class} - {self.class_probability})"
 
     def pref_image_url(self):
-        return self.images.first().web_url()
+        if self.primary_image is not None:
+            return self.primary_image.web_url()
+        else:
+            return None
 
     def absolute_coords(self):
         """

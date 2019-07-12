@@ -103,7 +103,7 @@ class BookFilter(filters.FilterSet):
 
 class BookViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = models.Book.objects.annotate(n_pages=Count("spreads__pages")).all()
+    queryset = models.Book.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = BookFilter
 
@@ -137,7 +137,7 @@ class SpreadViewSet(viewsets.ModelViewSet):
 
 class PageViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = models.Page.objects.annotate(n_lines=Count("lines")).all()
+    queryset = models.Page.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ("spread__book", "spread", "side", "created_by_run")
 
@@ -167,9 +167,7 @@ class LineFilter(filters.FilterSet):
 
 class LineViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = models.Line.objects.annotate(
-        n_chars=Count("characters"), n_images=Count("images")
-    ).all()
+    queryset = models.Line.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = LineFilter
 

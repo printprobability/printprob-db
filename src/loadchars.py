@@ -3,7 +3,7 @@ import re
 from glob import glob
 from uuid import UUID
 
-b = "http://localhost/"
+b = os.environ["TEST_TOKEN"]
 ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
 
 books = glob("/Volumes/data_mdlincoln/pp/chars/*")
@@ -31,9 +31,9 @@ for book in books:
         line_id = requests.get(
             f"{b}lines/",
             params={
-                "page__spread__book": book_id,
-                "page__spread__sequence": spread_seq,
-                "page__side": page_side,
+                "book_id": book_id,
+                "spread_sequence": spread_seq,
+                "page_side": page_side,
                 "sequence": line_seq,
             },
             headers=ht,
@@ -64,7 +64,7 @@ for book in books:
                 "class_probability": 0.74,
                 "x_min": 0,
                 "x_max": 100,
-                "images": char_image,
+                "primary_image": char_image,
             },
             headers=ht,
         )

@@ -55,7 +55,7 @@ class QuickImageSerializer(serializers.Serializer):
 
 
 class CharacterDetailSerializer(serializers.ModelSerializer):
-    images = ImageSerializer(many=True)
+    primary_image = ImageSerializer(many=False)
 
     class Meta:
         model = models.Character
@@ -64,7 +64,7 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
             "created_by_run",
             "line",
             "sequence",
-            "images",
+            "primary_image",
             "x_min",
             "x_max",
             "character_class",
@@ -103,23 +103,12 @@ class CharacterSerializer(serializers.ModelSerializer):
             "class_probability",
         ]
 
-    @transaction.atomic
-    def create(self, validated_data):
-        """
-        Create a character class if necessary, and then attach image
-        """
-        images_data = validated_data.pop("images")
-        char = models.Character.objects.create(**validated_data)
-        for image in images_data:
-            char.images.add(image)
-        return char
-
 
 # Lines ----
 
 
 class LineDetailSerializer(serializers.ModelSerializer):
-    images = ImageSerializer(many=True)
+    primary_image = ImageSerializer(many=False)
 
     class Meta:
         model = models.Line
@@ -128,7 +117,7 @@ class LineDetailSerializer(serializers.ModelSerializer):
             "created_by_run",
             "page",
             "sequence",
-            "images",
+            "primary_image",
             "characters",
             "y_min",
             "y_max",
@@ -152,19 +141,8 @@ class LineSerializer(serializers.ModelSerializer):
             "sequence",
             "y_min",
             "y_max",
-            "images",
+            "primary_image",
         ]
-
-    @transaction.atomic
-    def create(self, validated_data):
-        """
-        Allow a list of image UUIDs to be associated with the line
-        """
-        images_data = validated_data.pop("images")
-        line = models.Line.objects.create(**validated_data)
-        for image in images_data:
-            line.images.add(image)
-        return line
 
 
 # Pages ----
@@ -190,7 +168,7 @@ class PageListSerializer(serializers.ModelSerializer):
 class PageDetailSerializer(serializers.ModelSerializer):
     created_by_run = RunListSerializer(many=False)
     lines = LineDetailSerializer(many=True)
-    images = ImageSerializer(many=True)
+    primary_image = ImageSerializer(many=False)
 
     class Meta:
         model = models.Page
@@ -203,7 +181,7 @@ class PageDetailSerializer(serializers.ModelSerializer):
             "x_min",
             "x_max",
             "lines",
-            "images",
+            "primary_image",
             "pref_image_url",
         ]
 
@@ -211,18 +189,7 @@ class PageDetailSerializer(serializers.ModelSerializer):
 class PageSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Page
-        fields = ["pk", "created_by_run", "spread", "side", "x_min", "x_max", "images"]
-
-    @transaction.atomic
-    def create(self, validated_data):
-        """
-        Allow a list of image UUIDs to be associated with the page
-        """
-        images_data = validated_data.pop("images")
-        page = models.Page.objects.create(**validated_data)
-        for image in images_data:
-            page.images.add(image)
-        return page
+        fields = ["pk", "created_by_run", "spread", "side", "x_min", "x_max", "primary_image"]
 
 
 # Spreads ----
@@ -235,28 +202,17 @@ class SpreadListSerializer(serializers.ModelSerializer):
 
 
 class SpreadDetailSerializer(serializers.ModelSerializer):
-    images = ImageSerializer(many=True)
+    primary_image = ImageSerializer(many=False)
 
     class Meta:
         model = models.Spread
-        fields = ["pk", "book", "sequence", "images", "pref_image_url"]
+        fields = ["pk", "book", "sequence", "primary_image", "pref_image_url"]
 
 
 class SpreadSeralizer(serializers.ModelSerializer):
     class Meta:
         model = models.Spread
-        fields = ["pk", "book", "sequence", "images"]
-
-    @transaction.atomic
-    def create(self, validated_data):
-        """
-        Allow a list of image UUIDs to be associated with the spread
-        """
-        images_data = validated_data.pop("images")
-        spread = models.Spread.objects.create(**validated_data)
-        for image in images_data:
-            spread.images.add(image)
-        return spread
+        fields = ["pk", "book", "sequence", "primary_image"]
 
 
 class BookLineHeightSerializer(serializers.ModelSerializer):
@@ -283,6 +239,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "title",
             "spreads",
             "proposed_line_heights",
+            "pdf",
         ]
 
 
