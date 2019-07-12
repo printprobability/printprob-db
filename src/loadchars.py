@@ -1,9 +1,10 @@
+import os
 import requests
 import re
 from glob import glob
 from uuid import UUID
 
-b = os.environ["TEST_TOKEN"]
+b = os.environ["TEST_HOST"]
 ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
 
 books = glob("/Volumes/data_mdlincoln/pp/chars/*")
@@ -46,13 +47,13 @@ for book in books:
                 headers=ht,
             ).json()["pk"]
         except:
-            continue
-
-        requests.get(f"{b}characters/", headers=ht).json()
+            char_image = requests.get(
+                f"{b}images/", params={"filepath": char}, headers=ht
+            ).json()["results"][0]["pk"]
 
         requests.post(
             f"{b}character_classes/", data={"classname": char_class}, headers=ht
-        )
+        ).json()
 
         char_id = requests.post(
             f"{b}characters/",
