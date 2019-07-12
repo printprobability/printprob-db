@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.db import transaction
 from django.db.models import Count
 from rest_framework import permissions
-
+from django_filters import rest_framework as filters
 from . import models, serializers
 
 
@@ -31,10 +31,22 @@ class RunViewSet(viewsets.ModelViewSet):
         return serializers.RunListSerializer
 
 
+class ImageFilter(filters.FilterSet):
+    files__filepath = filters.CharFilter()
+    depicted_spreads = filters.ModelChoiceFilter(queryset=models.Spread.objects.all())
+    depicted_pages = filters.ModelChoiceFilter(queryset=models.Page.objects.all())
+    depicted_lines = filters.ModelChoiceFilter(queryset=models.Line.objects.all())
+    depicted_characters = filters.ModelChoiceFilter(
+        queryset=models.Character.objects.all()
+    )
+
+
 class ImageViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Image.objects.all()
     serializer_class = serializers.ImageSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ImageFilter
 
     @action(detail=False, methods=["post"])
     @transaction.atomic
@@ -87,6 +99,8 @@ class SpreadViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Spread.objects.all()
     serializer_class = serializers.SpreadSeralizer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ("book", "sequence")
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -99,6 +113,8 @@ class SpreadViewSet(viewsets.ModelViewSet):
 class PageViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Page.objects.annotate(n_lines=Count("lines")).all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ("spread__book", "spread", "side", "created_by_run")
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -113,6 +129,14 @@ class LineViewSet(viewsets.ModelViewSet):
     queryset = models.Line.objects.annotate(
         n_chars=Count("characters"), n_images=Count("images")
     ).all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = (
+        "page__spread__book",
+        "page__spread__sequence",
+        "page__side",
+        "sequence",
+        "created_by_run",
+    )
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -125,6 +149,14 @@ class LineViewSet(viewsets.ModelViewSet):
 class CharacterViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Character.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = (
+        "line__page__spread__book",
+        "line",
+        "sequence",
+        "created_by_run",
+        "character_class",
+    )
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -144,8 +176,3 @@ class CharacterClassViewset(viewsets.ModelViewSet):
     queryset = models.CharacterClass.objects.all()
     serializer_class = serializers.CharacterClassSerializer
 
-
-class ClassAssignmentViewset(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = models.ClassAssignment.objects.all()
-    serializer_class = serializers.ClassAssignmentSerializer

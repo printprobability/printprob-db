@@ -10,3 +10,4 @@ django-cors-headers
 coreapi
 Markdown
 Pygments
+django-filter

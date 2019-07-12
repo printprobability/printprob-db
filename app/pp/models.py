@@ -258,7 +258,7 @@ class Line(Attempt):
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Order on page, from top to bottom"
     )
-    images = models.ManyToManyField(Image, blank=True)
+    images = models.ManyToManyField(Image, blank=True, related_name="depicted_lines")
     y_min = models.PositiveIntegerField(
         help_text="Y-axis index for the start of this line on the Page image"
     )
@@ -300,13 +300,24 @@ class Line(Attempt):
         return bbox(xmin, xmax, ymin, ymax)
 
 
+class CharacterClass(models.Model):
+    classname = models.CharField(
+        primary_key=True,
+        max_length=50,
+        help_text="A human-readable, unique class identifier",
+    )
+
+    def __str__(self):
+        return self.classname
+
+
 class Character(Attempt):
     """
     The definition of a character may change between runs in this model, since it depends on line segmentation, therefore it is a subclass of an Attempt.
     """
 
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name="characters")
-    images = models.ManyToManyField(Image, related_name="characters", blank=True)
+    images = models.ManyToManyField(Image, related_name="depicted_characters", blank=True)
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of characters on the line"
     )
@@ -316,13 +327,15 @@ class Character(Attempt):
     x_max = models.PositiveIntegerField(
         help_text="X-axis index for the end of this character on the line image"
     )
+    character_class = models.ForeignKey(CharacterClass, on_delete=models.CASCADE, related_name="assigned_to")
+    class_probability = models.FloatField()
 
     class Meta:
         unique_together = (("created_by_run", "line", "sequence"),)
         ordering = ["created_by_run", "line", "sequence"]
 
     def __str__(self):
-        return f"{self.line} c. {self.sequence}"
+        return f"{self.line} c. {self.sequence} ({self.character_class} - {self.class_probability})"
 
     def pref_image_url(self):
         return self.images.first().web_url()
@@ -338,31 +351,3 @@ class Character(Attempt):
         ymax = self.line.y_max
         return bbox(xmin, xmax, ymin, ymax)
 
-
-class CharacterClass(models.Model):
-    classname = models.CharField(
-        primary_key=True,
-        max_length=50,
-        editable=False,
-        help_text="A human-readable, unique class identifier",
-    )
-
-    def __str__(self):
-        return self.classname
-
-
-class ClassAssignment(Attempt):
-    character = models.ForeignKey(
-        Character, on_delete=models.CASCADE, related_name="class_assignments"
-    )
-    character_class = models.ForeignKey(
-        CharacterClass, on_delete=models.CASCADE, related_name="class_assignments"
-    )
-    log_probability = models.FloatField()
-
-    class Meta:
-        unique_together = ("created_by_run", "character", "character_class")
-        ordering = ["created_by_run__date_started", "character", "-log_probability"]
-
-    def _str__(self):
-        return f"run {created_by_run}: chr {character} - {character_class} {log_probability}"

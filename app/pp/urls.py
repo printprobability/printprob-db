@@ -15,7 +15,6 @@ router.register(r"images", views.ImageViewSet)
 router.register(r"files", views.ImageFileViewSet)
 router.register(r"captures", views.BadCaptureViewSet)
 router.register(r"character_classes", views.CharacterClassViewset)
-router.register(r"character_class_assignments", views.ClassAssignmentViewset)
 
 urlpatterns = [
     path("", include(router.urls)),

@@ -13,19 +13,7 @@ class RunListSerializer(serializers.ModelSerializer):
 class CharacterClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CharacterClass
-        fields = ["pk", "classname"]
-
-
-class ClassAssignmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.ClassAssignment
-        fields = [
-            "pk",
-            "created_by_run",
-            "character",
-            "character_class",
-            "log_probability",
-        ]
+        fields = ["classname"]
 
 
 class BadCaptureSeralizer(serializers.ModelSerializer):
@@ -68,7 +56,6 @@ class QuickImageSerializer(serializers.Serializer):
 
 class CharacterDetailSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
-    class_assignments = ClassAssignmentSerializer(many=True, read_only=True)
 
     class Meta:
         model = models.Character
@@ -80,14 +67,52 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
             "images",
             "x_min",
             "x_max",
-            "class_assignments",
+            "character_class",
+            "class_probability",
         ]
 
 
 class CharacterListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Character
-        fields = ["pk", "created_by_run", "line", "sequence", "x_min", "x_max"]
+        fields = [
+            "pk",
+            "created_by_run",
+            "line",
+            "sequence",
+            "x_min",
+            "x_max",
+            "character_class",
+            "class_probability",
+        ]
+
+
+class CharacterSerializer(serializers.ModelSerializer):
+    character_class_name = serializers.CharField
+
+    class Meta:
+        model = models.Character
+        fields = [
+            "pk",
+            "created_by_run",
+            "line",
+            "sequence",
+            "x_min",
+            "x_max",
+            "character_class",
+            "class_probability",
+        ]
+
+    @transaction.atomic
+    def create(self, validated_data):
+        """
+        Create a character class if necessary, and then attach image
+        """
+        images_data = validated_data.pop("images")
+        char = models.Character.objects.create(**validated_data)
+        for image in images_data:
+            char.images.add(image)
+        return char
 
 
 # Lines ----
