@@ -13,7 +13,6 @@ router.register(r"lines", views.LineViewSet)
 router.register(r"characters", views.CharacterViewSet)
 router.register(r"images", views.ImageViewSet)
 router.register(r"files", views.ImageFileViewSet)
-router.register(r"captures", views.BadCaptureViewSet)
 router.register(r"character_classes", views.CharacterClassViewset)
 
 urlpatterns = [

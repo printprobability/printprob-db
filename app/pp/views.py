@@ -164,13 +164,6 @@ class CharacterViewSet(viewsets.ModelViewSet):
         return serializers.CharacterListSerializer
 
 
-class BadCaptureViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = models.BadCapture.objects.all()
-    serializer_class = serializers.BadCaptureSeralizer
-    lookup_field = "image"
-
-
 class CharacterClassViewset(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.CharacterClass.objects.all()
