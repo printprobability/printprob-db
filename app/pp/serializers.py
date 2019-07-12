@@ -36,6 +36,7 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Image
         fields = ["pk", "notes", "web_file", "files", "web_url"]
+        read_only_fields = ["web_file"]
 
 
 class QuickImageSerializer(serializers.Serializer):

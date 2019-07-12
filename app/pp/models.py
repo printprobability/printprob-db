@@ -75,7 +75,7 @@ class Image(uuidModel):
         blank=True,
         null=False,
         max_length=500,
-        help_text="Standard identifier using the printer/id/location schema, without any filetype name",
+        help_text="Image notes",
     )
     web_file = models.OneToOneField(
         "ImageFile",
@@ -83,7 +83,7 @@ class Image(uuidModel):
         blank=True,
         on_delete=models.CASCADE,
         limit_choices_to={"filetype": "jpg"},
-        help_text="direct pointer to the path of the JPG version of this image, if it exists",
+        help_text="The JPG file version of this image, if it exists",
     )
 
     def __str__(self):
@@ -146,7 +146,7 @@ class Book(models.Model):
         limit_choices_to={"filetype": "pdf"},
         related_name="book_depicted",
         on_delete=models.CASCADE,
-        help_text="Optional path to the original PDF of this book",
+        help_text="File object containing original PDF of this book. See the files/ endpoint.",
     )
 
     class Meta:
@@ -234,7 +234,7 @@ class Page(Attempt):
     """
 
     SPREAD_SIDE = (("l", "left"), ("r", "right"))
-    spread = models.ForeignKey(Spread, on_delete=models.CASCADE, related_name="pages")
+    spread = models.ForeignKey(Spread, on_delete=models.CASCADE, related_name="pages", help_text="Spread ID this page belongs to")
     side = models.CharField(
         max_length=1,
         choices=SPREAD_SIDE,
@@ -275,7 +275,7 @@ class Line(Attempt):
     The definition of a line may change between runs in this model, since it depends on splitting page spreads, therefore it is a subclass of an Attempt.
     """
 
-    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="lines")
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="lines", help_text="Page ID of this line")
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Order on page, from top to bottom"
     )
