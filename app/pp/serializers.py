@@ -84,25 +84,8 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "x_max",
             "character_class",
             "class_probability",
+            "primary_image",
         ]
-
-
-class CharacterSerializer(serializers.ModelSerializer):
-    character_class_name = serializers.CharField
-
-    class Meta:
-        model = models.Character
-        fields = [
-            "pk",
-            "created_by_run",
-            "line",
-            "sequence",
-            "x_min",
-            "x_max",
-            "character_class",
-            "class_probability",
-        ]
-
 
 # Lines ----
 
@@ -189,7 +172,15 @@ class PageDetailSerializer(serializers.ModelSerializer):
 class PageSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Page
-        fields = ["pk", "created_by_run", "spread", "side", "x_min", "x_max", "primary_image"]
+        fields = [
+            "pk",
+            "created_by_run",
+            "spread",
+            "side",
+            "x_min",
+            "x_max",
+            "primary_image",
+        ]
 
 
 # Spreads ----
