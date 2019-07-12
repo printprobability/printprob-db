@@ -32,7 +32,7 @@ class RunViewSet(viewsets.ModelViewSet):
 
 
 class ImageFilter(filters.FilterSet):
-    files__filepath = filters.CharFilter()
+    filepath = filters.CharFilter(field_name="files__filepath", distinct=True)
     depicted_spreads = filters.ModelChoiceFilter(queryset=models.Spread.objects.all())
     depicted_pages = filters.ModelChoiceFilter(queryset=models.Page.objects.all())
     depicted_lines = filters.ModelChoiceFilter(queryset=models.Line.objects.all())
@@ -48,7 +48,11 @@ class ImageViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ImageFilter
 
-    @action(detail=False, methods=["post"])
+    @action(
+        detail=False,
+        methods=["post"],
+        serializer_class=serializers.QuickImageSerializer,
+    )
     @transaction.atomic
     def quick_create(self, request):
         """
@@ -85,9 +89,23 @@ class ImageFileViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ImageFileSerializer
 
 
+class BookFilter(filters.FilterSet):
+    vid = filters.NumberFilter(help_text="Numeric VID")
+    title = filters.CharFilter(
+        help_text="books with titles containing this string (case insensitive)",
+        lookup_expr="icontains",
+    )
+    publisher = filters.CharFilter(
+        help_text="books with publisher labels containing this string (case insensitive)",
+        lookup_expr="icontains",
+    )
+
+
 class BookViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Book.objects.annotate(n_pages=Count("spreads__pages")).all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = BookFilter
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -95,12 +113,19 @@ class BookViewSet(viewsets.ModelViewSet):
         return serializers.BookListSerializer
 
 
+class SpreadFilter(filters.FilterSet):
+    book = filters.ModelChoiceFilter(
+        queryset=models.Book.objects.all(), help_text="Spreads from this book ID"
+    )
+    sequence = filters.NumberFilter(help_text="Spread sequence index")
+
+
 class SpreadViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Spread.objects.all()
     serializer_class = serializers.SpreadSeralizer
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ("book", "sequence")
+    filterset_class = SpreadFilter
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -124,19 +149,29 @@ class PageViewSet(viewsets.ModelViewSet):
         return serializers.PageSerializer
 
 
+class LineFilter(filters.FilterSet):
+    book = filters.ModelChoiceFilter(
+        queryset=models.Book.objects.all(),
+        field_name="page__spread__book",
+        label="Book ID",
+    )
+    spread_sequence = filters.NumberFilter(
+        field_name="page__spread__sequence", label="Spread sequence"
+    )
+    page_side = filters.ChoiceFilter(
+        choices=models.Page.SPREAD_SIDE, field_name="page__side"
+    )
+    sequence = filters.NumberFilter()
+    created_by_run = filters.ModelChoiceFilter(queryset=models.Run.objects.all())
+
+
 class LineViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Line.objects.annotate(
         n_chars=Count("characters"), n_images=Count("images")
     ).all()
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = (
-        "page__spread__book",
-        "page__spread__sequence",
-        "page__side",
-        "sequence",
-        "created_by_run",
-    )
+    filterset_class = LineFilter
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -146,17 +181,30 @@ class LineViewSet(viewsets.ModelViewSet):
         return serializers.LineSerializer
 
 
+class CharacterFilter(filters.FilterSet):
+    book = filters.ModelChoiceFilter(
+        queryset=models.Book.objects.all(),
+        field_name="line__page__spread__book",
+        label="Book ID",
+    )
+    spread_sequence = filters.NumberFilter(
+        field_name="line__page__spread__sequence", label="Spread sequence"
+    )
+    page_side = filters.ChoiceFilter(
+        choices=models.Page.SPREAD_SIDE, field_name="line__page__side"
+    )
+    line_sequence = filters.NumberFilter(
+        field_name="line__sequence", label="Line sequence"
+    )
+    sequence = filters.NumberFilter()
+    created_by_run = filters.ModelChoiceFilter(queryset=models.Run.objects.all())
+
+
 class CharacterViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Character.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = (
-        "line__page__spread__book",
-        "line",
-        "sequence",
-        "created_by_run",
-        "character_class",
-    )
+    filterset_class = CharacterFilter
 
     def get_serializer_class(self):
         if self.action == "retrieve":

@@ -144,6 +144,7 @@ class Book(models.Model):
         limit_choices_to={"filetype": "pdf"},
         related_name="book_depicted",
         on_delete=models.CASCADE,
+        help_text="Optional path to the original PDF of this book",
     )
 
     class Meta:
@@ -196,11 +197,11 @@ class ProposedBookLineHeight(Attempt):
 
 class Spread(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="spreads")
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="spreads", help_text="Book to which this spread belongs")
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of this page in a given book"
     )
-    images = models.ManyToManyField(Image, blank=True, related_name="depicted_spreads")
+    images = models.ManyToManyField(Image, blank=True, related_name="depicted_spreads", help_text="Images depicting this spread")
 
     class Meta:
         unique_together = (("book", "sequence"),)
