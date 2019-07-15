@@ -206,7 +206,7 @@ class LineFilter(filters.FilterSet):
         choices=models.Page.SPREAD_SIDE, field_name="page__side",
         help_text="Lines belonging to a page on this side of a spread"
     )
-    sequence = filters.NumberFilter(help_text="ORder on page, from top to bottom")
+    sequence = filters.NumberFilter(help_text="Order on page, from top to bottom")
     created_by_run = filters.ModelChoiceFilter(queryset=models.Run.objects.all(), help_text="Which pipeline run created these lines")
 
 
