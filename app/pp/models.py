@@ -211,7 +211,7 @@ class Spread(models.Model):
         Image,
         blank=True,
         on_delete=models.CASCADE,
-        related_name="depicted_spreads",
+        related_name="depicts_spread",
         help_text="Image depicting this spread",
     )
 
@@ -241,7 +241,7 @@ class Page(Attempt):
         help_text="Side of the spread this has been segmented to",
     )
     primary_image = models.ForeignKey(
-        Image, blank=True, on_delete=models.CASCADE, related_name="depicted_pages"
+        Image, blank=True, on_delete=models.CASCADE, related_name="depicts_page"
     )
     x_min = models.PositiveIntegerField(
         help_text="Starting x-axis location of the page on the original spread image"
@@ -280,7 +280,7 @@ class Line(Attempt):
         db_index=True, help_text="Order on page, from top to bottom"
     )
     primary_image = models.ForeignKey(
-        Image, blank=True, on_delete=models.CASCADE, related_name="depicted_lines"
+        Image, blank=True, on_delete=models.CASCADE, related_name="depicts_line"
     )
     y_min = models.PositiveIntegerField(
         help_text="Y-axis index for the start of this line on the Page image"
@@ -341,7 +341,7 @@ class Character(Attempt):
 
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name="characters")
     primary_image = models.ForeignKey(
-        Image, related_name="depicted_characters", on_delete=models.CASCADE, blank=True
+        Image, related_name="depicts_character", on_delete=models.CASCADE, blank=True
     )
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of characters on the line"
