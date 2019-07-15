@@ -64,7 +64,7 @@ class ImageViewSet(viewsets.ModelViewSet):
     Returns a list of images, with references to thier file versions and a URL for the preferred web version of the image.
 
     create:
-    Create a new image. **IN MOST CASES you should prefer the special [quick_create](/docs/#images-quick_create) action to create an image and its file references in one request, rather than manually creating an `Image` instance using this action.**
+    Create a new image. **IN MOST CASES you should prefer the special [quick_create](/redoc#operation/images_quick_create) action to create an image and its file references in one request, rather than manually creating an `Image` instance using this action.**
     """
 
     permission_classes = (permissions.IsAuthenticated,)
@@ -110,7 +110,7 @@ class ImageViewSet(viewsets.ModelViewSet):
 
 class ImageFileViewSet(viewsets.ModelViewSet):
     """
-    create: Creates a single `ImageFile` instance. **IN MOST CASES you should prefer the special [quick_create](/docs/#images-quick_create) action to create an `Image` and all of its file references in one request, rather than manually creating a specific `ImageFile` instance using this action.**
+    create: Creates a single `ImageFile` instance. **IN MOST CASES you should prefer the special [quick_create](/redoc#operation/images_quick_create) action to create an `Image` and all of its file references in one request, rather than manually creating a specific `ImageFile` instance using this action.**
     """
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.ImageFile.objects.all()

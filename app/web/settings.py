@@ -81,6 +81,17 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
 
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Token": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "Token-based authentication.  The key should be prefixed by the string literal 'Token', with whitespace separating the two strings. For example: `Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b`",
+        }
+    }
+}
+
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
