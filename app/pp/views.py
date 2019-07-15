@@ -7,6 +7,7 @@ from django.db import transaction
 from django.db.models import Count
 from rest_framework import permissions
 from django_filters import rest_framework as filters
+from drf_yasg.utils import swagger_auto_schema
 from . import models, serializers
 
 
@@ -79,6 +80,10 @@ class ImageViewSet(viewsets.ModelViewSet):
         serializer_class=serializers.QuickImageSerializer,
     )
     @transaction.atomic
+    @swagger_auto_schema(
+        request_body=serializers.QuickImageSerializer,
+        responses={201: serializers.ImageSerializer},
+    )
     def quick_create(self, request):
         """
         Supply a tif and jpeg filepath of the same image to quickly create `Image` and `ImageFile` instances.
@@ -102,7 +107,7 @@ class ImageViewSet(viewsets.ModelViewSet):
 
             # Return the serialized Image object
             serialized_image = serializers.ImageSerializer(image)
-            return Response(serialized_image.data)
+            return Response(serialized_image.data, status=status.HTTP_201_CREATED)
         else:
             # Otherwise return an error
             return Response(quick_image.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -112,6 +117,7 @@ class ImageFileViewSet(viewsets.ModelViewSet):
     """
     create: Creates a single `ImageFile` instance. **IN MOST CASES you should prefer the special [quick_create](/redoc#operation/images_quick_create) action to create an `Image` and all of its file references in one request, rather than manually creating a specific `ImageFile` instance using this action.**
     """
+
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.ImageFile.objects.all()
     serializer_class = serializers.ImageFileSerializer
@@ -133,6 +139,7 @@ class BookViewSet(viewsets.ModelViewSet):
     """
     list: Lists all books. Along with [`CharacterClass`](#character-class-create), `Book` instances use a human-readable ID (here, the ESTC id) rather than a UUID.
     """
+
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Book.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
@@ -155,6 +162,7 @@ class SpreadViewSet(viewsets.ModelViewSet):
     """
     list: Spreads belong to a single `Book` instance, and are indexed by sequence in that book.
     """
+
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Spread.objects.all()
     serializer_class = serializers.SpreadSeralizer
@@ -168,17 +176,30 @@ class SpreadViewSet(viewsets.ModelViewSet):
             return serializers.SpreadListSerializer
         return serializers.SpreadSeralizer
 
+
 class PageFilter(filters.FilterSet):
-    book = filters.ModelChoiceFilter(queryset=models.Book.objects.all(), help_text="Book ID for this page", field_name="spread__book")
-    spread_sequence = filters.NumberFilter(field_name="spread__sequence", help_text="The spread sequence integer this page belongs to")
-    side = filters.ChoiceFilter(choices=models.Page.SPREAD_SIDE, help_text = "Which side of the page")
-    created_by_run = filters.ModelChoiceFilter(queryset=models.Run.objects.all(), help_text = "The run ID that created this Page")
+    book = filters.ModelChoiceFilter(
+        queryset=models.Book.objects.all(),
+        help_text="Book ID for this page",
+        field_name="spread__book",
+    )
+    spread_sequence = filters.NumberFilter(
+        field_name="spread__sequence",
+        help_text="The spread sequence integer this page belongs to",
+    )
+    side = filters.ChoiceFilter(
+        choices=models.Page.SPREAD_SIDE, help_text="Which side of the page"
+    )
+    created_by_run = filters.ModelChoiceFilter(
+        queryset=models.Run.objects.all(), help_text="The run ID that created this Page"
+    )
 
 
 class PageViewSet(viewsets.ModelViewSet):
     """
     list: Pages belong to a single `Spread` instance, and are either marked as on the left (`l`) or right (`r`) side. Because the exact split of pages may differ run to run, they are also tied to a `Run` ID.
     """
+
     permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Page.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
@@ -197,17 +218,23 @@ class LineFilter(filters.FilterSet):
         queryset=models.Book.objects.all(),
         field_name="page__spread__book",
         label="Book ID",
-        help_text="Lines belonging to this book"
+        help_text="Lines belonging to this book",
     )
     spread_sequence = filters.NumberFilter(
-        field_name="page__spread__sequence", label="Spread sequence", help_text="Lines belonging to a spread with this sequence index"
+        field_name="page__spread__sequence",
+        label="Spread sequence",
+        help_text="Lines belonging to a spread with this sequence index",
     )
     page_side = filters.ChoiceFilter(
-        choices=models.Page.SPREAD_SIDE, field_name="page__side",
-        help_text="Lines belonging to a page on this side of a spread"
+        choices=models.Page.SPREAD_SIDE,
+        field_name="page__side",
+        help_text="Lines belonging to a page on this side of a spread",
     )
     sequence = filters.NumberFilter(help_text="Order on page, from top to bottom")
-    created_by_run = filters.ModelChoiceFilter(queryset=models.Run.objects.all(), help_text="Which pipeline run created these lines")
+    created_by_run = filters.ModelChoiceFilter(
+        queryset=models.Run.objects.all(),
+        help_text="Which pipeline run created these lines",
+    )
 
 
 class LineViewSet(viewsets.ModelViewSet):
