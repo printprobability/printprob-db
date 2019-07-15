@@ -1,7 +1,8 @@
 from django.urls import path, include
 import django.contrib.auth.views as auth_views
-from rest_framework import routers
-from rest_framework.documentation import include_docs_urls
+from rest_framework import routers, permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 from . import views
 
 router = routers.DefaultRouter()
@@ -15,7 +16,26 @@ router.register(r"images", views.ImageViewSet)
 router.register(r"files", views.ImageFileViewSet)
 router.register(r"character_classes", views.CharacterClassViewset)
 
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="P&P API",
+        default_version="v1",
+        description="Test description",
+        contact=openapi.Contact(email="mlincoln@andrew.cmu.edu"),
+        license=openapi.License(name="MIT License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
+
 urlpatterns = [
     path("", include(router.urls)),
-    path("docs/", include_docs_urls(title="P & P Pipeline API")),
+    path(
+        "swagger/<str:format>",
+        schema_view.without_ui(cache_timeout=0),
+        name="schema-json",
+    ),
+    path("swagger", schema_view.with_ui("swagger"), name="schema-swagger-ui"),
+    path("redoc", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]
