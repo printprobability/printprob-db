@@ -19,9 +19,9 @@ router.register(r"character_classes", views.CharacterClassViewset)
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="P&P API",
+        title="Print & Probability",
         default_version="v1",
-        description="Test description",
+        description="API for Print & Probability data processing pipeline.",
         contact=openapi.Contact(email="mlincoln@andrew.cmu.edu"),
         license=openapi.License(name="MIT License"),
     ),
