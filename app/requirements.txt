@@ -4,7 +4,7 @@ django_coverage_plugin
 psycopg2-binary
 gunicorn
 tblib
-djangorestframework==3.9
+djangorestframework==3.9.1
 drf-nested-routers
 django-cors-headers
 Markdown
