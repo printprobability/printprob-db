@@ -220,8 +220,6 @@ class BookListSerializer(serializers.ModelSerializer):
 
 
 class BookDetailSerializer(serializers.ModelSerializer):
-    proposed_line_heights = BookLineHeightSerializer(many=True)
-
     class Meta:
         model = models.Book
         fields = [
@@ -230,7 +228,6 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "publisher",
             "title",
             "spreads",
-            "proposed_line_heights",
             "pdf",
         ]
 
