@@ -23,36 +23,10 @@ class BadCaptureSeralizer(serializers.ModelSerializer):
         read_only_fields = ["pk", "date_entered"]
 
 
-class ImageFileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.ImageFile
-        fields = ["pk", "parent_image", "filetype", "date_uploaded", "filepath"]
-        read_only_fields = ["date_uploaded"]
-
-
 class ImageSerializer(serializers.ModelSerializer):
-    files = ImageFileSerializer(many=True, read_only=True)
-
     class Meta:
         model = models.Image
-        fields = ["pk", "notes", "web_file", "files", "web_url"]
-        read_only_fields = ["web_file"]
-
-
-class QuickImageSerializer(serializers.Serializer):
-    jpeg = serializers.CharField(
-        max_length=2000,
-        help_text="relative file path of the JPEG version of this image",
-    )
-    tiff = serializers.CharField(
-        max_length=2000, help_text="relative file path of the TIF version of this image"
-    )
-    notes = serializers.CharField(
-        max_length=500,
-        help_text="Standard identifier using the printer/id/location schema, without any filetype name",
-        required=False,
-        default="",
-    )
+        fields = ["pk", "notes", "jpg", "tif"]
 
 
 class CharacterDetailSerializer(serializers.ModelSerializer):
@@ -87,6 +61,7 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "class_probability",
             "primary_image",
         ]
+
 
 # Lines ----
 
@@ -222,14 +197,7 @@ class BookListSerializer(serializers.ModelSerializer):
 class BookDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Book
-        fields = [
-            "estc",
-            "vid",
-            "publisher",
-            "title",
-            "spreads",
-            "pdf",
-        ]
+        fields = ["estc", "vid", "publisher", "title", "spreads", "pdf"]
 
 
 class RunDetailSerializer(serializers.ModelSerializer):

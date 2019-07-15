@@ -2,9 +2,9 @@ import os
 import requests
 import re
 from glob import glob
-from uuid import UUID
+from random import randrange
 
-b = os.environ['TEST_HOST']
+b = os.environ["TEST_HOST"]
 ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
 
 books = glob("/Volumes/data_mdlincoln/pp/books/*")
@@ -16,8 +16,10 @@ run_id = requests.post(f"{b}runs/", data={"notes": "trial run"}, headers=ht).jso
 ]
 print(run_id)
 
+
 def cleanpath(s):
     return re.sub("^.+/pp/", "/", s)
+
 
 for book in books:
     bnames = book.split("/")[-1].split("_")
@@ -40,14 +42,18 @@ for book in books:
         # create new images/image_files
         spath = cleanpath(s)
         image_id = requests.post(
-            f"{b}images/quick_create/",
-            data={"tiff": spath, "jpeg": re.sub("tif", "jpeg", spath)},
+            f"{b}images/",
+            data={"tif": spath, "jpg": re.sub("tif", "jpeg", spath)},
             headers=ht,
         ).json()["pk"]
         print(image_id)
         spread_id = requests.post(
             f"{b}spreads/",
-            data={"book": int(bnames[1]), "sequence": int(snames), "primary_image": image_id},
+            data={
+                "book": int(bnames[1]),
+                "sequence": int(snames),
+                "primary_image": image_id,
+            },
             headers=ht,
         ).json()["pk"]
         print(spread_id)
@@ -59,8 +65,8 @@ for book in books:
             continue
         lpath = cleanpath(pagepics[0])
         left_page_pic = requests.post(
-            f"{b}images/quick_create/",
-            data={"tiff": lpath, "jpeg": re.sub("tif", "jpeg", lpath)},
+            f"{b}images/",
+            data={"tif": lpath, "jpg": re.sub("tif", "jpeg", lpath)},
             headers=ht,
         ).json()["pk"]
         left_page_id = requests.post(
@@ -69,16 +75,16 @@ for book in books:
                 "spread": spread_id,
                 "side": "l",
                 "created_by_run": run_id,
-                "x_min": 0,
-                "x_max": 0,
+                "x_min": randrange(0, 500),
+                "x_max": randrange(0, 500),
                 "primary_image": left_page_pic,
             },
             headers=ht,
         ).json()["pk"]
         rpath = cleanpath(pagepics[1])
         right_page_pic = requests.post(
-            f"{b}images/quick_create/",
-            data={"tiff": rpath, "jpeg": re.sub("tif", "jpeg", rpath)},
+            f"{b}images/",
+            data={"tif": rpath, "jpg": re.sub("tif", "jpeg", rpath)},
             headers=ht,
         ).json()["pk"]
         right_page_id = requests.post(
@@ -87,8 +93,8 @@ for book in books:
                 "spread": spread_id,
                 "side": "r",
                 "created_by_run": run_id,
-                "x_min": 0,
-                "x_max": 0,
+                "x_min": randrange(0, 500),
+                "x_max": randrange(0, 500),
                 "primary_image": right_page_pic,
             },
             headers=ht,
@@ -101,8 +107,8 @@ for book in books:
         for l in left_lines:
             print(l)
             l_image_id = requests.post(
-                f"{b}images/quick_create/",
-                data={"tiff": cleanpath(l), "jpeg": re.sub("tif", "jpeg", cleanpath(l))},
+                f"{b}images/",
+                data={"tif": cleanpath(l), "jpg": re.sub("tif", "jpeg", cleanpath(l))},
                 headers=ht,
             ).json()["pk"]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])
@@ -112,8 +118,8 @@ for book in books:
                     "created_by_run": run_id,
                     "page": left_page_id,
                     "sequence": lseq,
-                    "y_min": 0,
-                    "y_max": 0,
+                    "y_min": randrange(0, 500),
+                    "y_max": randrange(0, 500),
                     "primary_image": l_image_id,
                 },
                 headers=ht,
@@ -126,8 +132,8 @@ for book in books:
         for l in right_lines:
             print(l)
             l_image_id = requests.post(
-                f"{b}images/quick_create/",
-                data={"tiff": cleanpath(l), "jpeg": re.sub("tif", "jpeg", cleanpath(l))},
+                f"{b}images/",
+                data={"tif": cleanpath(l), "jpg": re.sub("tif", "jpeg", cleanpath(l))},
                 headers=ht,
             ).json()["pk"]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])
@@ -137,8 +143,8 @@ for book in books:
                     "created_by_run": run_id,
                     "page": right_page_id,
                     "sequence": lseq,
-                    "y_min": 0,
-                    "y_max": 0,
+                    "y_min": randrange(0, 500),
+                    "y_max": randrange(0, 500),
                     "primary_image": l_image_id,
                 },
                 headers=ht,

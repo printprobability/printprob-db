@@ -65,7 +65,7 @@ class ImageViewSet(viewsets.ModelViewSet):
     Returns a list of images, with references to thier file versions and a URL for the preferred web version of the image.
 
     create:
-    Create a new image. **IN MOST CASES you should prefer the special [quick_create](/redoc#operation/images_quick_create) action to create an image and its file references in one request, rather than manually creating an `Image` instance using this action.**
+    Create a new image record by specifying both the jpg and tif paths.
     """
 
     permission_classes = (permissions.IsAuthenticated,)
@@ -73,54 +73,6 @@ class ImageViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ImageSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ImageFilter
-
-    @action(
-        detail=False,
-        methods=["post"],
-        serializer_class=serializers.QuickImageSerializer,
-    )
-    @transaction.atomic
-    @swagger_auto_schema(
-        request_body=serializers.QuickImageSerializer,
-        responses={201: serializers.ImageSerializer},
-    )
-    def quick_create(self, request):
-        """
-        Supply a tif and jpeg filepath of the same image to quickly create `Image` and `ImageFile` instances.
-        """
-        quick_image = serializers.QuickImageSerializer(data=request.data)
-        if quick_image.is_valid():
-            # Create a new Image instance
-            image = models.Image.objects.create(notes=quick_image.data["notes"])
-
-            # Create ImageFile instances
-            jpeg_file = models.ImageFile.objects.create(
-                parent_image=image, filetype="jpg", filepath=quick_image.data["jpeg"]
-            )
-            tiff_file = models.ImageFile.objects.create(
-                parent_image=image, filetype="tif", filepath=quick_image.data["tiff"]
-            )
-
-            # Hook the Image web_file image up
-            image.web_file = jpeg_file
-            image.save()
-
-            # Return the serialized Image object
-            serialized_image = serializers.ImageSerializer(image)
-            return Response(serialized_image.data, status=status.HTTP_201_CREATED)
-        else:
-            # Otherwise return an error
-            return Response(quick_image.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class ImageFileViewSet(viewsets.ModelViewSet):
-    """
-    create: Creates a single `ImageFile` instance. **IN MOST CASES you should prefer the special [quick_create](/redoc#operation/images_quick_create) action to create an `Image` and all of its file references in one request, rather than manually creating a specific `ImageFile` instance using this action.**
-    """
-
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = models.ImageFile.objects.all()
-    serializer_class = serializers.ImageFileSerializer
 
 
 class BookFilter(filters.FilterSet):

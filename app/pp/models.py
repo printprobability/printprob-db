@@ -77,54 +77,25 @@ class Image(uuidModel):
         max_length=500,
         help_text="Image notes",
     )
-    web_file = models.OneToOneField(
-        "ImageFile",
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE,
-        limit_choices_to={"filetype": "jpg"},
-        help_text="The JPG file version of this image, if it exists",
+    jpg = models.CharField(
+        max_length=2000,
+        help_text="relative file path to root directory containing all images",
+        unique=True,
+    )
+    tif = models.CharField(
+        max_length=2000,
+        help_text="relative file path to root directory containing all images",
+        unique=True,
     )
 
     def __str__(self):
         return str(self.id)
 
     def web_url(self):
-        if self.web_file is not None:
-            return f"/img{self.web_file.filepath}"
-        else:
-            return None
+        return self.jpg
 
     def bad_capture(self):
         return BadCapture.objects.filter(image=self).exists()
-
-
-class ImageFile(uuidModel):
-    TYPES = (("png", "png"), ("jpg", "jpeg"), ("tif", "tiff"), ("pdf", "pdf"))
-    parent_image = models.ForeignKey(
-        Image,
-        on_delete=models.CASCADE,
-        related_name="files",
-        help_text="The image of which this file is one type",
-    )
-    filetype = models.CharField(
-        max_length=3, choices=TYPES, help_text="File encoding (e.g. png, jpg, tif...)"
-    )
-    date_uploaded = models.DateTimeField(
-        auto_now_add=True, help_text="Date this file was added to the server"
-    )
-    filepath = models.CharField(
-        max_length=2000,
-        help_text="relative file path to root directory containing all images",
-        unique=True,
-    )
-
-    class Meta:
-        unique_together = (("parent_image", "filetype"),)
-        ordering = ["image", "date_uploaded"]
-
-    def __str__(self):
-        return str(self.id)
 
 
 class Book(models.Model):
@@ -139,14 +110,12 @@ class Book(models.Model):
         max_length=500,
         help_text="Publisher (as cataloged by ESTC)",
     )
-    pdf = models.ForeignKey(
-        ImageFile,
+    pdf = models.CharField(
         blank=True,
         null=True,
-        limit_choices_to={"filetype": "pdf"},
-        related_name="book_depicted",
-        on_delete=models.CASCADE,
-        help_text="File object containing original PDF of this book. See the files/ endpoint.",
+        max_length=2000,
+        help_text="relative file path to root directory containing pdfs",
+        unique=True,
     )
 
     class Meta:

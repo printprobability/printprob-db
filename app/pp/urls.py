@@ -13,7 +13,6 @@ router.register(r"pages", views.PageViewSet)
 router.register(r"lines", views.LineViewSet)
 router.register(r"characters", views.CharacterViewSet)
 router.register(r"images", views.ImageViewSet)
-router.register(r"files", views.ImageFileViewSet)
 router.register(r"character_classes", views.CharacterClassViewset)
 
 

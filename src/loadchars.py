@@ -2,7 +2,7 @@ import os
 import requests
 import re
 from glob import glob
-from uuid import UUID
+from random import random, randrange
 
 b = os.environ["TEST_HOST"]
 ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
@@ -14,8 +14,10 @@ print(books)
 run_id = requests.get(f"{b}runs/", headers=ht).json()["results"][0]["pk"]
 print(run_id)
 
+
 def cleanpath(s):
     return re.sub("^.+/pp/", "/", s)
+
 
 for book in books:
     book_id = book.split("/")[5].split("_")[1]
@@ -46,8 +48,8 @@ for book in books:
         charpath = cleanpath(char)
         try:
             char_image = requests.post(
-                f"{b}images/quick_create/",
-                data={"tiff": charpath, "jpeg": re.sub("tif", "jpeg", charpath)},
+                f"{b}images/",
+                data={"tif": charpath, "jpg": re.sub("tif", "jpg", charpath)},
                 headers=ht,
             ).json()["pk"]
         except:
@@ -66,9 +68,9 @@ for book in books:
                 "line": line_id,
                 "sequence": char_seq,
                 "character_class": char_class,
-                "class_probability": 0.74,
-                "x_min": 0,
-                "x_max": 100,
+                "class_probability": random(),
+                "x_min": randrange(0, 500),
+                "x_max": randrange(0, 500),
                 "primary_image": char_image,
             },
             headers=ht,
