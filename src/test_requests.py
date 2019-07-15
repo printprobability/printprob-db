@@ -16,6 +16,9 @@ run_id = requests.post(f"{b}runs/", data={"notes": "trial run"}, headers=ht).jso
 ]
 print(run_id)
 
+def cleanpath(s):
+    return re.sub("^.+/pp/", "/", s)
+
 for book in books:
     bnames = book.split("/")[-1].split("_")
     print(bnames)
@@ -35,9 +38,10 @@ for book in books:
         snames = s.split("/")[-1].split("_")[-1].split("-")[-1].split(".")[0]
         print(snames)
         # create new images/image_files
+        spath = cleanpath(s)
         image_id = requests.post(
             f"{b}images/quick_create/",
-            data={"tiff": s, "jpeg": re.sub("tif", "jpeg", s)},
+            data={"tiff": spath, "jpeg": re.sub("tif", "jpeg", spath)},
             headers=ht,
         ).json()["pk"]
         print(image_id)
@@ -53,9 +57,10 @@ for book in books:
         ]
         if len(pagepics) < 2:
             continue
+        lpath = cleanpath(pagepics[0])
         left_page_pic = requests.post(
             f"{b}images/quick_create/",
-            data={"tiff": pagepics[0], "jpeg": re.sub("tif", "jpeg", pagepics[0])},
+            data={"tiff": lpath, "jpeg": re.sub("tif", "jpeg", lpath)},
             headers=ht,
         ).json()["pk"]
         left_page_id = requests.post(
@@ -70,9 +75,10 @@ for book in books:
             },
             headers=ht,
         ).json()["pk"]
+        rpath = cleanpath(pagepics[1])
         right_page_pic = requests.post(
             f"{b}images/quick_create/",
-            data={"tiff": pagepics[1], "jpeg": re.sub("tif", "jpeg", pagepics[1])},
+            data={"tiff": rpath, "jpeg": re.sub("tif", "jpeg", rpath)},
             headers=ht,
         ).json()["pk"]
         right_page_id = requests.post(
@@ -96,7 +102,7 @@ for book in books:
             print(l)
             l_image_id = requests.post(
                 f"{b}images/quick_create/",
-                data={"tiff": l, "jpeg": re.sub("tif", "jpeg", l)},
+                data={"tiff": cleanpath(l), "jpeg": re.sub("tif", "jpeg", cleanpath(l))},
                 headers=ht,
             ).json()["pk"]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])
@@ -121,7 +127,7 @@ for book in books:
             print(l)
             l_image_id = requests.post(
                 f"{b}images/quick_create/",
-                data={"tiff": l, "jpeg": re.sub("tif", "jpeg", l)},
+                data={"tiff": cleanpath(l), "jpeg": re.sub("tif", "jpeg", cleanpath(l))},
                 headers=ht,
             ).json()["pk"]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])

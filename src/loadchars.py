@@ -14,6 +14,9 @@ print(books)
 run_id = requests.get(f"{b}runs/", headers=ht).json()["results"][0]["pk"]
 print(run_id)
 
+def cleanpath(s):
+    return re.sub("^.+/pp/", "/", s)
+
 for book in books:
     book_id = book.split("/")[5].split("_")[1]
     allchars = glob(f"{book}/**/*.tif", recursive=True)
@@ -40,15 +43,16 @@ for book in books:
             headers=ht,
         ).json()["results"][0]["pk"]
 
+        charpath = cleanpath(char)
         try:
             char_image = requests.post(
                 f"{b}images/quick_create/",
-                data={"tiff": char, "jpeg": re.sub("tif", "jpeg", char)},
+                data={"tiff": charpath, "jpeg": re.sub("tif", "jpeg", charpath)},
                 headers=ht,
             ).json()["pk"]
         except:
             char_image = requests.get(
-                f"{b}images/", params={"filepath": char}, headers=ht
+                f"{b}images/", params={"filepath": charpath}, headers=ht
             ).json()["results"][0]["pk"]
 
         requests.post(
