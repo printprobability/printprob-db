@@ -17,6 +17,5 @@ router.register(r"character_classes", views.CharacterClassViewset)
 
 urlpatterns = [
     path("", include(router.urls)),
-    # path("api-auth/", include("rest_framework.urls", namespace="rest_auth")),
     path("docs/", include_docs_urls(title="P & P Pipeline API")),
 ]
