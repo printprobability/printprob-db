@@ -91,7 +91,7 @@ class Image(uuidModel):
 
     def web_url(self):
         if self.web_file is not None:
-            return f"/img/{self.web_file.filepath}"
+            return f"/img{self.web_file.filepath}"
         else:
             return None
 
