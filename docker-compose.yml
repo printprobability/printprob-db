@@ -22,7 +22,7 @@ services:
     command: "bash -c ${SERVE_COMMAND}"
     volumes:
       - ./app:/vol/app
-      - ${IMAGEDIR}:/vol/raw
+      - ${REAL_IMAGE_DIR}:${VIRTUAL_IMAGE_DIR}
       - ppstatic:/vol/static_files
     expose:
       - 8000
@@ -37,8 +37,8 @@ services:
     restart: always
     volumes:
       - ppstatic:/vol/static_files
-      - ${IMAGEDIR}:/vol/raw
-      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ${REAL_IMAGE_DIR}:${VIRTUAL_IMAGE_DIR}
+      - ${NGINX_CONF}:/etc/nginx/conf.d/default.conf
     ports:
       - "${NGINX_PORT}:4000"
     env_file: .env
