@@ -5,7 +5,7 @@ services:
   postgres:
     image: postgres:11
     volumes:
-      - pp:/var/lib/postgresql/data
+      - pp:/var/lib/postgresql/data:z
     expose:
       - "${POSTGRES_PORT}"
     env_file: .env
@@ -21,9 +21,9 @@ services:
     restart: always
     command: "bash -c ${SERVE_COMMAND}"
     volumes:
-      - ./app:/vol/app
-      - ${REAL_IMAGE_DIR}:${VIRTUAL_IMAGE_DIR}
-      - ppstatic:/vol/static_files
+      - ./app:/vol/app:z
+      - ${REAL_IMAGE_DIR}:${VIRTUAL_IMAGE_DIR}:z
+      - ppstatic:/vol/static_files:z
     expose:
       - 8000
     links:
@@ -36,9 +36,9 @@ services:
     image: nginx:1.17
     restart: always
     volumes:
-      - ppstatic:/vol/static_files
-      - ${REAL_IMAGE_DIR}:${VIRTUAL_IMAGE_DIR}
-      - ${NGINX_CONF}:/etc/nginx/conf.d/default.conf
+      - ppstatic:/vol/static_files:z
+      - ${REAL_IMAGE_DIR}:${VIRTUAL_IMAGE_DIR}:z
+      - ${NGINX_CONF}:/etc/nginx/conf.d/default.conf:z
     ports:
       - "${NGINX_PORT}:4000"
     env_file: .env
