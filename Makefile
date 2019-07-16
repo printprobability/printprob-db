@@ -9,7 +9,7 @@ down:
 attach:
 	docker-compose exec web bash
 db:
-	docker-compose exec postgres psql -U app
+	docker-compose exec postgres psql -U app -d pp
 restart:
 	docker-compose restart web nginx
 build:
@@ -22,11 +22,11 @@ wipe: stop
 	$(MAKE) restart
 	docker-compose exec web python manage.py migrate
 dumptest:
-	docker-compose exec web python manage.py dumpdata --indent 2 -e admin.logentry -e auth.permission -e contenttypes -e sessions -o abstracts/fixtures/test.json
+	docker-compose exec web python manage.py dumpdata --indent 2 -e admin.logentry -e auth.permission -e contenttypes -e sessions -o pp/fixtures/test.json
 loadtest: wipe
-	docker-compose exec web python manage.py loaddata abstracts/fixtures/test.json
+	docker-compose exec web python manage.py loaddata pp/fixtures/test.json
 test:
-	docker-compose exec web python manage.py test --parallel 4
+	docker-compose exec web python manage.py test
 coverage:
 	-docker-compose exec web coverage run manage.py test
 	docker-compose exec web coverage html

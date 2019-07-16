@@ -1,0 +1,1452 @@
+[
+{
+  "model": "pp.run",
+  "pk": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+  "fields": {
+    "date_started": "2019-07-15T21:08:02.191Z",
+    "notes": "trial run"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "0259d9a9-bf05-430b-addc-cb815611742f",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page2r_line1.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page2r_line1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "05fdb6b9-27b2-497b-a1c1-93d6b5138512",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page1r_line2.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page1r_line2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "07d5bf7c-4d13-487c-a048-cc3460614fc2",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page2r_line0.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page2r_line0.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "0dd7bc34-469c-4835-9a74-dbf5e74ee600",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page2r_line2.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page2r_line2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "28e2ca8d-d929-484a-8c73-56273397cf18",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page1r_line1.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page1r_line1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "29bd8f07-98ca-4261-9d9e-22036d64d506",
+  "fields": {
+    "notes": "",
+    "jpg": "/chars/overton_99860883_158534_74height_asacreddecretal/char_T_uc/overton_99860883_158534_74height_asacreddecretal-002_page1rline1_char1_T_uc.jpg",
+    "tif": "/chars/overton_99860883_158534_74height_asacreddecretal/char_T_uc/overton_99860883_158534_74height_asacreddecretal-002_page1rline1_char1_T_uc.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "2b8619fc-5293-4f87-8060-5294d23a09c2",
+  "fields": {
+    "notes": "",
+    "jpg": "/chars/overtontew_99871393_154971_72height_ananswertonine/char_K_uc/overtontew_99871393_154971_72height_ananswertonine-004_page1rline1_char0_K_uc.jpg",
+    "tif": "/chars/overtontew_99871393_154971_72height_ananswertonine/char_K_uc/overtontew_99871393_154971_72height_ananswertonine-004_page1rline1_char0_K_uc.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "2bfa6634-d819-475a-9d1d-ec1c4c34e0df",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page1r_line1.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page1r_line1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "3119b0ff-8e8b-4025-9db1-e81849d5e96d",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page2r_line2.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page2r_line2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "34e459f9-b247-4519-be36-189c640d2cf7",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "38adcdae-86ad-419b-8eba-cdbd5d12770c",
+  "fields": {
+    "notes": "",
+    "jpg": "/chars/overton_99860883_158534_74height_asacreddecretal/char_C_uc/overton_99860883_158534_74height_asacreddecretal-004_page1rline2_char1_C_uc.jpg",
+    "tif": "/chars/overton_99860883_158534_74height_asacreddecretal/char_C_uc/overton_99860883_158534_74height_asacreddecretal-004_page1rline2_char1_C_uc.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "393d633b-49d1-419a-89dc-e90b196deeb4",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page2r_line0.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page2r_line0.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "41ad4572-e03f-4edf-aecc-707b9ea15eb5",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page1.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "46448f55-7871-4177-8662-24b5b573e327",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page1r_line3.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page1r_line3.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "4c656cd9-e142-4456-8f7d-f1e2580e30bf",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "50106c56-22a5-41aa-9e4b-8a4828197f13",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page1r_line3.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page1r_line3.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "5233dcc6-aba5-4c5f-869a-a961c542ae88",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page2r_line3.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page2r_line3.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "57abc2fa-d15f-4d1e-8715-32ff8b1d680d",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page1r_line3.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page1r_line3.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "63424f9d-6a12-448b-a5eb-68b41fa03703",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "6c23d0ac-c7e9-4ba8-8b63-f32b06d7cacf",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page2r_line1.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page2r_line1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "7094df9c-b21e-4128-91af-4aa212b80bf8",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page1.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "7185b51b-fbc1-40b9-9894-2475a9ec2553",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page1r_line0.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page1r_line0.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "719c5786-e142-4cee-93ac-a521633d6ff0",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page2r_line1.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page2r_line1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "71e128e4-cfeb-4856-945b-049a491d532e",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "7a02dad7-c9e2-4da6-b97b-585b593641b0",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page1r_line1.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page1r_line1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "7a8afeb3-f155-498b-9b6e-db255ee4cc8a",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page1r_line0.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page1r_line0.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "7cea80f8-48a7-4177-b105-4d89025cc310",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page2r_line0.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page2r_line0.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "7e1c4132-8cd4-4856-b086-1bcd67a1baf5",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page2r_line0.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page2r_line0.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "85d64cf9-94fd-4355-bca4-d65316d3ff25",
+  "fields": {
+    "notes": "",
+    "jpg": "/chars/overton_99860883_158534_74height_asacreddecretal/char_S_uc/overton_99860883_158534_74height_asacreddecretal-003_page1rline0_char2_S_uc.jpg",
+    "tif": "/chars/overton_99860883_158534_74height_asacreddecretal/char_S_uc/overton_99860883_158534_74height_asacreddecretal-003_page1rline0_char2_S_uc.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "8776ebdc-1d71-49f0-b38d-41fb45ee0d31",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page1r_line0.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page1r_line0.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "997533be-e6fe-4334-8048-58aee1901373",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page2.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "9a29a2e2-18a9-4fbd-976d-6b46000d1a9c",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page1r_line2.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page1r_line2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "9b845e2d-879b-4a83-9d1e-79518c11e715",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page2r_line0.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page2r_line0.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "a000ab64-c5f8-42ec-a0be-1fa7bc3b2319",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page1r_line2.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page1r_line2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "aab51ccb-53dd-4a99-953e-40a625db087c",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page2r_line2.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page2r_line2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "b01745a7-a644-4fc7-90e8-cf09ec1e83ef",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page1.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "b6b27e06-6870-49f6-b68b-b0b541fc4e7a",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page2.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "b7808f94-787f-43cc-98f1-ff09eff61aa2",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page2.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "be835b3a-7215-4242-914c-4459518a8465",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page2r_line1.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page2r_line1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "c1154544-0f0b-41f2-8d9b-1c8e8793c2d1",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-000.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-000.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "c1a8b1a4-5c9c-445c-9354-18c8d58f79b4",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page2r_line3.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page2r_line3.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "c257fb7b-a09d-41e7-86c5-a027ca67de2f",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page1r_line3.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page1r_line3.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "cb0f42b6-428f-4d85-a336-4dff9e11ad7d",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page1r_line0.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page1r_line0.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "d050c6b2-7eae-4fcf-bb95-7d273046de61",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page2.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "d08b3153-5d2f-492d-8a89-d29b949e5b0d",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "d1136fd1-478d-48fa-b524-d3844ad50235",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page2r_line3.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page2r_line3.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "d1c08447-f82e-437b-acff-7c12c18214d5",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page1r_line1.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page1r_line1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "d3d9fe79-72d0-4e94-a89e-bbe935e9fb0e",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page1r_line2.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page1r_line2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "d418a711-ea21-4da1-8305-a802d5cdd34d",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page2r_line1.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page2r_line1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "d89ece76-2bf5-41c4-a173-a29dd325d8f9",
+  "fields": {
+    "notes": "",
+    "jpg": "/chars/overton_99860883_158534_74height_asacreddecretal/char_C_uc/overton_99860883_158534_74height_asacreddecretal-002_page1rline0_char1_C_uc.jpg",
+    "tif": "/chars/overton_99860883_158534_74height_asacreddecretal/char_C_uc/overton_99860883_158534_74height_asacreddecretal-002_page1rline0_char1_C_uc.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "dbeefbbb-978f-4988-8970-c33161f64490",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page1r_line0.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page1r_line0.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "de342623-32f2-4cf7-aad4-66c7aff4832e",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page1.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "debdb536-ff39-4b97-818b-e100d9fa04a3",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page2r_line2.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page2r_line2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "e42967ac-edee-47c7-8340-2c29aa61483c",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page1r_line1.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-003_page1r_line1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "e8b6059f-7286-40e0-8ca5-97dd207af470",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page2r_line3.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page2r_line3.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "e9a06409-bb02-44c7-b92d-0b640d617f00",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page1r_line3.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page1r_line3.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "f249623d-2c62-4fb8-8622-5d2ee1ab93e8",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page1.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-004_page1.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "f2556aa0-832c-44c8-9df0-4031ec52a5be",
+  "fields": {
+    "notes": "",
+    "jpg": "/chars/overtontew_99871393_154971_72height_ananswertonine/char_D_uc/overtontew_99871393_154971_72height_ananswertonine-004_page1rline0_char1_D_uc.jpg",
+    "tif": "/chars/overtontew_99871393_154971_72height_ananswertonine/char_D_uc/overtontew_99871393_154971_72height_ananswertonine-004_page1rline0_char1_D_uc.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "f42adb29-30c3-4098-aa07-72db3084dbde",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page2r_line3.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-001_page2r_line3.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "f4c28adc-f908-4363-b3bf-35de213ba436",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page2.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "f8bd5126-c103-4338-a156-c21803c75d98",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page1r_line2.jpeg",
+    "tif": "/books/overton_99860883_158534_74height_asacreddecretal/overton_99860883_158534_74height_asacreddecretal-002_page1r_line2.tif"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "fa7f4890-7ba6-4cde-a3d0-6f21a6698c9b",
+  "fields": {
+    "notes": "",
+    "jpg": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page2r_line2.jpeg",
+    "tif": "/books/overtontew_99871393_154971_72height_ananswertonine/overtontew_99871393_154971_72height_ananswertonine-002_page2r_line2.tif"
+  }
+},
+{
+  "model": "pp.book",
+  "pk": 99860883,
+  "fields": {
+    "vid": 158534,
+    "title": "asacreddecretal",
+    "publisher": "overton",
+    "pdf": null
+  }
+},
+{
+  "model": "pp.book",
+  "pk": 99871393,
+  "fields": {
+    "vid": 154971,
+    "title": "ananswertonine",
+    "publisher": "overtontew",
+    "pdf": null
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "1e78e9e7-e0b1-4643-9cae-9642f07933df",
+  "fields": {
+    "book": 99871393,
+    "sequence": 0,
+    "primary_image": "c1154544-0f0b-41f2-8d9b-1c8e8793c2d1"
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "34c4a543-d76b-4638-997a-e1f5b70504ca",
+  "fields": {
+    "book": 99860883,
+    "sequence": 3,
+    "primary_image": "d08b3153-5d2f-492d-8a89-d29b949e5b0d"
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "35f1b6a0-a71a-45d3-96d7-085ebf702231",
+  "fields": {
+    "book": 99860883,
+    "sequence": 4,
+    "primary_image": "71e128e4-cfeb-4856-945b-049a491d532e"
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "5249d373-89a5-422e-9918-6dc19c128b46",
+  "fields": {
+    "book": 99871393,
+    "sequence": 2,
+    "primary_image": "4c656cd9-e142-4456-8f7d-f1e2580e30bf"
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "53f12987-330c-4d59-90d5-5a8b412436de",
+  "fields": {
+    "book": 99860883,
+    "sequence": 2,
+    "primary_image": "34e459f9-b247-4519-be36-189c640d2cf7"
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "69a1f279-ac43-45ea-ab30-26963a314673",
+  "fields": {
+    "book": 99871393,
+    "sequence": 1,
+    "primary_image": "63424f9d-6a12-448b-a5eb-68b41fa03703"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "215ade81-beeb-45cf-b756-ad087a545abd",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "spread": "35f1b6a0-a71a-45d3-96d7-085ebf702231",
+    "side": "l",
+    "primary_image": "f249623d-2c62-4fb8-8622-5d2ee1ab93e8",
+    "x_min": 135,
+    "x_max": 477
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "3fbc5caf-720a-4301-9d0c-4b08c15b7d22",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "spread": "53f12987-330c-4d59-90d5-5a8b412436de",
+    "side": "l",
+    "primary_image": "de342623-32f2-4cf7-aad4-66c7aff4832e",
+    "x_min": 233,
+    "x_max": 256
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "4dbe7c9f-8cd7-4446-9887-f2bb3145b65c",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "spread": "53f12987-330c-4d59-90d5-5a8b412436de",
+    "side": "r",
+    "primary_image": "997533be-e6fe-4334-8048-58aee1901373",
+    "x_min": 311,
+    "x_max": 344
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "4df7b5ce-2c2a-4abe-8dd3-5f7b4fa3b09a",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "spread": "69a1f279-ac43-45ea-ab30-26963a314673",
+    "side": "r",
+    "primary_image": "b7808f94-787f-43cc-98f1-ff09eff61aa2",
+    "x_min": 214,
+    "x_max": 467
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "586b9d58-6fd1-4482-8cde-e2e2b463b151",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "spread": "35f1b6a0-a71a-45d3-96d7-085ebf702231",
+    "side": "r",
+    "primary_image": "d050c6b2-7eae-4fcf-bb95-7d273046de61",
+    "x_min": 283,
+    "x_max": 141
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "82ce312e-8db5-4107-95ef-7c7979f62d1f",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "spread": "34c4a543-d76b-4638-997a-e1f5b70504ca",
+    "side": "r",
+    "primary_image": "b6b27e06-6870-49f6-b68b-b0b541fc4e7a",
+    "x_min": 41,
+    "x_max": 163
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "a67c6508-61db-4035-9ee0-0fba1d8568f2",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "spread": "5249d373-89a5-422e-9918-6dc19c128b46",
+    "side": "l",
+    "primary_image": "b01745a7-a644-4fc7-90e8-cf09ec1e83ef",
+    "x_min": 9,
+    "x_max": 291
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "b0897a43-1d4f-4959-b1f4-fdc0e4ab2f74",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "spread": "5249d373-89a5-422e-9918-6dc19c128b46",
+    "side": "r",
+    "primary_image": "f4c28adc-f908-4363-b3bf-35de213ba436",
+    "x_min": 325,
+    "x_max": 277
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "d3abd90b-245e-4773-9f6b-b88a3fd0b5e0",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "spread": "69a1f279-ac43-45ea-ab30-26963a314673",
+    "side": "l",
+    "primary_image": "7094df9c-b21e-4128-91af-4aa212b80bf8",
+    "x_min": 171,
+    "x_max": 262
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "ef981242-eb29-4900-8ecb-27aee44cf754",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "spread": "34c4a543-d76b-4638-997a-e1f5b70504ca",
+    "side": "l",
+    "primary_image": "41ad4572-e03f-4edf-aecc-707b9ea15eb5",
+    "x_min": 453,
+    "x_max": 7
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "08519848-c888-452e-8afc-ab529053a1f8",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "b0897a43-1d4f-4959-b1f4-fdc0e4ab2f74",
+    "sequence": 2,
+    "primary_image": "fa7f4890-7ba6-4cde-a3d0-6f21a6698c9b",
+    "y_min": 25,
+    "y_max": 440
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "08ae067d-63b6-4efa-92f6-807c1f8ad326",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "586b9d58-6fd1-4482-8cde-e2e2b463b151",
+    "sequence": 3,
+    "primary_image": "d1136fd1-478d-48fa-b524-d3844ad50235",
+    "y_min": 486,
+    "y_max": 24
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "0a933c97-7780-4215-a7fd-6919fae896a6",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "4dbe7c9f-8cd7-4446-9887-f2bb3145b65c",
+    "sequence": 1,
+    "primary_image": "0259d9a9-bf05-430b-addc-cb815611742f",
+    "y_min": 150,
+    "y_max": 325
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "154fe104-22e8-47b7-8a60-43e25ac771da",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "d3abd90b-245e-4773-9f6b-b88a3fd0b5e0",
+    "sequence": 1,
+    "primary_image": "28e2ca8d-d929-484a-8c73-56273397cf18",
+    "y_min": 81,
+    "y_max": 128
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "15dd61ec-2f50-463e-880c-a0fa18d37543",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "3fbc5caf-720a-4301-9d0c-4b08c15b7d22",
+    "sequence": 1,
+    "primary_image": "7a02dad7-c9e2-4da6-b97b-585b593641b0",
+    "y_min": 396,
+    "y_max": 138
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "1954626f-9f04-41c0-984f-0b7b05575c03",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "4df7b5ce-2c2a-4abe-8dd3-5f7b4fa3b09a",
+    "sequence": 2,
+    "primary_image": "debdb536-ff39-4b97-818b-e100d9fa04a3",
+    "y_min": 290,
+    "y_max": 183
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "2988c218-f32f-444e-bc1b-dfe65f49f77e",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "4dbe7c9f-8cd7-4446-9887-f2bb3145b65c",
+    "sequence": 3,
+    "primary_image": "c1a8b1a4-5c9c-445c-9354-18c8d58f79b4",
+    "y_min": 281,
+    "y_max": 331
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "2caed919-5210-4846-9db5-ac704a305857",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "3fbc5caf-720a-4301-9d0c-4b08c15b7d22",
+    "sequence": 0,
+    "primary_image": "7185b51b-fbc1-40b9-9894-2475a9ec2553",
+    "y_min": 242,
+    "y_max": 89
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "353f139f-0122-4637-a980-b7bc3f293fcf",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "4dbe7c9f-8cd7-4446-9887-f2bb3145b65c",
+    "sequence": 2,
+    "primary_image": "0dd7bc34-469c-4835-9a74-dbf5e74ee600",
+    "y_min": 6,
+    "y_max": 246
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "393dee43-f8be-4f46-8fa8-2c164dfff8ca",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "586b9d58-6fd1-4482-8cde-e2e2b463b151",
+    "sequence": 1,
+    "primary_image": "d418a711-ea21-4da1-8305-a802d5cdd34d",
+    "y_min": 431,
+    "y_max": 398
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "417bc9a3-e374-4ac7-87f7-690898b12c25",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "82ce312e-8db5-4107-95ef-7c7979f62d1f",
+    "sequence": 2,
+    "primary_image": "3119b0ff-8e8b-4025-9db1-e81849d5e96d",
+    "y_min": 125,
+    "y_max": 469
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "42453730-4001-4893-a467-fc0454ed61a7",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "4df7b5ce-2c2a-4abe-8dd3-5f7b4fa3b09a",
+    "sequence": 3,
+    "primary_image": "f42adb29-30c3-4098-aa07-72db3084dbde",
+    "y_min": 485,
+    "y_max": 437
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "4323a7bd-8305-46f9-85bf-2b3357c5112b",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "d3abd90b-245e-4773-9f6b-b88a3fd0b5e0",
+    "sequence": 3,
+    "primary_image": "46448f55-7871-4177-8662-24b5b573e327",
+    "y_min": 403,
+    "y_max": 359
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "47aed338-a888-4769-a1ea-b146a0d78ede",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "82ce312e-8db5-4107-95ef-7c7979f62d1f",
+    "sequence": 1,
+    "primary_image": "719c5786-e142-4cee-93ac-a521633d6ff0",
+    "y_min": 13,
+    "y_max": 126
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "605828af-9197-40e6-a7c7-e59674f46aeb",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "82ce312e-8db5-4107-95ef-7c7979f62d1f",
+    "sequence": 0,
+    "primary_image": "7cea80f8-48a7-4177-b105-4d89025cc310",
+    "y_min": 265,
+    "y_max": 311
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "6c12ccac-5abc-43be-868a-66a85027c813",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "215ade81-beeb-45cf-b756-ad087a545abd",
+    "sequence": 3,
+    "primary_image": "c257fb7b-a09d-41e7-86c5-a027ca67de2f",
+    "y_min": 63,
+    "y_max": 457
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "765b0cd7-3e72-4333-a5e7-ed78fca2fd22",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "a67c6508-61db-4035-9ee0-0fba1d8568f2",
+    "sequence": 3,
+    "primary_image": "e9a06409-bb02-44c7-b92d-0b640d617f00",
+    "y_min": 107,
+    "y_max": 344
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "7a7309da-d800-45c5-8f9e-1aad7e2f2aa6",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "4df7b5ce-2c2a-4abe-8dd3-5f7b4fa3b09a",
+    "sequence": 0,
+    "primary_image": "07d5bf7c-4d13-487c-a048-cc3460614fc2",
+    "y_min": 256,
+    "y_max": 138
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "83604808-6192-4c6e-a0e5-97b3a5d2cfda",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "b0897a43-1d4f-4959-b1f4-fdc0e4ab2f74",
+    "sequence": 0,
+    "primary_image": "393d633b-49d1-419a-89dc-e90b196deeb4",
+    "y_min": 18,
+    "y_max": 372
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "8d6430df-4535-4bc4-b244-d474cf17ce98",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "a67c6508-61db-4035-9ee0-0fba1d8568f2",
+    "sequence": 0,
+    "primary_image": "cb0f42b6-428f-4d85-a336-4dff9e11ad7d",
+    "y_min": 185,
+    "y_max": 470
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "91e843c1-6109-42c4-88cf-6abf54abe523",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "ef981242-eb29-4900-8ecb-27aee44cf754",
+    "sequence": 2,
+    "primary_image": "05fdb6b9-27b2-497b-a1c1-93d6b5138512",
+    "y_min": 371,
+    "y_max": 112
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "a59f2870-2538-4f7d-afa0-4aa1d9f76cd6",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "3fbc5caf-720a-4301-9d0c-4b08c15b7d22",
+    "sequence": 3,
+    "primary_image": "57abc2fa-d15f-4d1e-8715-32ff8b1d680d",
+    "y_min": 451,
+    "y_max": 381
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "b2fcd850-a962-4ebf-8c39-5f74f353ba8a",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "215ade81-beeb-45cf-b756-ad087a545abd",
+    "sequence": 2,
+    "primary_image": "d3d9fe79-72d0-4e94-a89e-bbe935e9fb0e",
+    "y_min": 26,
+    "y_max": 486
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "c0731d5a-923d-49c2-a07a-c37b6e62a715",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "215ade81-beeb-45cf-b756-ad087a545abd",
+    "sequence": 0,
+    "primary_image": "7a8afeb3-f155-498b-9b6e-db255ee4cc8a",
+    "y_min": 215,
+    "y_max": 466
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "c45ba411-c38d-4b2b-ad40-66ea9d4d41ad",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "ef981242-eb29-4900-8ecb-27aee44cf754",
+    "sequence": 1,
+    "primary_image": "e42967ac-edee-47c7-8340-2c29aa61483c",
+    "y_min": 54,
+    "y_max": 85
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "c51128e2-bbfc-4412-8d98-376cbf19f0fe",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "586b9d58-6fd1-4482-8cde-e2e2b463b151",
+    "sequence": 2,
+    "primary_image": "aab51ccb-53dd-4a99-953e-40a625db087c",
+    "y_min": 326,
+    "y_max": 300
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "c5372810-9d76-40d5-b097-3b87f2467ae2",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "586b9d58-6fd1-4482-8cde-e2e2b463b151",
+    "sequence": 0,
+    "primary_image": "9b845e2d-879b-4a83-9d1e-79518c11e715",
+    "y_min": 424,
+    "y_max": 499
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "c636c336-0c66-4999-90ff-c5026567c358",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "4dbe7c9f-8cd7-4446-9887-f2bb3145b65c",
+    "sequence": 0,
+    "primary_image": "7e1c4132-8cd4-4856-b086-1bcd67a1baf5",
+    "y_min": 444,
+    "y_max": 291
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "c95182a9-84c8-4bd4-bdf2-7c0e320ab3bd",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "b0897a43-1d4f-4959-b1f4-fdc0e4ab2f74",
+    "sequence": 1,
+    "primary_image": "be835b3a-7215-4242-914c-4459518a8465",
+    "y_min": 373,
+    "y_max": 451
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "ceed2750-1fed-46a5-bc7b-b506075aa7d9",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "a67c6508-61db-4035-9ee0-0fba1d8568f2",
+    "sequence": 1,
+    "primary_image": "2bfa6634-d819-475a-9d1d-ec1c4c34e0df",
+    "y_min": 76,
+    "y_max": 200
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "d7e77f70-c211-4fd6-b6c6-84ba8a050d24",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "a67c6508-61db-4035-9ee0-0fba1d8568f2",
+    "sequence": 2,
+    "primary_image": "9a29a2e2-18a9-4fbd-976d-6b46000d1a9c",
+    "y_min": 463,
+    "y_max": 181
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "d93c1553-127f-406e-8e11-74df69e74117",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "215ade81-beeb-45cf-b756-ad087a545abd",
+    "sequence": 1,
+    "primary_image": "d1c08447-f82e-437b-acff-7c12c18214d5",
+    "y_min": 21,
+    "y_max": 265
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "da282970-cd4f-428b-8d23-e36576a5460a",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "ef981242-eb29-4900-8ecb-27aee44cf754",
+    "sequence": 3,
+    "primary_image": "50106c56-22a5-41aa-9e4b-8a4828197f13",
+    "y_min": 322,
+    "y_max": 95
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "dbc0046c-3854-4788-a26a-92375ef9b46f",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "ef981242-eb29-4900-8ecb-27aee44cf754",
+    "sequence": 0,
+    "primary_image": "8776ebdc-1d71-49f0-b38d-41fb45ee0d31",
+    "y_min": 225,
+    "y_max": 260
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "e7d38191-d016-4982-acd1-8130307fe829",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "4df7b5ce-2c2a-4abe-8dd3-5f7b4fa3b09a",
+    "sequence": 1,
+    "primary_image": "6c23d0ac-c7e9-4ba8-8b63-f32b06d7cacf",
+    "y_min": 402,
+    "y_max": 50
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "ef656d0d-6fcc-4856-93f6-2da49e42b5a2",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "b0897a43-1d4f-4959-b1f4-fdc0e4ab2f74",
+    "sequence": 3,
+    "primary_image": "e8b6059f-7286-40e0-8ca5-97dd207af470",
+    "y_min": 17,
+    "y_max": 317
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "ef7abac3-8a87-4b5f-a6b1-0fd883430285",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "d3abd90b-245e-4773-9f6b-b88a3fd0b5e0",
+    "sequence": 2,
+    "primary_image": "a000ab64-c5f8-42ec-a0be-1fa7bc3b2319",
+    "y_min": 74,
+    "y_max": 140
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "f850daf3-0ffe-40de-a54f-fb2e11597e8e",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "d3abd90b-245e-4773-9f6b-b88a3fd0b5e0",
+    "sequence": 0,
+    "primary_image": "dbeefbbb-978f-4988-8970-c33161f64490",
+    "y_min": 441,
+    "y_max": 296
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "fa13911c-8b15-41ee-b3b9-5ff2a4f6c794",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "82ce312e-8db5-4107-95ef-7c7979f62d1f",
+    "sequence": 3,
+    "primary_image": "5233dcc6-aba5-4c5f-869a-a961c542ae88",
+    "y_min": 131,
+    "y_max": 122
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "fabd6b39-a30e-42da-99f1-732634eab3b0",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "page": "3fbc5caf-720a-4301-9d0c-4b08c15b7d22",
+    "sequence": 2,
+    "primary_image": "f8bd5126-c103-4338-a156-c21803c75d98",
+    "y_min": 170,
+    "y_max": 486
+  }
+},
+{
+  "model": "pp.characterclass",
+  "pk": "A_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "B_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "C_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "D_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "E_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "F_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "G_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "H_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "K_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "L_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "M_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "N_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "O_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "P_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "Q_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "R_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "S_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "T_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "V_uc",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "W_uc",
+  "fields": {}
+},
+{
+  "model": "pp.character",
+  "pk": "18b297f8-22be-4087-892b-b93b0bcdaf63",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "line": "c0731d5a-923d-49c2-a07a-c37b6e62a715",
+    "primary_image": "f2556aa0-832c-44c8-9df0-4031ec52a5be",
+    "sequence": 1,
+    "x_min": 294,
+    "x_max": 390,
+    "character_class": "D_uc",
+    "class_probability": 0.97338405940477
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "1bded651-3693-4e65-8135-a3551d6a3dcd",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "line": "d93c1553-127f-406e-8e11-74df69e74117",
+    "primary_image": "2b8619fc-5293-4f87-8060-5294d23a09c2",
+    "sequence": 0,
+    "x_min": 174,
+    "x_max": 392,
+    "character_class": "K_uc",
+    "class_probability": 0.187728072181847
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "26405ac1-b5ba-46bf-abf9-42a827e7f670",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "line": "ceed2750-1fed-46a5-bc7b-b506075aa7d9",
+    "primary_image": "29bd8f07-98ca-4261-9d9e-22036d64d506",
+    "sequence": 1,
+    "x_min": 150,
+    "x_max": 409,
+    "character_class": "T_uc",
+    "class_probability": 0.26652556083871
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6d67434e-7981-4640-8fd3-fde84ec003ac",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "line": "dbc0046c-3854-4788-a26a-92375ef9b46f",
+    "primary_image": "85d64cf9-94fd-4355-bca4-d65316d3ff25",
+    "sequence": 2,
+    "x_min": 405,
+    "x_max": 287,
+    "character_class": "S_uc",
+    "class_probability": 0.86735735388223
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "9ad3fe85-3faf-4268-b384-35fbffd3d739",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "line": "8d6430df-4535-4bc4-b244-d474cf17ce98",
+    "primary_image": "d89ece76-2bf5-41c4-a173-a29dd325d8f9",
+    "sequence": 1,
+    "x_min": 313,
+    "x_max": 310,
+    "character_class": "C_uc",
+    "class_probability": 0.431389619572843
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c47a9dfd-229f-4675-9264-5f2f0d0f1d8b",
+  "fields": {
+    "created_by_run": "2c1faf28-ae5e-4119-8ce2-cc702088f68c",
+    "line": "b2fcd850-a962-4ebf-8c39-5f74f353ba8a",
+    "primary_image": "38adcdae-86ad-419b-8eba-cdbd5d12770c",
+    "sequence": 1,
+    "x_min": 405,
+    "x_max": 423,
+    "character_class": "C_uc",
+    "class_probability": 0.0781019777570156
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$QFhVd6WsEn6p$58tMNaOjcs8zcCtT70yCyRzH68l58OLNagdew8tuS1E=",
+    "last_login": "2019-07-12T18:14:46.728Z",
+    "is_superuser": true,
+    "username": "root",
+    "first_name": "",
+    "last_name": "",
+    "email": "mlincoln@andrew.cmu.edu",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-07-12T18:08:57.593Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "authtoken.token",
+  "pk": "ba5c69ccc5278bea590958564bbe84e7162f5ce6",
+  "fields": {
+    "user": 1,
+    "created": "2019-07-12T18:09:07.028Z"
+  }
+}
+]
