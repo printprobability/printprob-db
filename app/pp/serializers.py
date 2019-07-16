@@ -44,6 +44,7 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
             "x_max",
             "character_class",
             "class_probability",
+            "pref_image_url",
         ]
 
 
@@ -60,6 +61,7 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "character_class",
             "class_probability",
             "primary_image",
+            "pref_image_url",
         ]
 
 
@@ -80,6 +82,7 @@ class LineDetailSerializer(serializers.ModelSerializer):
             "characters",
             "y_min",
             "y_max",
+            "pref_image_url",
         ]
         read_only_fields = ["characters"]
 
@@ -101,6 +104,7 @@ class LineSerializer(serializers.ModelSerializer):
             "y_min",
             "y_max",
             "primary_image",
+            "pref_image_url",
         ]
 
 
@@ -179,7 +183,7 @@ class SpreadDetailSerializer(serializers.ModelSerializer):
 class SpreadSeralizer(serializers.ModelSerializer):
     class Meta:
         model = models.Spread
-        fields = ["pk", "book", "sequence", "primary_image"]
+        fields = ["pk", "book", "sequence", "primary_image", "pref_image_url"]
 
 
 class BookLineHeightSerializer(serializers.ModelSerializer):

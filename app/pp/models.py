@@ -92,7 +92,7 @@ class Image(uuidModel):
         return str(self.id)
 
     def web_url(self):
-        return self.jpg
+        return f"/img{self.jpg}"
 
     def bad_capture(self):
         return BadCapture.objects.filter(image=self).exists()
