@@ -4,9 +4,9 @@ django_coverage_plugin
 psycopg2-binary
 gunicorn
 tblib
-djangorestframework==3.9.1
+djangorestframework==3.9.3
 django-cors-headers
 Markdown
 Pygments
 django-filter
-drf-yasg
+drf-yasg==1.15.1
