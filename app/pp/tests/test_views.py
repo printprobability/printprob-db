@@ -77,7 +77,8 @@ class RunViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/runs/"
-    RUN1 = str(models.Run.objects.first().pk)
+    OBJ1 = models.Run.objects.first().pk
+    STR1 = str(OBJ1)
 
     @as_auth
     def test_get(self):
@@ -85,16 +86,17 @@ class RunViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], 1)
         self.assertEqual(
-            list(res.data["results"][0].keys()), ["pk", "date_started", "notes"]
+            list(res.data["results"][0].keys()), ["url", "pk", "date_started", "notes"]
         )
 
     @as_auth
     def test_get_detail(self):
-        res = self.client.get(self.ENDPOINT + self.RUN1 + "/")
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
         self.assertEqual(
             list(res.data.keys()),
             [
+                "url",
                 "pk",
                 "date_started",
                 "notes",
@@ -103,24 +105,75 @@ class RunViewTest(TestCase):
                 "characters_created",
             ],
         )
-        self.assertEqual(res.data["pk"], self.RUN1)
-        self.assertEqual(res.data["pages_created"][0]["created_by_run"], self.RUN1)
-        self.assertEqual(res.data["lines_created"][0]["created_by_run"], self.RUN1)
-        self.assertEqual(res.data["characters_created"][0]["created_by_run"], self.RUN1)
+        self.assertEqual(res.data["pk"], self.STR1)
+        self.assertEqual(res.data["pages_created"][0]["created_by_run"], self.OBJ1)
+        self.assertEqual(res.data["lines_created"][0]["created_by_run"], self.OBJ1)
+        self.assertEqual(res.data["characters_created"][0]["created_by_run"], self.OBJ1)
 
     @as_auth
     def test_delete(self):
-        res = self.client.delete(self.ENDPOINT + self.RUN1)
-        self.assertEqual(res.status_code, 200)
-        delres = self.client.get(self.ENDPOINT + self.RUN1)
-        self.assertEqual(res.status_code, 301)
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
 
     @as_auth
     def test_post(self):
         res = self.client.post(self.ENDPOINT, data={"notes": "foobar"})
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(list(res.data.keys()), ["pk", "date_started", "notes"])
+        self.assertEqual(list(res.data.keys()), ["url", "pk", "date_started", "notes"])
         self.assertEqual(res.data["notes"], "foobar")
+
+    def test_noaccess(self):
+        noaccess(self)
+
+
+class BookViewTest(TestCase):
+    """Test suite for Book views"""
+
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/books/"
+    OBJ1 = models.Book.objects.first().estc
+    STR1 = str(OBJ1)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], 2)
+        self.assertEqual(
+            list(res.data["results"][0].keys()),
+            ["url", "estc", "vid", "publisher", "title", "pdf"],
+        )
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(
+            list(res.data.keys()),
+            ["url", "estc", "vid", "publisher", "title", "pdf", "spreads"],
+        )
+        self.assertEqual(res.data["estc"], self.OBJ1)
+        self.assertIsInstance(res.data["spreads"], list)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth
+    def test_post(self):
+        res = self.client.post(
+            self.ENDPOINT, data={"estc": 101, "vid": 202, "title": "foobar"}
+        )
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(
+            list(res.data.keys()), ["url", "estc", "vid", "publisher", "title", "pdf"]
+        )
 
     def test_noaccess(self):
         noaccess(self)
