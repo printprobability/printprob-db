@@ -30,3 +30,4 @@ test:
 coverage:
 	-docker-compose exec web coverage run manage.py test
 	docker-compose exec web coverage html
+	open app/htmlcov/index.html
