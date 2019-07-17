@@ -587,15 +587,6 @@
 },
 {
   "model": "pp.spread",
-  "pk": "1e78e9e7-e0b1-4643-9cae-9642f07933df",
-  "fields": {
-    "book": 99871393,
-    "sequence": 0,
-    "primary_image": "c1154544-0f0b-41f2-8d9b-1c8e8793c2d1"
-  }
-},
-{
-  "model": "pp.spread",
   "pk": "34c4a543-d76b-4638-997a-e1f5b70504ca",
   "fields": {
     "book": 99860883,
@@ -1428,7 +1419,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$150000$QFhVd6WsEn6p$58tMNaOjcs8zcCtT70yCyRzH68l58OLNagdew8tuS1E=",
-    "last_login": "2019-07-12T18:14:46.728Z",
+    "last_login": "2019-07-17T21:48:30.233Z",
     "is_superuser": true,
     "username": "root",
     "first_name": "",
