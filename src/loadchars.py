@@ -4,36 +4,59 @@ import re
 from glob import glob
 from random import random, randrange
 
+# Enter the database hostname and authorization token
 b = os.environ["TEST_HOST"]
 ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
 
 books = glob("/Volumes/data_mdlincoln/pp/chars/*")
 print(books)
 
-# Get last run
+# Get the most recent run by request a list of the runs (they're ordered from most recent to least recent) and getting the UUID of the most recent one
 run_id = requests.get(f"{b}runs/", headers=ht).json()["results"][0]["pk"]
 print(run_id)
 
 
 def cleanpath(s):
-    return re.sub("^.+/pp/", "/", s)
+    """
+    Make the absolute paths from my local storage into relative paths
+    """return re.sub("^.+/pp/", "/", s)
 
 
 for book in books:
     book_id = book.split("/")[5].split("_")[1]
+    # Get all the character images from a given book
     allchars = glob(f"{book}/**/*.tif", recursive=True)
     for char in allchars:
+
+        # Collect the book ID
         book_id = int(re.search(r"_(\d{8})_", char).groups()[0])
+
+        # Get the sequence of the spread in that book
         spread_seq = int(re.search(r"-(\d{3})_", char).groups()[0])
+
+        # Get the side of the page in that spread
         page_no = re.search(r"page(\d)", char).groups()[0]
         if page_no == "1":
             page_side = "l"
         else:
             page_side = "r"
+
+        # Get the sequence of the line in that page
         line_seq = int(re.search(r"line(\d+)_", char).groups()[0])
+
+        # Get the sequence of the character in that line
         char_seq = int(re.search(r"_char(\d+)_", char).groups()[0])
+
+        # Finally, collect the character class
         char_class = re.search(r"([A-Z]_[a-z]{2})\.tif", char).groups()[0]
 
+        # We need to get the UUID of the line that we're conencting this
+        # character to. We do this by calling GET on the lines/ endpoint, and
+        # using URL query parameters to pass the book id, spread sequence, page
+        # side, and line sequence. With those 4 parameters we should get a
+        # single unique line entry (N.B. this actually also needs a unique RUN
+        # id parameter once we're working with multiple runs...). This will
+        # send a GET request formatted like http://printprobdb.library.cmu.edu/lines/?book=99860883&spread_sequence=2&page_side=l&sequence=1&created_by_run=
         line_id = requests.get(
             f"{b}lines/",
             params={
@@ -46,6 +69,8 @@ for book in books:
         ).json()["results"][0]["pk"]
 
         charpath = cleanpath(char)
+
+        # For some reason I was occasionally getting errors that some of the filepaths I was putting in had already been registered in the database, thus causing the endpoint to throw a unique constraint error. If this happens, we just GET the image UUID, passing in the filepath as a URL query parameter
         try:
             char_image = requests.post(
                 f"{b}images/",
@@ -57,10 +82,12 @@ for book in books:
                 f"{b}images/", params={"filepath": charpath}, headers=ht
             ).json()["results"][0]["pk"]
 
+        # Make sure that the character class has been registered in the database. Right now this just takes a string as a primary key, and doesn't use the UUID pattern that we need for classes where there are going to be thousands or millions of instances
         requests.post(
             f"{b}character_classes/", data={"classname": char_class}, headers=ht
         ).json()
 
+        # Finally, create the character in the database, passing in the run UUID, line UUID that we retrieved, the image UUID, the character class name, and its sequence on the line
         char_id = requests.post(
             f"{b}characters/",
             data={
