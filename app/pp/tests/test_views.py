@@ -4,6 +4,7 @@ from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
 from rest_framework.reverse import reverse
 from pp import models
+import re
 
 # Create your tests here.
 
@@ -77,6 +78,7 @@ class RunViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/runs/"
+    OBJCOUNT = models.Run.objects.count()
     OBJ1 = models.Run.objects.first().pk
     STR1 = str(OBJ1)
 
@@ -84,7 +86,7 @@ class RunViewTest(TestCase):
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.data["count"], 1)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
             list(res.data["results"][0].keys()), ["url", "pk", "date_started", "notes"]
         )
@@ -134,6 +136,7 @@ class BookViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/books/"
+    OBJCOUNT = models.Book.objects.count()
     OBJ1 = models.Book.objects.first().estc
     STR1 = str(OBJ1)
 
@@ -141,7 +144,7 @@ class BookViewTest(TestCase):
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.data["count"], 2)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
             list(res.data["results"][0].keys()),
             ["url", "estc", "vid", "publisher", "title", "pdf"],
@@ -173,6 +176,61 @@ class BookViewTest(TestCase):
         self.assertEqual(res.status_code, 201)
         self.assertEqual(
             list(res.data.keys()), ["url", "estc", "vid", "publisher", "title", "pdf"]
+        )
+
+    def test_noaccess(self):
+        noaccess(self)
+
+class SpreadViewTest(TestCase):
+    """Test suite for Spread views"""
+
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/spreads/"
+    OBJCOUNT = models.Spread.objects.count()
+    OBJ1 = models.Spread.objects.first().pk
+    STR1 = str(OBJ1)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        self.assertEqual(
+            list(res.data["results"][0].keys()),
+            ["url", "pk", "book", "sequence", "pref_image_url"],
+        )
+        self.assertFalse(re.match(r"http", res.data["results"][0]["book"]).groups() is None)
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(
+            list(res.data.keys()),
+            ["url", "pk", "book", "sequence", "primary_image", "pref_image_url", "pages"],
+        )
+        self.assertEqual(res.data["pk"], self.STR1)
+        self.assertIsInstance(res.data["pages"], list)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth
+    def test_post(self):
+        book = models.Book.objects.first().pk
+        image = models.Image.objects.first().pk
+        res = self.client.post(
+            self.ENDPOINT, data={"book": book, "sequence": 100, "primary_image": image}
+        )
+        print(res.json())
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(
+            list(res.data.keys()), ["url", "pk", "book", "sequence", "pref_image_url", "pages"]
         )
 
     def test_noaccess(self):

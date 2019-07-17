@@ -174,7 +174,15 @@ class SpreadDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Spread
-        fields = ["url", "pk", "book", "sequence", "primary_image", "pref_image_url"]
+        fields = [
+            "url",
+            "pk",
+            "book",
+            "sequence",
+            "primary_image",
+            "pref_image_url",
+            "pages",
+        ]
 
 
 class SpreadSeralizer(serializers.HyperlinkedModelSerializer):
@@ -191,6 +199,7 @@ class BookListSerializer(serializers.HyperlinkedModelSerializer):
 
 class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
     spreads = SpreadListSerializer(many=True)
+
     class Meta:
         model = models.Book
         fields = ["url", "estc", "vid", "publisher", "title", "pdf", "spreads"]
