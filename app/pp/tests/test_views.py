@@ -8,6 +8,15 @@ from pp import models
 # Create your tests here.
 
 
+def noaccess(self):
+    """Expect no unauthorized access to the endpoint"""
+    self.assertEqual(self.client.get(self.ENDPOINT).status_code, 403)
+    self.assertEqual(self.client.post(self.ENDPOINT).status_code, 403)
+    self.assertEqual(self.client.put(self.ENDPOINT).status_code, 403)
+    self.assertEqual(self.client.patch(self.ENDPOINT).status_code, 403)
+    self.assertEqual(self.client.delete(self.ENDPOINT).status_code, 403)
+
+
 def as_auth(func):
     def auth_client(self):
         token = Token.objects.get(user__username="root")
@@ -105,3 +114,12 @@ class RunViewTest(TestCase):
             res.data["characters_created"][0]["created_by_run"]["pk"], self.RUN1
         )
 
+    @as_auth
+    def test_post(self):
+        res = self.client.post(self.ENDPOINT, data={"notes": "foobar"})
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(list(res.data.keys()), ["pk", "date_started", "notes"])
+        self.assertEqual(res.data["notes"], "foobar")
+
+    def test_noaccess(self):
+        noaccess(self)
