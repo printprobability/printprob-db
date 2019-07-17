@@ -104,15 +104,16 @@ class RunViewTest(TestCase):
             ],
         )
         self.assertEqual(res.data["pk"], self.RUN1)
-        self.assertEqual(
-            res.data["pages_created"][0]["created_by_run"]["pk"], self.RUN1
-        )
-        self.assertEqual(
-            res.data["lines_created"][0]["created_by_run"]["pk"], self.RUN1
-        )
-        self.assertEqual(
-            res.data["characters_created"][0]["created_by_run"]["pk"], self.RUN1
-        )
+        self.assertEqual(res.data["pages_created"][0]["created_by_run"], self.RUN1)
+        self.assertEqual(res.data["lines_created"][0]["created_by_run"], self.RUN1)
+        self.assertEqual(res.data["characters_created"][0]["created_by_run"], self.RUN1)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.RUN1)
+        self.assertEqual(res.status_code, 200)
+        delres = self.client.get(self.ENDPOINT + self.RUN1)
+        self.assertEqual(res.status_code, 301)
 
     @as_auth
     def test_post(self):
