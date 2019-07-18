@@ -349,7 +349,7 @@ class PageViewTest(TestCase):
 
 
 class LineViewTest(TestCase):
-    """Test suite for Page views"""
+    """Test suite for Line views"""
 
     fixtures = ["test.json"]
 
@@ -401,7 +401,6 @@ class LineViewTest(TestCase):
         page = models.Page.objects.first().pk
         image = models.Image.objects.first().pk
         run = models.Run.objects.first().pk
-        # Posting an existing page fails
         res = self.client.post(
             self.ENDPOINT,
             data={
@@ -433,7 +432,7 @@ class LineViewTest(TestCase):
 
 
 class CharacterViewTest(TestCase):
-    """Test suite for Page views"""
+    """Test suite for Image views"""
 
     fixtures = ["test.json"]
 
@@ -529,3 +528,49 @@ class CharacterViewTest(TestCase):
 
     def test_noaccess(self):
         noaccess(self)
+
+
+class ImageViewTest(TestCase):
+    """Test suite for Character views"""
+
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/images/"
+    OBJCOUNT = models.Image.objects.count()
+    OBJ1 = models.Image.objects.first().pk
+    STR1 = str(OBJ1)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        self.assertEqual(
+            list(res.data["results"][0].keys()), ["pk", "notes", "jpg", "tif"]
+        )
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(list(res.data.keys()), ["pk", "notes", "jpg", "tif"])
+        self.assertEqual(res.data["pk"], self.STR1)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth
+    def test_post(self):
+        res = self.client.post(
+            self.ENDPOINT, data={"jpg": "/foo/bar.jpg", "tif": "/foo/bat.tiff"}
+        )
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(list(res.data.keys()), ["pk", "notes", "jpg", "tif"])
+
+    def test_noaccess(self):
+        noaccess(self)
+
