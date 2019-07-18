@@ -531,7 +531,7 @@ class CharacterViewTest(TestCase):
 
 
 class ImageViewTest(TestCase):
-    """Test suite for Character views"""
+    """Test suite for Image views"""
 
     fixtures = ["test.json"]
 
@@ -570,6 +570,49 @@ class ImageViewTest(TestCase):
         )
         self.assertEqual(res.status_code, 201)
         self.assertEqual(list(res.data.keys()), ["pk", "notes", "jpg", "tif"])
+
+    def test_noaccess(self):
+        noaccess(self)
+
+
+class CharacterClassViewTest(TestCase):
+    """Test suite for CharacterClass views"""
+
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/character_classes/"
+    OBJCOUNT = models.CharacterClass.objects.count()
+    OBJ1 = models.CharacterClass.objects.first().pk
+    STR1 = str(OBJ1)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        self.assertEqual(list(res.data["results"][0].keys()), ["classname"])
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(list(res.data.keys()), ["classname"])
+        self.assertEqual(res.data["classname"], self.STR1)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth
+    def test_post(self):
+        res = self.client.post(self.ENDPOINT, data={"classname": "zed"})
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(list(res.data.keys()), ["classname"])
+        constrainres = self.client.post(self.ENDPOINT, data={"classname": "A_uc"})
+        self.assertEqual(constrainres.status_code, 400)
 
     def test_noaccess(self):
         noaccess(self)
