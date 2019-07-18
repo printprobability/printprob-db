@@ -165,8 +165,7 @@ class ProposedBookLineHeight(Attempt):
         return str(self.id)
 
 
-class Spread(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+class Spread(uuidModel):
     book = models.ForeignKey(
         Book,
         on_delete=models.CASCADE,
