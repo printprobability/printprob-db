@@ -3,42 +3,116 @@ from django.db import transaction
 from . import models
 
 
-class RunListSerializer(serializers.ModelSerializer):
+class BookListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = models.Run
-        fields = ["pk", "date_started", "notes"]
+        model = models.Book
+        fields = ["url", "estc", "vid", "publisher", "title", "pdf", "n_spreads"]
 
 
-class CharacterClassSerializer(serializers.ModelSerializer):
+class PageRunListSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.PageRun
+        fields = ["url", "pk", "book", "params", "date_started"]
+
+
+class PageRunDetailSerializer(serializers.HyperlinkedModelSerializer):
+    book = BookListSerializer(many=False)
+
+    class Meta:
+        model = models.PageRun
+        fields = ["url", "pk", "book", "params", "date_started", "pages"]
+
+
+class PageRunCreateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.PageRun
+        fields = ["book", "params"]
+
+
+class LineRunListSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.LineRun
+        fields = ["url", "pk", "book", "params", "date_started"]
+
+
+class LineRunDetailSerializer(serializers.HyperlinkedModelSerializer):
+    book = BookListSerializer(many=False)
+
+    class Meta:
+        model = models.LineRun
+        fields = ["url", "pk", "book", "params", "date_started", "lines"]
+
+
+class LineRunCreateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.LineRun
+        fields = ["book", "params"]
+
+
+class LineGroupRunListSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.LineGroupRun
+        fields = ["url", "pk", "book", "params", "date_started"]
+
+
+class LineGroupRunDetailSerializer(serializers.HyperlinkedModelSerializer):
+    book = BookListSerializer(many=False)
+
+    class Meta:
+        model = models.LineGroupRun
+        fields = ["url", "pk", "book", "params", "date_started", "line_groups"]
+
+
+class LineGroupRunCreateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.LineGroupRun
+        fields = ["book", "params"]
+
+
+class CharacterRunListSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.CharacterRun
+        fields = ["url", "pk", "book", "params", "date_started"]
+
+
+class CharacterRunDetailSerializer(serializers.HyperlinkedModelSerializer):
+    book = BookListSerializer(many=False)
+
+    class Meta:
+        model = models.CharacterRun
+        fields = ["url", "pk", "book", "params", "date_started", "characters"]
+
+
+class CharacterRunCreateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.CharacterRun
+        fields = ["book", "params"]
+
+
+class CharacterClassSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.CharacterClass
-        fields = ["classname"]
+        fields = ["url", "classname"]
 
 
-class BadCaptureSeralizer(serializers.ModelSerializer):
-    class Meta:
-        model = models.BadCapture
-        fields = ["pk", "image", "date_entered"]
-        read_only_fields = ["pk", "date_entered"]
-
-
-class ImageSerializer(serializers.ModelSerializer):
+class ImageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Image
-        fields = ["pk", "notes", "jpg", "tif"]
+        fields = ["url", "pk", "notes", "jpg", "tif"]
 
 
-class CharacterDetailSerializer(serializers.ModelSerializer):
-    primary_image = ImageSerializer(many=False)
+class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
+    image = ImageSerializer(many=False)
 
     class Meta:
         model = models.Character
         fields = [
+            "url",
             "pk",
             "created_by_run",
             "line",
             "sequence",
-            "primary_image",
+            "image",
             "x_min",
             "x_max",
             "character_class",
@@ -47,10 +121,11 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
         ]
 
 
-class CharacterListSerializer(serializers.ModelSerializer):
+class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Character
         fields = [
+            "url",
             "pk",
             "created_by_run",
             "line",
@@ -59,25 +134,38 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "x_max",
             "character_class",
             "class_probability",
-            "primary_image",
+            "image",
             "pref_image_url",
         ]
 
 
-# Lines ----
+class CharacterCreateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Character
+        fields = [
+            "created_by_run",
+            "line",
+            "sequence",
+            "x_min",
+            "x_max",
+            "character_class",
+            "class_probability",
+            "image",
+        ]
 
 
-class LineDetailSerializer(serializers.ModelSerializer):
-    primary_image = ImageSerializer(many=False)
+class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
+    image = ImageSerializer(many=False)
 
     class Meta:
         model = models.Line
         fields = [
+            "url",
             "pk",
             "created_by_run",
             "page",
             "sequence",
-            "primary_image",
+            "image",
             "characters",
             "y_min",
             "y_max",
@@ -86,34 +174,23 @@ class LineDetailSerializer(serializers.ModelSerializer):
         read_only_fields = ["characters"]
 
 
-class LineListSerializer(serializers.ModelSerializer):
+class LineListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Line
-        fields = ["pk", "created_by_run", "page", "sequence", "y_min", "y_max"]
+        fields = ["url", "pk", "created_by_run", "page", "sequence", "y_min", "y_max"]
 
 
-class LineSerializer(serializers.ModelSerializer):
+class LineCreateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Line
-        fields = [
-            "pk",
-            "created_by_run",
-            "page",
-            "sequence",
-            "y_min",
-            "y_max",
-            "primary_image",
-            "pref_image_url",
-        ]
+        fields = ["created_by_run", "page", "sequence", "y_min", "y_max", "image"]
 
 
-# Pages ----
-
-
-class PageListSerializer(serializers.ModelSerializer):
+class PageListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Page
         fields = [
+            "url",
             "pk",
             "created_by_run",
             "spread",
@@ -125,14 +202,15 @@ class PageListSerializer(serializers.ModelSerializer):
         ]
 
 
-class PageDetailSerializer(serializers.ModelSerializer):
-    created_by_run = RunListSerializer(many=False)
-    lines = LineDetailSerializer(many=True)
-    primary_image = ImageSerializer(many=False)
+class PageDetailSerializer(serializers.HyperlinkedModelSerializer):
+    created_by_run = PageRunListSerializer(many=False)
+    lines = LineListSerializer(many=True)
+    image = ImageSerializer(many=False)
 
     class Meta:
         model = models.Page
         fields = [
+            "url",
             "pk",
             "created_by_run",
             "spread",
@@ -141,75 +219,78 @@ class PageDetailSerializer(serializers.ModelSerializer):
             "x_min",
             "x_max",
             "lines",
-            "primary_image",
+            "image",
             "pref_image_url",
         ]
 
 
-class PageSerializer(serializers.ModelSerializer):
+class PageCreateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Page
-        fields = [
-            "pk",
-            "created_by_run",
-            "spread",
-            "side",
-            "x_min",
-            "x_max",
-            "primary_image",
-        ]
+        fields = ["created_by_run", "spread", "side", "x_min", "x_max", "image"]
 
 
-# Spreads ----
-
-
-class SpreadListSerializer(serializers.ModelSerializer):
+class SpreadListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Spread
-        fields = ["pk", "book", "sequence", "pref_image_url"]
+        fields = ["url", "pk", "book", "sequence", "pref_image_url"]
 
 
-class SpreadDetailSerializer(serializers.ModelSerializer):
-    primary_image = ImageSerializer(many=False)
+class SpreadDetailSerializer(serializers.HyperlinkedModelSerializer):
+    image = ImageSerializer(many=False)
 
     class Meta:
         model = models.Spread
-        fields = ["pk", "book", "sequence", "primary_image", "pref_image_url", "pages"]
+        fields = ["url", "pk", "book", "sequence", "image", "pref_image_url", "pages"]
 
 
-class SpreadSeralizer(serializers.ModelSerializer):
+class SpreadCreateSeralizer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Spread
-        fields = ["pk", "book", "sequence", "primary_image", "pref_image_url"]
+        fields = ["book", "sequence", "image"]
 
 
-class BookListSerializer(serializers.ModelSerializer):
+class BookCreateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Book
-        fields = ["estc", "vid", "publisher", "title", "pdf"]
+        fields = ["url", "estc", "vid", "publisher", "title", "pdf"]
 
 
-class BookDetailSerializer(serializers.ModelSerializer):
+class BookRunsSerializer(serializers.Serializer):
+    page = PageRunDetailSerializer(many=False)
+    line = LineRunDetailSerializer(many=False)
+    line_group = LineGroupRunDetailSerializer(many=False)
+    character = CharacterRunDetailSerializer(many=False)
+
+
+class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
     spreads = SpreadListSerializer(many=True)
+    most_recent_runs = BookRunsSerializer()
 
     class Meta:
         model = models.Book
-        fields = ["estc", "vid", "publisher", "title", "pdf", "spreads"]
+        fields = [
+            "estc",
+            "vid",
+            "publisher",
+            "title",
+            "pdf",
+            "n_spreads",
+            "spreads",
+            "most_recent_runs",
+        ]
 
 
-class RunDetailSerializer(serializers.ModelSerializer):
-    pages_created = PageListSerializer(many=True)
-    lines_created = LineListSerializer(many=True)
-    characters_created = CharacterListSerializer(many=True)
+class LineGroupListSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.LineGroup
+        fields = ["url", "pk", "book", "created_by_run"]
+
+
+class LineGroupDetailSerializer(serializers.HyperlinkedModelSerializer):
+    lines = LineListSerializer(many=True)
 
     class Meta:
-        model = models.Run
-        fields = [
-            "pk",
-            "date_started",
-            "notes",
-            "pages_created",
-            "lines_created",
-            "characters_created",
-        ]
+        model = models.LineGroup
+        fields = ["url", "pk", "book", "created_by_run", "lines"]
 

@@ -6,13 +6,17 @@ from drf_yasg import openapi
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r"runs", views.RunViewSet)
 router.register(r"books", views.BookViewSet)
 router.register(r"spreads", views.SpreadViewSet)
 router.register(r"pages", views.PageViewSet)
 router.register(r"lines", views.LineViewSet)
+router.register(r"line_groups", views.LineGroupViewSet)
 router.register(r"characters", views.CharacterViewSet)
 router.register(r"images", views.ImageViewSet)
+router.register(r"pages/runs", views.PageRunViewSet)
+router.register(r"lines/runs", views.LineRunViewSet)
+router.register(r"line_groups/runs", views.LineGroupRunViewSet)
+router.register(r"characters/runs", views.CharacterRunViewSet)
 router.register(r"character_classes", views.CharacterClassViewset)
 
 

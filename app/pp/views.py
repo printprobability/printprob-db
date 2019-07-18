@@ -11,25 +11,107 @@ from drf_yasg.utils import swagger_auto_schema
 from . import models, serializers
 
 
-class RunViewSet(viewsets.ModelViewSet):
+class BookFilter(filters.FilterSet):
+    vid = filters.NumberFilter(help_text="Numeric VID")
+    title = filters.CharFilter(
+        help_text="books with titles containing this string (case insensitive)",
+        lookup_expr="icontains",
+    )
+    publisher = filters.CharFilter(
+        help_text="books with publisher labels containing this string (case insensitive)",
+        lookup_expr="icontains",
+    )
+    pdf = filters.CharFilter(help_text="book with this PDF filepath")
+
+
+class BookViewSet(viewsets.ModelViewSet):
     """
-    retrieve:
-    Returns the given pipeline start timestamp and notes, and id lists of all books, spreads, pages, lines, and characters processed under that run.
-
-    list:
-    Returns a list of pipline run IDs with start timestamps and notes.
-
-    create:
-    Create a new run with optional notes. A timestamp is automatically generated.
+    list: Lists all books. Along with [`CharacterClass`](#character-class-create), `Book` instances use a human-readable ID (here, the ESTC id) rather than a UUID.
     """
 
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = models.Run.objects.all()
+    queryset = models.Book.objects.prefetch_related(
+        "spreads", "pageruns", "lineruns", "linegroupruns", "characterruns"
+    ).all()
+
+    filterset_class = BookFilter
 
     def get_serializer_class(self):
         if self.action == "retrieve":
-            return serializers.RunDetailSerializer
-        return serializers.RunListSerializer
+            return serializers.BookDetailSerializer
+        elif self.action == "list":
+            return serializers.BookListSerializer
+        return serializers.BookCreateSerializer
+
+
+class SpreadFilter(filters.FilterSet):
+    book = filters.ModelChoiceFilter(
+        queryset=models.Book.objects.all(), help_text="Spreads from this book ID"
+    )
+    sequence = filters.NumberFilter(help_text="Spread sequence index")
+
+
+class SpreadViewSet(viewsets.ModelViewSet):
+    """
+    list: Spreads belong to a single `Book` instance, and are indexed by sequence in that book.
+    """
+
+    queryset = models.Spread.objects.all()
+
+    filterset_class = SpreadFilter
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return serializers.SpreadDetailSerializer
+        elif self.action == "list":
+            return serializers.SpreadListSerializer
+        return serializers.SpreadCreateSeralizer
+
+
+# Run Views ----
+
+
+class PageRunViewSet(viewsets.ModelViewSet):
+    queryset = models.PageRun.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return serializers.PageRunDetailSerializer
+        elif self.action == "list":
+            return serializers.PageRunListSerializer
+        return serializers.PageRunCreateSerializer
+
+
+class LineRunViewSet(viewsets.ModelViewSet):
+    queryset = models.LineRun.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return serializers.LineRunDetailSerializer
+        elif self.action == "list":
+            return serializers.LineRunListSerializer
+        return serializers.LineRunCreateSerializer
+
+
+class LineGroupRunViewSet(viewsets.ModelViewSet):
+    queryset = models.LineGroupRun.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return serializers.LineGroupRunDetailSerializer
+        elif self.action == "list":
+            return serializers.LineGroupRunListSerializer
+        return serializers.LineGroupRunCreateSerializer
+
+
+class CharacterRunViewSet(viewsets.ModelViewSet):
+    queryset = models.CharacterRun.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return serializers.CharacterRunDetailSerializer
+        elif self.action == "list":
+            return serializers.CharacterRunListSerializer
+        return serializers.CharacterRunCreateSerializer
 
 
 class ImageFilter(filters.FilterSet):
@@ -68,65 +150,10 @@ class ImageViewSet(viewsets.ModelViewSet):
     Create a new image record by specifying both the jpg and tif paths.
     """
 
-    permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Image.objects.all()
     serializer_class = serializers.ImageSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+
     filterset_class = ImageFilter
-
-
-class BookFilter(filters.FilterSet):
-    vid = filters.NumberFilter(help_text="Numeric VID")
-    title = filters.CharFilter(
-        help_text="books with titles containing this string (case insensitive)",
-        lookup_expr="icontains",
-    )
-    publisher = filters.CharFilter(
-        help_text="books with publisher labels containing this string (case insensitive)",
-        lookup_expr="icontains",
-    )
-
-
-class BookViewSet(viewsets.ModelViewSet):
-    """
-    list: Lists all books. Along with [`CharacterClass`](#character-class-create), `Book` instances use a human-readable ID (here, the ESTC id) rather than a UUID.
-    """
-
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = models.Book.objects.all()
-    filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = BookFilter
-
-    def get_serializer_class(self):
-        if self.action == "retrieve":
-            return serializers.BookDetailSerializer
-        return serializers.BookListSerializer
-
-
-class SpreadFilter(filters.FilterSet):
-    book = filters.ModelChoiceFilter(
-        queryset=models.Book.objects.all(), help_text="Spreads from this book ID"
-    )
-    sequence = filters.NumberFilter(help_text="Spread sequence index")
-
-
-class SpreadViewSet(viewsets.ModelViewSet):
-    """
-    list: Spreads belong to a single `Book` instance, and are indexed by sequence in that book.
-    """
-
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = models.Spread.objects.all()
-    serializer_class = serializers.SpreadSeralizer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = SpreadFilter
-
-    def get_serializer_class(self):
-        if self.action == "retrieve":
-            return serializers.SpreadDetailSerializer
-        elif self.action == "list":
-            return serializers.SpreadListSerializer
-        return serializers.SpreadSeralizer
 
 
 class PageFilter(filters.FilterSet):
@@ -143,7 +170,8 @@ class PageFilter(filters.FilterSet):
         choices=models.Page.SPREAD_SIDE, help_text="Which side of the page"
     )
     created_by_run = filters.ModelChoiceFilter(
-        queryset=models.Run.objects.all(), help_text="The run ID that created this Page"
+        queryset=models.PageRun.objects.all(),
+        help_text="The run ID that created this Page",
     )
 
 
@@ -152,9 +180,8 @@ class PageViewSet(viewsets.ModelViewSet):
     list: Pages belong to a single `Spread` instance, and are either marked as on the left (`l`) or right (`r`) side. Because the exact split of pages may differ run to run, they are also tied to a `Run` ID.
     """
 
-    permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Page.objects.all()
-    filter_backends = (filters.DjangoFilterBackend,)
+
     filterset_class = PageFilter
 
     def get_serializer_class(self):
@@ -162,7 +189,7 @@ class PageViewSet(viewsets.ModelViewSet):
             return serializers.PageDetailSerializer
         elif self.action == "list":
             return serializers.PageListSerializer
-        return serializers.PageSerializer
+        return serializers.PageCreateSerializer
 
 
 class LineFilter(filters.FilterSet):
@@ -184,15 +211,15 @@ class LineFilter(filters.FilterSet):
     )
     sequence = filters.NumberFilter(help_text="Order on page, from top to bottom")
     created_by_run = filters.ModelChoiceFilter(
-        queryset=models.Run.objects.all(),
+        queryset=models.LineRun.objects.all(),
         help_text="Which pipeline run created these lines",
     )
 
 
 class LineViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
+
     queryset = models.Line.objects.all()
-    filter_backends = (filters.DjangoFilterBackend,)
+
     filterset_class = LineFilter
 
     def get_serializer_class(self):
@@ -200,7 +227,33 @@ class LineViewSet(viewsets.ModelViewSet):
             return serializers.LineDetailSerializer
         elif self.action == "list":
             return serializers.LineListSerializer
-        return serializers.LineSerializer
+        return serializers.LineCreateSerializer
+
+
+class LineGroupFilter(filters.FilterSet):
+    book = filters.ModelChoiceFilter(
+        queryset=models.Book.objects.all(), field_name="spread__book", label="Book ID"
+    )
+    spread_sequence = filters.NumberFilter(
+        field_name="spread__sequence", help_name="Spread sequence number in the book"
+    )
+    spread_id = filters.ModelChoiceFilter(
+        queryset=models.Spread.objects.all(), field_name="spread", label="Spread ID"
+    )
+    page = (
+        filters.ModelChoiceFilter(
+            queryset=models.Page.objects.all(), field_name="pages__pk", label="Page ID"
+        ),
+    )
+    created_by_run = filters.ModelChoiceFilter(
+        queryset=models.LineGroupRun.objects.all(), label="Line Group Run ID"
+    )
+
+
+class LineGroupViewSet(viewsets.ModelViewSet):
+    queryset = models.LineGroup.objects.all()
+    filterset_class = LineGroupFilter
+    serializer_class = serializers.LineGroupListSerializer
 
 
 class CharacterFilter(filters.FilterSet):
@@ -219,26 +272,39 @@ class CharacterFilter(filters.FilterSet):
         field_name="line__sequence", label="Line sequence"
     )
     sequence = filters.NumberFilter()
-    created_by_run = filters.ModelChoiceFilter(queryset=models.Run.objects.all())
+    created_by_run = filters.ModelChoiceFilter(
+        queryset=models.CharacterRun.objects.all()
+    )
     character_class = filters.ModelChoiceFilter(
         queryset=models.CharacterClass.objects.all()
     )
 
 
 class CharacterViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
+
     queryset = models.Character.objects.all()
-    filter_backends = (filters.DjangoFilterBackend,)
+
     filterset_class = CharacterFilter
 
     def get_serializer_class(self):
         if self.action == "retrieve":
             return serializers.CharacterDetailSerializer
-        return serializers.CharacterListSerializer
+        elif self.action == "list":
+            return serializers.CharacterListSerializer
+        return serializers.CharacterCreateSerializer
+
+
+class CharacterClassFilter(filters.FilterSet):
+    character_class = filters.CharFilter(
+        help_text="Partial text match for character class label",
+        lookup_expr="icontains",
+    )
 
 
 class CharacterClassViewset(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
+
     queryset = models.CharacterClass.objects.all()
     serializer_class = serializers.CharacterClassSerializer
+
+    filterset_class = CharacterClassFilter
 

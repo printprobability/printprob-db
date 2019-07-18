@@ -11,16 +11,18 @@ class uuidModel(models.Model):
 
 
 class Run(uuidModel):
-    date_started = models.DateTimeField(auto_now_add=True)
-    notes = models.TextField(
-        blank=True,
-        null=False,
-        default="",
-        max_length=5000,
-        help_text="Free-text notes describing the nature of this run",
+    # Use string interpolation of the child class field
+    book = models.ForeignKey(
+        "Book", on_delete=models.CASCADE, related_name="%(class)ss"
     )
+    script_path = models.CharField(
+        max_length=2000, help_text="Filepath of the script governing this run"
+    )
+    script_md5 = models.UUIDField(help_text="md5 hash of the script (as hex digest)")
+    date_started = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        abstract = True
         ordering = ["date_started"]
 
     def __str__(self):
@@ -30,72 +32,33 @@ class Run(uuidModel):
     def most_recent_run():
         return Run.objects.order_by("-date_started").first()
 
+
+class PageRun(Run):
+    params = models.CharField(max_length=100)
+
     def pages_created(self):
         return Page.objects.filter(created_by_run=self).all()
+
+
+class LineRun(Run):
+    params = models.CharField(max_length=100)
 
     def lines_created(self):
         return Line.objects.filter(created_by_run=self).all()
 
+
+class LineGroupRun(Run):
+    params = models.CharField(max_length=100)
+
+    def line_groups_created(self):
+        return LineGroup.objects.filter(created_by_run=self).all()
+
+
+class CharacterRun(Run):
+    params = models.CharField(max_length=100)
+
     def characters_created(self):
         return Character.objects.filter(created_by_run=self).all()
-
-
-class Attempt(uuidModel):
-    created_by_run = models.ForeignKey(
-        Run,
-        on_delete=models.CASCADE,
-        help_text="Which pipeline run created this object instance",
-    )
-
-    class Meta:
-        abstract = True
-
-
-class Task(uuidModel):
-    date_entered = models.DateTimeField(
-        auto_now=True, help_text="Date this classification was made"
-    )
-
-    class Meta:
-        abstract = True
-        ordering = ["date_entered"]
-
-
-class BadCapture(Task):
-    image = models.OneToOneField(
-        "Image",
-        related_name="good_capture",
-        on_delete=models.CASCADE,
-        help_text="The image being classified as a poor segmentation",
-    )
-
-
-class Image(uuidModel):
-    notes = models.CharField(
-        blank=True,
-        null=False,
-        max_length=500,
-        help_text="Image notes",
-    )
-    jpg = models.CharField(
-        max_length=2000,
-        help_text="relative file path to root directory containing all images",
-        unique=True,
-    )
-    tif = models.CharField(
-        max_length=2000,
-        help_text="relative file path to root directory containing all images",
-        unique=True,
-    )
-
-    def __str__(self):
-        return str(self.id)
-
-    def web_url(self):
-        return f"/img{self.jpg}"
-
-    def bad_capture(self):
-        return BadCapture.objects.filter(image=self).exists()
 
 
 class Book(models.Model):
@@ -124,6 +87,26 @@ class Book(models.Model):
     def __str__(self):
         return f"{self.estc} - {self.title}"
 
+    def most_recent_page_run(self):
+        return PageRun.objects.filter(book=self)[0]
+
+    def most_recent_line_run(self):
+        return LineRun.objects.filter(book=self)[0]
+
+    def most_recent_line_group_run(self):
+        return LineGroupRun.objects.filter(book=self)[0]
+
+    def most_recent_character_run(self):
+        return CharacterRun.objects.filter(book=self)[0]
+
+    def most_recent_runs(self):
+        return {
+            "page": self.most_recent_page_run(),
+            "line": self.most_recent_line_run(),
+            "line_group": self.most_recent_line_group_run(),
+            "character": self.most_recent_character_run(),
+        }
+
     def ordered_pages_run(self, run):
         """
         Get all pages for this book based on a given run
@@ -134,7 +117,7 @@ class Book(models.Model):
         """
         Get all pages for this book based on the most recent run in the database
         """
-        return ordered_pages_run(self, Run.most_recent_run())
+        return ordered_pages_run(self, PageRun.most_recent_run())
 
     def cover_page(self):
         return self.pages.first()
@@ -146,23 +129,38 @@ class Book(models.Model):
         return ordered_pages.count()
 
 
-class ProposedBookLineHeight(Attempt):
-    """
-    Book line heights are proposed per-run
-    """
-
-    book = models.ForeignKey(
-        Book, on_delete=models.CASCADE, related_name="proposed_line_heights"
-    )
-    line_height = models.PositiveIntegerField(
-        help_text="Proposed line height for a book"
+class Task(uuidModel):
+    date_entered = models.DateTimeField(
+        auto_now=True, help_text="Date this classification was made"
     )
 
     class Meta:
-        unique_together = (("book", "created_by_run"),)
+        abstract = True
+        ordering = ["date_entered"]
+
+
+class Image(uuidModel):
+    notes = models.CharField(
+        blank=True, null=False, max_length=500, help_text="Image notes"
+    )
+    jpg = models.CharField(
+        max_length=2000,
+        help_text="relative file path to root directory containing all images",
+        unique=True,
+    )
+    tif = models.CharField(
+        max_length=2000,
+        help_text="relative file path to root directory containing all images",
+        unique=True,
+    )
+    jpg_md5 = models.UUIDField(help_text="md5 hash of the jpg file (as hex digest)")
+    tif_md5 = models.UUIDField(help_text="md5 hash of the tif file (as hex digest)")
 
     def __str__(self):
         return str(self.id)
+
+    def web_url(self):
+        return f"/img{self.jpg}"
 
 
 class Spread(uuidModel):
@@ -175,7 +173,7 @@ class Spread(uuidModel):
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of this page in a given book"
     )
-    primary_image = models.ForeignKey(
+    image = models.ForeignKey(
         Image,
         blank=True,
         on_delete=models.CASCADE,
@@ -190,25 +188,30 @@ class Spread(uuidModel):
         return f"{self.book.title} spread {self.sequence}"
 
     def pref_image_url(self):
-        if self.primary_image is not None:
-            return self.primary_image.web_url()
+        if self.image is not None:
+            return self.image.web_url()
         else:
             return None
 
 
-class Page(Attempt):
+class Page(uuidModel):
     """
     The definition of a page may change between runs in this model, since it depends on splitting spreads, therefore it is a subclass of an Attempt.
     """
 
-    SPREAD_SIDE = (("l", "left"), ("r", "right"))
-    spread = models.ForeignKey(Spread, on_delete=models.CASCADE, related_name="pages", help_text="Spread ID this page belongs to")
+    SPREAD_SIDE = (("s", "single"), ("l", "left"), ("r", "right"))
+    spread = models.ForeignKey(
+        Spread,
+        on_delete=models.CASCADE,
+        related_name="pages",
+        help_text="Spread ID this page belongs to",
+    )
     side = models.CharField(
         max_length=1,
         choices=SPREAD_SIDE,
         help_text="Side of the spread this has been segmented to",
     )
-    primary_image = models.ForeignKey(
+    image = models.ForeignKey(
         Image, blank=True, on_delete=models.CASCADE, related_name="depicts_page"
     )
     x_min = models.PositiveIntegerField(
@@ -216,6 +219,12 @@ class Page(Attempt):
     )
     x_max = models.PositiveIntegerField(
         help_text="Ending x-axis location of the page on the original spread image"
+    )
+    created_by_run = models.ForeignKey(
+        PageRun,
+        on_delete=models.CASCADE,
+        help_text="Which pipeline run created this object instance",
+        related_name="pages",
     )
 
     class Meta:
@@ -229,8 +238,8 @@ class Page(Attempt):
         return self.lines.count()
 
     def pref_image_url(self):
-        if self.primary_image is not None:
-            return self.primary_image.web_url()
+        if self.image is not None:
+            return self.image.web_url()
         else:
             return None
 
@@ -238,16 +247,21 @@ class Page(Attempt):
         return self.spread.book.title
 
 
-class Line(Attempt):
+class Line(uuidModel):
     """
     The definition of a line may change between runs in this model, since it depends on splitting page spreads, therefore it is a subclass of an Attempt.
     """
 
-    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="lines", help_text="Page ID of this line")
+    page = models.ForeignKey(
+        Page,
+        on_delete=models.CASCADE,
+        related_name="lines",
+        help_text="Page ID of this line",
+    )
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Order on page, from top to bottom"
     )
-    primary_image = models.ForeignKey(
+    image = models.ForeignKey(
         Image, blank=True, on_delete=models.CASCADE, related_name="depicts_line"
     )
     y_min = models.PositiveIntegerField(
@@ -255,6 +269,12 @@ class Line(Attempt):
     )
     y_max = models.PositiveIntegerField(
         help_text="Y-axis index for the end of this line on the Page image"
+    )
+    created_by_run = models.ForeignKey(
+        LineRun,
+        on_delete=models.CASCADE,
+        help_text="Which pipeline run created this object instance",
+        related_name="lines",
     )
 
     class Meta:
@@ -268,8 +288,8 @@ class Line(Attempt):
         return self.characters.count()
 
     def pref_image_url(self):
-        if self.primary_image is not None:
-            return self.primary_image.web_url()
+        if self.image is not None:
+            return self.image.web_url()
         else:
             return None
 
@@ -291,6 +311,14 @@ class Line(Attempt):
         return bbox(xmin, xmax, ymin, ymax)
 
 
+class LineGroup(uuidModel):
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="line_groups")
+    lines = models.ManyToManyField(Line, related_name="line_groups")
+    created_by_run = models.ForeignKey(
+        LineGroupRun, on_delete=models.CASCADE, related_name="line_groups"
+    )
+
+
 class CharacterClass(models.Model):
     classname = models.CharField(
         primary_key=True,
@@ -302,13 +330,13 @@ class CharacterClass(models.Model):
         return self.classname
 
 
-class Character(Attempt):
+class Character(uuidModel):
     """
     The definition of a character may change between runs in this model, since it depends on line segmentation, therefore it is a subclass of an Attempt.
     """
 
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name="characters")
-    primary_image = models.ForeignKey(
+    image = models.ForeignKey(
         Image, related_name="depicts_character", on_delete=models.CASCADE, blank=True
     )
     sequence = models.PositiveIntegerField(
@@ -324,6 +352,12 @@ class Character(Attempt):
         CharacterClass, on_delete=models.CASCADE, related_name="assigned_to"
     )
     class_probability = models.FloatField()
+    created_by_run = models.ForeignKey(
+        CharacterRun,
+        on_delete=models.CASCADE,
+        help_text="Which pipeline run created this object instance",
+        related_name="characters",
+    )
 
     class Meta:
         unique_together = (("created_by_run", "line", "sequence"),)
@@ -333,8 +367,8 @@ class Character(Attempt):
         return f"{self.line} c. {self.sequence} ({self.character_class} - {self.class_probability})"
 
     def pref_image_url(self):
-        if self.primary_image is not None:
-            return self.primary_image.web_url()
+        if self.image is not None:
+            return self.image.web_url()
         else:
             return None
 
