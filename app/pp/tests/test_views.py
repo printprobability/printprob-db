@@ -346,3 +346,87 @@ class PageViewTest(TestCase):
 
     def test_noaccess(self):
         noaccess(self)
+
+
+class LineViewTest(TestCase):
+    """Test suite for Page views"""
+
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/lines/"
+    OBJCOUNT = models.Line.objects.count()
+    OBJ1 = models.Line.objects.first().pk
+    STR1 = str(OBJ1)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        self.assertEqual(
+            list(res.data["results"][0].keys()),
+            ["pk", "created_by_run", "page", "sequence", "y_min", "y_max"],
+        )
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "pk",
+                "created_by_run",
+                "page",
+                "sequence",
+                "primary_image",
+                "characters",
+                "y_min",
+                "y_max",
+                "pref_image_url",
+            ],
+        )
+        self.assertEqual(res.data["pk"], self.STR1)
+        self.assertIsInstance(res.data["characters"], list)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth
+    def test_post(self):
+        page = models.Page.objects.first().pk
+        image = models.Image.objects.first().pk
+        run = models.Run.objects.first().pk
+        # Posting an existing page fails
+        res = self.client.post(
+            self.ENDPOINT,
+            data={
+                "page": page,
+                "created_by_run": run,
+                "sequence": 100,
+                "primary_image": image,
+                "y_min": 0,
+                "y_max": 0,
+            },
+        )
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "pk",
+                "created_by_run",
+                "page",
+                "sequence",
+                "y_min",
+                "y_max",
+                "primary_image",
+                "pref_image_url",
+            ],
+        )
+
+    def test_noaccess(self):
+        noaccess(self)
