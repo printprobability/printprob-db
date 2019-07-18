@@ -13,10 +13,10 @@ router.register(r"lines", views.LineViewSet)
 router.register(r"line_groups", views.LineGroupViewSet)
 router.register(r"characters", views.CharacterViewSet)
 router.register(r"images", views.ImageViewSet)
-router.register(r"pages/runs", views.PageRunViewSet)
-router.register(r"lines/runs", views.LineRunViewSet)
-router.register(r"line_groups/runs", views.LineGroupRunViewSet)
-router.register(r"characters/runs", views.CharacterRunViewSet)
+router.register(r"runs/pages", views.PageRunViewSet)
+router.register(r"runs/lines", views.LineRunViewSet)
+router.register(r"runs/line_groups", views.LineGroupRunViewSet)
+router.register(r"runs/characters", views.CharacterRunViewSet)
 router.register(r"character_classes", views.CharacterClassViewset)
 
 
@@ -34,5 +34,5 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("redoc", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+    path("docs", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]

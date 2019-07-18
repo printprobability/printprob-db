@@ -12,7 +12,15 @@ class BookListSerializer(serializers.HyperlinkedModelSerializer):
 class PageRunListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.PageRun
-        fields = ["url", "pk", "book", "params", "date_started"]
+        fields = [
+            "url",
+            "pk",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]
 
 
 class PageRunDetailSerializer(serializers.HyperlinkedModelSerializer):
@@ -20,19 +28,36 @@ class PageRunDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.PageRun
-        fields = ["url", "pk", "book", "params", "date_started", "pages"]
+        fields = [
+            "url",
+            "pk",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+            "pages",
+        ]
 
 
 class PageRunCreateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.PageRun
-        fields = ["book", "params"]
+        fields = ["book", "params", "script_path", "script_md5"]
 
 
 class LineRunListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.LineRun
-        fields = ["url", "pk", "book", "params", "date_started"]
+        fields = [
+            "url",
+            "pk",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]
 
 
 class LineRunDetailSerializer(serializers.HyperlinkedModelSerializer):
@@ -40,19 +65,36 @@ class LineRunDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.LineRun
-        fields = ["url", "pk", "book", "params", "date_started", "lines"]
+        fields = [
+            "url",
+            "pk",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+            "lines",
+        ]
 
 
 class LineRunCreateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.LineRun
-        fields = ["book", "params"]
+        fields = ["book", "params", "script_path", "script_md5"]
 
 
 class LineGroupRunListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.LineGroupRun
-        fields = ["url", "pk", "book", "params", "date_started"]
+        fields = [
+            "url",
+            "pk",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]
 
 
 class LineGroupRunDetailSerializer(serializers.HyperlinkedModelSerializer):
@@ -60,19 +102,36 @@ class LineGroupRunDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.LineGroupRun
-        fields = ["url", "pk", "book", "params", "date_started", "line_groups"]
+        fields = [
+            "url",
+            "pk",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+            "line_groups",
+        ]
 
 
 class LineGroupRunCreateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.LineGroupRun
-        fields = ["book", "params"]
+        fields = ["book", "params", "script_path", "script_md5"]
 
 
 class CharacterRunListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.CharacterRun
-        fields = ["url", "pk", "book", "params", "date_started"]
+        fields = [
+            "url",
+            "pk",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]
 
 
 class CharacterRunDetailSerializer(serializers.HyperlinkedModelSerializer):
@@ -80,13 +139,22 @@ class CharacterRunDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.CharacterRun
-        fields = ["url", "pk", "book", "params", "date_started", "characters"]
+        fields = [
+            "url",
+            "pk",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+            "characters",
+        ]
 
 
 class CharacterRunCreateSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.CharacterRun
-        fields = ["book", "params"]
+        fields = ["book", "params", "script_path", "script_md5"]
 
 
 class CharacterClassSerializer(serializers.HyperlinkedModelSerializer):
