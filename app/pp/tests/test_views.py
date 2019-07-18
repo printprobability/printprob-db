@@ -88,7 +88,7 @@ class RunViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
-            list(res.data["results"][0].keys()), ["url", "pk", "date_started", "notes"]
+            list(res.data["results"][0].keys()), ["pk", "date_started", "notes"]
         )
 
     @as_auth
@@ -98,7 +98,6 @@ class RunViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
-                "url",
                 "pk",
                 "date_started",
                 "notes",
@@ -123,7 +122,7 @@ class RunViewTest(TestCase):
     def test_post(self):
         res = self.client.post(self.ENDPOINT, data={"notes": "foobar"})
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(list(res.data.keys()), ["url", "pk", "date_started", "notes"])
+        self.assertEqual(list(res.data.keys()), ["pk", "date_started", "notes"])
         self.assertEqual(res.data["notes"], "foobar")
 
     def test_noaccess(self):
@@ -147,7 +146,7 @@ class BookViewTest(TestCase):
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
             list(res.data["results"][0].keys()),
-            ["url", "estc", "vid", "publisher", "title", "pdf"],
+            ["estc", "vid", "publisher", "title", "pdf"],
         )
 
     @as_auth
@@ -156,7 +155,7 @@ class BookViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(
             list(res.data.keys()),
-            ["url", "estc", "vid", "publisher", "title", "pdf", "spreads"],
+            ["estc", "vid", "publisher", "title", "pdf", "spreads"],
         )
         self.assertEqual(res.data["estc"], self.OBJ1)
         self.assertIsInstance(res.data["spreads"], list)
@@ -175,7 +174,7 @@ class BookViewTest(TestCase):
         )
         self.assertEqual(res.status_code, 201)
         self.assertEqual(
-            list(res.data.keys()), ["url", "estc", "vid", "publisher", "title", "pdf"]
+            list(res.data.keys()), ["estc", "vid", "publisher", "title", "pdf"]
         )
 
     def test_noaccess(self):
@@ -198,9 +197,8 @@ class SpreadViewTest(TestCase):
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
             list(res.data["results"][0].keys()),
-            ["url", "pk", "book", "sequence", "pref_image_url"],
+            ["pk", "book", "sequence", "pref_image_url"],
         )
-        self.assertFalse(re.match(r"http", res.data["results"][0]["book"]).groups() is None)
 
     @as_auth
     def test_get_detail(self):
@@ -208,7 +206,7 @@ class SpreadViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(
             list(res.data.keys()),
-            ["url", "pk", "book", "sequence", "primary_image", "pref_image_url", "pages"],
+            ["pk", "book", "sequence", "primary_image", "pref_image_url", "pages"],
         )
         self.assertEqual(res.data["pk"], self.STR1)
         self.assertIsInstance(res.data["pages"], list)
@@ -227,10 +225,9 @@ class SpreadViewTest(TestCase):
         res = self.client.post(
             self.ENDPOINT, data={"book": book, "sequence": 100, "primary_image": image}
         )
-        print(res.json())
         self.assertEqual(res.status_code, 201)
         self.assertEqual(
-            list(res.data.keys()), ["url", "pk", "book", "sequence", "pref_image_url", "pages"]
+            list(res.data.keys()), ["pk", "book", "sequence", "primary_image", "pref_image_url"]
         )
 
     def test_noaccess(self):

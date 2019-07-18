@@ -3,10 +3,10 @@ from django.db import transaction
 from . import models
 
 
-class RunListSerializer(serializers.HyperlinkedModelSerializer):
+class RunListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Run
-        fields = ["url", "pk", "date_started", "notes"]
+        fields = ["pk", "date_started", "notes"]
 
 
 class CharacterClassSerializer(serializers.ModelSerializer):
@@ -163,49 +163,41 @@ class PageSerializer(serializers.ModelSerializer):
 # Spreads ----
 
 
-class SpreadListSerializer(serializers.HyperlinkedModelSerializer):
+class SpreadListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Spread
-        fields = ["url", "pk", "book", "sequence", "pref_image_url"]
+        fields = ["pk", "book", "sequence", "pref_image_url"]
 
 
-class SpreadDetailSerializer(serializers.HyperlinkedModelSerializer):
+class SpreadDetailSerializer(serializers.ModelSerializer):
     primary_image = ImageSerializer(many=False)
 
     class Meta:
         model = models.Spread
-        fields = [
-            "url",
-            "pk",
-            "book",
-            "sequence",
-            "primary_image",
-            "pref_image_url",
-            "pages",
-        ]
+        fields = ["pk", "book", "sequence", "primary_image", "pref_image_url", "pages"]
 
 
-class SpreadSeralizer(serializers.HyperlinkedModelSerializer):
+class SpreadSeralizer(serializers.ModelSerializer):
     class Meta:
         model = models.Spread
         fields = ["pk", "book", "sequence", "primary_image", "pref_image_url"]
 
 
-class BookListSerializer(serializers.HyperlinkedModelSerializer):
+class BookListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Book
-        fields = ["url", "estc", "vid", "publisher", "title", "pdf"]
+        fields = ["estc", "vid", "publisher", "title", "pdf"]
 
 
-class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
+class BookDetailSerializer(serializers.ModelSerializer):
     spreads = SpreadListSerializer(many=True)
 
     class Meta:
         model = models.Book
-        fields = ["url", "estc", "vid", "publisher", "title", "pdf", "spreads"]
+        fields = ["estc", "vid", "publisher", "title", "pdf", "spreads"]
 
 
-class RunDetailSerializer(serializers.HyperlinkedModelSerializer):
+class RunDetailSerializer(serializers.ModelSerializer):
     pages_created = PageListSerializer(many=True)
     lines_created = LineListSerializer(many=True)
     characters_created = CharacterListSerializer(many=True)
@@ -213,7 +205,6 @@ class RunDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Run
         fields = [
-            "url",
             "pk",
             "date_started",
             "notes",
