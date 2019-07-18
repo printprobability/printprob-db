@@ -430,3 +430,102 @@ class LineViewTest(TestCase):
 
     def test_noaccess(self):
         noaccess(self)
+
+
+class CharacterViewTest(TestCase):
+    """Test suite for Page views"""
+
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/characters/"
+    OBJCOUNT = models.Character.objects.count()
+    OBJ1 = models.Character.objects.first().pk
+    STR1 = str(OBJ1)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        self.assertEqual(
+            list(res.data["results"][0].keys()),
+            [
+                "pk",
+                "created_by_run",
+                "line",
+                "sequence",
+                "x_min",
+                "x_max",
+                "character_class",
+                "class_probability",
+                "primary_image",
+                "pref_image_url",
+            ],
+        )
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "pk",
+                "created_by_run",
+                "line",
+                "sequence",
+                "primary_image",
+                "x_min",
+                "x_max",
+                "character_class",
+                "class_probability",
+                "pref_image_url",
+            ],
+        )
+        self.assertEqual(res.data["pk"], self.STR1)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth
+    def test_post(self):
+        line = models.Line.objects.first().pk
+        image = models.Image.objects.first().pk
+        run = models.Run.objects.first().pk
+        char_class = models.CharacterClass.objects.first().pk
+        res = self.client.post(
+            self.ENDPOINT,
+            data={
+                "line": line,
+                "created_by_run": run,
+                "sequence": 100,
+                "primary_image": image,
+                "x_min": 0,
+                "x_max": 0,
+                "character_class": char_class,
+                "class_probability": 0.7,
+            },
+        )
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "pk",
+                "created_by_run",
+                "line",
+                "sequence",
+                "x_min",
+                "x_max",
+                "character_class",
+                "class_probability",
+                "primary_image",
+                "pref_image_url",
+            ],
+        )
+
+    def test_noaccess(self):
+        noaccess(self)
