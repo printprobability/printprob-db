@@ -180,6 +180,7 @@ class BookViewTest(TestCase):
     def test_noaccess(self):
         noaccess(self)
 
+
 class SpreadViewTest(TestCase):
     """Test suite for Spread views"""
 
@@ -227,7 +228,120 @@ class SpreadViewTest(TestCase):
         )
         self.assertEqual(res.status_code, 201)
         self.assertEqual(
-            list(res.data.keys()), ["pk", "book", "sequence", "primary_image", "pref_image_url"]
+            list(res.data.keys()),
+            ["pk", "book", "sequence", "primary_image", "pref_image_url"],
+        )
+
+    def test_noaccess(self):
+        noaccess(self)
+
+
+class PageViewTest(TestCase):
+    """Test suite for Page views"""
+
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/pages/"
+    OBJCOUNT = models.Page.objects.count()
+    OBJ1 = models.Page.objects.first().pk
+    STR1 = str(OBJ1)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        self.assertEqual(
+            list(res.data["results"][0].keys()),
+            [
+                "pk",
+                "created_by_run",
+                "spread",
+                "book_title",
+                "side",
+                "x_min",
+                "x_max",
+                "pref_image_url",
+            ],
+        )
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "pk",
+                "created_by_run",
+                "spread",
+                "book_title",
+                "side",
+                "x_min",
+                "x_max",
+                "lines",
+                "primary_image",
+                "pref_image_url",
+            ],
+        )
+        self.assertEqual(res.data["pk"], self.STR1)
+        self.assertIsInstance(res.data["lines"], list)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth
+    def test_post(self):
+        spread = models.Spread.objects.first()
+        image = models.Image.objects.first().pk
+        run = models.Run.objects.first().pk
+        # Posting an existing page fails
+        failres = self.client.post(
+            self.ENDPOINT,
+            data={
+                "spread": spread.pk,
+                "side": "l",
+                "primary_image": image,
+                "x_min": 0,
+                "x_max": 0,
+            },
+        )
+        self.assertEqual(failres.status_code, 400)
+        # Delete it and then try again
+        getextant = self.client.get(
+            self.ENDPOINT, params={"book": spread.book.pk, "spread": spread.pk}
+        )
+        delres = self.client.delete(
+            self.ENDPOINT + str(getextant.data["results"][0]["pk"]) + "/"
+        )
+        self.assertEqual(delres.status_code, 204)
+        res = self.client.post(
+            self.ENDPOINT,
+            data={
+                "spread": spread.pk,
+                "created_by_run": run,
+                "side": "l",
+                "primary_image": image,
+                "x_min": 0,
+                "x_max": 0,
+            },
+        )
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "pk",
+                "created_by_run",
+                "spread",
+                "side",
+                "x_min",
+                "x_max",
+                "primary_image",
+            ],
         )
 
     def test_noaccess(self):
