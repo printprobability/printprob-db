@@ -23,42 +23,26 @@ class Run(uuidModel):
 
     class Meta:
         abstract = True
-        ordering = ["date_started"]
+        ordering = ["-date_started"]
 
     def __str__(self):
         return f"{str(self.id)}-{self.date_started}"
-
-    @staticmethod
-    def most_recent_run():
-        return Run.objects.order_by("-date_started").first()
 
 
 class PageRun(Run):
     params = models.CharField(max_length=1000)
 
-    def pages_created(self):
-        return Page.objects.filter(created_by_run=self).all()
-
 
 class LineRun(Run):
     params = models.CharField(max_length=1000)
-
-    def lines_created(self):
-        return Line.objects.filter(created_by_run=self).all()
 
 
 class LineGroupRun(Run):
     params = models.CharField(max_length=1000)
 
-    def line_groups_created(self):
-        return LineGroup.objects.filter(created_by_run=self).all()
-
 
 class CharacterRun(Run):
     params = models.CharField(max_length=1000)
-
-    def characters_created(self):
-        return Character.objects.filter(created_by_run=self).all()
 
 
 class Book(models.Model):

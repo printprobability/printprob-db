@@ -211,7 +211,7 @@ class LineRunTestCase(TestCase):
 class LineGroupRunTestCase(TestCase):
     fixtures = ["test.json"]
 
-    ENDPOINT = "/runs/line_groups/"
+    ENDPOINT = "/runs/linegroups/"
     OBJCOUNT = models.LineGroupRun.objects.count()
     OBJ1 = models.LineGroupRun.objects.first().pk
     STR1 = str(OBJ1)
@@ -696,6 +696,79 @@ class LineViewTest(TestCase):
                 "y_min",
                 "y_max",
                 "image",
+            ],
+        )
+
+    def test_noaccess(self):
+        noaccess(self)
+
+
+class LineGroupViewTest(TestCase):
+
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/linegroups/"
+    OBJCOUNT = models.LineGroup.objects.count()
+    OBJ1 = models.LineGroup.objects.first().pk
+    STR1 = str(OBJ1)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        self.assertEqual(
+            list(res.data["results"][0].keys()),
+            ["url", "id", "page", "created_by_run", "lines"],
+        )
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "url",
+                "id",
+                "page",
+                "created_by_run",
+                "lines",
+            ],
+        )
+        self.assertEqual(res.data["id"], self.STR1)
+        self.assertIsInstance(res.data["lines"], list)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth
+    def test_post(self):
+        page = models.Page.objects.first()
+        image = models.Image.objects.first().pk
+        run = models.LineGroupRun.objects.first().pk
+        lines = page.lines.all()[:1]
+        res = self.client.post(
+            self.ENDPOINT,
+            data={
+                "page": page.pk,
+                "created_by_run": run,
+                "lines": [l.pk for l in lines]
+            },
+        )
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "url",
+                "id",
+                "page",
+                "created_by_run",
+                "lines",
             ],
         )
 
