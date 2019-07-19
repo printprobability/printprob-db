@@ -236,8 +236,8 @@ class Page(uuidModel):
         else:
             return None
 
-    def book_title(self):
-        return self.spread.book.title
+    def most_recent_lines(self):
+        return self.spread.book.lineruns.first().lines.filter(page=self)
 
 
 class Line(uuidModel):
@@ -285,9 +285,6 @@ class Line(uuidModel):
             return self.image.web_url()
         else:
             return None
-
-    def book_title(self):
-        return self.page.spread.book.title
 
     def line_height(self):
         return self.y_max - self.y_min

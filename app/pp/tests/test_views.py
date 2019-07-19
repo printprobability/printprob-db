@@ -291,6 +291,7 @@ class LineGroupRunTestCase(TestCase):
     def test_noaccess(self):
         noaccess(self)
 
+
 class CharacterRunTestCase(TestCase):
     fixtures = ["test.json"]
 
@@ -375,7 +376,6 @@ class CharacterRunTestCase(TestCase):
         noaccess(self)
 
 
-
 class BookViewTest(TestCase):
 
     fixtures = ["test.json"]
@@ -401,7 +401,18 @@ class BookViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(
             list(res.data.keys()),
-            ["url", "estc", "vid", "publisher", "title", "pdf", "n_spreads", "spreads", "most_recent_runs", "all_runs"],
+            [
+                "url",
+                "estc",
+                "vid",
+                "publisher",
+                "title",
+                "pdf",
+                "n_spreads",
+                "spreads",
+                "most_recent_runs",
+                "all_runs",
+            ],
         )
         self.assertEqual(res.data["estc"], self.OBJ1)
         self.assertIsInstance(res.data["spreads"], list)
@@ -418,7 +429,8 @@ class BookViewTest(TestCase):
     @as_auth
     def test_post(self):
         res = self.client.post(
-            self.ENDPOINT, data={"estc": 101, "vid": 202, "title": "foobar", "pdf": "foobar"}
+            self.ENDPOINT,
+            data={"estc": 101, "vid": 202, "title": "foobar", "pdf": "foobar"},
         )
         self.assertEqual(res.status_code, 201)
         self.assertEqual(
@@ -453,7 +465,16 @@ class SpreadViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(
             list(res.data.keys()),
-            ["url", "id", "book", "sequence", "image", "pref_image_url", "most_recent_pages", "pages"],
+            [
+                "url",
+                "id",
+                "book",
+                "sequence",
+                "image",
+                "pref_image_url",
+                "most_recent_pages",
+                "pages",
+            ],
         )
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["pages"], list)
@@ -474,14 +495,13 @@ class SpreadViewTest(TestCase):
         )
         self.assertEqual(res.status_code, 201)
         self.assertEqual(
-            list(res.data.keys()),
-            ["url", "id", "book", "sequence", "image"],
+            list(res.data.keys()), ["url", "id", "book", "sequence", "image"]
         )
 
     def test_noaccess(self):
         noaccess(self)
 
-"""
+
 class PageViewTest(TestCase):
 
     fixtures = ["test.json"]
@@ -499,13 +519,14 @@ class PageViewTest(TestCase):
         self.assertEqual(
             list(res.data["results"][0].keys()),
             [
+                "url",
                 "id",
                 "created_by_run",
                 "spread",
-                "book_title",
                 "side",
                 "x_min",
                 "x_max",
+                "image",
                 "pref_image_url",
             ],
         )
@@ -517,16 +538,17 @@ class PageViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
+                "url",
                 "id",
                 "created_by_run",
                 "spread",
-                "book_title",
                 "side",
                 "x_min",
                 "x_max",
-                "lines",
                 "image",
                 "pref_image_url",
+                "most_recent_lines",
+                "lines",
             ],
         )
         self.assertEqual(res.data["id"], self.STR1)
@@ -543,12 +565,13 @@ class PageViewTest(TestCase):
     def test_post(self):
         spread = models.Spread.objects.first()
         image = models.Image.objects.first().pk
-        run = models.Run.objects.first().pk
+        run = models.PageRun.objects.first().pk
         # Posting an existing page fails
         failres = self.client.post(
             self.ENDPOINT,
             data={
                 "spread": spread.pk,
+                "created_by_run": run,
                 "side": "l",
                 "image": image,
                 "x_min": 0,
@@ -579,6 +602,7 @@ class PageViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
+                "url",
                 "id",
                 "created_by_run",
                 "spread",
@@ -593,6 +617,7 @@ class PageViewTest(TestCase):
         noaccess(self)
 
 
+"""
 class LineViewTest(TestCase):
 
     fixtures = ["test.json"]

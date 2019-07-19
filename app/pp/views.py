@@ -183,7 +183,9 @@ class PageViewSet(CRUDViewSet):
     list: Pages belong to a single `Spread` instance, and are either marked as on the left (`l`) or right (`r`) side. Because the exact split of pages may differ run to run, they are also tied to a `Run` ID.
     """
 
-    queryset = models.Page.objects.all()
+    queryset = models.Page.objects.prefetch_related(
+        "spread__book__lineruns", "created_by_run"
+    ).all()
     filterset_class = PageFilter
 
     def get_serializer_class(self):

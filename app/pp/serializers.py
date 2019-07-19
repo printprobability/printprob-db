@@ -305,17 +305,28 @@ class PageListSerializer(serializers.HyperlinkedModelSerializer):
             "id",
             "created_by_run",
             "spread",
-            "book_title",
             "side",
             "x_min",
             "x_max",
+            "image",
             "pref_image_url",
         ]
 
 
 class PageDetailSerializer(serializers.HyperlinkedModelSerializer):
     created_by_run = PageRunListSerializer(many=False)
-    lines = LineListSerializer(many=True)
+    lines = serializers.HyperlinkedRelatedField(
+        many=True,
+        view_name="line-detail",
+        read_only=True,
+        help_text="All Line instances ever produced from this Page, under any run.",
+    )
+    most_recent_lines = serializers.HyperlinkedRelatedField(
+        many=True,
+        view_name="line-detail",
+        read_only=True,
+        help_text="Lines processed for this Page during the most recent page run processed for this book.",
+    )
     image = ImageSerializer(many=False)
 
     class Meta:
@@ -325,13 +336,13 @@ class PageDetailSerializer(serializers.HyperlinkedModelSerializer):
             "id",
             "created_by_run",
             "spread",
-            "book_title",
             "side",
             "x_min",
             "x_max",
-            "lines",
             "image",
             "pref_image_url",
+            "most_recent_lines",
+            "lines",
         ]
 
 
@@ -358,12 +369,31 @@ class SpreadListSerializer(serializers.HyperlinkedModelSerializer):
 
 class SpreadDetailSerializer(serializers.HyperlinkedModelSerializer):
     image = ImageSerializer(many=False)
-    pages = serializers.HyperlinkedRelatedField(many=True, view_name="page-detail", read_only=True, help_text="All Page instances ever produced from this spread, under any run.")
-    most_recent_pages = serializers.HyperlinkedRelatedField(many=True, view_name="page-detail", read_only=True, help_text="Pages processed for this spread during the most recent page run processed for this book.")
+    pages = serializers.HyperlinkedRelatedField(
+        many=True,
+        view_name="page-detail",
+        read_only=True,
+        help_text="All Page instances ever produced from this spread, under any run.",
+    )
+    most_recent_pages = serializers.HyperlinkedRelatedField(
+        many=True,
+        view_name="page-detail",
+        read_only=True,
+        help_text="Pages processed for this spread during the most recent page run processed for this book.",
+    )
 
     class Meta:
         model = models.Spread
-        fields = ["url", "id", "book", "sequence", "image", "pref_image_url", "most_recent_pages", "pages"]
+        fields = [
+            "url",
+            "id",
+            "book",
+            "sequence",
+            "image",
+            "pref_image_url",
+            "most_recent_pages",
+            "pages",
+        ]
 
 
 class SpreadCreateSeralizer(serializers.ModelSerializer):
