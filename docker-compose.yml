@@ -3,7 +3,7 @@ version: "3"
 services:
 
   postgres:
-    image: postgres:11
+    image: postgres:11.4
     volumes:
       - pp:/var/lib/postgresql/data:z
     ports:
@@ -33,7 +33,7 @@ services:
       - start_dependencies
 
   nginx:
-    image: nginx:1.17
+    image: nginx:1.17.1
     restart: always
     volumes:
       - ppstatic:/vol/static_files:z
