@@ -7,7 +7,6 @@ from django.db import transaction
 from django.db.models import Count
 from rest_framework import permissions
 from django_filters import rest_framework as filters
-from drf_yasg.utils import swagger_auto_schema
 from . import models, serializers
 
 

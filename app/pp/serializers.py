@@ -352,7 +352,7 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
 class LineGroupListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.LineGroup
-        fields = ["url", "pk", "book", "created_by_run"]
+        fields = ["url", "pk", "page", "created_by_run"]
 
 
 class LineGroupDetailSerializer(serializers.HyperlinkedModelSerializer):
@@ -360,5 +360,5 @@ class LineGroupDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.LineGroup
-        fields = ["url", "pk", "book", "created_by_run", "lines"]
+        fields = ["url", "pk", "page", "created_by_run", "lines"]
 
