@@ -198,7 +198,7 @@ class CharacterClassSerializer(serializers.HyperlinkedModelSerializer):
 class ImageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Image
-        fields = ["url", "id", "jpg", "tif"]
+        fields = ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"]
 
 
 class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):

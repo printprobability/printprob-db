@@ -796,6 +796,7 @@ class CharacterViewTest(TestCase):
 
     def test_noaccess(self):
         noaccess(self)
+"""
 
 
 class ImageViewTest(TestCase):
@@ -813,14 +814,17 @@ class ImageViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
-            list(res.data["results"][0].keys()), ["id", "notes", "jpg", "tif"]
+            list(res.data["results"][0].keys()),
+            ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"],
         )
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(list(res.data.keys()), ["id", "notes", "jpg", "tif"])
+        self.assertEqual(
+            list(res.data.keys()), ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"]
+        )
         self.assertEqual(res.data["id"], self.STR1)
 
     @as_auth
@@ -833,10 +837,18 @@ class ImageViewTest(TestCase):
     @as_auth
     def test_post(self):
         res = self.client.post(
-            self.ENDPOINT, data={"jpg": "/foo/bar.jpg", "tif": "/foo/bat.tiff"}
+            self.ENDPOINT,
+            data={
+                "jpg": "/foo/bar.jpg",
+                "tif": "/foo/bat.tiff",
+                "jpg_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
+                "tif_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
+            },
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(list(res.data.keys()), ["id", "notes", "jpg", "tif"])
+        self.assertEqual(
+            list(res.data.keys()), ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"]
+        )
 
     def test_noaccess(self):
         noaccess(self)
@@ -856,13 +868,13 @@ class CharacterClassViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(list(res.data["results"][0].keys()), ["classname"])
+        self.assertEqual(list(res.data["results"][0].keys()), ["url", "classname"])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(list(res.data.keys()), ["classname"])
+        self.assertEqual(list(res.data.keys()), ["url", "classname"])
         self.assertEqual(res.data["classname"], self.STR1)
 
     @as_auth
@@ -876,11 +888,9 @@ class CharacterClassViewTest(TestCase):
     def test_post(self):
         res = self.client.post(self.ENDPOINT, data={"classname": "zed"})
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(list(res.data.keys()), ["classname"])
-        constrainres = self.client.post(self.ENDPOINT, data={"classname": "A_uc"})
+        self.assertEqual(list(res.data.keys()), ["url", "classname"])
+        constrainres = self.client.post(self.ENDPOINT, data={"classname": "a"})
         self.assertEqual(constrainres.status_code, 400)
 
     def test_noaccess(self):
         noaccess(self)
-
-"""
