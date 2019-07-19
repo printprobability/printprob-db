@@ -12,6 +12,10 @@ db:
 	docker-compose exec postgres psql -U app -d pp
 restart:
 	docker-compose restart web nginx
+check:
+	docker-compose exec web python manage.py check
+shell:
+	docker-compose exec web python manage.py shell
 build:
 	docker-compose build
 rebuild:
