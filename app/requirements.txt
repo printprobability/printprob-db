@@ -12,3 +12,5 @@ django-filter
 pyyaml
 uritemplate
 faker
+drf-yasg>=1.16.1
+packaging
