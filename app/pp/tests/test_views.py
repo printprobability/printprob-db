@@ -703,7 +703,6 @@ class LineViewTest(TestCase):
         noaccess(self)
 
 
-"""
 class CharacterViewTest(TestCase):
 
     fixtures = ["test.json"]
@@ -721,6 +720,7 @@ class CharacterViewTest(TestCase):
         self.assertEqual(
             list(res.data["results"][0].keys()),
             [
+                "url",
                 "id",
                 "created_by_run",
                 "line",
@@ -741,6 +741,7 @@ class CharacterViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
+                "url",
                 "id",
                 "created_by_run",
                 "line",
@@ -766,7 +767,7 @@ class CharacterViewTest(TestCase):
     def test_post(self):
         line = models.Line.objects.first().pk
         image = models.Image.objects.first().pk
-        run = models.Run.objects.first().pk
+        run = models.CharacterRun.objects.first().pk
         char_class = models.CharacterClass.objects.first().pk
         res = self.client.post(
             self.ENDPOINT,
@@ -785,6 +786,7 @@ class CharacterViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
+                "url",
                 "id",
                 "created_by_run",
                 "line",
@@ -794,13 +796,11 @@ class CharacterViewTest(TestCase):
                 "character_class",
                 "class_probability",
                 "image",
-                "pref_image_url",
             ],
         )
 
     def test_noaccess(self):
         noaccess(self)
-"""
 
 
 class ImageViewTest(TestCase):
