@@ -1,20 +1,20 @@
 from pp import models
 from uuid import uuid4
+from faker import Faker
 import random
 
+ff=Faker()
 models.Book.objects.all().delete()
 models.Image.objects.all().delete()
 
-b1 = models.Book.objects.create(estc=1234, vid=231, title="ipsum")
-b2 = models.Book.objects.create(estc=5678, vid=987, title="lorem")
+b1 = models.Book.objects.create(estc=1234, vid=231, title=ff.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None), pdf=ff.file_path(depth=3, extension="pdf"))
+b2 = models.Book.objects.create(estc=5678, vid=987, title=ff.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None), pdf=ff.file_path(depth=3, extension="pdf"))
 books = [b1, b2]
-
 
 def quickimage():
     return models.Image.objects.create(
-        jpg=str(uuid4()), tif=str(uuid4()), jpg_md5=uuid4(), tif_md5=uuid4()
+        jpg=ff.file_path(depth=3, extension="jpg"), tif=ff.file_path(depth=3, extension="tif"), jpg_md5=uuid4(), tif_md5=uuid4()
     )
-
 
 for book in books:
     for i in range(0, 3):
@@ -23,8 +23,8 @@ for book in books:
 for book in books:
     page_run = models.PageRun.objects.create(
         book=book,
-        params=f"param text {uuid4()}",
-        script_path=f"path",
+        params=ff.license_plate(),
+        script_path=ff.file_path(depth=3, extension="py"),
         script_md5=uuid4(),
     )
     for spread in book.spreads.all():
@@ -41,8 +41,8 @@ for book in books:
 for book in books:
     line_run = models.LineRun.objects.create(
         book=book,
-        params=f"param text {uuid4()}",
-        script_path=f"path",
+        params=ff.license_plate(),
+        script_path=ff.file_path(depth=3, extension="py"),
         script_md5=uuid4(),
     )
     for page in models.Page.objects.filter(spread__book=book).all():
@@ -59,8 +59,8 @@ for book in books:
 for book in books:
     linegroup_run = models.LineGroupRun.objects.create(
         book=book,
-        params=f"param text {uuid4()}",
-        script_path=f"path",
+        params=ff.license_plate(),
+        script_path=ff.file_path(depth=3, extension="py"),
         script_md5=uuid4(),
     )
     for page in models.Page.objects.filter(spread__book=book).all():
@@ -77,12 +77,12 @@ for cc in ["a", "b", "c"]:
 for book in books:
     character_run = models.CharacterRun.objects.create(
         book=book,
-        params=f"param text {uuid4()}",
-        script_path=f"path",
+        params=ff.license_plate(),
+        script_path=ff.file_path(depth=3, extension="py"),
         script_md5=uuid4(),
     )
     for line in models.Line.objects.filter(page__spread__book=book).all():
-        for i in range(0, 4):
+        for i in range(0, 2):
             randclass = models.CharacterClass.objects.order_by("?")[0]
             models.Character.objects.create(
                 line=line,
@@ -94,3 +94,24 @@ for book in books:
                 character_class=randclass,
                 class_probability=random.random(),
             )
+
+book = books[0]
+new_character_run = models.CharacterRun.objects.create(
+        book=book,
+        params=ff.license_plate(),
+        script_path=ff.file_path(depth=3, extension="py"),
+        script_md5=uuid4(),
+    )
+for line in models.Line.objects.filter(page__spread__book=book).all():
+    for i in range(0, 2):
+        randclass = models.CharacterClass.objects.order_by("?")[0]
+        models.Character.objects.create(
+            line=line,
+            created_by_run=character_run,
+            image=quickimage(),
+            sequence=i,
+            x_min=random.randrange(0, 500),
+            x_max=random.randrange(0, 500),
+            character_class=randclass,
+            class_probability=random.random(),
+        )

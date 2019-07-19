@@ -34,28 +34,28 @@ class Run(uuidModel):
 
 
 class PageRun(Run):
-    params = models.CharField(max_length=100)
+    params = models.CharField(max_length=1000)
 
     def pages_created(self):
         return Page.objects.filter(created_by_run=self).all()
 
 
 class LineRun(Run):
-    params = models.CharField(max_length=100)
+    params = models.CharField(max_length=1000)
 
     def lines_created(self):
         return Line.objects.filter(created_by_run=self).all()
 
 
 class LineGroupRun(Run):
-    params = models.CharField(max_length=100)
+    params = models.CharField(max_length=1000)
 
     def line_groups_created(self):
         return LineGroup.objects.filter(created_by_run=self).all()
 
 
 class CharacterRun(Run):
-    params = models.CharField(max_length=100)
+    params = models.CharField(max_length=1000)
 
     def characters_created(self):
         return Character.objects.filter(created_by_run=self).all()
@@ -74,8 +74,6 @@ class Book(models.Model):
         help_text="Publisher (as cataloged by ESTC)",
     )
     pdf = models.CharField(
-        blank=True,
-        null=True,
         max_length=2000,
         help_text="relative file path to root directory containing pdfs",
         unique=True,
@@ -140,9 +138,6 @@ class Task(uuidModel):
 
 
 class Image(uuidModel):
-    notes = models.CharField(
-        blank=True, null=False, max_length=500, help_text="Image notes"
-    )
     jpg = models.CharField(
         max_length=2000,
         help_text="relative file path to root directory containing all images",
@@ -175,7 +170,6 @@ class Spread(uuidModel):
     )
     image = models.ForeignKey(
         Image,
-        blank=True,
         on_delete=models.CASCADE,
         related_name="depicts_spread",
         help_text="Image depicting this spread",
@@ -212,7 +206,7 @@ class Page(uuidModel):
         help_text="Side of the spread this has been segmented to",
     )
     image = models.ForeignKey(
-        Image, blank=True, on_delete=models.CASCADE, related_name="depicts_page"
+        Image, on_delete=models.CASCADE, related_name="depicts_page"
     )
     x_min = models.PositiveIntegerField(
         help_text="Starting x-axis location of the page on the original spread image"
@@ -262,7 +256,7 @@ class Line(uuidModel):
         db_index=True, help_text="Order on page, from top to bottom"
     )
     image = models.ForeignKey(
-        Image, blank=True, on_delete=models.CASCADE, related_name="depicts_line"
+        Image, on_delete=models.CASCADE, related_name="depicts_line"
     )
     y_min = models.PositiveIntegerField(
         help_text="Y-axis index for the start of this line on the Page image"
@@ -337,7 +331,7 @@ class Character(uuidModel):
 
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name="characters")
     image = models.ForeignKey(
-        Image, related_name="depicts_character", on_delete=models.CASCADE, blank=True
+        Image, related_name="depicts_character", on_delete=models.CASCADE
     )
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of characters on the line"

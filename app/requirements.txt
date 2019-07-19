@@ -11,3 +11,4 @@ Pygments
 django-filter
 pyyaml
 uritemplate
+faker
