@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets, views, generics, status
+from rest_framework import viewsets, views, generics, status, mixins
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
@@ -8,6 +8,10 @@ from django.db.models import Count
 from rest_framework import permissions
 from django_filters import rest_framework as filters
 from . import models, serializers
+
+
+class CRUDViewSet(viewsets.ModelViewSet):
+    http_method_names = [u"get", u"post", u"delete", u"head", u"options", u"trace"]
 
 
 class BookFilter(filters.FilterSet):
@@ -23,7 +27,7 @@ class BookFilter(filters.FilterSet):
     pdf = filters.CharFilter(help_text="book with this PDF filepath")
 
 
-class BookViewSet(viewsets.ModelViewSet):
+class BookViewSet(CRUDViewSet):
     """
     list: Lists all books. Along with [`CharacterClass`](#character-class-create), `Book` instances use a human-readable ID (here, the ESTC id) rather than a UUID.
     """
@@ -31,7 +35,6 @@ class BookViewSet(viewsets.ModelViewSet):
     queryset = models.Book.objects.prefetch_related(
         "spreads", "pageruns", "lineruns", "linegroupruns", "characterruns"
     ).all()
-
     filterset_class = BookFilter
 
     def get_serializer_class(self):
@@ -49,13 +52,12 @@ class SpreadFilter(filters.FilterSet):
     sequence = filters.NumberFilter(help_text="Spread sequence index")
 
 
-class SpreadViewSet(viewsets.ModelViewSet):
+class SpreadViewSet(CRUDViewSet):
     """
     list: Spreads belong to a single `Book` instance, and are indexed by sequence in that book.
     """
 
     queryset = models.Spread.objects.all()
-
     filterset_class = SpreadFilter
 
     def get_serializer_class(self):
@@ -69,7 +71,7 @@ class SpreadViewSet(viewsets.ModelViewSet):
 # Run Views ----
 
 
-class PageRunViewSet(viewsets.ModelViewSet):
+class PageRunViewSet(CRUDViewSet):
     queryset = models.PageRun.objects.all()
 
     def get_serializer_class(self):
@@ -80,7 +82,7 @@ class PageRunViewSet(viewsets.ModelViewSet):
         return serializers.PageRunCreateSerializer
 
 
-class LineRunViewSet(viewsets.ModelViewSet):
+class LineRunViewSet(CRUDViewSet):
     queryset = models.LineRun.objects.all()
 
     def get_serializer_class(self):
@@ -91,7 +93,7 @@ class LineRunViewSet(viewsets.ModelViewSet):
         return serializers.LineRunCreateSerializer
 
 
-class LineGroupRunViewSet(viewsets.ModelViewSet):
+class LineGroupRunViewSet(CRUDViewSet):
     queryset = models.LineGroupRun.objects.all()
 
     def get_serializer_class(self):
@@ -102,7 +104,7 @@ class LineGroupRunViewSet(viewsets.ModelViewSet):
         return serializers.LineGroupRunCreateSerializer
 
 
-class CharacterRunViewSet(viewsets.ModelViewSet):
+class CharacterRunViewSet(CRUDViewSet):
     queryset = models.CharacterRun.objects.all()
 
     def get_serializer_class(self):
@@ -137,7 +139,7 @@ class ImageFilter(filters.FilterSet):
     )
 
 
-class ImageViewSet(viewsets.ModelViewSet):
+class ImageViewSet(CRUDViewSet):
     """
     retrieve:
     Returns an image descripton with lists of all file formats available for that image.
@@ -151,7 +153,6 @@ class ImageViewSet(viewsets.ModelViewSet):
 
     queryset = models.Image.objects.all()
     serializer_class = serializers.ImageSerializer
-
     filterset_class = ImageFilter
 
 
@@ -174,13 +175,12 @@ class PageFilter(filters.FilterSet):
     )
 
 
-class PageViewSet(viewsets.ModelViewSet):
+class PageViewSet(CRUDViewSet):
     """
     list: Pages belong to a single `Spread` instance, and are either marked as on the left (`l`) or right (`r`) side. Because the exact split of pages may differ run to run, they are also tied to a `Run` ID.
     """
 
     queryset = models.Page.objects.all()
-
     filterset_class = PageFilter
 
     def get_serializer_class(self):
@@ -215,10 +215,9 @@ class LineFilter(filters.FilterSet):
     )
 
 
-class LineViewSet(viewsets.ModelViewSet):
+class LineViewSet(CRUDViewSet):
 
     queryset = models.Line.objects.all()
-
     filterset_class = LineFilter
 
     def get_serializer_class(self):
@@ -249,7 +248,7 @@ class LineGroupFilter(filters.FilterSet):
     )
 
 
-class LineGroupViewSet(viewsets.ModelViewSet):
+class LineGroupViewSet(CRUDViewSet):
     queryset = models.LineGroup.objects.all()
     filterset_class = LineGroupFilter
     serializer_class = serializers.LineGroupListSerializer
@@ -279,10 +278,8 @@ class CharacterFilter(filters.FilterSet):
     )
 
 
-class CharacterViewSet(viewsets.ModelViewSet):
-
+class CharacterViewSet(CRUDViewSet):
     queryset = models.Character.objects.all()
-
     filterset_class = CharacterFilter
 
     def get_serializer_class(self):
@@ -300,10 +297,8 @@ class CharacterClassFilter(filters.FilterSet):
     )
 
 
-class CharacterClassViewset(viewsets.ModelViewSet):
-
+class CharacterClassViewset(CRUDViewSet):
     queryset = models.CharacterClass.objects.all()
     serializer_class = serializers.CharacterClassSerializer
-
     filterset_class = CharacterClassFilter
 
