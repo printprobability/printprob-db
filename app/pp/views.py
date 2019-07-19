@@ -256,7 +256,14 @@ class LineGroupFilter(filters.FilterSet):
 class LineGroupViewSet(CRUDViewSet):
     queryset = models.LineGroup.objects.all()
     filterset_class = LineGroupFilter
-    serializer_class = serializers.LineGroupListSerializer
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return serializers.LineGroupDetailSerializer
+        elif self.action == "list":
+            return serializers.LineGroupListSerializer
+        return serializers.LineGroupCreateSerializer
+
 
 
 class CharacterFilter(filters.FilterSet):

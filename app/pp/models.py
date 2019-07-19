@@ -286,6 +286,12 @@ class Line(uuidModel):
         else:
             return None
 
+    def most_recent_characters(self):
+        return self.page.spread.book.characterruns.first().characters.filter(line=self)
+
+    def most_recent_linegroups(self):
+        return self.page.spread.book.linegroupruns.first().linegroups.filter(lines=self)
+
     def line_height(self):
         return self.y_max - self.y_min
 

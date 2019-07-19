@@ -258,6 +258,30 @@ class CharacterCreateSerializer(serializers.ModelSerializer):
 
 class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
     image = ImageSerializer(many=False)
+    characters = serializers.HyperlinkedRelatedField(
+        many=True,
+        view_name="character-detail",
+        read_only=True,
+        help_text="All Character instances ever produced from this line, under any run.",
+    )
+    most_recent_characters = serializers.HyperlinkedRelatedField(
+        many=True,
+        view_name="character-detail",
+        read_only=True,
+        help_text="Characters processed for this line during the most recent character run processed for this book.",
+    )
+    linegroups = serializers.HyperlinkedRelatedField(
+        many=True,
+        view_name="linegroup-detail",
+        read_only=True,
+        help_text="All LineGroup instances ever produced containing this Line, under any run.",
+    )
+    most_recent_linegroups = serializers.HyperlinkedRelatedField(
+        many=True,
+        view_name="linegroup-detail",
+        read_only=True,
+        help_text="LineGroups processed containing this line during the most recent line group run processed for this book.",
+    )
 
     class Meta:
         model = models.Line
@@ -268,12 +292,14 @@ class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
             "page",
             "sequence",
             "image",
-            "characters",
             "y_min",
             "y_max",
             "pref_image_url",
+            "most_recent_characters",
+            "characters",
+            "most_recent_linegroups",
+            "linegroups",
         ]
-        read_only_fields = ["characters"]
 
 
 class LineListSerializer(serializers.HyperlinkedModelSerializer):
@@ -458,6 +484,14 @@ class LineGroupListSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class LineGroupDetailSerializer(serializers.HyperlinkedModelSerializer):
+    lines = LineListSerializer(many=True)
+
+    class Meta:
+        model = models.LineGroup
+        fields = ["url", "id", "page", "created_by_run", "lines"]
+
+
+class LineGroupCreateSerializer(serializers.ModelSerializer):
     lines = LineListSerializer(many=True)
 
     class Meta:

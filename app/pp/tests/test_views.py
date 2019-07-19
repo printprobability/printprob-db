@@ -617,7 +617,6 @@ class PageViewTest(TestCase):
         noaccess(self)
 
 
-"""
 class LineViewTest(TestCase):
 
     fixtures = ["test.json"]
@@ -634,7 +633,7 @@ class LineViewTest(TestCase):
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
             list(res.data["results"][0].keys()),
-            ["id", "created_by_run", "page", "sequence", "y_min", "y_max"],
+            ["url", "id", "created_by_run", "page", "sequence", "y_min", "y_max"],
         )
 
     @as_auth
@@ -644,15 +643,19 @@ class LineViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
+                "url",
                 "id",
                 "created_by_run",
                 "page",
                 "sequence",
                 "image",
-                "characters",
                 "y_min",
                 "y_max",
                 "pref_image_url",
+                "most_recent_characters",
+                "characters",
+                "most_recent_linegroups",
+                "linegroups",
             ],
         )
         self.assertEqual(res.data["id"], self.STR1)
@@ -669,7 +672,7 @@ class LineViewTest(TestCase):
     def test_post(self):
         page = models.Page.objects.first().pk
         image = models.Image.objects.first().pk
-        run = models.Run.objects.first().pk
+        run = models.LineRun.objects.first().pk
         res = self.client.post(
             self.ENDPOINT,
             data={
@@ -685,6 +688,7 @@ class LineViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
+                "url",
                 "id",
                 "created_by_run",
                 "page",
@@ -692,7 +696,6 @@ class LineViewTest(TestCase):
                 "y_min",
                 "y_max",
                 "image",
-                "pref_image_url",
             ],
         )
 
@@ -700,6 +703,7 @@ class LineViewTest(TestCase):
         noaccess(self)
 
 
+"""
 class CharacterViewTest(TestCase):
 
     fixtures = ["test.json"]
