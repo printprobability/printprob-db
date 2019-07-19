@@ -3,21 +3,37 @@ from uuid import uuid4
 from faker import Faker
 import random
 
-ff=Faker()
+ff = Faker()
 models.Book.objects.all().delete()
 models.Image.objects.all().delete()
 
-b1 = models.Book.objects.create(estc=1234, vid=231, title=ff.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None), pdf=ff.file_path(depth=3, extension="pdf"))
-b2 = models.Book.objects.create(estc=5678, vid=987, title=ff.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None), pdf=ff.file_path(depth=3, extension="pdf"))
+
+b1 = models.Book.objects.create(
+    estc=1234,
+    vid=231,
+    title=ff.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None),
+    pdf=ff.file_path(depth=3, extension="pdf"),
+)
+b2 = models.Book.objects.create(
+    estc=5678,
+    vid=987,
+    title=ff.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None),
+    pdf=ff.file_path(depth=3, extension="pdf"),
+)
 books = [b1, b2]
+
 
 def quickimage():
     return models.Image.objects.create(
-        jpg=ff.file_path(depth=3, extension="jpg"), tif=ff.file_path(depth=3, extension="tif"), jpg_md5=uuid4(), tif_md5=uuid4()
+        jpg=ff.file_path(depth=3, extension="jpg"),
+        tif=ff.file_path(depth=3, extension="tif"),
+        jpg_md5=uuid4(),
+        tif_md5=uuid4(),
     )
 
+
 for book in books:
-    for i in range(0, 3):
+    for i in range(0, 2):
         models.Spread.objects.create(book=book, sequence=i, image=quickimage())
 
 for book in books:
@@ -46,7 +62,7 @@ for book in books:
         script_md5=uuid4(),
     )
     for page in models.Page.objects.filter(spread__book=book).all():
-        for i in range(0, 4):
+        for i in range(0, 3):
             models.Line.objects.create(
                 page=page,
                 created_by_run=line_run,
@@ -72,7 +88,7 @@ for book in books:
                 lg.lines.add(line)
 
 for cc in ["a", "b", "c"]:
-    models.CharacterClass.objects.create(classname=cc)
+    models.CharacterClass.objects.get_or_create(classname=cc)
 
 for book in books:
     character_run = models.CharacterRun.objects.create(
@@ -97,11 +113,11 @@ for book in books:
 
 book = books[0]
 new_character_run = models.CharacterRun.objects.create(
-        book=book,
-        params=ff.license_plate(),
-        script_path=ff.file_path(depth=3, extension="py"),
-        script_md5=uuid4(),
-    )
+    book=book,
+    params=ff.license_plate(),
+    script_path=ff.file_path(depth=3, extension="py"),
+    script_md5=uuid4(),
+)
 for line in models.Line.objects.filter(page__spread__book=book).all():
     for i in range(0, 2):
         randclass = models.CharacterClass.objects.order_by("?")[0]
