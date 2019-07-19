@@ -85,24 +85,20 @@ class Book(models.Model):
     def __str__(self):
         return f"{self.estc} - {self.title}"
 
-    def most_recent_page_run(self):
-        return PageRun.objects.filter(book=self)[0]
-
-    def most_recent_line_run(self):
-        return LineRun.objects.filter(book=self)[0]
-
-    def most_recent_line_group_run(self):
-        return LineGroupRun.objects.filter(book=self)[0]
-
-    def most_recent_character_run(self):
-        return CharacterRun.objects.filter(book=self)[0]
+    def all_runs(self):
+        return {
+            "pages": self.pageruns.all(),
+            "lines": self.lineruns.all(),
+            "linegroups": self.linegroupruns.all(),
+            "characters": self.characterruns.all(),
+        }
 
     def most_recent_runs(self):
         return {
-            "page": self.most_recent_page_run(),
-            "line": self.most_recent_line_run(),
-            "line_group": self.most_recent_line_group_run(),
-            "character": self.most_recent_character_run(),
+            "page": self.pageruns.first(),
+            "line": self.lineruns.first(),
+            "linegroup": self.linegroupruns.first(),
+            "character": self.characterruns.first(),
         }
 
     def ordered_pages_run(self, run):
@@ -306,10 +302,10 @@ class Line(uuidModel):
 
 
 class LineGroup(uuidModel):
-    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="line_groups")
-    lines = models.ManyToManyField(Line, related_name="line_groups")
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="linegroups")
+    lines = models.ManyToManyField(Line, related_name="linegroups")
     created_by_run = models.ForeignKey(
-        LineGroupRun, on_delete=models.CASCADE, related_name="line_groups"
+        LineGroupRun, on_delete=models.CASCADE, related_name="linegroups"
     )
 
 

@@ -13,8 +13,6 @@ def noaccess(self):
     """Expect no unauthorized access to the endpoint"""
     self.assertEqual(self.client.get(self.ENDPOINT).status_code, 403)
     self.assertEqual(self.client.post(self.ENDPOINT).status_code, 403)
-    self.assertEqual(self.client.put(self.ENDPOINT).status_code, 403)
-    self.assertEqual(self.client.patch(self.ENDPOINT).status_code, 403)
     self.assertEqual(self.client.delete(self.ENDPOINT).status_code, 403)
 
 
@@ -29,57 +27,25 @@ def as_auth(func):
 
 
 class RootViewTest(TestCase):
-    """Test suite for Root view"""
-
     fixtures = ["test.json"]
 
     ENDPOINT = "/"
 
+    @as_auth
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "runs",
-                "books",
-                "spreads",
-                "pages",
-                "lines",
-                "characters",
-                "images",
-                "character_classes",
-            ],
-        )
 
-    def test_get_detail(self):
-        pass
-
-    def test_post(self):
-        res = self.client.post(self.ENDPOINT)
-        self.assertEqual(res.status_code, 405)
-
-    def test_put(self):
-        res = self.client.put(self.ENDPOINT)
-        self.assertEqual(res.status_code, 405)
-
-    def test_patch(self):
-        res = self.client.patch(self.ENDPOINT)
-        self.assertEqual(res.status_code, 405)
-
-    def test_delete(self):
-        res = self.client.delete(self.ENDPOINT)
-        self.assertEqual(res.status_code, 405)
+    def test_noaccess(self):
+        noaccess(self)
 
 
-class RunViewTest(TestCase):
-    """Test suite for Run views"""
-
+class PageRunTestCase(TestCase):
     fixtures = ["test.json"]
 
-    ENDPOINT = "/runs/"
-    OBJCOUNT = models.Run.objects.count()
-    OBJ1 = models.Run.objects.first().pk
+    ENDPOINT = "/runs/pages/"
+    OBJCOUNT = models.PageRun.objects.count()
+    OBJ1 = models.PageRun.objects.first().pk
     STR1 = str(OBJ1)
 
     @as_auth
@@ -88,7 +54,16 @@ class RunViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
-            list(res.data["results"][0].keys()), ["pk", "date_started", "notes"]
+            list(res.data["results"][0].keys()),
+            [
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
+                "date_started",
+            ],
         )
 
     @as_auth
@@ -98,18 +73,19 @@ class RunViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
-                "pk",
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
                 "date_started",
-                "notes",
-                "pages_created",
-                "lines_created",
-                "characters_created",
+                "pages",
             ],
         )
-        self.assertEqual(res.data["pk"], self.STR1)
-        self.assertEqual(res.data["pages_created"][0]["created_by_run"], self.OBJ1)
-        self.assertEqual(res.data["lines_created"][0]["created_by_run"], self.OBJ1)
-        self.assertEqual(res.data["characters_created"][0]["created_by_run"], self.OBJ1)
+        self.assertEqual(res.data["id"], self.STR1)
+        self.assertIsInstance(res.data["book"], dict)
+        self.assertIsInstance(res.data["pages"], list)
 
     @as_auth
     def test_delete(self):
@@ -120,17 +96,287 @@ class RunViewTest(TestCase):
 
     @as_auth
     def test_post(self):
-        res = self.client.post(self.ENDPOINT, data={"notes": "foobar"})
+        book = models.Book.objects.first().pk
+        res = self.client.post(
+            self.ENDPOINT,
+            data={
+                "book": book,
+                "params": "foo",
+                "script_path": "bar",
+                "script_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
+            },
+        )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(list(res.data.keys()), ["pk", "date_started", "notes"])
-        self.assertEqual(res.data["notes"], "foobar")
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
+                "date_started",
+            ],
+        )
 
     def test_noaccess(self):
         noaccess(self)
 
 
+class LineRunTestCase(TestCase):
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/runs/lines/"
+    OBJCOUNT = models.LineRun.objects.count()
+    OBJ1 = models.LineRun.objects.first().pk
+    STR1 = str(OBJ1)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        self.assertEqual(
+            list(res.data["results"][0].keys()),
+            [
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
+                "date_started",
+            ],
+        )
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
+                "date_started",
+                "lines",
+            ],
+        )
+        self.assertEqual(res.data["id"], self.STR1)
+        self.assertIsInstance(res.data["book"], dict)
+        self.assertIsInstance(res.data["lines"], list)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth
+    def test_post(self):
+        book = models.Book.objects.first().pk
+        res = self.client.post(
+            self.ENDPOINT,
+            data={
+                "book": book,
+                "params": "foo",
+                "script_path": "bar",
+                "script_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
+            },
+        )
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
+                "date_started",
+            ],
+        )
+
+    def test_noaccess(self):
+        noaccess(self)
+
+
+class LineGroupRunTestCase(TestCase):
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/runs/line_groups/"
+    OBJCOUNT = models.LineGroupRun.objects.count()
+    OBJ1 = models.LineGroupRun.objects.first().pk
+    STR1 = str(OBJ1)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        self.assertEqual(
+            list(res.data["results"][0].keys()),
+            [
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
+                "date_started",
+            ],
+        )
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
+                "date_started",
+                "linegroups",
+            ],
+        )
+        self.assertEqual(res.data["id"], self.STR1)
+        self.assertIsInstance(res.data["book"], dict)
+        self.assertIsInstance(res.data["linegroups"], list)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth
+    def test_post(self):
+        book = models.Book.objects.first().pk
+        res = self.client.post(
+            self.ENDPOINT,
+            data={
+                "book": book,
+                "params": "foo",
+                "script_path": "bar",
+                "script_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
+            },
+        )
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
+                "date_started",
+            ],
+        )
+
+    def test_noaccess(self):
+        noaccess(self)
+
+class CharacterRunTestCase(TestCase):
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/runs/characters/"
+    OBJCOUNT = models.CharacterRun.objects.count()
+    OBJ1 = models.CharacterRun.objects.first().pk
+    STR1 = str(OBJ1)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        self.assertEqual(
+            list(res.data["results"][0].keys()),
+            [
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
+                "date_started",
+            ],
+        )
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
+                "date_started",
+                "characters",
+            ],
+        )
+        self.assertEqual(res.data["id"], self.STR1)
+        self.assertIsInstance(res.data["book"], dict)
+        self.assertIsInstance(res.data["characters"], list)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth
+    def test_post(self):
+        book = models.Book.objects.first().pk
+        res = self.client.post(
+            self.ENDPOINT,
+            data={
+                "book": book,
+                "params": "foo",
+                "script_path": "bar",
+                "script_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
+            },
+        )
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(
+            list(res.data.keys()),
+            [
+                "url",
+                "id",
+                "book",
+                "params",
+                "script_path",
+                "script_md5",
+                "date_started",
+            ],
+        )
+
+    def test_noaccess(self):
+        noaccess(self)
+
+
+
 class BookViewTest(TestCase):
-    """Test suite for Book views"""
 
     fixtures = ["test.json"]
 
@@ -146,7 +392,7 @@ class BookViewTest(TestCase):
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
             list(res.data["results"][0].keys()),
-            ["estc", "vid", "publisher", "title", "pdf"],
+            ["url", "estc", "vid", "publisher", "title", "pdf", "n_spreads"],
         )
 
     @as_auth
@@ -155,10 +401,12 @@ class BookViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(
             list(res.data.keys()),
-            ["estc", "vid", "publisher", "title", "pdf", "spreads"],
+            ["url", "estc", "vid", "publisher", "title", "pdf", "n_spreads", "spreads", "most_recent_runs", "all_runs"],
         )
         self.assertEqual(res.data["estc"], self.OBJ1)
         self.assertIsInstance(res.data["spreads"], list)
+        self.assertIsInstance(res.data["most_recent_runs"], dict)
+        self.assertIsInstance(res.data["all_runs"], dict)
 
     @as_auth
     def test_delete(self):
@@ -170,20 +418,18 @@ class BookViewTest(TestCase):
     @as_auth
     def test_post(self):
         res = self.client.post(
-            self.ENDPOINT, data={"estc": 101, "vid": 202, "title": "foobar"}
+            self.ENDPOINT, data={"estc": 101, "vid": 202, "title": "foobar", "pdf": "foobar"}
         )
         self.assertEqual(res.status_code, 201)
         self.assertEqual(
-            list(res.data.keys()), ["estc", "vid", "publisher", "title", "pdf"]
+            list(res.data.keys()), ["url", "estc", "vid", "publisher", "title", "pdf"]
         )
 
     def test_noaccess(self):
         noaccess(self)
 
-
-class SpreadViewTest(TestCase):
-    """Test suite for Spread views"""
-
+"""
+class SpreadViewTest(TestCase)
     fixtures = ["test.json"]
 
     ENDPOINT = "/spreads/"
@@ -198,7 +444,7 @@ class SpreadViewTest(TestCase):
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
             list(res.data["results"][0].keys()),
-            ["pk", "book", "sequence", "pref_image_url"],
+            ["id", "book", "sequence", "pref_image_url"],
         )
 
     @as_auth
@@ -207,9 +453,9 @@ class SpreadViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(
             list(res.data.keys()),
-            ["pk", "book", "sequence", "primary_image", "pref_image_url", "pages"],
+            ["id", "book", "sequence", "primary_image", "pref_image_url", "pages"],
         )
-        self.assertEqual(res.data["pk"], self.STR1)
+        self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["pages"], list)
 
     @as_auth
@@ -229,7 +475,7 @@ class SpreadViewTest(TestCase):
         self.assertEqual(res.status_code, 201)
         self.assertEqual(
             list(res.data.keys()),
-            ["pk", "book", "sequence", "primary_image", "pref_image_url"],
+            ["id", "book", "sequence", "primary_image", "pref_image_url"],
         )
 
     def test_noaccess(self):
@@ -237,7 +483,6 @@ class SpreadViewTest(TestCase):
 
 
 class PageViewTest(TestCase):
-    """Test suite for Page views"""
 
     fixtures = ["test.json"]
 
@@ -254,7 +499,7 @@ class PageViewTest(TestCase):
         self.assertEqual(
             list(res.data["results"][0].keys()),
             [
-                "pk",
+                "id",
                 "created_by_run",
                 "spread",
                 "book_title",
@@ -272,7 +517,7 @@ class PageViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
-                "pk",
+                "id",
                 "created_by_run",
                 "spread",
                 "book_title",
@@ -284,7 +529,7 @@ class PageViewTest(TestCase):
                 "pref_image_url",
             ],
         )
-        self.assertEqual(res.data["pk"], self.STR1)
+        self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["lines"], list)
 
     @as_auth
@@ -316,7 +561,7 @@ class PageViewTest(TestCase):
             self.ENDPOINT, params={"book": spread.book.pk, "spread": spread.pk}
         )
         delres = self.client.delete(
-            self.ENDPOINT + str(getextant.data["results"][0]["pk"]) + "/"
+            self.ENDPOINT + str(getextant.data["results"][0]["id"]) + "/"
         )
         self.assertEqual(delres.status_code, 204)
         res = self.client.post(
@@ -334,7 +579,7 @@ class PageViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
-                "pk",
+                "id",
                 "created_by_run",
                 "spread",
                 "side",
@@ -349,7 +594,6 @@ class PageViewTest(TestCase):
 
 
 class LineViewTest(TestCase):
-    """Test suite for Line views"""
 
     fixtures = ["test.json"]
 
@@ -365,7 +609,7 @@ class LineViewTest(TestCase):
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
             list(res.data["results"][0].keys()),
-            ["pk", "created_by_run", "page", "sequence", "y_min", "y_max"],
+            ["id", "created_by_run", "page", "sequence", "y_min", "y_max"],
         )
 
     @as_auth
@@ -375,7 +619,7 @@ class LineViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
-                "pk",
+                "id",
                 "created_by_run",
                 "page",
                 "sequence",
@@ -386,7 +630,7 @@ class LineViewTest(TestCase):
                 "pref_image_url",
             ],
         )
-        self.assertEqual(res.data["pk"], self.STR1)
+        self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["characters"], list)
 
     @as_auth
@@ -416,7 +660,7 @@ class LineViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
-                "pk",
+                "id",
                 "created_by_run",
                 "page",
                 "sequence",
@@ -432,7 +676,6 @@ class LineViewTest(TestCase):
 
 
 class CharacterViewTest(TestCase):
-    """Test suite for Image views"""
 
     fixtures = ["test.json"]
 
@@ -449,7 +692,7 @@ class CharacterViewTest(TestCase):
         self.assertEqual(
             list(res.data["results"][0].keys()),
             [
-                "pk",
+                "id",
                 "created_by_run",
                 "line",
                 "sequence",
@@ -469,7 +712,7 @@ class CharacterViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
-                "pk",
+                "id",
                 "created_by_run",
                 "line",
                 "sequence",
@@ -481,7 +724,7 @@ class CharacterViewTest(TestCase):
                 "pref_image_url",
             ],
         )
-        self.assertEqual(res.data["pk"], self.STR1)
+        self.assertEqual(res.data["id"], self.STR1)
 
     @as_auth
     def test_delete(self):
@@ -513,7 +756,7 @@ class CharacterViewTest(TestCase):
         self.assertEqual(
             list(res.data.keys()),
             [
-                "pk",
+                "id",
                 "created_by_run",
                 "line",
                 "sequence",
@@ -531,7 +774,6 @@ class CharacterViewTest(TestCase):
 
 
 class ImageViewTest(TestCase):
-    """Test suite for Image views"""
 
     fixtures = ["test.json"]
 
@@ -546,15 +788,15 @@ class ImageViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
-            list(res.data["results"][0].keys()), ["pk", "notes", "jpg", "tif"]
+            list(res.data["results"][0].keys()), ["id", "notes", "jpg", "tif"]
         )
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(list(res.data.keys()), ["pk", "notes", "jpg", "tif"])
-        self.assertEqual(res.data["pk"], self.STR1)
+        self.assertEqual(list(res.data.keys()), ["id", "notes", "jpg", "tif"])
+        self.assertEqual(res.data["id"], self.STR1)
 
     @as_auth
     def test_delete(self):
@@ -569,14 +811,13 @@ class ImageViewTest(TestCase):
             self.ENDPOINT, data={"jpg": "/foo/bar.jpg", "tif": "/foo/bat.tiff"}
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(list(res.data.keys()), ["pk", "notes", "jpg", "tif"])
+        self.assertEqual(list(res.data.keys()), ["id", "notes", "jpg", "tif"])
 
     def test_noaccess(self):
         noaccess(self)
 
 
 class CharacterClassViewTest(TestCase):
-    """Test suite for CharacterClass views"""
 
     fixtures = ["test.json"]
 
@@ -617,3 +858,4 @@ class CharacterClassViewTest(TestCase):
     def test_noaccess(self):
         noaccess(self)
 
+"""

@@ -233,7 +233,7 @@ class LineGroupFilter(filters.FilterSet):
         queryset=models.Book.objects.all(), field_name="spread__book", label="Book ID"
     )
     spread_sequence = filters.NumberFilter(
-        field_name="spread__sequence", help_name="Spread sequence number in the book"
+        field_name="spread__sequence", help_text="Spread sequence number in the book"
     )
     spread_id = filters.ModelChoiceFilter(
         queryset=models.Spread.objects.all(), field_name="spread", label="Spread ID"
