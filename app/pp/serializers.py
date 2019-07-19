@@ -353,15 +353,17 @@ class PageCreateSerializer(serializers.ModelSerializer):
 class SpreadListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Spread
-        fields = ["url", "id", "book", "sequence", "pref_image_url"]
+        fields = ["url", "id", "book", "sequence", "image", "pref_image_url"]
 
 
 class SpreadDetailSerializer(serializers.HyperlinkedModelSerializer):
     image = ImageSerializer(many=False)
+    pages = serializers.HyperlinkedRelatedField(many=True, view_name="page-detail", read_only=True, help_text="All Page instances ever produced from this spread, under any run.")
+    most_recent_pages = serializers.HyperlinkedRelatedField(many=True, view_name="page-detail", read_only=True, help_text="Pages processed for this spread during the most recent page run processed for this book.")
 
     class Meta:
         model = models.Spread
-        fields = ["url", "id", "book", "sequence", "image", "pref_image_url", "pages"]
+        fields = ["url", "id", "book", "sequence", "image", "pref_image_url", "most_recent_pages", "pages"]
 
 
 class SpreadCreateSeralizer(serializers.ModelSerializer):

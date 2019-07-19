@@ -15,6 +15,7 @@ class CRUDViewSet(viewsets.ModelViewSet):
 
 
 class BookFilter(filters.FilterSet):
+    estc = filters.NumberFilter(help_text="Numeric EEBO ID")
     vid = filters.NumberFilter(help_text="Numeric VID")
     title = filters.CharFilter(
         help_text="books with titles containing this string (case insensitive)",
@@ -57,7 +58,9 @@ class SpreadViewSet(CRUDViewSet):
     list: Spreads belong to a single `Book` instance, and are indexed by sequence in that book.
     """
 
-    queryset = models.Spread.objects.all()
+    queryset = models.Spread.objects.prefetch_related(
+        "book", "book__pageruns__pages"
+    ).all()
     filterset_class = SpreadFilter
 
     def get_serializer_class(self):

@@ -183,6 +183,9 @@ class Spread(uuidModel):
         else:
             return None
 
+    def most_recent_pages(self):
+        return self.book.pageruns.first().pages.filter(spread=self)
+
 
 class Page(uuidModel):
     """

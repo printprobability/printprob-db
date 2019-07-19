@@ -428,8 +428,8 @@ class BookViewTest(TestCase):
     def test_noaccess(self):
         noaccess(self)
 
-"""
-class SpreadViewTest(TestCase)
+
+class SpreadViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/spreads/"
@@ -444,7 +444,7 @@ class SpreadViewTest(TestCase)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
             list(res.data["results"][0].keys()),
-            ["id", "book", "sequence", "pref_image_url"],
+            ["url", "id", "book", "sequence", "image", "pref_image_url"],
         )
 
     @as_auth
@@ -453,7 +453,7 @@ class SpreadViewTest(TestCase)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(
             list(res.data.keys()),
-            ["id", "book", "sequence", "primary_image", "pref_image_url", "pages"],
+            ["url", "id", "book", "sequence", "image", "pref_image_url", "most_recent_pages", "pages"],
         )
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["pages"], list)
@@ -470,18 +470,18 @@ class SpreadViewTest(TestCase)
         book = models.Book.objects.first().pk
         image = models.Image.objects.first().pk
         res = self.client.post(
-            self.ENDPOINT, data={"book": book, "sequence": 100, "primary_image": image}
+            self.ENDPOINT, data={"book": book, "sequence": 100, "image": image}
         )
         self.assertEqual(res.status_code, 201)
         self.assertEqual(
             list(res.data.keys()),
-            ["id", "book", "sequence", "primary_image", "pref_image_url"],
+            ["url", "id", "book", "sequence", "image"],
         )
 
     def test_noaccess(self):
         noaccess(self)
 
-
+"""
 class PageViewTest(TestCase):
 
     fixtures = ["test.json"]
@@ -525,7 +525,7 @@ class PageViewTest(TestCase):
                 "x_min",
                 "x_max",
                 "lines",
-                "primary_image",
+                "image",
                 "pref_image_url",
             ],
         )
@@ -550,7 +550,7 @@ class PageViewTest(TestCase):
             data={
                 "spread": spread.pk,
                 "side": "l",
-                "primary_image": image,
+                "image": image,
                 "x_min": 0,
                 "x_max": 0,
             },
@@ -570,7 +570,7 @@ class PageViewTest(TestCase):
                 "spread": spread.pk,
                 "created_by_run": run,
                 "side": "l",
-                "primary_image": image,
+                "image": image,
                 "x_min": 0,
                 "x_max": 0,
             },
@@ -585,7 +585,7 @@ class PageViewTest(TestCase):
                 "side",
                 "x_min",
                 "x_max",
-                "primary_image",
+                "image",
             ],
         )
 
@@ -623,7 +623,7 @@ class LineViewTest(TestCase):
                 "created_by_run",
                 "page",
                 "sequence",
-                "primary_image",
+                "image",
                 "characters",
                 "y_min",
                 "y_max",
@@ -651,7 +651,7 @@ class LineViewTest(TestCase):
                 "page": page,
                 "created_by_run": run,
                 "sequence": 100,
-                "primary_image": image,
+                "image": image,
                 "y_min": 0,
                 "y_max": 0,
             },
@@ -666,7 +666,7 @@ class LineViewTest(TestCase):
                 "sequence",
                 "y_min",
                 "y_max",
-                "primary_image",
+                "image",
                 "pref_image_url",
             ],
         )
@@ -700,7 +700,7 @@ class CharacterViewTest(TestCase):
                 "x_max",
                 "character_class",
                 "class_probability",
-                "primary_image",
+                "image",
                 "pref_image_url",
             ],
         )
@@ -716,7 +716,7 @@ class CharacterViewTest(TestCase):
                 "created_by_run",
                 "line",
                 "sequence",
-                "primary_image",
+                "image",
                 "x_min",
                 "x_max",
                 "character_class",
@@ -745,7 +745,7 @@ class CharacterViewTest(TestCase):
                 "line": line,
                 "created_by_run": run,
                 "sequence": 100,
-                "primary_image": image,
+                "image": image,
                 "x_min": 0,
                 "x_max": 0,
                 "character_class": char_class,
@@ -764,7 +764,7 @@ class CharacterViewTest(TestCase):
                 "x_max",
                 "character_class",
                 "class_probability",
-                "primary_image",
+                "image",
                 "pref_image_url",
             ],
         )
