@@ -85,20 +85,14 @@ class Book(models.Model):
             "character": self.characterruns.first(),
         }
 
-    def ordered_pages_run(self, run):
-        """
-        Get all pages for this book based on a given run
-        """
-        return models.Page.objects.filter(spread__book=self, created_by_run=run)
-
-    def ordered_pages(self):
+    def most_recent_pages(self):
         """
         Get all pages for this book based on the most recent run in the database
         """
-        return ordered_pages_run(self, PageRun.most_recent_run())
+        return self.pageruns.first().pages.all()
 
     def cover_page(self):
-        return self.pages.first()
+        return self.most_recent_pages().first()
 
     def n_spreads(self):
         return self.spreads.count()
@@ -222,6 +216,9 @@ class Page(uuidModel):
 
     def most_recent_lines(self):
         return self.spread.book.lineruns.first().lines.filter(page=self)
+
+    def spread_sequence(self):
+        return self.spread.sequence
 
 
 class Line(uuidModel):

@@ -3,10 +3,28 @@ from django.db import transaction
 from . import models
 
 
+class PageListSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Page
+        fields = [
+            "url",
+            "id",
+            "created_by_run",
+            "spread",
+            "spread_sequence",
+            "side",
+            "x_min",
+            "x_max",
+            "image",
+            "pref_image_url",
+        ]
+
+
 class BookListSerializer(serializers.HyperlinkedModelSerializer):
+    cover_page = PageListSerializer(many=False)
     class Meta:
         model = models.Book
-        fields = ["url", "estc", "vid", "publisher", "title", "pdf", "n_spreads"]
+        fields = ["url", "estc", "vid", "publisher", "title", "pdf", "n_spreads", "cover_page"]
 
 
 class PageRunListSerializer(serializers.HyperlinkedModelSerializer):
@@ -323,22 +341,6 @@ class LineCreateSerializer(serializers.ModelSerializer):
         ]
 
 
-class PageListSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = models.Page
-        fields = [
-            "url",
-            "id",
-            "created_by_run",
-            "spread",
-            "side",
-            "x_min",
-            "x_max",
-            "image",
-            "pref_image_url",
-        ]
-
-
 class PageDetailSerializer(serializers.HyperlinkedModelSerializer):
     created_by_run = PageRunListSerializer(many=False)
     lines = serializers.HyperlinkedRelatedField(
@@ -460,6 +462,7 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
     spreads = SpreadListSerializer(many=True)
     most_recent_runs = BookRunsSerializer()
     all_runs = BookAllRunsSerializer()
+    most_recent_pages = PageListSerializer(many=True, help_text="Ordered pages from the most recent page segmentation run", read_only=True)
 
     class Meta:
         model = models.Book
@@ -474,6 +477,7 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
             "spreads",
             "most_recent_runs",
             "all_runs",
+            "most_recent_pages",
         ]
 
 

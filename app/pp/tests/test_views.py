@@ -392,7 +392,7 @@ class BookViewTest(TestCase):
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         self.assertEqual(
             list(res.data["results"][0].keys()),
-            ["url", "estc", "vid", "publisher", "title", "pdf", "n_spreads"],
+            ["url", "estc", "vid", "publisher", "title", "pdf", "n_spreads", "cover_page"],
         )
 
     @as_auth
@@ -412,12 +412,15 @@ class BookViewTest(TestCase):
                 "spreads",
                 "most_recent_runs",
                 "all_runs",
+                "most_recent_pages",
             ],
         )
         self.assertEqual(res.data["estc"], self.OBJ1)
         self.assertIsInstance(res.data["spreads"], list)
         self.assertIsInstance(res.data["most_recent_runs"], dict)
         self.assertIsInstance(res.data["all_runs"], dict)
+        self.assertIsInstance(res.data["most_recent_pages"], list)
+        self.assertIsInstance(res.data["most_recent_pages"][0], dict)
 
     @as_auth
     def test_delete(self):
@@ -523,6 +526,7 @@ class PageViewTest(TestCase):
                 "id",
                 "created_by_run",
                 "spread",
+                "spread_sequence",
                 "side",
                 "x_min",
                 "x_max",
@@ -565,7 +569,7 @@ class PageViewTest(TestCase):
     def test_post(self):
         spread = models.Spread.objects.first()
         image = models.Image.objects.first().pk
-        run = models.PageRun.objects.first().pk
+        run = spread.pages.first().created_by_run.pk
         # Posting an existing page fails
         failres = self.client.post(
             self.ENDPOINT,
@@ -581,7 +585,7 @@ class PageViewTest(TestCase):
         self.assertEqual(failres.status_code, 400)
         # Delete it and then try again
         getextant = self.client.get(
-            self.ENDPOINT, params={"book": spread.book.pk, "spread": spread.pk}
+            self.ENDPOINT, {"book": spread.book.pk, "spread_sequence": spread.sequence, "created_by_run": run, "side": "l"}
         )
         delres = self.client.delete(
             self.ENDPOINT + str(getextant.data["results"][0]["id"]) + "/"
@@ -598,6 +602,7 @@ class PageViewTest(TestCase):
                 "x_max": 0,
             },
         )
+
         self.assertEqual(res.status_code, 201)
         self.assertEqual(
             list(res.data.keys()),
