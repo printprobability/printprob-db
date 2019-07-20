@@ -132,7 +132,14 @@ class Image(uuidModel):
         return f"/img{self.jpg}"
 
 
-class Spread(uuidModel):
+class ImagedModel(uuidModel):
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, related_name="%(class)ss")
+
+    class Meta:
+        abstract = True
+
+
+class Spread(ImagedModel):
     book = models.ForeignKey(
         Book,
         on_delete=models.CASCADE,
@@ -142,12 +149,7 @@ class Spread(uuidModel):
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of this page in a given book"
     )
-    image = models.ForeignKey(
-        Image,
-        on_delete=models.CASCADE,
-        related_name="depicts_spread",
-        help_text="Image depicting this spread",
-    )
+
 
     class Meta:
         unique_together = (("book", "sequence"),)
@@ -166,7 +168,7 @@ class Spread(uuidModel):
         return self.book.pageruns.first().pages.filter(spread=self)
 
 
-class Page(uuidModel):
+class Page(ImagedModel):
     """
     The definition of a page may change between runs in this model, since it depends on splitting spreads, therefore it is a subclass of an Attempt.
     """
@@ -182,9 +184,6 @@ class Page(uuidModel):
         max_length=1,
         choices=SPREAD_SIDE,
         help_text="Side of the spread this has been segmented to",
-    )
-    image = models.ForeignKey(
-        Image, on_delete=models.CASCADE, related_name="depicts_page"
     )
     x_min = models.PositiveIntegerField(
         help_text="Starting x-axis location of the page on the original spread image"
@@ -222,7 +221,7 @@ class Page(uuidModel):
         return self.spread.sequence
 
 
-class Line(uuidModel):
+class Line(ImagedModel):
     """
     The definition of a line may change between runs in this model, since it depends on splitting page spreads, therefore it is a subclass of an Attempt.
     """
@@ -235,9 +234,6 @@ class Line(uuidModel):
     )
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Order on page, from top to bottom"
-    )
-    image = models.ForeignKey(
-        Image, on_delete=models.CASCADE, related_name="depicts_line"
     )
     y_min = models.PositiveIntegerField(
         help_text="Y-axis index for the start of this line on the Page image"
@@ -308,15 +304,12 @@ class CharacterClass(models.Model):
         return self.classname
 
 
-class Character(uuidModel):
+class Character(ImagedModel):
     """
     The definition of a character may change between runs in this model, since it depends on line segmentation, therefore it is a subclass of an Attempt.
     """
 
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name="characters")
-    image = models.ForeignKey(
-        Image, related_name="depicts_character", on_delete=models.CASCADE
-    )
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of characters on the line"
     )
