@@ -421,6 +421,9 @@ class BookViewTest(TestCase):
         self.assertIsInstance(res.data["all_runs"], dict)
         self.assertIsInstance(res.data["most_recent_pages"], list)
         self.assertIsInstance(res.data["most_recent_pages"][0], dict)
+        self.assertEquals(res.data["most_recent_pages"][0]["side"], "l")
+        self.assertEquals(res.data["most_recent_pages"][1]["side"], "r")
+        self.assertLess(res.data["most_recent_pages"][0]["spread_sequence"], res.data["most_recent_pages"][-1]["spread_sequence"])
 
     @as_auth
     def test_delete(self):

@@ -151,6 +151,7 @@ class Spread(uuidModel):
 
     class Meta:
         unique_together = (("book", "sequence"),)
+        ordering = ("book", "sequence")
 
     def __str__(self):
         return f"{self.book.title} spread {self.sequence}"
