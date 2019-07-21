@@ -1,10 +1,7 @@
 from django.test import TestCase
-from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
-from rest_framework.reverse import reverse
 from pp import models
-import re
 
 # Create your tests here.
 

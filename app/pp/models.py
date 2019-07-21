@@ -158,11 +158,6 @@ class Spread(ImagedModel):
     def __str__(self):
         return f"{self.book.title} spread {self.sequence}"
 
-    def pref_image_url(self):
-        if self.image is not None:
-            return self.image.web_url()
-        else:
-            return None
 
     def most_recent_pages(self):
         return self.book.pageruns.first().pages.filter(spread=self)
@@ -208,11 +203,6 @@ class Page(ImagedModel):
     def n_lines(self):
         return self.lines.count()
 
-    def pref_image_url(self):
-        if self.image is not None:
-            return self.image.web_url()
-        else:
-            return None
 
     def most_recent_lines(self):
         return self.spread.book.lineruns.first().lines.filter(page=self)
@@ -261,11 +251,6 @@ class Line(ImagedModel):
     def n_chars(self):
         return self.characters.count()
 
-    def pref_image_url(self):
-        if self.image is not None:
-            return self.image.web_url()
-        else:
-            return None
 
     def most_recent_characters(self):
         return self.page.spread.book.characterruns.first().characters.filter(line=self)
@@ -349,8 +334,6 @@ class Character(ImagedModel):
     def page(self):
         return self.line.page
 
-    def pref_image_url(self):
-            return self.image.jpg
 
     def absolute_coords(self):
         """
