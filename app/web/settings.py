@@ -44,11 +44,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = [f"http://{os.environ['VUE_ORIGIN']}"]
-CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [os.environ["VUE_ORIGIN"]] + ALLOWED_HOSTS
-
-CSRF_COOKIE_NAME = "XSRF-TOKEN"
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_NAME = "xsrfcookie"
 
 
 ROOT_URLCONF = "web.urls"
