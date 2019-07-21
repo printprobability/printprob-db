@@ -3,13 +3,14 @@
     <h2>{{ $route.params.id }} {{ book.title }} - {{ book.estc }}</h2>
     <p>{{ book.n_pages }} pages</p>
     <div class="d-flex flex-wrap justify-content-between">
-      <PageImage v-for="page in book.pages" :key="page.pk" :page="page"></PageImage>
+      <PageImage v-for="page in book.most_recent_pages" :key="page.pk" :page="page"></PageImage>
     </div>
   </div>
 </template>
 
 <script>
 import PageImage from "./PageImage.vue";
+import axios from "axios";
 
 export default {
   name: "BookDetail",
@@ -23,7 +24,7 @@ export default {
   },
   methods: {
     get_book: function(id) {
-      return axios.get("http://localhost:4000/books/" + id).then(
+      return axios.get("http://localhost/books/" + id).then(
         response => {
           this.book = response.data;
         },

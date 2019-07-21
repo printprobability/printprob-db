@@ -2,13 +2,18 @@
   <div id="app">
     <h1>All Books</h1>
     <div class="book-covers card-columns">
-      <BookCover v-for="book in books" :book="book" :key="book.pk"/>
+      <BookCover v-for="book in books" :book="book" :key="book.pk" />
     </div>
   </div>
 </template>
 
 <script>
 import BookCover from "./BookCover.vue";
+import axios from "axios";
+
+axios.defaults.xsrfHeaderName = "x-csrftoken";
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.withCredentials = true;
 
 export default {
   name: "BookList",
@@ -27,7 +32,7 @@ export default {
   },
   methods: {
     get_books: function() {
-      return axios.get("http://localhost:4000/books").then(
+      return axios.get("http://localhost/books/").then(
         response => {
           this.books = response.data.results;
           this.pagination.count = response.data.count;

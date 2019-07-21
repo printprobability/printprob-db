@@ -1,12 +1,12 @@
 <template>
   <div class="card book-card">
     <div class="card-header">
-      <router-link :to="{name: 'BookDetailView', params: {id: book.pk}}">{{ book.title }}</router-link>
+      <router-link :to="{name: 'BookDetailView', params: {id: book.id}}">{{ book.title }}</router-link>
       ({{ book.n_pages}}p)
     </div>
     <div class="card-body">
-      <a :href="book.cover_page.pref_image.web_url">
-        <img :src="book.cover_page.pref_image.web_url" class="book-cover-image">
+      <a :href="book.cover_page.image.jpg">
+        <img :src="book.cover_page.image.jpg" class="book-cover-image" />
       </a>
     </div>
     <div class="card-footer">

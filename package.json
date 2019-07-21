@@ -8,13 +8,14 @@
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.0-rc.23",
+    "bootstrap-vue": "^2.0.0-rc.26",
+    "jquery": "^3.4.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6"
   },
   "devDependencies": {
     "@vue/cli-service": "^3.8.0",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "vue-cli-plugin-axios": "0.0.4",
     "vue-template-compiler": "^2.6.10"
   },

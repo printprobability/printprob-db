@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import './plugins/axios'
+import axios from 'axios'
 import app from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -14,8 +14,8 @@ import BookList from "./components/BookList.vue";
 import BookDetail from "./components/BookDetail.vue";
 import PageDetail from "./components/PageDetail.vue";
 
-axios.defaults.xsrfHeaderName = "x-csrftoken";
-axios.defaults.xsrfCookieName = "XSRF-TOKEN";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.withCredentials = true;
 
 

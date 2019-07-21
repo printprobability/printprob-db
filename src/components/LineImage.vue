@@ -5,12 +5,14 @@
       class="line-image my-3 mx-auto"
       :class="{'selected-line-image': line.pref_image.bad_capture}"
       @click="toggleClassification(line)"
-    >
+    />
     <span>{{ line.pref_image.pk }}</span>
   </p>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "LineImage",
   props: {
@@ -21,7 +23,7 @@ export default {
       var payload = {
         image: pk
       };
-      return axios.post("http://localhost:4000/captures/", payload).then(
+      return axios.post("http://localhost/captures/", payload).then(
         response => {
           console.log(response);
         },
@@ -31,7 +33,7 @@ export default {
       );
     },
     removeClassification: function(pk) {
-      return axios.delete("http://localhost:4000/captures/" + pk).then(
+      return axios.delete("http://localhost/captures/" + pk).then(
         response => {
           console.log(response);
         },
