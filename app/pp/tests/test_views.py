@@ -755,6 +755,9 @@ class CharacterViewTest(TestCase):
             "url",
             "id",
             "created_by_run",
+            "book",
+            "spread",
+            "page",
             "line",
             "sequence",
             "x_min",
@@ -764,6 +767,10 @@ class CharacterViewTest(TestCase):
             "image",
         ]:
             self.assertIn(k, res.data["results"][0])
+        self.assertIn("estc", res.data["results"][0]["book"])
+        self.assertIn("sequence", res.data["results"][0]["spread"])
+        self.assertIn("side", res.data["results"][0]["page"])
+        self.assertIn("sequence", res.data["results"][0]["line"])
 
     @as_auth
     def test_get_detail(self):
