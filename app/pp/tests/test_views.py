@@ -53,36 +53,32 @@ class PageRunTestCase(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(
-            list(res.data["results"][0].keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]:
+            self.assertIn(k, res.data["results"][0])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-                "pages",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+            "pages",
+        ]:
+            self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["book"], dict)
         self.assertIsInstance(res.data["pages"], list)
@@ -107,18 +103,16 @@ class PageRunTestCase(TestCase):
             },
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]:
+            self.assertIn(k, res.data)
 
     def test_noaccess(self):
         noaccess(self)
@@ -137,36 +131,32 @@ class LineRunTestCase(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(
-            list(res.data["results"][0].keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]:
+            self.assertIn(k, res.data["results"][0])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-                "lines",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+            "lines",
+        ]:
+            self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["book"], dict)
         self.assertIsInstance(res.data["lines"], list)
@@ -191,18 +181,16 @@ class LineRunTestCase(TestCase):
             },
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]:
+            self.assertIn(k, res.data)
 
     def test_noaccess(self):
         noaccess(self)
@@ -221,36 +209,32 @@ class LineGroupRunTestCase(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(
-            list(res.data["results"][0].keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]:
+            self.assertIn(k, res.data["results"][0])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-                "linegroups",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+            "linegroups",
+        ]:
+            self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["book"], dict)
         self.assertIsInstance(res.data["linegroups"], list)
@@ -275,18 +259,16 @@ class LineGroupRunTestCase(TestCase):
             },
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]:
+            self.assertIn(k, res.data)
 
     def test_noaccess(self):
         noaccess(self)
@@ -305,36 +287,32 @@ class CharacterRunTestCase(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(
-            list(res.data["results"][0].keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]:
+            self.assertIn(k, res.data["results"][0])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-                "characters",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+            "characters",
+        ]:
+            self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["book"], dict)
         self.assertIsInstance(res.data["characters"], list)
@@ -359,18 +337,16 @@ class CharacterRunTestCase(TestCase):
             },
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "params",
-                "script_path",
-                "script_md5",
-                "date_started",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "params",
+            "script_path",
+            "script_md5",
+            "date_started",
+        ]:
+            self.assertIn(k, res.data)
 
     def test_noaccess(self):
         noaccess(self)
@@ -390,31 +366,37 @@ class BookViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(
-            list(res.data["results"][0].keys()),
-            ["url", "estc", "vid", "publisher", "title", "pdf", "n_spreads", "cover_page"],
-        )
+        for k in [
+            "url",
+            "estc",
+            "vid",
+            "publisher",
+            "title",
+            "pdf",
+            "n_spreads",
+            "cover_page",
+        ]:
+            self.assertIn(k, res.data["results"][0])
+        self.assertIn("jpg", res.data["results"][0]["cover_page"]["image"])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "estc",
-                "vid",
-                "publisher",
-                "title",
-                "pdf",
-                "n_spreads",
-                "spreads",
-                "most_recent_runs",
-                "all_runs",
-                "most_recent_pages",
-            ],
-        )
+        for k in [
+            "url",
+            "estc",
+            "vid",
+            "publisher",
+            "title",
+            "pdf",
+            "n_spreads",
+            "spreads",
+            "most_recent_runs",
+            "all_runs",
+            "most_recent_pages",
+        ]:
+            self.assertIn(k, res.data)
         self.assertEqual(res.data["estc"], self.OBJ1)
         self.assertIsInstance(res.data["spreads"], list)
         self.assertIsInstance(res.data["most_recent_runs"], dict)
@@ -423,7 +405,11 @@ class BookViewTest(TestCase):
         self.assertIsInstance(res.data["most_recent_pages"][0], dict)
         self.assertEquals(res.data["most_recent_pages"][0]["side"], "l")
         self.assertEquals(res.data["most_recent_pages"][1]["side"], "r")
-        self.assertLess(res.data["most_recent_pages"][0]["spread_sequence"], res.data["most_recent_pages"][-1]["spread_sequence"])
+        self.assertLess(
+            res.data["most_recent_pages"][0]["spread_sequence"],
+            res.data["most_recent_pages"][-1]["spread_sequence"],
+        )
+        self.assertIn("jpg", res.data["most_recent_pages"][0]["image"])
 
     @as_auth
     def test_delete(self):
@@ -439,9 +425,8 @@ class BookViewTest(TestCase):
             data={"estc": 101, "vid": 202, "title": "foobar", "pdf": "foobar"},
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(
-            list(res.data.keys()), ["url", "estc", "vid", "publisher", "title", "pdf"]
-        )
+        for k in ["url", "estc", "vid", "publisher", "title", "pdf"]:
+            self.assertIn(k, res.data)
 
     def test_noaccess(self):
         noaccess(self)
@@ -460,30 +445,27 @@ class SpreadViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(
-            list(res.data["results"][0].keys()),
-            ["url", "id", "book", "sequence", "image", "pref_image_url"],
-        )
+        for k in ["url", "id", "book", "sequence", "image"]:
+            self.assertIn(k, res.data["results"][0])
+        self.assertIn("jpg", res.data["results"][0]["image"])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "book",
-                "sequence",
-                "image",
-                "pref_image_url",
-                "most_recent_pages",
-                "pages",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "book",
+            "sequence",
+            "image",
+            "most_recent_pages",
+            "pages",
+        ]:
+            self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["pages"], list)
+        self.assertIn("jpg", res.data["most_recent_pages"][0]["image"])
 
     @as_auth
     def test_delete(self):
@@ -500,9 +482,8 @@ class SpreadViewTest(TestCase):
             self.ENDPOINT, data={"book": book, "sequence": 100, "image": image}
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(
-            list(res.data.keys()), ["url", "id", "book", "sequence", "image"]
-        )
+        for k in ["url", "id", "book", "sequence", "image"]:
+            self.assertIn(k, res.data)
 
     def test_noaccess(self):
         noaccess(self)
@@ -522,44 +503,40 @@ class PageViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(
-            list(res.data["results"][0].keys()),
-            [
-                "url",
-                "id",
-                "created_by_run",
-                "spread",
-                "spread_sequence",
-                "side",
-                "x_min",
-                "x_max",
-                "image",
-                "pref_image_url",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "created_by_run",
+            "spread",
+            "spread_sequence",
+            "side",
+            "x_min",
+            "x_max",
+            "image",
+        ]:
+            self.assertIn(k, res.data["results"][0])
+        self.assertIn("jpg", res.data["results"][0]["image"])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "created_by_run",
-                "spread",
-                "side",
-                "x_min",
-                "x_max",
-                "image",
-                "pref_image_url",
-                "most_recent_lines",
-                "lines",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "created_by_run",
+            "spread",
+            "side",
+            "x_min",
+            "x_max",
+            "image",
+            "most_recent_lines",
+            "lines",
+        ]:
+            self.assertIn(k, res.data.keys())
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["lines"], list)
+        self.assertIn("jpg", res.data["image"])
 
     @as_auth
     def test_delete(self):
@@ -588,7 +565,13 @@ class PageViewTest(TestCase):
         self.assertEqual(failres.status_code, 400)
         # Delete it and then try again
         getextant = self.client.get(
-            self.ENDPOINT, {"book": spread.book.pk, "spread_sequence": spread.sequence, "created_by_run": run, "side": "l"}
+            self.ENDPOINT,
+            {
+                "book": spread.book.pk,
+                "spread_sequence": spread.sequence,
+                "created_by_run": run,
+                "side": "l",
+            },
         )
         delres = self.client.delete(
             self.ENDPOINT + str(getextant.data["results"][0]["id"]) + "/"
@@ -607,19 +590,17 @@ class PageViewTest(TestCase):
         )
 
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "created_by_run",
-                "spread",
-                "side",
-                "x_min",
-                "x_max",
-                "image",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "created_by_run",
+            "spread",
+            "side",
+            "x_min",
+            "x_max",
+            "image",
+        ]:
+            self.assertIn(k, res.data)
 
     def test_noaccess(self):
         noaccess(self)
@@ -639,33 +620,28 @@ class LineViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(
-            list(res.data["results"][0].keys()),
-            ["url", "id", "created_by_run", "page", "sequence", "y_min", "y_max"],
-        )
+        for k in ["url", "id", "created_by_run", "page", "sequence", "y_min", "y_max"]:
+            self.assertIn(k, res.data["results"][0])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "created_by_run",
-                "page",
-                "sequence",
-                "image",
-                "y_min",
-                "y_max",
-                "pref_image_url",
-                "most_recent_characters",
-                "characters",
-                "most_recent_linegroups",
-                "linegroups",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "created_by_run",
+            "page",
+            "sequence",
+            "image",
+            "y_min",
+            "y_max",
+            "most_recent_characters",
+            "characters",
+            "most_recent_linegroups",
+            "linegroups",
+        ]:
+            self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["characters"], list)
 
@@ -693,19 +669,17 @@ class LineViewTest(TestCase):
             },
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "created_by_run",
-                "page",
-                "sequence",
-                "y_min",
-                "y_max",
-                "image",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "created_by_run",
+            "page",
+            "sequence",
+            "y_min",
+            "y_max",
+            "image",
+        ]:
+            self.assertIn(k, res.data)
 
     def test_noaccess(self):
         noaccess(self)
@@ -725,25 +699,15 @@ class LineGroupViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(
-            list(res.data["results"][0].keys()),
-            ["url", "id", "page", "created_by_run", "lines"],
-        )
+        for k in ["url", "id", "page", "created_by_run", "lines"]:
+            self.assertIn(k, res.data["results"][0])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "page",
-                "created_by_run",
-                "lines",
-            ],
-        )
+        for k in ["url", "id", "page", "created_by_run", "lines"]:
+            self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["lines"], list)
 
@@ -765,20 +729,12 @@ class LineGroupViewTest(TestCase):
             data={
                 "page": page.pk,
                 "created_by_run": run,
-                "lines": [l.pk for l in lines]
+                "lines": [l.pk for l in lines],
             },
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "page",
-                "created_by_run",
-                "lines",
-            ],
-        )
+        for k in ["url", "id", "page", "created_by_run", "lines"]:
+            self.assertIn(k, res.data)
 
     def test_noaccess(self):
         noaccess(self)
@@ -798,43 +754,37 @@ class CharacterViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(
-            list(res.data["results"][0].keys()),
-            [
-                "url",
-                "id",
-                "created_by_run",
-                "line",
-                "sequence",
-                "x_min",
-                "x_max",
-                "character_class",
-                "class_probability",
-                "image",
-                "pref_image_url",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "created_by_run",
+            "line",
+            "sequence",
+            "x_min",
+            "x_max",
+            "character_class",
+            "class_probability",
+            "image",
+        ]:
+            self.assertIn(k, res.data["results"][0])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "created_by_run",
-                "line",
-                "sequence",
-                "image",
-                "x_min",
-                "x_max",
-                "character_class",
-                "class_probability",
-                "pref_image_url",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "created_by_run",
+            "line",
+            "sequence",
+            "image",
+            "x_min",
+            "x_max",
+            "character_class",
+            "class_probability",
+        ]:
+            self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
 
     @as_auth
@@ -864,21 +814,19 @@ class CharacterViewTest(TestCase):
             },
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(
-            list(res.data.keys()),
-            [
-                "url",
-                "id",
-                "created_by_run",
-                "line",
-                "sequence",
-                "x_min",
-                "x_max",
-                "character_class",
-                "class_probability",
-                "image",
-            ],
-        )
+        for k in [
+            "url",
+            "id",
+            "created_by_run",
+            "line",
+            "sequence",
+            "x_min",
+            "x_max",
+            "character_class",
+            "class_probability",
+            "image",
+        ]:
+            self.assertIn(k, res.data)
 
     def test_noaccess(self):
         noaccess(self)
@@ -898,10 +846,8 @@ class ImageViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(
-            list(res.data["results"][0].keys()),
-            ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"],
-        )
+        for k in ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"]:
+            self.assertIn(k, res.data["results"][0])
 
     @as_auth
     def test_get_detail(self):
@@ -931,9 +877,8 @@ class ImageViewTest(TestCase):
             },
         )
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(
-            list(res.data.keys()), ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"]
-        )
+        for k in ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"]:
+            self.assertIn(k, res.data)
 
     def test_noaccess(self):
         noaccess(self)
@@ -953,13 +898,15 @@ class CharacterClassViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        self.assertEqual(list(res.data["results"][0].keys()), ["url", "classname"])
+        for k in ["url", "classname"]:
+            self.assertIn(k, res.data["results"][0])
 
     @as_auth
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(list(res.data.keys()), ["url", "classname"])
+        for k in ["url", "classname"]:
+            self.assertIn(k, res.data)
         self.assertEqual(res.data["classname"], self.STR1)
 
     @as_auth
@@ -973,7 +920,8 @@ class CharacterClassViewTest(TestCase):
     def test_post(self):
         res = self.client.post(self.ENDPOINT, data={"classname": "zed"})
         self.assertEqual(res.status_code, 201)
-        self.assertEqual(list(res.data.keys()), ["url", "classname"])
+        for k in ["url", "classname"]:
+            self.assertIn(k, res.data)
         constrainres = self.client.post(self.ENDPOINT, data={"classname": "a"})
         self.assertEqual(constrainres.status_code, 400)
 

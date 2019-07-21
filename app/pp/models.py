@@ -220,6 +220,9 @@ class Page(ImagedModel):
     def spread_sequence(self):
         return self.spread.sequence
 
+    def book(self):
+        return self.spread.book
+
 
 class Line(ImagedModel):
     """
@@ -334,14 +337,20 @@ class Character(ImagedModel):
         unique_together = (("created_by_run", "line", "sequence"),)
         ordering = ["created_by_run", "line", "sequence"]
 
-    def __str__(self):
-        return f"{self.line} c. {self.sequence} ({self.character_class} - {self.class_probability})"
+    # def __str__(self):
+        # return f"{self.line} c. {self.sequence} ({self.character_class} - {self.class_probability})"
+
+    def book(self):
+        return self.line.page.spread.book
+
+    def spread(self):
+        return self.line.page.spread
+
+    def page(self):
+        return self.line.page
 
     def pref_image_url(self):
-        if self.image is not None:
-            return self.image.web_url()
-        else:
-            return None
+            return self.image.jpg
 
     def absolute_coords(self):
         """

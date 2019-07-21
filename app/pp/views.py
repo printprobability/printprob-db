@@ -34,7 +34,12 @@ class BookViewSet(CRUDViewSet):
     """
 
     queryset = models.Book.objects.prefetch_related(
-        "spreads", "pageruns", "lineruns", "linegroupruns", "characterruns"
+        "spreads",
+        "pageruns",
+        "pageruns__pages",
+        "lineruns",
+        "linegroupruns__linegroups",
+        "characterruns",
     ).all()
     filterset_class = BookFilter
 
@@ -265,7 +270,6 @@ class LineGroupViewSet(CRUDViewSet):
         return serializers.LineGroupCreateSerializer
 
 
-
 class CharacterFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
         queryset=models.Book.objects.all(),
@@ -291,7 +295,7 @@ class CharacterFilter(filters.FilterSet):
 
 
 class CharacterViewSet(CRUDViewSet):
-    queryset = models.Character.objects.all()
+    queryset = models.Character.objects.select_related("image").all()
     filterset_class = CharacterFilter
 
     def get_serializer_class(self):
