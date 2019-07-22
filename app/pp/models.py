@@ -203,7 +203,6 @@ class Page(ImagedModel):
     def n_lines(self):
         return self.lines.count()
 
-
     def most_recent_lines(self):
         return self.spread.book.lineruns.first().lines.filter(page=self)
 
@@ -256,7 +255,7 @@ class Line(ImagedModel):
         return self.page.spread.book.characterruns.first().characters.filter(line=self)
 
     def most_recent_linegroups(self):
-        return self.page.spread.book.linegroupruns.first().linegroups.filter(lines=self)
+        return LineGroup.objects.filter(lines=self, created_by_run=self.page.spread.book.linegroupruns.first()).distinct()
 
     def line_height(self):
         return self.y_max - self.y_min

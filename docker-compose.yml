@@ -38,7 +38,7 @@ services:
     volumes:
       - ppstatic:/vol/static_files:z
       - ${REAL_IMAGE_DIR}:${VIRTUAL_IMAGE_DIR}:z
-      - ${NGINX_CONF}:/etc/nginx/conf.d/default.conf:z
+      - ./nginx:/etc/nginx/conf.d:z
     ports:
       - "${NGINX_PORT}:4000"
     env_file: .env

@@ -12,7 +12,7 @@ class CharacterClassSerializer(serializers.HyperlinkedModelSerializer):
 class ImageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Image
-        fields = ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"]
+        fields = ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]
 
 
 class BookFlatSerializer(serializers.HyperlinkedModelSerializer):
@@ -264,6 +264,8 @@ class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
     spread = SpreadFlatSerializer()
     page = PageFlatSerializer()
     line = LineFlatSerializer()
+    image = ImageSerializer()
+
     class Meta:
         model = models.Character
         fields = [
@@ -368,6 +370,7 @@ class LineCreateSerializer(serializers.ModelSerializer):
 
 class PageListSerializer(serializers.HyperlinkedModelSerializer):
     image = ImageSerializer()
+
     class Meta:
         model = models.Page
         fields = [
@@ -391,12 +394,7 @@ class PageDetailSerializer(serializers.HyperlinkedModelSerializer):
         read_only=True,
         help_text="All Line instances ever produced from this Page, under any run.",
     )
-    most_recent_lines = serializers.HyperlinkedRelatedField(
-        many=True,
-        view_name="line-detail",
-        read_only=True,
-        help_text="Lines processed for this Page during the most recent page run processed for this book.",
-    )
+    most_recent_lines = LineFlatSerializer(many=True)
     image = ImageSerializer(many=False)
     book = BookFlatSerializer(many=False)
     spread = SpreadFlatSerializer(many=False)
@@ -435,6 +433,7 @@ class PageCreateSerializer(serializers.ModelSerializer):
 
 class SpreadListSerializer(serializers.HyperlinkedModelSerializer):
     image = ImageSerializer()
+
     class Meta:
         model = models.Spread
         fields = ["url", "id", "book", "sequence", "image"]
