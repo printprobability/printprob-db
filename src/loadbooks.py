@@ -3,6 +3,8 @@ import requests
 import re
 from glob import glob
 from random import randrange
+from uuid import uuid4, UUID
+from hashlib import md5
 
 # Enter the database hostname and authorization token
 b = os.environ["TEST_HOST"]
@@ -10,12 +12,6 @@ ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
 
 books = glob("/Volumes/data_mdlincoln/pp/books/*")
 print(books)
-
-# Start a Run. This POST request will return a UUID that will need to be added when creating new Page, Line, and Character entries in the database
-run_id = requests.post(f"{b}runs/", data={"notes": "trial run"}, headers=ht).json()[
-    "pk"
-]
-print(run_id)
 
 
 def cleanpath(s):
@@ -25,10 +21,17 @@ def cleanpath(s):
     return re.sub("^.+/pp/", "/", s)
 
 
+# Wipe out current data
+"""
+for book in requests.get(f"{b}books/", headers=ht).json()["results"]:
+    requests.delete(f"{b}books/{book['eebo']}/", headers = ht)
+"""
+
 for book in books:
     # Segment the book metadata
     bnames = book.split("/")[-1].split("_")
     print(bnames)
+
     # Create a new book in the database.
     r = requests.post(
         f"{b}books/",
@@ -37,10 +40,34 @@ for book in books:
             "vid": int(bnames[2]),
             "publisher": bnames[0],
             "title": bnames[4],
+            "pdf": str(uuid4()),
         },
         headers=ht,
     ).json()
     print(r)
+
+    # Create the runs
+    page_run = requests.post(
+        f"{b}runs/pages/",
+        data={
+            "params": str(uuid4()),
+            "script_path": str(uuid4()),
+            "script_md5": uuid4(),
+            "book": int(bnames[1]),
+        },
+        headers=ht,
+    ).json()["id"]
+    line_run = requests.post(
+        f"{b}runs/lines/",
+        data={
+            "params": str(uuid4()),
+            "script_path": str(uuid4()),
+            "script_md5": uuid4(),
+            "book": int(bnames[1]),
+        },
+        headers=ht,
+    ).json()["id"]
+
     # Collect all the spread TIF files from that book's folder
     spread_pix = [f for f in glob(f"{book}/*.tif") if re.search("\d{3}\.tif", f)]
     for s in spread_pix:
@@ -54,9 +81,14 @@ for book in books:
         # newly-created image
         image_id = requests.post(
             f"{b}images/",
-            data={"tif": spath, "jpg": re.sub("tif", "jpeg", spath)},
+            data={
+                "tif": spath,
+                "jpg": re.sub("tif", "jpeg", spath),
+                "jpg_md5": md5(open(s, "rb").read()).hexdigest(),
+                "tif_md5": md5(open(s, "rb").read()).hexdigest(),
+            },
             headers=ht,
-        ).json()["pk"]
+        ).json()["id"]
         print(image_id)
 
         # Create a new Spread in the database, registering which book it comes
@@ -64,13 +96,9 @@ for book in books:
         # representing it.
         spread_id = requests.post(
             f"{b}spreads/",
-            data={
-                "book": int(bnames[1]),
-                "sequence": int(snames),
-                "primary_image": image_id,
-            },
+            data={"book": int(bnames[1]), "sequence": int(snames), "image": image_id},
             headers=ht,
-        ).json()["pk"]
+        ).json()["id"]
         print(spread_id)
 
         # For each spread, find the two Page images
@@ -88,43 +116,53 @@ for book in books:
         lpath = cleanpath(pagepics[0])
         left_page_pic = requests.post(
             f"{b}images/",
-            data={"tif": lpath, "jpg": re.sub("tif", "jpeg", lpath)},
+            data={
+                "tif": lpath,
+                "jpg": re.sub("tif", "jpeg", lpath),
+                "jpg_md5": md5(open(pagepics[0], "rb").read()).hexdigest(),
+                "tif_md5": md5(open(pagepics[0], "rb").read()).hexdigest(),
+            },
             headers=ht,
-        ).json()["pk"]
+        ).json()["id"]
         # ...and then save the page itself into the db, connected to the spread UUID, the run UUID, and the image UUID
         left_page_id = requests.post(
             f"{b}pages/",
             data={
                 "spread": spread_id,
-                "side": "l", # Side must be "l" or "r"
-                "created_by_run": run_id,
+                "side": "l",  # Side must be "l" or "r"
+                "created_by_run": page_run,
                 "x_min": randrange(0, 500),
                 "x_max": randrange(0, 500),
-                "primary_image": left_page_pic,
+                "image": left_page_pic,
             },
             headers=ht,
-        ).json()["pk"]
+        ).json()["id"]
 
         # Get the path of the right page and first save its image paths
         rpath = cleanpath(pagepics[1])
         right_page_pic = requests.post(
             f"{b}images/",
-            data={"tif": rpath, "jpg": re.sub("tif", "jpeg", rpath)},
+            data={
+                "tif": rpath,
+                "jpg": re.sub("tif", "jpeg", rpath),
+                "jpg_md5": md5(open(pagepics[1], "rb").read()).hexdigest(),
+                "tif_md5": md5(open(pagepics[1], "rb").read()).hexdigest(),
+            },
             headers=ht,
-        ).json()["pk"]
+        ).json()["id"]
         # ...and then create its entry
         right_page_id = requests.post(
             f"{b}pages/",
             data={
                 "spread": spread_id,
                 "side": "r",
-                "created_by_run": run_id,
+                "created_by_run": page_run,
                 "x_min": randrange(0, 500),
                 "x_max": randrange(0, 500),
-                "primary_image": right_page_pic,
+                "image": right_page_pic,
             },
             headers=ht,
-        ).json()["pk"]
+        ).json()["id"]
 
         # Now iterate through the lines on the left page
         left_lines = [
@@ -137,24 +175,29 @@ for book in books:
             # Create an image for the line first, getting its UUID
             l_image_id = requests.post(
                 f"{b}images/",
-                data={"tif": cleanpath(l), "jpg": re.sub("tif", "jpeg", cleanpath(l))},
+                data={
+                    "tif": cleanpath(l),
+                    "jpg": re.sub("tif", "jpeg", cleanpath(l)),
+                    "jpg_md5": md5(open(l, "rb").read()).hexdigest(),
+                    "tif_md5": md5(open(l, "rb").read()).hexdigest(),
+                },
                 headers=ht,
-            ).json()["pk"]
+            ).json()["id"]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])
 
             # and then save the line to the database
             line_id = requests.post(
                 f"{b}lines/",
                 data={
-                    "created_by_run": run_id,
+                    "created_by_run": line_run,
                     "page": left_page_id,
                     "sequence": lseq,
                     "y_min": randrange(0, 500),
                     "y_max": randrange(0, 500),
-                    "primary_image": l_image_id,
+                    "image": l_image_id,
                 },
                 headers=ht,
-            ).json()["pk"]
+            ).json()["id"]
 
         # Now get the lines on the right page, create their images, and save them
         right_lines = [
@@ -166,19 +209,26 @@ for book in books:
             print(l)
             l_image_id = requests.post(
                 f"{b}images/",
-                data={"tif": cleanpath(l), "jpg": re.sub("tif", "jpeg", cleanpath(l))},
+                data={
+                    "tif": cleanpath(l),
+                    "jpg": re.sub("tif", "jpeg", cleanpath(l)),
+                    "jpg_md5": md5(open(l, "rb").read()).hexdigest(),
+                    "tif_md5": md5(open(l, "rb").read()).hexdigest(),
+                },
                 headers=ht,
-            ).json()["pk"]
+            ).json()["id"]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])
+
+            # and then save the line to the database
             line_id = requests.post(
                 f"{b}lines/",
                 data={
-                    "created_by_run": run_id,
+                    "created_by_run": line_run,
                     "page": right_page_id,
                     "sequence": lseq,
                     "y_min": randrange(0, 500),
                     "y_max": randrange(0, 500),
-                    "primary_image": l_image_id,
+                    "image": l_image_id,
                 },
                 headers=ht,
-            ).json()["pk"]
+            ).json()["id"]
