@@ -10,4 +10,4 @@ db/
 htmlcov/
 
 images/
-nginx_prod.conf
+nginx/
