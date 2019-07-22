@@ -41,6 +41,7 @@ services:
       - ./nginx:/etc/nginx/conf.d:z
     ports:
       - "${NGINX_PORT}:4000"
+      - "443:443"
     env_file: .env
     links:
       - "web:web"
