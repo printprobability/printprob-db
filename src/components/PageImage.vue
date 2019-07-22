@@ -1,9 +1,9 @@
 <template>
   <div class="card m-2">
-    <div class="card-header">{{ page.sequence }} - {{ page.side }}</div>
+    <div class="card-header">{{ page.spread_sequence }} - {{ page.side }}</div>
     <div class="card-body">
-      <router-link :to="{name: 'PageDetailView', params: {id: page.pk}}">
-        <img class="page-image" :src="page.pref_image.web_url">
+      <router-link :to="{name: 'PageDetailView', params: {id: page.id}}">
+        <img class="page-image" :src="page.image.web_url" />
       </router-link>
     </div>
   </div>

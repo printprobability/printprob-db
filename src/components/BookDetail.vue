@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <h2>{{ $route.params.id }} {{ book.title }} - {{ book.estc }}</h2>
+    <h2>{{ $route.params.id }} - {{ book.title }} - {{ book.publisher }}</h2>
     <p>{{ book.n_pages }} pages</p>
     <div class="d-flex flex-wrap justify-content-between">
-      <PageImage v-for="page in book.most_recent_pages" :key="page.pk" :page="page"></PageImage>
+      <PageImage v-for="page in book.most_recent_pages" :key="page.id" :page="page"></PageImage>
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     get_book: function(id) {
-      return axios.get("http://localhost/books/" + id).then(
+      return axios.get("http://localhost/books/" + id + "/").then(
         response => {
           this.book = response.data;
         },

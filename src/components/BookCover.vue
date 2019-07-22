@@ -1,16 +1,14 @@
 <template>
   <div class="card book-card">
     <div class="card-header">
-      <router-link :to="{name: 'BookDetailView', params: {id: book.id}}">{{ book.title }}</router-link>
-      ({{ book.n_pages}}p)
+      <router-link :to="{name: 'BookDetailView', params: {id: book.eebo}}">{{ book.title }}</router-link>
+      ({{ book.n_spreads }} spreads)
     </div>
     <div class="card-body">
-      <a :href="book.cover_page.image.jpg">
-        <img :src="book.cover_page.image.jpg" class="book-cover-image" />
-      </a>
+      <img :src="book.cover_page.image.web_url" class="book-cover-image" />
     </div>
     <div class="card-footer">
-      <code>{{ book.estc }}</code>
+      <code>{{ book.eebo }}</code>
     </div>
   </div>
 </template>

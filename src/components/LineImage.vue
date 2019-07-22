@@ -1,12 +1,10 @@
 <template>
   <p>
     <img
-      :src="line.pref_image.web_url"
+      :src="line.image.web_url"
       class="line-image my-3 mx-auto"
-      :class="{'selected-line-image': line.pref_image.bad_capture}"
       @click="toggleClassification(line)"
     />
-    <span>{{ line.pref_image.pk }}</span>
   </p>
 </template>
 
@@ -19,9 +17,9 @@ export default {
     line: Object
   },
   methods: {
-    addClassification: function(pk) {
+    addClassification: function(id) {
       var payload = {
-        image: pk
+        image: id
       };
       return axios.post("http://localhost/captures/", payload).then(
         response => {
@@ -32,8 +30,8 @@ export default {
         }
       );
     },
-    removeClassification: function(pk) {
-      return axios.delete("http://localhost/captures/" + pk).then(
+    removeClassification: function(id) {
+      return axios.delete("http://localhost/captures/" + id).then(
         response => {
           console.log(response);
         },
@@ -46,9 +44,9 @@ export default {
       var img = line.pref_image;
       console.log(img.bad_capture);
       if (img.bad_capture) {
-        var reqres = this.removeClassification(img.pk);
+        var reqres = this.removeClassification(img.id);
       } else {
-        var reqres = this.addClassification(img.pk);
+        var reqres = this.addClassification(img.id);
       }
       img.bad_capture = !img.bad_capture;
       return reqres;

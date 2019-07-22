@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <router-link v-if="page.book" :to="{name: 'BookDetailView', params: {id: page.book}}">
-      <h2>{{ $route.params.id }} {{ page.book_title }} - page {{ page.sequence }} {{ page.side }}</h2>
+    <router-link v-if="page.book" :to="{name: 'BookDetailView', params: {id: page.book.eebo}}">
+      <h2>{{ $route.params.id }} - {{ page.book.title }} - page {{ page.spread_sequence }} {{ page.side }}</h2>
     </router-link>
     <div class="button-pagination d-flex justify-content-between">
       <button
@@ -18,7 +18,7 @@
       >Next</button>
     </div>
     <ol>
-      <li v-for="line in page.lines" :key="line.pk">
+      <li v-for="line in page.most_recent_lines" :key="line.id">
         <LineImage :line="line"></LineImage>
       </li>
     </ol>
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     get_page: function(id) {
-      return axios.get("http://localhost/pages/" + id).then(
+      return axios.get("http://localhost/pages/" + id + "/").then(
         response => {
           this.page = response.data;
         },

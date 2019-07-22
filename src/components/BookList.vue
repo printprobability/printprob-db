@@ -2,7 +2,7 @@
   <div id="app">
     <h1>All Books</h1>
     <div class="book-covers card-columns">
-      <BookCover v-for="book in books" :book="book" :key="book.pk" />
+      <BookCover v-for="book in books" :book="book" :key="book.eebo" />
     </div>
   </div>
 </template>
