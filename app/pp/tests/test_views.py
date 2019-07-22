@@ -355,7 +355,7 @@ class BookViewTest(TestCase):
 
     ENDPOINT = "/books/"
     OBJCOUNT = models.Book.objects.count()
-    OBJ1 = models.Book.objects.first().estc
+    OBJ1 = models.Book.objects.first().eebo
     STR1 = str(OBJ1)
 
     @as_auth
@@ -365,7 +365,7 @@ class BookViewTest(TestCase):
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         for k in [
             "url",
-            "estc",
+            "eebo",
             "vid",
             "publisher",
             "title",
@@ -382,7 +382,7 @@ class BookViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         for k in [
             "url",
-            "estc",
+            "eebo",
             "vid",
             "publisher",
             "title",
@@ -394,7 +394,7 @@ class BookViewTest(TestCase):
             "most_recent_pages",
         ]:
             self.assertIn(k, res.data)
-        self.assertEqual(res.data["estc"], self.OBJ1)
+        self.assertEqual(res.data["eebo"], self.OBJ1)
         self.assertIsInstance(res.data["spreads"], list)
         self.assertIsInstance(res.data["most_recent_runs"], dict)
         self.assertIsInstance(res.data["all_runs"], dict)
@@ -419,10 +419,10 @@ class BookViewTest(TestCase):
     def test_post(self):
         res = self.client.post(
             self.ENDPOINT,
-            data={"estc": 101, "vid": 202, "title": "foobar", "pdf": "foobar"},
+            data={"eebo": 101, "vid": 202, "title": "foobar", "pdf": "foobar"},
         )
         self.assertEqual(res.status_code, 201)
-        for k in ["url", "estc", "vid", "publisher", "title", "pdf"]:
+        for k in ["url", "eebo", "vid", "publisher", "title", "pdf"]:
             self.assertIn(k, res.data)
 
     def test_noaccess(self):
@@ -767,7 +767,7 @@ class CharacterViewTest(TestCase):
             "image",
         ]:
             self.assertIn(k, res.data["results"][0])
-        self.assertIn("estc", res.data["results"][0]["book"])
+        self.assertIn("eebo", res.data["results"][0]["book"])
         self.assertIn("sequence", res.data["results"][0]["spread"])
         self.assertIn("side", res.data["results"][0]["page"])
         self.assertIn("sequence", res.data["results"][0]["line"])

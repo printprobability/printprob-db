@@ -9,13 +9,13 @@ models.Image.objects.all().delete()
 
 
 b1 = models.Book.objects.create(
-    estc=1234,
+    eebo=1234,
     vid=231,
     title=ff.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None),
     pdf=ff.file_path(depth=3, extension="pdf"),
 )
 b2 = models.Book.objects.create(
-    estc=5678,
+    eebo=5678,
     vid=987,
     title=ff.sentence(nb_words=6, variable_nb_words=True, ext_word_list=None),
     pdf=ff.file_path(depth=3, extension="pdf"),

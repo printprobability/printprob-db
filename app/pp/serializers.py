@@ -18,7 +18,7 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
 class BookFlatSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Book
-        fields = ["url", "estc", "vid", "publisher", "title", "pdf"]
+        fields = ["url", "eebo", "vid", "publisher", "title", "pdf"]
 
 
 class SpreadFlatSerializer(serializers.HyperlinkedModelSerializer):
@@ -480,7 +480,7 @@ class BookListSerializer(serializers.HyperlinkedModelSerializer):
         model = models.Book
         fields = [
             "url",
-            "estc",
+            "eebo",
             "vid",
             "publisher",
             "title",
@@ -493,7 +493,7 @@ class BookListSerializer(serializers.HyperlinkedModelSerializer):
 class BookCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Book
-        fields = ["url", "estc", "vid", "publisher", "title", "pdf"]
+        fields = ["url", "eebo", "vid", "publisher", "title", "pdf"]
 
 
 class BookRunsSerializer(serializers.Serializer):
@@ -533,7 +533,7 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
         model = models.Book
         fields = [
             "url",
-            "estc",
+            "eebo",
             "vid",
             "publisher",
             "title",

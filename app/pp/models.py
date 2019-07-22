@@ -46,16 +46,16 @@ class CharacterRun(Run):
 
 
 class Book(models.Model):
-    estc = models.PositiveIntegerField(primary_key=True, help_text="ESTC ID number")
+    eebo = models.PositiveIntegerField(primary_key=True, help_text="EEBO ID number")
     vid = models.PositiveIntegerField(unique=True, help_text="Alternate ID number")
     title = models.CharField(
-        max_length=1000, db_index=True, help_text="Title (as cataloged by ESTC)"
+        max_length=1000, db_index=True, help_text="Title (as cataloged by EEBO)"
     )
     publisher = models.CharField(
         blank=True,
         null=False,
         max_length=500,
-        help_text="Publisher (as cataloged by ESTC)",
+        help_text="Publisher (as cataloged by EEBO)",
     )
     pdf = models.CharField(
         max_length=2000,
@@ -64,10 +64,10 @@ class Book(models.Model):
     )
 
     class Meta:
-        ordering = ["estc"]
+        ordering = ["eebo"]
 
     def __str__(self):
-        return f"{self.estc} - {self.title}"
+        return f"{self.eebo} - {self.title}"
 
     def all_runs(self):
         return {

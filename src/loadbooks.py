@@ -33,7 +33,7 @@ for book in books:
     r = requests.post(
         f"{b}books/",
         data={
-            "estc": int(bnames[1]),
+            "eebo": int(bnames[1]),
             "vid": int(bnames[2]),
             "publisher": bnames[0],
             "title": bnames[4],

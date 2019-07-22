@@ -15,7 +15,7 @@ class CRUDViewSet(viewsets.ModelViewSet):
 
 
 class BookFilter(filters.FilterSet):
-    estc = filters.NumberFilter(help_text="Numeric EEBO ID")
+    eebo = filters.NumberFilter(help_text="Numeric EEBO ID")
     vid = filters.NumberFilter(help_text="Numeric VID")
     title = filters.CharFilter(
         help_text="books with titles containing this string (case insensitive)",
@@ -30,7 +30,7 @@ class BookFilter(filters.FilterSet):
 
 class BookViewSet(CRUDViewSet):
     """
-    list: Lists all books. Along with [`CharacterClass`](#character-class-create), `Book` instances use a human-readable ID (here, the ESTC id) rather than a UUID.
+    list: Lists all books. Along with [`CharacterClass`](#character-class-create), `Book` instances use a human-readable ID (here, the EEBO id) rather than a UUID.
     """
 
     queryset = models.Book.objects.prefetch_related(
