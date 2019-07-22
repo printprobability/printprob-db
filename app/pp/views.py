@@ -79,8 +79,15 @@ class SpreadViewSet(CRUDViewSet):
 # Run Views ----
 
 
+class RunFilter(filters.FilterSet):
+    book = filters.ModelChoiceFilter(
+        queryset=models.Book.objects.all(), help_text="Run associated with this book"
+    )
+
+
 class PageRunViewSet(CRUDViewSet):
     queryset = models.PageRun.objects.all()
+    filterset_class = RunFilter
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -92,6 +99,7 @@ class PageRunViewSet(CRUDViewSet):
 
 class LineRunViewSet(CRUDViewSet):
     queryset = models.LineRun.objects.all()
+    filterset_class = RunFilter
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -103,6 +111,7 @@ class LineRunViewSet(CRUDViewSet):
 
 class LineGroupRunViewSet(CRUDViewSet):
     queryset = models.LineGroupRun.objects.all()
+    filterset_class = RunFilter
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -114,6 +123,7 @@ class LineGroupRunViewSet(CRUDViewSet):
 
 class CharacterRunViewSet(CRUDViewSet):
     queryset = models.CharacterRun.objects.all()
+    filterset_class = RunFilter
 
     def get_serializer_class(self):
         if self.action == "retrieve":
