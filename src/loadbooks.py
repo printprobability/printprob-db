@@ -76,14 +76,14 @@ for book in books:
         print(snames)
         spath = cleanpath(s)
 
-        # From the tiff and jpeg filepaths, create a new Image in the database.
+        # From the tiff and jpg filepaths, create a new Image in the database.
         # The JSON returned from this POST action will contain the UUID of the
         # newly-created image
         image_id = requests.post(
             f"{b}images/",
             data={
                 "tif": spath,
-                "jpg": re.sub("tif", "jpeg", spath),
+                "jpg": re.sub("tif", "jpg", spath),
                 "jpg_md5": md5(open(s, "rb").read()).hexdigest(),
                 "tif_md5": md5(open(s, "rb").read()).hexdigest(),
             },
@@ -118,7 +118,7 @@ for book in books:
             f"{b}images/",
             data={
                 "tif": lpath,
-                "jpg": re.sub("tif", "jpeg", lpath),
+                "jpg": re.sub("tif", "jpg", lpath),
                 "jpg_md5": md5(open(pagepics[0], "rb").read()).hexdigest(),
                 "tif_md5": md5(open(pagepics[0], "rb").read()).hexdigest(),
             },
@@ -144,7 +144,7 @@ for book in books:
             f"{b}images/",
             data={
                 "tif": rpath,
-                "jpg": re.sub("tif", "jpeg", rpath),
+                "jpg": re.sub("tif", "jpg", rpath),
                 "jpg_md5": md5(open(pagepics[1], "rb").read()).hexdigest(),
                 "tif_md5": md5(open(pagepics[1], "rb").read()).hexdigest(),
             },
@@ -177,7 +177,7 @@ for book in books:
                 f"{b}images/",
                 data={
                     "tif": cleanpath(l),
-                    "jpg": re.sub("tif", "jpeg", cleanpath(l)),
+                    "jpg": re.sub("tif", "jpg", cleanpath(l)),
                     "jpg_md5": md5(open(l, "rb").read()).hexdigest(),
                     "tif_md5": md5(open(l, "rb").read()).hexdigest(),
                 },
@@ -211,7 +211,7 @@ for book in books:
                 f"{b}images/",
                 data={
                     "tif": cleanpath(l),
-                    "jpg": re.sub("tif", "jpeg", cleanpath(l)),
+                    "jpg": re.sub("tif", "jpg", cleanpath(l)),
                     "jpg_md5": md5(open(l, "rb").read()).hexdigest(),
                     "tif_md5": md5(open(l, "rb").read()).hexdigest(),
                 },
