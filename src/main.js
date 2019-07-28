@@ -13,16 +13,18 @@ Vue.config.productionTip = false
 import BookList from "./components/BookList.vue";
 import BookDetail from "./components/BookDetail.vue";
 import PageDetail from "./components/PageDetail.vue";
+import CharacterList from "./components/CharacterList.vue"
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.withCredentials = true;
-
+Vue.prototype.$http = axios;
 
 const routes = [
   { path: "/books", name: "BookListView", component: BookList },
   { path: "/books/:id", name: "BookDetailView", component: BookDetail },
-  { path: "/pages/:id", name: "PageDetailView", component: PageDetail }
+  { path: "/pages/:id", name: "PageDetailView", component: PageDetail },
+  { path: "/characters/", name: "CharacterListView", component: CharacterList },
 ]
 
 const router = new VueRouter({

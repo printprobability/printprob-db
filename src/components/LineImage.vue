@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "LineImage",
   props: {
@@ -21,7 +19,7 @@ export default {
       var payload = {
         image: id
       };
-      return axios.post("http://localhost/captures/", payload).then(
+      return this.$http.post("http://localhost/captures/", payload).then(
         response => {
           console.log(response);
         },
@@ -31,7 +29,7 @@ export default {
       );
     },
     removeClassification: function(id) {
-      return axios.delete("http://localhost/captures/" + id).then(
+      return this.$http.delete("http://localhost/captures/" + id).then(
         response => {
           console.log(response);
         },

@@ -27,8 +27,6 @@
 
 <script>
 import LineImage from "./LineImage.vue";
-import axios from "axios";
-
 export default {
   name: "PageDetail",
   components: {
@@ -41,7 +39,7 @@ export default {
   },
   methods: {
     get_page: function(id) {
-      return axios.get("http://localhost/pages/" + id + "/").then(
+      return this.$http.get("http://localhost/pages/" + id + "/").then(
         response => {
           this.page = response.data;
         },

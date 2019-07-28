@@ -10,7 +10,6 @@
 
 <script>
 import PageImage from "./PageImage.vue";
-import axios from "axios";
 
 export default {
   name: "BookDetail",
@@ -24,7 +23,7 @@ export default {
   },
   methods: {
     get_book: function(id) {
-      return axios.get("http://localhost/books/" + id + "/").then(
+      return this.$http.get("http://localhost/books/" + id + "/").then(
         response => {
           this.book = response.data;
         },
