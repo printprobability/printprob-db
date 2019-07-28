@@ -16,50 +16,30 @@ export default {
   },
   data: function(d) {
     return {
-      characters: []
+      characters: [],
+      total_char_count: Number,
+      prev_page: String,
+      next_page: String
     };
   },
   methods: {
-    get_characters: function(l = "http://localhost/characters/") {
+    get_characters: function() {
       console.log(this.selected_character_class);
-      // if (!!cname) {
-      //   var param_payload = { character_class: cname };
-      // } else {
-      //   var param_payload = null;
-      // }
-      if (!!this.selected_character_class) {
-        console.log(this.selected_character_class);
-        return this.$http
-          .get(l, {
-            params: { character_class: this.selected_character_class }
-          })
-          .then(
-            response => {
-              // // Page through results recursively
-              // if (!!response.data.next) {
-              //   console.log(response.data.next);
-              //   var payload =
-              //     response.data.results + get_characters(response.data.next);
-              // } else {
-              //   var payload = response.data.results;
-              // }
-              this.characters = response.data.results;
-            },
-            error => {
-              console.log(error);
-            }
-          );
-      } else {
-        console.log(l);
-        return this.$http.get(l).then(
+      return this.$http
+        .get("http://localhost/characters/", {
+          params: { character_class: this.selected_character_class }
+        })
+        .then(
           response => {
             this.characters = response.data.results;
+            this.total_char_count = response.data.count;
+            this.prev_page = response.data.previous;
+            this.next_page = response.data.next;
           },
           error => {
             console.log(error);
           }
         );
-      }
     }
   },
   mounted: function() {

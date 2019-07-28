@@ -32,6 +32,23 @@ const router = new VueRouter({
   routes: routes
 })
 
+Vue.mixin({
+  methods: {
+    page_path: function (p, params) {
+      console.log(`Getting ${p} with params: ${params}`)
+      return this.$http.get(p, { params: params }).then(response => {
+        console.log(`count: ${response.data.count}`)
+        var response_collector = response.data.results
+        if (!!response.data.next) {
+          console.log(`Getting next at ${response.data.next}`)
+          response_collector.concat(this.page_path(response.data.next))
+        }
+        return response_collector
+      })
+    }
+  }
+});
+
 new Vue({
   router,
   render: h => h(app)
