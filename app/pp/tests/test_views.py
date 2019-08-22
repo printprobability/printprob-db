@@ -858,7 +858,7 @@ class ImageViewTest(TestCase):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
         self.assertEqual(
-            list(res.data.keys()), ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"]
+            list(res.data.keys()), ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]
         )
         self.assertEqual(res.data["id"], self.STR1)
 
