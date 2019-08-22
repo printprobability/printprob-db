@@ -6,5 +6,3 @@ omit =
   */migrations/*
   */fixtures/*
   htmlcov/*
-
-plugins = django_coverage_plugin
