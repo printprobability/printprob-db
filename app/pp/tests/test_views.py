@@ -41,9 +41,12 @@ class PageRunTestCase(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/runs/pages/"
-    OBJCOUNT = models.PageRun.objects.count()
-    OBJ1 = models.PageRun.objects.first().pk
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.PageRun.objects.count()
+        cls.OBJ1 = models.PageRun.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
@@ -119,9 +122,12 @@ class LineRunTestCase(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/runs/lines/"
-    OBJCOUNT = models.LineRun.objects.count()
-    OBJ1 = models.LineRun.objects.first().pk
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.LineRun.objects.count()
+        cls.OBJ1 = models.LineRun.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
@@ -197,9 +203,12 @@ class LineGroupRunTestCase(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/runs/linegroups/"
-    OBJCOUNT = models.LineGroupRun.objects.count()
-    OBJ1 = models.LineGroupRun.objects.first().pk
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUp(cls):
+        cls.OBJCOUNT = models.LineGroupRun.objects.count()
+        cls.OBJ1 = models.LineGroupRun.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
@@ -275,9 +284,12 @@ class CharacterRunTestCase(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/runs/characters/"
-    OBJCOUNT = models.CharacterRun.objects.count()
-    OBJ1 = models.CharacterRun.objects.first().pk
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.CharacterRun.objects.count()
+        cls.OBJ1 = models.CharacterRun.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
@@ -354,9 +366,12 @@ class BookViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/books/"
-    OBJCOUNT = models.Book.objects.count()
-    OBJ1 = models.Book.objects.first().eebo
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.Book.objects.count()
+        cls.OBJ1 = models.Book.objects.first().eebo
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
@@ -433,9 +448,12 @@ class SpreadViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/spreads/"
-    OBJCOUNT = models.Spread.objects.count()
-    OBJ1 = models.Spread.objects.first().pk
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.Spread.objects.count()
+        cls.OBJ1 = models.Spread.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
@@ -491,9 +509,12 @@ class PageViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/pages/"
-    OBJCOUNT = models.Page.objects.count()
-    OBJ1 = models.Page.objects.first().pk
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.Page.objects.count()
+        cls.OBJ1 = models.Page.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
@@ -608,9 +629,12 @@ class LineViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/lines/"
-    OBJCOUNT = models.Line.objects.count()
-    OBJ1 = models.Line.objects.first().pk
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.Line.objects.count()
+        cls.OBJ1 = models.Line.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
@@ -687,9 +711,12 @@ class LineGroupViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/linegroups/"
-    OBJCOUNT = models.LineGroup.objects.count()
-    OBJ1 = models.LineGroup.objects.first().pk
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.LineGroup.objects.count()
+        cls.OBJ1 = models.LineGroup.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
@@ -742,9 +769,12 @@ class CharacterViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/characters/"
-    OBJCOUNT = models.Character.objects.count()
-    OBJ1 = models.Character.objects.first().pk
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.Character.objects.count()
+        cls.OBJ1 = models.Character.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
@@ -841,9 +871,12 @@ class ImageViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/images/"
-    OBJCOUNT = models.Image.objects.count()
-    OBJ1 = models.Image.objects.first().pk
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.Image.objects.count()
+        cls.OBJ1 = models.Image.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
@@ -893,9 +926,12 @@ class CharacterClassViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/character_classes/"
-    OBJCOUNT = models.CharacterClass.objects.count()
-    OBJ1 = models.CharacterClass.objects.first().pk
-    STR1 = str(OBJ1)
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.CharacterClass.objects.count()
+        cls.OBJ1 = models.CharacterClass.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
 
     @as_auth
     def test_get(self):
