@@ -11,3 +11,4 @@ htmlcov/
 
 images/
 nginx/
+*.sql
