@@ -3,7 +3,7 @@ coverage>=4.4
 psycopg2-binary
 gunicorn
 tblib
-djangorestframework==3.10.1
+djangorestframework==3.10.2
 django-cors-headers
 Markdown
 Pygments
