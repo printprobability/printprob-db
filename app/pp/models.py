@@ -260,17 +260,6 @@ class Line(ImagedModel):
     def line_height(self):
         return self.y_max - self.y_min
 
-    def absolute_coords(self):
-        """
-        Return a bounding box based on the pixels in the original page image
-        """
-        bbox = namedtuple("BoundingBox", "xmin xmax ymin ymax")
-        xmin = self.page.x_min
-        xmax = self.page.x_max
-        ymin = self.y_min
-        ymax = self.y_max
-        return bbox(xmin, xmax, ymin, ymax)
-
 
 class LineGroup(uuidModel):
     page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="linegroups")
