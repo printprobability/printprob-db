@@ -967,3 +967,12 @@ class CharacterClassViewTest(TestCase):
 
     def test_noaccess(self):
         noaccess(self)
+
+class DocTestCase(TestCase):
+    fixtures = ["test.json"]
+
+    ENDPOINT = "/docs/"
+
+    def test_get_docs(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
