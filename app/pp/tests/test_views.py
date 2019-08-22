@@ -1,4 +1,5 @@
 from django.test import TestCase
+from rest_framework.reverse import reverse
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
 from pp import models
@@ -26,7 +27,7 @@ def as_auth(func):
 class RootViewTest(TestCase):
     fixtures = ["test.json"]
 
-    ENDPOINT = "/"
+    ENDPOINT = reverse("api-root")
 
     @as_auth
     def test_get(self):
@@ -40,7 +41,7 @@ class RootViewTest(TestCase):
 class PageRunTestCase(TestCase):
     fixtures = ["test.json"]
 
-    ENDPOINT = "/runs/pages/"
+    ENDPOINT = reverse("pagerun-list")
 
     @classmethod
     def setUpTestData(cls):
@@ -121,7 +122,7 @@ class PageRunTestCase(TestCase):
 class LineRunTestCase(TestCase):
     fixtures = ["test.json"]
 
-    ENDPOINT = "/runs/lines/"
+    ENDPOINT = reverse("linerun-list")
 
     @classmethod
     def setUpTestData(cls):
@@ -202,7 +203,7 @@ class LineRunTestCase(TestCase):
 class LineGroupRunTestCase(TestCase):
     fixtures = ["test.json"]
 
-    ENDPOINT = "/runs/linegroups/"
+    ENDPOINT = reverse("linegrouprun-list")
 
     @classmethod
     def setUp(cls):
@@ -283,7 +284,7 @@ class LineGroupRunTestCase(TestCase):
 class CharacterRunTestCase(TestCase):
     fixtures = ["test.json"]
 
-    ENDPOINT = "/runs/characters/"
+    ENDPOINT = reverse("characterrun-list")
 
     @classmethod
     def setUpTestData(cls):
@@ -365,7 +366,7 @@ class BookViewTest(TestCase):
 
     fixtures = ["test.json"]
 
-    ENDPOINT = "/books/"
+    ENDPOINT = reverse("book-list")
 
     @classmethod
     def setUpTestData(cls):
@@ -447,7 +448,7 @@ class BookViewTest(TestCase):
 class SpreadViewTest(TestCase):
     fixtures = ["test.json"]
 
-    ENDPOINT = "/spreads/"
+    ENDPOINT = reverse("spread-list")
 
     @classmethod
     def setUpTestData(cls):
@@ -508,7 +509,7 @@ class PageViewTest(TestCase):
 
     fixtures = ["test.json"]
 
-    ENDPOINT = "/pages/"
+    ENDPOINT = reverse("page-list")
 
     @classmethod
     def setUpTestData(cls):
@@ -628,7 +629,7 @@ class LineViewTest(TestCase):
 
     fixtures = ["test.json"]
 
-    ENDPOINT = "/lines/"
+    ENDPOINT = reverse("line-list")
 
     @classmethod
     def setUpTestData(cls):
@@ -710,7 +711,7 @@ class LineGroupViewTest(TestCase):
 
     fixtures = ["test.json"]
 
-    ENDPOINT = "/linegroups/"
+    ENDPOINT = reverse("linegroup-list")
 
     @classmethod
     def setUpTestData(cls):
@@ -768,7 +769,7 @@ class CharacterViewTest(TestCase):
 
     fixtures = ["test.json"]
 
-    ENDPOINT = "/characters/"
+    ENDPOINT = reverse("character-list")
 
     @classmethod
     def setUpTestData(cls):
@@ -870,7 +871,7 @@ class ImageViewTest(TestCase):
 
     fixtures = ["test.json"]
 
-    ENDPOINT = "/images/"
+    ENDPOINT = reverse("image-list")
 
     @classmethod
     def setUpTestData(cls):
@@ -925,7 +926,7 @@ class CharacterClassViewTest(TestCase):
 
     fixtures = ["test.json"]
 
-    ENDPOINT = "/character_classes/"
+    ENDPOINT = reverse("characterclass-list")
 
     @classmethod
     def setUpTestData(cls):
@@ -971,7 +972,7 @@ class CharacterClassViewTest(TestCase):
 class DocTestCase(TestCase):
     fixtures = ["test.json"]
 
-    ENDPOINT = "/docs/"
+    ENDPOINT = reverse("schema-redoc")
 
     def test_get_docs(self):
         res = self.client.get(self.ENDPOINT)
