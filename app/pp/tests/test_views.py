@@ -15,9 +15,9 @@ def noaccess(self):
 
 def as_auth(func):
     def auth_client(self):
-        token = "e48806a81d59ef7495d25731d74486388d9be2f6"
+        token = Token.objects.get(user__username="root")
         self.client = APIClient()
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
         return func(self)
 
     return auth_client
@@ -41,8 +41,9 @@ class PageRunTestCase(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/runs/pages/"
-    OBJCOUNT = 2
-    STR1 = "3deb2d61-0997-4a0c-861a-e7df8b27e49e"
+    OBJCOUNT = models.PageRun.objects.count()
+    OBJ1 = models.PageRun.objects.first().pk
+    STR1 = str(OBJ1)
 
     @as_auth
     def test_get(self):
@@ -118,8 +119,9 @@ class LineRunTestCase(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/runs/lines/"
-    OBJCOUNT = 2
-    STR1 = "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
+    OBJCOUNT = models.LineRun.objects.count()
+    OBJ1 = models.LineRun.objects.first().pk
+    STR1 = str(OBJ1)
 
     @as_auth
     def test_get(self):
@@ -195,8 +197,9 @@ class LineGroupRunTestCase(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/runs/linegroups/"
-    OBJCOUNT = 2
-    STR1 = "388054c9-154e-464c-bcc7-ccdeb8aeb026"
+    OBJCOUNT = models.LineGroupRun.objects.count()
+    OBJ1 = models.LineGroupRun.objects.first().pk
+    STR1 = str(OBJ1)
 
     @as_auth
     def test_get(self):
@@ -272,8 +275,9 @@ class CharacterRunTestCase(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/runs/characters/"
-    OBJCOUNT = 3
-    STR1 = "b878db65-e8ad-4a85-89c4-883a9904b85e"
+    OBJCOUNT = models.CharacterRun.objects.count()
+    OBJ1 = models.CharacterRun.objects.first().pk
+    STR1 = str(OBJ1)
 
     @as_auth
     def test_get(self):
@@ -350,8 +354,8 @@ class BookViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/books/"
-    OBJCOUNT = 2
-    OBJ1 = 1234
+    OBJCOUNT = models.Book.objects.count()
+    OBJ1 = models.Book.objects.first().eebo
     STR1 = str(OBJ1)
 
     @as_auth
@@ -429,8 +433,9 @@ class SpreadViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/spreads/"
-    OBJCOUNT = 4
-    STR1 = "d8d28a21-bb26-4ed7-b89d-368f7e32b142"
+    OBJCOUNT = models.Spread.objects.count()
+    OBJ1 = models.Spread.objects.first().pk
+    STR1 = str(OBJ1)
 
     @as_auth
     def test_get(self):
@@ -486,8 +491,9 @@ class PageViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/pages/"
-    OBJCOUNT = 8
-    STR1 = "2123a623-fd14-4b54-bada-060d117e5a68"
+    OBJCOUNT = models.Page.objects.count()
+    OBJ1 = models.Page.objects.first().pk
+    STR1 = str(OBJ1)
 
     @as_auth
     def test_get(self):
@@ -545,10 +551,10 @@ class PageViewTest(TestCase):
         failres = self.client.post(
             self.ENDPOINT,
             data={
-                "spread": "d8d28a21-bb26-4ed7-b89d-368f7e32b142",
-                "created_by_run": "41ddeb86-e83d-4768-96dd-f2ecfc2f80c5",
+                "spread": spread.pk,
+                "created_by_run": run,
                 "side": "l",
-                "image": "044b10ec-61fc-438f-80c9-678e79c31169",
+                "image": image,
                 "x_min": 0,
                 "x_max": 0,
             },
@@ -558,9 +564,9 @@ class PageViewTest(TestCase):
         getextant = self.client.get(
             self.ENDPOINT,
             {
-                "book": 1234,
-                "spread_sequence": 0,
-                "created_by_run": "41ddeb86-e83d-4768-96dd-f2ecfc2f80c5",
+                "book": spread.book.pk,
+                "spread_sequence": spread.sequence,
+                "created_by_run": run,
                 "side": "l",
             },
         )
@@ -602,8 +608,9 @@ class LineViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/lines/"
-    OBJCOUNT = 24
-    STR1 = "8a9c2b46-f22f-4d21-8327-1078fb02dd4f"
+    OBJCOUNT = models.Line.objects.count()
+    OBJ1 = models.Line.objects.first().pk
+    STR1 = str(OBJ1)
 
     @as_auth
     def test_get(self):
@@ -644,13 +651,16 @@ class LineViewTest(TestCase):
 
     @as_auth
     def test_post(self):
+        page = models.Page.objects.first().pk
+        image = models.Image.objects.first().pk
+        run = models.LineRun.objects.first().pk
         res = self.client.post(
             self.ENDPOINT,
             data={
-                "page": "2123a623-fd14-4b54-bada-060d117e5a68",
-                "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991",
+                "page": page,
+                "created_by_run": run,
                 "sequence": 100,
-                "image": "044b10ec-61fc-438f-80c9-678e79c31169",
+                "image": image,
                 "y_min": 0,
                 "y_max": 0,
             },
@@ -677,8 +687,9 @@ class LineGroupViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/linegroups/"
-    OBJCOUNT = 16
-    STR1 = "0f7c4848-82e3-4243-9ed3-52d78eae384e"
+    OBJCOUNT = models.LineGroup.objects.count()
+    OBJ1 = models.LineGroup.objects.first().pk
+    STR1 = str(OBJ1)
 
     @as_auth
     def test_get(self):
@@ -706,12 +717,16 @@ class LineGroupViewTest(TestCase):
 
     @as_auth
     def test_post(self):
+        page = models.Page.objects.first()
+        image = models.Image.objects.first().pk
+        run = models.LineGroupRun.objects.first().pk
+        lines = page.lines.all()[:1]
         res = self.client.post(
             self.ENDPOINT,
             data={
-                "page": "2123a623-fd14-4b54-bada-060d117e5a68",
-                "created_by_run": "388054c9-154e-464c-bcc7-ccdeb8aeb026",
-                "lines": ["8a9c2b46-f22f-4d21-8327-1078fb02dd4f"],
+                "page": page.pk,
+                "created_by_run": run,
+                "lines": [l.pk for l in lines],
             },
         )
         self.assertEqual(res.status_code, 201)
@@ -727,8 +742,9 @@ class CharacterViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/characters/"
-    OBJCOUNT = 72
-    STR1 = "dc722c25-e1ee-42c8-8e16-c04550b9ada4"
+    OBJCOUNT = models.Character.objects.count()
+    OBJ1 = models.Character.objects.first().pk
+    STR1 = str(OBJ1)
 
     @as_auth
     def test_get(self):
@@ -784,16 +800,20 @@ class CharacterViewTest(TestCase):
 
     @as_auth
     def test_post(self):
+        line = models.Line.objects.first().pk
+        image = models.Image.objects.first().pk
+        run = models.CharacterRun.objects.first().pk
+        char_class = models.CharacterClass.objects.first().pk
         res = self.client.post(
             self.ENDPOINT,
             data={
-                "line": "8a9c2b46-f22f-4d21-8327-1078fb02dd4f",
-                "created_by_run": "b878db65-e8ad-4a85-89c4-883a9904b85e",
+                "line": line,
+                "created_by_run": run,
                 "sequence": 100,
-                "image": "044b10ec-61fc-438f-80c9-678e79c31169",
+                "image": image,
                 "x_min": 0,
                 "x_max": 0,
-                "character_class": "a",
+                "character_class": char_class,
                 "class_probability": 0.7,
             },
         )
@@ -821,8 +841,9 @@ class ImageViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/images/"
-    OBJCOUNT = 108
-    STR1 = "044b10ec-61fc-438f-80c9-678e79c31169"
+    OBJCOUNT = models.Image.objects.count()
+    OBJ1 = models.Image.objects.first().pk
+    STR1 = str(OBJ1)
 
     @as_auth
     def test_get(self):
@@ -872,8 +893,8 @@ class CharacterClassViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = "/character_classes/"
-    OBJCOUNT = 3
-    OBJ1 = "a"
+    OBJCOUNT = models.CharacterClass.objects.count()
+    OBJ1 = models.CharacterClass.objects.first().pk
     STR1 = str(OBJ1)
 
     @as_auth
