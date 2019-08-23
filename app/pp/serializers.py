@@ -6,19 +6,19 @@ from . import models
 class CharacterClassSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.CharacterClass
-        fields = ["url", "classname"]
+        fields = ["url", "classname", "label"]
 
 
 class ImageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Image
-        fields = ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]
+        fields = ["url", "id", "label", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]
 
 
 class BookFlatSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Book
-        fields = ["url", "eebo", "vid", "publisher", "title", "pdf"]
+        fields = ["url", "eebo", "label", "vid", "publisher", "title", "pdf"]
 
 
 class SpreadFlatSerializer(serializers.HyperlinkedModelSerializer):
@@ -26,7 +26,7 @@ class SpreadFlatSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Spread
-        fields = ["url", "id", "sequence", "image"]
+        fields = ["url", "id", "label", "sequence", "image"]
 
 
 class PageFlatSerializer(serializers.HyperlinkedModelSerializer):
@@ -34,7 +34,7 @@ class PageFlatSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Page
-        fields = ["url", "id", "spread", "spread_sequence", "side", "image"]
+        fields = ["url", "id", "label", "spread", "spread_sequence", "side", "image"]
 
 
 class LineFlatSerializer(serializers.HyperlinkedModelSerializer):
@@ -42,7 +42,7 @@ class LineFlatSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Line
-        fields = ["url", "id", "sequence", "image"]
+        fields = ["url", "id", "label", "sequence", "image"]
 
 
 class CharacterFlatSerializer(serializers.HyperlinkedModelSerializer):
@@ -50,20 +50,23 @@ class CharacterFlatSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Character
-        fields = ["url", "id", "sequence", "image", "character_class"]
+        fields = ["url", "id", "label", "sequence", "image", "character_class"]
 
 
 class PageRunListSerializer(serializers.HyperlinkedModelSerializer):
+
     class Meta:
         model = models.PageRun
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
             "script_md5",
             "date_started",
+            "label",
         ]
 
 
@@ -75,12 +78,14 @@ class PageRunDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
             "script_md5",
             "date_started",
             "pages",
+            "label",
         ]
 
 
@@ -90,6 +95,7 @@ class PageRunCreateSerializer(serializers.ModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
@@ -104,6 +110,7 @@ class LineRunListSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
@@ -120,6 +127,7 @@ class LineRunDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
@@ -135,6 +143,7 @@ class LineRunCreateSerializer(serializers.ModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
@@ -149,6 +158,7 @@ class LineGroupRunListSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
@@ -165,6 +175,7 @@ class LineGroupRunDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
@@ -180,6 +191,7 @@ class LineGroupRunCreateSerializer(serializers.ModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
@@ -194,6 +206,7 @@ class CharacterRunListSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
@@ -210,6 +223,7 @@ class CharacterRunDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
@@ -225,6 +239,7 @@ class CharacterRunCreateSerializer(serializers.ModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "params",
             "script_path",
@@ -245,6 +260,7 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "created_by_run",
             "book",
             "spread",
@@ -271,6 +287,7 @@ class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "created_by_run",
             "book",
             "spread",
@@ -291,6 +308,7 @@ class CharacterCreateSerializer(serializers.ModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "created_by_run",
             "line",
             "sequence",
@@ -334,6 +352,7 @@ class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "created_by_run",
             "page",
             "sequence",
@@ -350,7 +369,7 @@ class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
 class LineListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Line
-        fields = ["url", "id", "created_by_run", "page", "sequence", "y_min", "y_max"]
+        fields = ["url", "id", "label", "created_by_run", "page", "sequence", "y_min", "y_max"]
 
 
 class LineCreateSerializer(serializers.ModelSerializer):
@@ -359,6 +378,7 @@ class LineCreateSerializer(serializers.ModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "created_by_run",
             "page",
             "sequence",
@@ -376,6 +396,7 @@ class PageListSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "created_by_run",
             "spread",
             "spread_sequence",
@@ -404,6 +425,7 @@ class PageDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "created_by_run",
             "book",
             "spread",
@@ -422,6 +444,7 @@ class PageCreateSerializer(serializers.ModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "created_by_run",
             "spread",
             "side",
@@ -458,6 +481,7 @@ class SpreadDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "label",
             "book",
             "sequence",
             "image",
@@ -481,6 +505,7 @@ class BookListSerializer(serializers.HyperlinkedModelSerializer):
             "url",
             "eebo",
             "vid",
+            "label",
             "publisher",
             "title",
             "pdf",
@@ -492,7 +517,7 @@ class BookListSerializer(serializers.HyperlinkedModelSerializer):
 class BookCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Book
-        fields = ["url", "eebo", "vid", "publisher", "title", "pdf"]
+        fields = ["url", "eebo", "label", "vid", "publisher", "title", "pdf"]
 
 
 class BookRunsSerializer(serializers.Serializer):
@@ -533,6 +558,7 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "eebo",
+            "label",
             "vid",
             "publisher",
             "title",
@@ -549,7 +575,7 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
 class LineGroupListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.LineGroup
-        fields = ["url", "id", "page", "created_by_run", "lines"]
+        fields = ["url", "id", "label", "page", "created_by_run", "lines"]
 
 
 class LineGroupDetailSerializer(serializers.HyperlinkedModelSerializer):
@@ -557,11 +583,11 @@ class LineGroupDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.LineGroup
-        fields = ["url", "id", "page", "created_by_run", "lines"]
+        fields = ["url", "id", "label", "page", "created_by_run", "lines"]
 
 
 class LineGroupCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LineGroup
-        fields = ["url", "id", "page", "created_by_run", "lines"]
+        fields = ["url", "id", "label", "page", "created_by_run", "lines"]
 

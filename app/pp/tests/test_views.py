@@ -62,6 +62,7 @@ class PageRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
+            "label",
         ]:
             self.assertIn(k, res.data["results"][0])
 
@@ -78,6 +79,7 @@ class PageRunTestCase(TestCase):
             "script_md5",
             "date_started",
             "pages",
+            "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
@@ -112,6 +114,7 @@ class PageRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
+            "label",
         ]:
             self.assertIn(k, res.data)
 
@@ -143,6 +146,7 @@ class LineRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
+            "label",
         ]:
             self.assertIn(k, res.data["results"][0])
 
@@ -159,6 +163,7 @@ class LineRunTestCase(TestCase):
             "script_md5",
             "date_started",
             "lines",
+            "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
@@ -193,6 +198,7 @@ class LineRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
+            "label",
         ]:
             self.assertIn(k, res.data)
 
@@ -224,6 +230,7 @@ class LineGroupRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
+            "label",
         ]:
             self.assertIn(k, res.data["results"][0])
 
@@ -240,6 +247,7 @@ class LineGroupRunTestCase(TestCase):
             "script_md5",
             "date_started",
             "linegroups",
+            "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
@@ -274,6 +282,7 @@ class LineGroupRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
+            "label",
         ]:
             self.assertIn(k, res.data)
 
@@ -305,6 +314,7 @@ class CharacterRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
+            "label",
         ]:
             self.assertIn(k, res.data["results"][0])
 
@@ -321,6 +331,7 @@ class CharacterRunTestCase(TestCase):
             "script_md5",
             "date_started",
             "characters",
+            "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
@@ -355,6 +366,7 @@ class CharacterRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
+            "label",
         ]:
             self.assertIn(k, res.data)
 
@@ -388,6 +400,7 @@ class BookViewTest(TestCase):
             "pdf",
             "n_spreads",
             "cover_page",
+            "label",
         ]:
             self.assertIn(k, res.data["results"][0])
         self.assertIn("jpg", res.data["results"][0]["cover_page"]["image"])
@@ -408,6 +421,7 @@ class BookViewTest(TestCase):
             "most_recent_runs",
             "all_runs",
             "most_recent_pages",
+            "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["eebo"], self.OBJ1)
@@ -477,6 +491,7 @@ class SpreadViewTest(TestCase):
             "image",
             "most_recent_pages",
             "pages",
+            "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
@@ -532,6 +547,7 @@ class PageViewTest(TestCase):
             "x_min",
             "x_max",
             "image",
+            "label",
         ]:
             self.assertIn(k, res.data["results"][0])
         self.assertIn("jpg", res.data["results"][0]["image"])
@@ -551,6 +567,7 @@ class PageViewTest(TestCase):
             "image",
             "most_recent_lines",
             "lines",
+            "label",
         ]:
             self.assertIn(k, res.data.keys())
         self.assertEqual(res.data["id"], self.STR1)
@@ -618,6 +635,7 @@ class PageViewTest(TestCase):
             "x_min",
             "x_max",
             "image",
+            "label",
         ]:
             self.assertIn(k, res.data)
 
@@ -662,6 +680,7 @@ class LineViewTest(TestCase):
             "characters",
             "most_recent_linegroups",
             "linegroups",
+            "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
@@ -700,6 +719,7 @@ class LineViewTest(TestCase):
             "y_min",
             "y_max",
             "image",
+            "label",
         ]:
             self.assertIn(k, res.data)
 
@@ -796,6 +816,7 @@ class CharacterViewTest(TestCase):
             "character_class",
             "class_probability",
             "image",
+            "label",
         ]:
             self.assertIn(k, res.data["results"][0])
         self.assertIn("eebo", res.data["results"][0]["book"])
@@ -818,6 +839,7 @@ class CharacterViewTest(TestCase):
             "x_max",
             "character_class",
             "class_probability",
+            "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
@@ -860,6 +882,7 @@ class CharacterViewTest(TestCase):
             "character_class",
             "class_probability",
             "image",
+            "label",
         ]:
             self.assertIn(k, res.data)
 
@@ -891,9 +914,8 @@ class ImageViewTest(TestCase):
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(
-            list(res.data.keys()), ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]
-        )
+        for k in ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]:
+            self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
 
     @as_auth

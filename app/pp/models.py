@@ -9,6 +9,9 @@ class uuidModel(models.Model):
     class Meta:
         abstract = True
 
+    def label(self):
+        return str(self)
+
 
 class Run(uuidModel):
     # Use string interpolation of the child class field
@@ -26,7 +29,7 @@ class Run(uuidModel):
         ordering = ["-date_started"]
 
     def __str__(self):
-        return f"{str(self.id)}-{self.date_started}"
+        return f"{str(self.id)} - {self.date_started}"
 
 
 class PageRun(Run):
@@ -68,6 +71,9 @@ class Book(models.Model):
 
     def __str__(self):
         return f"{self.eebo} - {self.title}"
+
+    def label(self):
+        return str(self)
 
     def all_runs(self):
         return {
@@ -126,14 +132,16 @@ class Image(uuidModel):
     tif_md5 = models.UUIDField(help_text="md5 hash of the tif file (as hex digest)")
 
     def __str__(self):
-        return str(self.id)
+        return f"{self.id} - {self.jpg}"
 
     def web_url(self):
         return f"/img{self.jpg}"
 
 
 class ImagedModel(uuidModel):
-    image = models.ForeignKey(Image, on_delete=models.CASCADE, related_name="%(class)ss")
+    image = models.ForeignKey(
+        Image, on_delete=models.CASCADE, related_name="%(class)ss"
+    )
 
     class Meta:
         abstract = True
@@ -150,14 +158,12 @@ class Spread(ImagedModel):
         db_index=True, help_text="Sequence of this page in a given book"
     )
 
-
     class Meta:
         unique_together = (("book", "sequence"),)
         ordering = ("book", "sequence")
 
     def __str__(self):
         return f"{self.book.title} spread {self.sequence}"
-
 
     def most_recent_pages(self):
         return self.book.pageruns.first().pages.filter(spread=self)
@@ -250,12 +256,13 @@ class Line(ImagedModel):
     def n_chars(self):
         return self.characters.count()
 
-
     def most_recent_characters(self):
         return self.page.spread.book.characterruns.first().characters.filter(line=self)
 
     def most_recent_linegroups(self):
-        return LineGroup.objects.filter(lines=self, created_by_run=self.page.spread.book.linegroupruns.first()).distinct()
+        return LineGroup.objects.filter(
+            lines=self, created_by_run=self.page.spread.book.linegroupruns.first()
+        ).distinct()
 
     def line_height(self):
         return self.y_max - self.y_min
@@ -278,6 +285,9 @@ class CharacterClass(models.Model):
 
     def __str__(self):
         return self.classname
+
+    def label(self):
+        return str(self)
 
 
 class Character(ImagedModel):
@@ -310,8 +320,8 @@ class Character(ImagedModel):
         unique_together = (("created_by_run", "line", "sequence"),)
         ordering = ["created_by_run", "line", "sequence"]
 
-    # def __str__(self):
-        # return f"{self.line} c. {self.sequence} ({self.character_class} - {self.class_probability})"
+    def __str__(self):
+        return f"{self.line} c. {self.sequence} ({self.character_class} - {self.class_probability})"
 
     def book(self):
         return self.line.page.spread.book
@@ -321,7 +331,6 @@ class Character(ImagedModel):
 
     def page(self):
         return self.line.page
-
 
     def absolute_coords(self):
         """
