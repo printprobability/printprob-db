@@ -33,14 +33,18 @@ class BookViewSet(CRUDViewSet):
     list: Lists all books. Along with [`CharacterClass`](#character-class-create), `Book` instances use a human-readable ID (here, the EEBO id) rather than a UUID.
     """
 
-    queryset = models.Book.objects.prefetch_related(
+    queryset = (
+        models.Book.objects.annotate(n_spreads=Count("spreads"))
+        .prefetch_related(
         "spreads",
         "pageruns",
         "pageruns__pages",
         "lineruns",
         "linegroupruns__linegroups",
         "characterruns",
-    ).all()
+        )
+        .all()
+    )
     filterset_class = BookFilter
 
     def get_serializer_class(self):
