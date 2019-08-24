@@ -1202,45 +1202,45 @@
   "model": "pp.spread",
   "pk": "545695fb-1638-4cd8-b54b-eca2a064b244",
   "fields": {
+    "image": "add0efe5-f91a-4773-9a98-ed60ad6153e4",
     "book": 1234,
-    "sequence": 1,
-    "image": "add0efe5-f91a-4773-9a98-ed60ad6153e4"
+    "sequence": 1
   }
 },
 {
   "model": "pp.spread",
   "pk": "66ed32a8-67c3-4153-8245-38847012b083",
   "fields": {
+    "image": "8a59f2a2-d9bc-4a07-9270-a94414f62fdb",
     "book": 5678,
-    "sequence": 1,
-    "image": "8a59f2a2-d9bc-4a07-9270-a94414f62fdb"
+    "sequence": 1
   }
 },
 {
   "model": "pp.spread",
   "pk": "d5ba3024-67e8-4c55-9d11-07b0974bf040",
   "fields": {
+    "image": "afba790b-f4ed-41a6-b3dd-1e514851f489",
     "book": 5678,
-    "sequence": 0,
-    "image": "afba790b-f4ed-41a6-b3dd-1e514851f489"
+    "sequence": 0
   }
 },
 {
   "model": "pp.spread",
   "pk": "d8d28a21-bb26-4ed7-b89d-368f7e32b142",
   "fields": {
+    "image": "c688b650-96a2-4234-9784-d0b2e089bc52",
     "book": 1234,
-    "sequence": 0,
-    "image": "c688b650-96a2-4234-9784-d0b2e089bc52"
+    "sequence": 0
   }
 },
 {
   "model": "pp.page",
   "pk": "2123a623-fd14-4b54-bada-060d117e5a68",
   "fields": {
+    "image": "f009726a-64f9-44ed-a1f7-7b9a85ff9e6b",
     "spread": "d5ba3024-67e8-4c55-9d11-07b0974bf040",
     "side": "l",
-    "image": "f009726a-64f9-44ed-a1f7-7b9a85ff9e6b",
     "x_min": 421,
     "x_max": 250,
     "created_by_run": "3deb2d61-0997-4a0c-861a-e7df8b27e49e"
@@ -1250,9 +1250,9 @@
   "model": "pp.page",
   "pk": "6847c668-4561-49d1-83d8-ec6a1eae6ceb",
   "fields": {
+    "image": "20d7c0e4-ac6e-466c-9978-336149fcc433",
     "spread": "545695fb-1638-4cd8-b54b-eca2a064b244",
     "side": "l",
-    "image": "20d7c0e4-ac6e-466c-9978-336149fcc433",
     "x_min": 330,
     "x_max": 494,
     "created_by_run": "41ddeb86-e83d-4768-96dd-f2ecfc2f80c5"
@@ -1262,9 +1262,9 @@
   "model": "pp.page",
   "pk": "79ef1609-6366-4bbc-87df-a11b4edbcb14",
   "fields": {
+    "image": "caa4eb83-de35-498f-bbac-17cd6a213363",
     "spread": "66ed32a8-67c3-4153-8245-38847012b083",
     "side": "r",
-    "image": "caa4eb83-de35-498f-bbac-17cd6a213363",
     "x_min": 155,
     "x_max": 127,
     "created_by_run": "3deb2d61-0997-4a0c-861a-e7df8b27e49e"
@@ -1274,9 +1274,9 @@
   "model": "pp.page",
   "pk": "901923b1-103c-4dc6-867d-885cf3e77fa9",
   "fields": {
+    "image": "54f67d60-0881-42ad-8da1-0d953cb93822",
     "spread": "545695fb-1638-4cd8-b54b-eca2a064b244",
     "side": "r",
-    "image": "54f67d60-0881-42ad-8da1-0d953cb93822",
     "x_min": 160,
     "x_max": 71,
     "created_by_run": "41ddeb86-e83d-4768-96dd-f2ecfc2f80c5"
@@ -1286,9 +1286,9 @@
   "model": "pp.page",
   "pk": "a1dd2408-b0f0-4f92-9848-47c01ee75842",
   "fields": {
+    "image": "41c8a5bf-942a-41ed-8ad3-5ac63d755957",
     "spread": "66ed32a8-67c3-4153-8245-38847012b083",
     "side": "l",
-    "image": "41c8a5bf-942a-41ed-8ad3-5ac63d755957",
     "x_min": 379,
     "x_max": 239,
     "created_by_run": "3deb2d61-0997-4a0c-861a-e7df8b27e49e"
@@ -1298,9 +1298,9 @@
   "model": "pp.page",
   "pk": "c7b58f65-30b6-40cb-bf3c-55d5c90f76cd",
   "fields": {
+    "image": "57837216-e90a-4a1c-9b4d-bd2cd55d7c91",
     "spread": "d5ba3024-67e8-4c55-9d11-07b0974bf040",
     "side": "r",
-    "image": "57837216-e90a-4a1c-9b4d-bd2cd55d7c91",
     "x_min": 484,
     "x_max": 49,
     "created_by_run": "3deb2d61-0997-4a0c-861a-e7df8b27e49e"
@@ -1310,9 +1310,9 @@
   "model": "pp.page",
   "pk": "c7b5e43e-2789-439d-bf3c-58784a23f896",
   "fields": {
+    "image": "2ee123e2-0dc2-4387-9619-9b185ed7ebc5",
     "spread": "d8d28a21-bb26-4ed7-b89d-368f7e32b142",
     "side": "l",
-    "image": "2ee123e2-0dc2-4387-9619-9b185ed7ebc5",
     "x_min": 127,
     "x_max": 289,
     "created_by_run": "41ddeb86-e83d-4768-96dd-f2ecfc2f80c5"
@@ -1322,9 +1322,9 @@
   "model": "pp.page",
   "pk": "dc502d10-4324-4f7f-92de-193c6d3eead9",
   "fields": {
+    "image": "181231dc-f7ac-44df-8dd4-87fa0abfeada",
     "spread": "d8d28a21-bb26-4ed7-b89d-368f7e32b142",
     "side": "r",
-    "image": "181231dc-f7ac-44df-8dd4-87fa0abfeada",
     "x_min": 161,
     "x_max": 368,
     "created_by_run": "41ddeb86-e83d-4768-96dd-f2ecfc2f80c5"
@@ -1334,9 +1334,9 @@
   "model": "pp.line",
   "pk": "05a7b16e-f7a4-41aa-bca5-72de25f35c47",
   "fields": {
+    "image": "eda8e52c-16ff-4fc6-be3f-cead97c8b443",
     "page": "2123a623-fd14-4b54-bada-060d117e5a68",
     "sequence": 1,
-    "image": "eda8e52c-16ff-4fc6-be3f-cead97c8b443",
     "y_min": 267,
     "y_max": 452,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1346,9 +1346,9 @@
   "model": "pp.line",
   "pk": "117b7b41-06df-4181-b159-d5ee6de9a426",
   "fields": {
+    "image": "a9dc561f-47b1-4937-9734-1eb4a29772d0",
     "page": "2123a623-fd14-4b54-bada-060d117e5a68",
     "sequence": 2,
-    "image": "a9dc561f-47b1-4937-9734-1eb4a29772d0",
     "y_min": 473,
     "y_max": 496,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1358,9 +1358,9 @@
   "model": "pp.line",
   "pk": "35bfb914-b605-4edc-bf9c-73be710879ee",
   "fields": {
+    "image": "90a77432-bb7b-4f0b-8a82-12baff4d6cec",
     "page": "79ef1609-6366-4bbc-87df-a11b4edbcb14",
     "sequence": 1,
-    "image": "90a77432-bb7b-4f0b-8a82-12baff4d6cec",
     "y_min": 278,
     "y_max": 476,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1370,9 +1370,9 @@
   "model": "pp.line",
   "pk": "3f55ec25-fc0f-4446-b945-7da7ac5fc61f",
   "fields": {
+    "image": "b40239c0-457b-4416-bace-cbf937926d4a",
     "page": "dc502d10-4324-4f7f-92de-193c6d3eead9",
     "sequence": 1,
-    "image": "b40239c0-457b-4416-bace-cbf937926d4a",
     "y_min": 359,
     "y_max": 391,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1382,9 +1382,9 @@
   "model": "pp.line",
   "pk": "4b69af30-3cbe-415f-9224-f12996cfcad2",
   "fields": {
+    "image": "e047bb7b-25e8-48e8-ba51-9aa1703abe01",
     "page": "dc502d10-4324-4f7f-92de-193c6d3eead9",
     "sequence": 0,
-    "image": "e047bb7b-25e8-48e8-ba51-9aa1703abe01",
     "y_min": 45,
     "y_max": 499,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1394,9 +1394,9 @@
   "model": "pp.line",
   "pk": "5196ebbb-f1df-4b17-97bf-1a0d96ba3151",
   "fields": {
+    "image": "1b484f4f-aaca-4f50-abee-b1f10586276d",
     "page": "a1dd2408-b0f0-4f92-9848-47c01ee75842",
     "sequence": 1,
-    "image": "1b484f4f-aaca-4f50-abee-b1f10586276d",
     "y_min": 342,
     "y_max": 430,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1406,9 +1406,9 @@
   "model": "pp.line",
   "pk": "5af7debd-fa2b-4e92-948c-31feaecdbcdc",
   "fields": {
+    "image": "11462a01-0745-4d4c-8edf-ff280f9cdcad",
     "page": "c7b5e43e-2789-439d-bf3c-58784a23f896",
     "sequence": 0,
-    "image": "11462a01-0745-4d4c-8edf-ff280f9cdcad",
     "y_min": 338,
     "y_max": 35,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1418,9 +1418,9 @@
   "model": "pp.line",
   "pk": "5d1709ba-a669-4b9e-a377-1ac6f1f5b79d",
   "fields": {
+    "image": "07bb8659-f1c9-4ad7-a4ea-cd5a6b513867",
     "page": "c7b58f65-30b6-40cb-bf3c-55d5c90f76cd",
     "sequence": 2,
-    "image": "07bb8659-f1c9-4ad7-a4ea-cd5a6b513867",
     "y_min": 121,
     "y_max": 145,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1430,9 +1430,9 @@
   "model": "pp.line",
   "pk": "6b44971b-bcbd-4711-8698-6dfe597b4950",
   "fields": {
+    "image": "ddafbe19-e123-4b15-88d1-92d6a0ee15f2",
     "page": "79ef1609-6366-4bbc-87df-a11b4edbcb14",
     "sequence": 0,
-    "image": "ddafbe19-e123-4b15-88d1-92d6a0ee15f2",
     "y_min": 360,
     "y_max": 176,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1442,9 +1442,9 @@
   "model": "pp.line",
   "pk": "741a1003-a1dd-45b6-a26b-a5d8ce3536a9",
   "fields": {
+    "image": "be3d4eea-157c-4c92-a136-451117171d8a",
     "page": "a1dd2408-b0f0-4f92-9848-47c01ee75842",
     "sequence": 0,
-    "image": "be3d4eea-157c-4c92-a136-451117171d8a",
     "y_min": 329,
     "y_max": 295,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1454,9 +1454,9 @@
   "model": "pp.line",
   "pk": "7bdf05ce-3e83-44a8-b917-a7c889719dbd",
   "fields": {
+    "image": "56478bff-b172-4e80-83f6-ed3be416eb7a",
     "page": "c7b5e43e-2789-439d-bf3c-58784a23f896",
     "sequence": 1,
-    "image": "56478bff-b172-4e80-83f6-ed3be416eb7a",
     "y_min": 320,
     "y_max": 137,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1466,9 +1466,9 @@
   "model": "pp.line",
   "pk": "7d36a825-fe8c-4e57-9efc-e320a198eec5",
   "fields": {
+    "image": "35ad1530-ff70-4d87-bc69-9da3856b136d",
     "page": "c7b58f65-30b6-40cb-bf3c-55d5c90f76cd",
     "sequence": 0,
-    "image": "35ad1530-ff70-4d87-bc69-9da3856b136d",
     "y_min": 446,
     "y_max": 446,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1478,9 +1478,9 @@
   "model": "pp.line",
   "pk": "7e3b99e9-8a3d-4865-9176-8bb8b3e006a8",
   "fields": {
+    "image": "225ec639-1cf2-4574-8612-34253a43e286",
     "page": "c7b58f65-30b6-40cb-bf3c-55d5c90f76cd",
     "sequence": 1,
-    "image": "225ec639-1cf2-4574-8612-34253a43e286",
     "y_min": 342,
     "y_max": 152,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1490,9 +1490,9 @@
   "model": "pp.line",
   "pk": "8159b7ff-6f61-4be0-8b49-cb57fd774ef8",
   "fields": {
+    "image": "cbd0246e-35d8-44c1-b200-18922982f1ed",
     "page": "a1dd2408-b0f0-4f92-9848-47c01ee75842",
     "sequence": 2,
-    "image": "cbd0246e-35d8-44c1-b200-18922982f1ed",
     "y_min": 181,
     "y_max": 317,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1502,9 +1502,9 @@
   "model": "pp.line",
   "pk": "8809aac8-0ac3-4d2c-b0c0-07b583a8e97c",
   "fields": {
+    "image": "eb96dda0-bc61-40a4-bbf0-7a0e4ec5ff30",
     "page": "c7b5e43e-2789-439d-bf3c-58784a23f896",
     "sequence": 2,
-    "image": "eb96dda0-bc61-40a4-bbf0-7a0e4ec5ff30",
     "y_min": 349,
     "y_max": 13,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1514,9 +1514,9 @@
   "model": "pp.line",
   "pk": "8a9c2b46-f22f-4d21-8327-1078fb02dd4f",
   "fields": {
+    "image": "b1bf8e69-7fbc-440b-ac9f-eb62eb42c0b7",
     "page": "2123a623-fd14-4b54-bada-060d117e5a68",
     "sequence": 0,
-    "image": "b1bf8e69-7fbc-440b-ac9f-eb62eb42c0b7",
     "y_min": 258,
     "y_max": 177,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1526,9 +1526,9 @@
   "model": "pp.line",
   "pk": "94e81ad3-a79e-43f4-bcc0-1688eb8c44bf",
   "fields": {
+    "image": "c8727c52-495d-45b3-9064-1794a065113f",
     "page": "6847c668-4561-49d1-83d8-ec6a1eae6ceb",
     "sequence": 2,
-    "image": "c8727c52-495d-45b3-9064-1794a065113f",
     "y_min": 11,
     "y_max": 206,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1538,9 +1538,9 @@
   "model": "pp.line",
   "pk": "9cf30b76-1828-4587-a86f-bbf7515657a7",
   "fields": {
+    "image": "bb787024-7e6b-4dff-a861-0fb1a29b1bdd",
     "page": "901923b1-103c-4dc6-867d-885cf3e77fa9",
     "sequence": 2,
-    "image": "bb787024-7e6b-4dff-a861-0fb1a29b1bdd",
     "y_min": 48,
     "y_max": 394,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1550,9 +1550,9 @@
   "model": "pp.line",
   "pk": "d823d4f7-41d3-4e5e-8805-cbe302d01f17",
   "fields": {
+    "image": "7c2e796c-5ee8-45e2-a9d2-983322e7c18b",
     "page": "79ef1609-6366-4bbc-87df-a11b4edbcb14",
     "sequence": 2,
-    "image": "7c2e796c-5ee8-45e2-a9d2-983322e7c18b",
     "y_min": 83,
     "y_max": 116,
     "created_by_run": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991"
@@ -1562,9 +1562,9 @@
   "model": "pp.line",
   "pk": "e077e5cb-461d-4471-ae31-ca6f9c5ffc92",
   "fields": {
+    "image": "0514846a-78c4-406f-b383-1016f0f36468",
     "page": "901923b1-103c-4dc6-867d-885cf3e77fa9",
     "sequence": 1,
-    "image": "0514846a-78c4-406f-b383-1016f0f36468",
     "y_min": 102,
     "y_max": 433,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1574,9 +1574,9 @@
   "model": "pp.line",
   "pk": "f2970c36-1746-4b1a-8cfe-17d0e52ea92d",
   "fields": {
+    "image": "189c521e-651c-4537-b5db-6599fa59ba27",
     "page": "6847c668-4561-49d1-83d8-ec6a1eae6ceb",
     "sequence": 1,
-    "image": "189c521e-651c-4537-b5db-6599fa59ba27",
     "y_min": 438,
     "y_max": 467,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1586,9 +1586,9 @@
   "model": "pp.line",
   "pk": "fa944ef4-a252-4245-9f65-8d6ccf862d94",
   "fields": {
+    "image": "22aa263a-8858-4d27-800d-ff5edd6956f1",
     "page": "901923b1-103c-4dc6-867d-885cf3e77fa9",
     "sequence": 0,
-    "image": "22aa263a-8858-4d27-800d-ff5edd6956f1",
     "y_min": 345,
     "y_max": 280,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1598,9 +1598,9 @@
   "model": "pp.line",
   "pk": "fcc6c6a3-23d0-42f8-9b96-4c2d012360c6",
   "fields": {
+    "image": "dbec8481-38ad-4614-882e-3f85b98e0d5f",
     "page": "dc502d10-4324-4f7f-92de-193c6d3eead9",
     "sequence": 2,
-    "image": "dbec8481-38ad-4614-882e-3f85b98e0d5f",
     "y_min": 268,
     "y_max": 243,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1610,9 +1610,9 @@
   "model": "pp.line",
   "pk": "fd0f4ab9-2a53-470c-aa79-b7d790b6f9ee",
   "fields": {
+    "image": "dd4f798d-3378-4790-96e9-9ae2332fb9f3",
     "page": "6847c668-4561-49d1-83d8-ec6a1eae6ceb",
     "sequence": 0,
-    "image": "dd4f798d-3378-4790-96e9-9ae2332fb9f3",
     "y_min": 311,
     "y_max": 11,
     "created_by_run": "744a4c52-2335-4711-8d78-306d3d629d84"
@@ -1813,8 +1813,8 @@
   "model": "pp.character",
   "pk": "053fbea7-fc7e-49ac-85e9-ea7077e528c2",
   "fields": {
-    "line": "5af7debd-fa2b-4e92-948c-31feaecdbcdc",
     "image": "08b254ba-87b4-45a1-8e12-419962ede239",
+    "line": "5af7debd-fa2b-4e92-948c-31feaecdbcdc",
     "sequence": 0,
     "x_min": 404,
     "x_max": 77,
@@ -1827,8 +1827,8 @@
   "model": "pp.character",
   "pk": "0d3c6678-89df-4e0e-bfe3-ef5ff607a84b",
   "fields": {
-    "line": "7bdf05ce-3e83-44a8-b917-a7c889719dbd",
     "image": "c72cf390-ebcf-4a8d-ad43-5c61b6e40360",
+    "line": "7bdf05ce-3e83-44a8-b917-a7c889719dbd",
     "sequence": 0,
     "x_min": 485,
     "x_max": 493,
@@ -1841,8 +1841,8 @@
   "model": "pp.character",
   "pk": "1017dc2c-f239-4575-835d-81fc0a297160",
   "fields": {
-    "line": "94e81ad3-a79e-43f4-bcc0-1688eb8c44bf",
     "image": "93df01a4-7e56-4472-94b5-0e47784a448d",
+    "line": "94e81ad3-a79e-43f4-bcc0-1688eb8c44bf",
     "sequence": 0,
     "x_min": 344,
     "x_max": 480,
@@ -1855,8 +1855,8 @@
   "model": "pp.character",
   "pk": "16093440-82bd-44a7-89f6-67282fe421d7",
   "fields": {
-    "line": "f2970c36-1746-4b1a-8cfe-17d0e52ea92d",
     "image": "400ac8e5-ea20-40a5-b25f-1e9cf8bb1e00",
+    "line": "f2970c36-1746-4b1a-8cfe-17d0e52ea92d",
     "sequence": 0,
     "x_min": 384,
     "x_max": 130,
@@ -1869,8 +1869,8 @@
   "model": "pp.character",
   "pk": "178e22fb-1dcd-4833-a2a0-e875179ee2a4",
   "fields": {
-    "line": "741a1003-a1dd-45b6-a26b-a5d8ce3536a9",
     "image": "6fdf87cc-24dc-446c-9945-ab1b284718ee",
+    "line": "741a1003-a1dd-45b6-a26b-a5d8ce3536a9",
     "sequence": 0,
     "x_min": 216,
     "x_max": 18,
@@ -1883,8 +1883,8 @@
   "model": "pp.character",
   "pk": "1f40de82-9d0c-4247-abd1-d49709a5faf0",
   "fields": {
-    "line": "7e3b99e9-8a3d-4865-9176-8bb8b3e006a8",
     "image": "ad99300d-eaa4-49bb-a1d7-947c6f5acd1f",
+    "line": "7e3b99e9-8a3d-4865-9176-8bb8b3e006a8",
     "sequence": 0,
     "x_min": 332,
     "x_max": 232,
@@ -1897,8 +1897,8 @@
   "model": "pp.character",
   "pk": "212a795b-3591-4341-9444-26983c9d844a",
   "fields": {
-    "line": "5196ebbb-f1df-4b17-97bf-1a0d96ba3151",
     "image": "1cd2fc97-2fce-4839-b054-af79978926d3",
+    "line": "5196ebbb-f1df-4b17-97bf-1a0d96ba3151",
     "sequence": 1,
     "x_min": 131,
     "x_max": 166,
@@ -1911,8 +1911,8 @@
   "model": "pp.character",
   "pk": "271fc5c8-5883-4066-938d-cc01ab22565d",
   "fields": {
-    "line": "7bdf05ce-3e83-44a8-b917-a7c889719dbd",
     "image": "b8cce88f-481e-4679-a855-4111023a6098",
+    "line": "7bdf05ce-3e83-44a8-b917-a7c889719dbd",
     "sequence": 1,
     "x_min": 68,
     "x_max": 283,
@@ -1925,8 +1925,8 @@
   "model": "pp.character",
   "pk": "2795c285-3179-4b15-8817-8c9416f9972d",
   "fields": {
-    "line": "8a9c2b46-f22f-4d21-8327-1078fb02dd4f",
     "image": "d5aa0731-fd27-4262-b627-2fd15553e509",
+    "line": "8a9c2b46-f22f-4d21-8327-1078fb02dd4f",
     "sequence": 1,
     "x_min": 115,
     "x_max": 301,
@@ -1939,8 +1939,8 @@
   "model": "pp.character",
   "pk": "3696ce0b-bfdd-45a5-b67d-a912616d8b8f",
   "fields": {
-    "line": "6b44971b-bcbd-4711-8698-6dfe597b4950",
     "image": "5242a6dc-a80f-4f3c-be87-399ee6e49f14",
+    "line": "6b44971b-bcbd-4711-8698-6dfe597b4950",
     "sequence": 1,
     "x_min": 17,
     "x_max": 142,
@@ -1953,8 +1953,8 @@
   "model": "pp.character",
   "pk": "3b8947cd-c2ab-4095-9810-4b023342995c",
   "fields": {
-    "line": "4b69af30-3cbe-415f-9224-f12996cfcad2",
     "image": "b0a55192-810b-47cf-ad29-ef679a873951",
+    "line": "4b69af30-3cbe-415f-9224-f12996cfcad2",
     "sequence": 1,
     "x_min": 50,
     "x_max": 429,
@@ -1967,8 +1967,8 @@
   "model": "pp.character",
   "pk": "3ecfbfce-8c53-45bb-a5c2-f076e6720773",
   "fields": {
-    "line": "6b44971b-bcbd-4711-8698-6dfe597b4950",
     "image": "891e8758-2b10-42c8-bcec-e94e9b2857f5",
+    "line": "6b44971b-bcbd-4711-8698-6dfe597b4950",
     "sequence": 0,
     "x_min": 296,
     "x_max": 282,
@@ -1981,8 +1981,8 @@
   "model": "pp.character",
   "pk": "3f59382d-f22f-4932-b237-1464ab40a29a",
   "fields": {
-    "line": "7bdf05ce-3e83-44a8-b917-a7c889719dbd",
     "image": "33875e30-9d8a-44d8-8939-819d25f212da",
+    "line": "7bdf05ce-3e83-44a8-b917-a7c889719dbd",
     "sequence": 1,
     "x_min": 68,
     "x_max": 467,
@@ -1995,8 +1995,8 @@
   "model": "pp.character",
   "pk": "4196c905-4236-41d5-a8be-ec1ac500b6b5",
   "fields": {
-    "line": "9cf30b76-1828-4587-a86f-bbf7515657a7",
     "image": "cbb71696-b2fe-49ef-bfce-3ae35b20e86a",
+    "line": "9cf30b76-1828-4587-a86f-bbf7515657a7",
     "sequence": 0,
     "x_min": 467,
     "x_max": 186,
@@ -2009,8 +2009,8 @@
   "model": "pp.character",
   "pk": "464a4756-f3bb-4952-9879-bf7c83554844",
   "fields": {
-    "line": "7bdf05ce-3e83-44a8-b917-a7c889719dbd",
     "image": "e2799e58-3d48-4936-85d2-6e5c89bbeca4",
+    "line": "7bdf05ce-3e83-44a8-b917-a7c889719dbd",
     "sequence": 0,
     "x_min": 259,
     "x_max": 40,
@@ -2023,8 +2023,8 @@
   "model": "pp.character",
   "pk": "49d9d5e5-e91e-40b0-bc76-ebc57e7f0d5f",
   "fields": {
-    "line": "7d36a825-fe8c-4e57-9efc-e320a198eec5",
     "image": "83b8341e-3f21-4dc6-b1f9-98b92fd7deca",
+    "line": "7d36a825-fe8c-4e57-9efc-e320a198eec5",
     "sequence": 0,
     "x_min": 269,
     "x_max": 300,
@@ -2037,8 +2037,8 @@
   "model": "pp.character",
   "pk": "4cd0a368-d120-4d32-b7f4-4b7dddbaef8f",
   "fields": {
-    "line": "f2970c36-1746-4b1a-8cfe-17d0e52ea92d",
     "image": "afa23149-6a2f-4440-82bc-d0a48ea6e800",
+    "line": "f2970c36-1746-4b1a-8cfe-17d0e52ea92d",
     "sequence": 1,
     "x_min": 196,
     "x_max": 417,
@@ -2051,8 +2051,8 @@
   "model": "pp.character",
   "pk": "4f1492e4-c57b-405f-a06c-a5aaf31510d8",
   "fields": {
-    "line": "5af7debd-fa2b-4e92-948c-31feaecdbcdc",
     "image": "331b19f9-27a5-4245-a84f-012bc9a7dcbf",
+    "line": "5af7debd-fa2b-4e92-948c-31feaecdbcdc",
     "sequence": 1,
     "x_min": 8,
     "x_max": 395,
@@ -2065,8 +2065,8 @@
   "model": "pp.character",
   "pk": "531e1999-f3c6-48ef-9088-6a355a7ae81a",
   "fields": {
-    "line": "fcc6c6a3-23d0-42f8-9b96-4c2d012360c6",
     "image": "c004e284-442e-4755-94d4-51d14a0b55c4",
+    "line": "fcc6c6a3-23d0-42f8-9b96-4c2d012360c6",
     "sequence": 0,
     "x_min": 101,
     "x_max": 126,
@@ -2079,8 +2079,8 @@
   "model": "pp.character",
   "pk": "60631827-b606-475e-8544-e17293d1b594",
   "fields": {
-    "line": "fcc6c6a3-23d0-42f8-9b96-4c2d012360c6",
     "image": "17071b62-e72e-488b-a88d-6539ca0dcf35",
+    "line": "fcc6c6a3-23d0-42f8-9b96-4c2d012360c6",
     "sequence": 1,
     "x_min": 116,
     "x_max": 455,
@@ -2093,8 +2093,8 @@
   "model": "pp.character",
   "pk": "6224fc6d-3f32-49b4-b2d6-69fc47d2db45",
   "fields": {
-    "line": "8159b7ff-6f61-4be0-8b49-cb57fd774ef8",
     "image": "d3df95f1-39a1-405d-9d55-2b5d0aa5bbdd",
+    "line": "8159b7ff-6f61-4be0-8b49-cb57fd774ef8",
     "sequence": 1,
     "x_min": 271,
     "x_max": 77,
@@ -2107,8 +2107,8 @@
   "model": "pp.character",
   "pk": "6519d749-1541-4b40-87ea-501d09e3aaf5",
   "fields": {
-    "line": "8809aac8-0ac3-4d2c-b0c0-07b583a8e97c",
     "image": "4db1d91d-3011-43cb-bf52-806927d4683e",
+    "line": "8809aac8-0ac3-4d2c-b0c0-07b583a8e97c",
     "sequence": 0,
     "x_min": 246,
     "x_max": 392,
@@ -2121,8 +2121,8 @@
   "model": "pp.character",
   "pk": "6b519bd7-2f8d-4d5e-b7e2-79ee5c85d2d6",
   "fields": {
-    "line": "05a7b16e-f7a4-41aa-bca5-72de25f35c47",
     "image": "a0d906e2-79e0-4f24-960f-cd214c9c660f",
+    "line": "05a7b16e-f7a4-41aa-bca5-72de25f35c47",
     "sequence": 1,
     "x_min": 112,
     "x_max": 437,
@@ -2135,8 +2135,8 @@
   "model": "pp.character",
   "pk": "6c931287-7104-4fa5-977b-019931960f7c",
   "fields": {
-    "line": "d823d4f7-41d3-4e5e-8805-cbe302d01f17",
     "image": "36b022a2-9cc4-4afb-9891-d95fc64bfbd2",
+    "line": "d823d4f7-41d3-4e5e-8805-cbe302d01f17",
     "sequence": 1,
     "x_min": 180,
     "x_max": 404,
@@ -2149,8 +2149,8 @@
   "model": "pp.character",
   "pk": "70622f4d-c957-49f1-a44f-799b8eed2443",
   "fields": {
-    "line": "fa944ef4-a252-4245-9f65-8d6ccf862d94",
     "image": "9c92c21f-20d8-4597-b556-f92ff63a191d",
+    "line": "fa944ef4-a252-4245-9f65-8d6ccf862d94",
     "sequence": 1,
     "x_min": 297,
     "x_max": 192,
@@ -2163,8 +2163,8 @@
   "model": "pp.character",
   "pk": "70b81295-7ddd-4877-aeb1-fc9ed4140df2",
   "fields": {
-    "line": "8809aac8-0ac3-4d2c-b0c0-07b583a8e97c",
     "image": "1e5dd9b8-2e88-46a3-b3f9-32bc6e8ec6fd",
+    "line": "8809aac8-0ac3-4d2c-b0c0-07b583a8e97c",
     "sequence": 1,
     "x_min": 457,
     "x_max": 202,
@@ -2177,8 +2177,8 @@
   "model": "pp.character",
   "pk": "721742fb-085c-417e-a9b4-cb460de79728",
   "fields": {
-    "line": "e077e5cb-461d-4471-ae31-ca6f9c5ffc92",
     "image": "0a2df8a8-5897-4c30-95ba-2999d1b302fe",
+    "line": "e077e5cb-461d-4471-ae31-ca6f9c5ffc92",
     "sequence": 1,
     "x_min": 261,
     "x_max": 167,
@@ -2191,8 +2191,8 @@
   "model": "pp.character",
   "pk": "72b11b11-1aa8-4059-bbc9-715f36b7d9bd",
   "fields": {
-    "line": "f2970c36-1746-4b1a-8cfe-17d0e52ea92d",
     "image": "da3cabe6-7144-4289-8b0b-acc026cb5ce1",
+    "line": "f2970c36-1746-4b1a-8cfe-17d0e52ea92d",
     "sequence": 1,
     "x_min": 337,
     "x_max": 49,
@@ -2205,8 +2205,8 @@
   "model": "pp.character",
   "pk": "733aedcf-4e5c-4867-bfa2-cc1f0d2db74f",
   "fields": {
-    "line": "8809aac8-0ac3-4d2c-b0c0-07b583a8e97c",
     "image": "82923003-b14d-4102-b861-91a9b26ea8c0",
+    "line": "8809aac8-0ac3-4d2c-b0c0-07b583a8e97c",
     "sequence": 0,
     "x_min": 292,
     "x_max": 305,
@@ -2219,8 +2219,8 @@
   "model": "pp.character",
   "pk": "75d29705-ef80-40e0-b275-0f3a0819508a",
   "fields": {
-    "line": "5d1709ba-a669-4b9e-a377-1ac6f1f5b79d",
     "image": "044b10ec-61fc-438f-80c9-678e79c31169",
+    "line": "5d1709ba-a669-4b9e-a377-1ac6f1f5b79d",
     "sequence": 0,
     "x_min": 38,
     "x_max": 482,
@@ -2233,8 +2233,8 @@
   "model": "pp.character",
   "pk": "7c18eafd-7573-48ce-94db-1353f4e888e9",
   "fields": {
-    "line": "f2970c36-1746-4b1a-8cfe-17d0e52ea92d",
     "image": "e2441f1f-4a43-4453-8ba0-68d961858f81",
+    "line": "f2970c36-1746-4b1a-8cfe-17d0e52ea92d",
     "sequence": 0,
     "x_min": 440,
     "x_max": 341,
@@ -2247,8 +2247,8 @@
   "model": "pp.character",
   "pk": "7ec22b26-c272-4e53-8ea6-95e9d6fbf2c1",
   "fields": {
-    "line": "d823d4f7-41d3-4e5e-8805-cbe302d01f17",
     "image": "92abc703-7c18-4734-ad3d-38ef4896ada1",
+    "line": "d823d4f7-41d3-4e5e-8805-cbe302d01f17",
     "sequence": 0,
     "x_min": 264,
     "x_max": 6,
@@ -2261,8 +2261,8 @@
   "model": "pp.character",
   "pk": "86383177-79d6-4f64-ba3b-c271b9c27599",
   "fields": {
-    "line": "fd0f4ab9-2a53-470c-aa79-b7d790b6f9ee",
     "image": "4b814fd7-5515-41a2-bed9-8ca4dc8be4cf",
+    "line": "fd0f4ab9-2a53-470c-aa79-b7d790b6f9ee",
     "sequence": 1,
     "x_min": 176,
     "x_max": 0,
@@ -2275,8 +2275,8 @@
   "model": "pp.character",
   "pk": "86f6a4aa-3d0c-4278-a471-fcaa0db6d44d",
   "fields": {
-    "line": "94e81ad3-a79e-43f4-bcc0-1688eb8c44bf",
     "image": "e1a0dbf8-d063-4eb4-a732-36c78130eae4",
+    "line": "94e81ad3-a79e-43f4-bcc0-1688eb8c44bf",
     "sequence": 0,
     "x_min": 215,
     "x_max": 168,
@@ -2289,8 +2289,8 @@
   "model": "pp.character",
   "pk": "8769db01-f8e3-4e0b-a16c-afdc919cdb66",
   "fields": {
-    "line": "9cf30b76-1828-4587-a86f-bbf7515657a7",
     "image": "62a589ec-9a29-4c03-aa45-05414d90db2a",
+    "line": "9cf30b76-1828-4587-a86f-bbf7515657a7",
     "sequence": 1,
     "x_min": 173,
     "x_max": 486,
@@ -2303,8 +2303,8 @@
   "model": "pp.character",
   "pk": "8ca40f6d-cf0c-4aff-b681-fbeb486f205b",
   "fields": {
-    "line": "5196ebbb-f1df-4b17-97bf-1a0d96ba3151",
     "image": "355ed839-b82b-4822-82bf-00a627f4baef",
+    "line": "5196ebbb-f1df-4b17-97bf-1a0d96ba3151",
     "sequence": 0,
     "x_min": 384,
     "x_max": 390,
@@ -2317,8 +2317,8 @@
   "model": "pp.character",
   "pk": "8fc016dc-0961-4fd9-a46a-42a2f6987f47",
   "fields": {
-    "line": "7d36a825-fe8c-4e57-9efc-e320a198eec5",
     "image": "e88d8ed3-2335-4128-b7ba-df9022477f03",
+    "line": "7d36a825-fe8c-4e57-9efc-e320a198eec5",
     "sequence": 1,
     "x_min": 5,
     "x_max": 473,
@@ -2331,8 +2331,8 @@
   "model": "pp.character",
   "pk": "92ce19db-8d04-4ddd-b224-03a6f3abc1ee",
   "fields": {
-    "line": "9cf30b76-1828-4587-a86f-bbf7515657a7",
     "image": "94261923-c0c8-4cf6-9c66-b42d5b81d694",
+    "line": "9cf30b76-1828-4587-a86f-bbf7515657a7",
     "sequence": 0,
     "x_min": 141,
     "x_max": 223,
@@ -2345,8 +2345,8 @@
   "model": "pp.character",
   "pk": "92efeaf9-e7b7-4d49-9756-316be9239736",
   "fields": {
-    "line": "741a1003-a1dd-45b6-a26b-a5d8ce3536a9",
     "image": "995086d1-3a8e-4ba1-809a-6c8a21bcde30",
+    "line": "741a1003-a1dd-45b6-a26b-a5d8ce3536a9",
     "sequence": 1,
     "x_min": 306,
     "x_max": 159,
@@ -2359,8 +2359,8 @@
   "model": "pp.character",
   "pk": "930ee63a-0d14-4bf4-af31-793f03e5baa4",
   "fields": {
-    "line": "fd0f4ab9-2a53-470c-aa79-b7d790b6f9ee",
     "image": "e42d5c5a-ba72-4f0c-a1ef-32f557e429b6",
+    "line": "fd0f4ab9-2a53-470c-aa79-b7d790b6f9ee",
     "sequence": 0,
     "x_min": 78,
     "x_max": 463,
@@ -2373,8 +2373,8 @@
   "model": "pp.character",
   "pk": "935e3eb7-42c9-4a86-a89b-ee0a169912be",
   "fields": {
-    "line": "fa944ef4-a252-4245-9f65-8d6ccf862d94",
     "image": "ef010393-f566-41e7-9076-1ebb9ddae057",
+    "line": "fa944ef4-a252-4245-9f65-8d6ccf862d94",
     "sequence": 0,
     "x_min": 143,
     "x_max": 100,
@@ -2387,8 +2387,8 @@
   "model": "pp.character",
   "pk": "942ef5d2-e562-424c-b94d-65850e3bf225",
   "fields": {
-    "line": "5af7debd-fa2b-4e92-948c-31feaecdbcdc",
     "image": "fd07109f-e2f5-4ee2-aa7d-e789d413a29b",
+    "line": "5af7debd-fa2b-4e92-948c-31feaecdbcdc",
     "sequence": 1,
     "x_min": 281,
     "x_max": 483,
@@ -2401,8 +2401,8 @@
   "model": "pp.character",
   "pk": "949b1fbc-0b56-441c-aadd-0db18f0f1f1d",
   "fields": {
-    "line": "5af7debd-fa2b-4e92-948c-31feaecdbcdc",
     "image": "d3f70524-2724-4752-8811-f62c53a9daf5",
+    "line": "5af7debd-fa2b-4e92-948c-31feaecdbcdc",
     "sequence": 0,
     "x_min": 110,
     "x_max": 234,
@@ -2415,8 +2415,8 @@
   "model": "pp.character",
   "pk": "a5bf0a11-96c9-456c-863d-06a7f7a314f1",
   "fields": {
-    "line": "94e81ad3-a79e-43f4-bcc0-1688eb8c44bf",
     "image": "e448505a-22a6-4de5-a8a8-661ddcd616ba",
+    "line": "94e81ad3-a79e-43f4-bcc0-1688eb8c44bf",
     "sequence": 1,
     "x_min": 277,
     "x_max": 50,
@@ -2429,8 +2429,8 @@
   "model": "pp.character",
   "pk": "a73369d0-5f37-48f7-86e9-c89751122765",
   "fields": {
-    "line": "117b7b41-06df-4181-b159-d5ee6de9a426",
     "image": "d5fc97a9-a100-4212-8c4b-672dd2bb4241",
+    "line": "117b7b41-06df-4181-b159-d5ee6de9a426",
     "sequence": 0,
     "x_min": 424,
     "x_max": 270,
@@ -2443,8 +2443,8 @@
   "model": "pp.character",
   "pk": "ab4414b8-8121-4b92-9526-351bc0e962d7",
   "fields": {
-    "line": "3f55ec25-fc0f-4446-b945-7da7ac5fc61f",
     "image": "889582b0-2e8c-430a-b24c-507422f9b19b",
+    "line": "3f55ec25-fc0f-4446-b945-7da7ac5fc61f",
     "sequence": 1,
     "x_min": 111,
     "x_max": 103,
@@ -2457,8 +2457,8 @@
   "model": "pp.character",
   "pk": "ac1420aa-e04c-40d1-b0b4-797c1f1b1acf",
   "fields": {
-    "line": "3f55ec25-fc0f-4446-b945-7da7ac5fc61f",
     "image": "f87e8a15-fc3c-46aa-b747-86fa0514068a",
+    "line": "3f55ec25-fc0f-4446-b945-7da7ac5fc61f",
     "sequence": 0,
     "x_min": 442,
     "x_max": 487,
@@ -2471,8 +2471,8 @@
   "model": "pp.character",
   "pk": "ade051fe-de9e-4902-a99e-8b13b4665351",
   "fields": {
-    "line": "e077e5cb-461d-4471-ae31-ca6f9c5ffc92",
     "image": "1ddf64a9-909b-4531-aca3-4f8bf39c2bef",
+    "line": "e077e5cb-461d-4471-ae31-ca6f9c5ffc92",
     "sequence": 1,
     "x_min": 367,
     "x_max": 50,
@@ -2485,8 +2485,8 @@
   "model": "pp.character",
   "pk": "aeba3f0b-165d-4d87-991a-928783989213",
   "fields": {
-    "line": "3f55ec25-fc0f-4446-b945-7da7ac5fc61f",
     "image": "d17c9621-b73a-4fe0-b0c1-b7f7ab8f00da",
+    "line": "3f55ec25-fc0f-4446-b945-7da7ac5fc61f",
     "sequence": 1,
     "x_min": 400,
     "x_max": 326,
@@ -2499,8 +2499,8 @@
   "model": "pp.character",
   "pk": "af62f5d9-8861-438a-8cff-b572d83c298e",
   "fields": {
-    "line": "117b7b41-06df-4181-b159-d5ee6de9a426",
     "image": "e1fd1244-faec-4a92-976a-b178d6c5b010",
+    "line": "117b7b41-06df-4181-b159-d5ee6de9a426",
     "sequence": 1,
     "x_min": 475,
     "x_max": 201,
@@ -2513,8 +2513,8 @@
   "model": "pp.character",
   "pk": "b3640ea0-5a3d-4c7b-afb1-a479370705f6",
   "fields": {
-    "line": "3f55ec25-fc0f-4446-b945-7da7ac5fc61f",
     "image": "0ebd5bdb-37eb-43c2-a957-49028bd76a56",
+    "line": "3f55ec25-fc0f-4446-b945-7da7ac5fc61f",
     "sequence": 0,
     "x_min": 280,
     "x_max": 230,
@@ -2527,8 +2527,8 @@
   "model": "pp.character",
   "pk": "b8f17c65-4fc3-4916-8456-d869fe0da290",
   "fields": {
-    "line": "4b69af30-3cbe-415f-9224-f12996cfcad2",
     "image": "0b5ddac2-d8ee-47c8-aadd-8e5fb59fe3b3",
+    "line": "4b69af30-3cbe-415f-9224-f12996cfcad2",
     "sequence": 0,
     "x_min": 63,
     "x_max": 79,
@@ -2541,8 +2541,8 @@
   "model": "pp.character",
   "pk": "bc7b4001-676c-4fc8-9c4a-eb6c2eb213f9",
   "fields": {
-    "line": "05a7b16e-f7a4-41aa-bca5-72de25f35c47",
     "image": "077d28db-be47-4769-be2b-470efaa3a846",
+    "line": "05a7b16e-f7a4-41aa-bca5-72de25f35c47",
     "sequence": 0,
     "x_min": 493,
     "x_max": 445,
@@ -2555,8 +2555,8 @@
   "model": "pp.character",
   "pk": "bdfee8e6-d8ec-4e0e-adb5-7ea670976ec5",
   "fields": {
-    "line": "4b69af30-3cbe-415f-9224-f12996cfcad2",
     "image": "a22de65f-37f2-41a7-ab59-618240a8023e",
+    "line": "4b69af30-3cbe-415f-9224-f12996cfcad2",
     "sequence": 1,
     "x_min": 1,
     "x_max": 12,
@@ -2569,8 +2569,8 @@
   "model": "pp.character",
   "pk": "c1a04bf0-a23b-4f24-8acd-a33b390b99bc",
   "fields": {
-    "line": "35bfb914-b605-4edc-bf9c-73be710879ee",
     "image": "484f374f-37a4-4452-b8a7-bb3e1b0a407b",
+    "line": "35bfb914-b605-4edc-bf9c-73be710879ee",
     "sequence": 1,
     "x_min": 148,
     "x_max": 315,
@@ -2583,8 +2583,8 @@
   "model": "pp.character",
   "pk": "c3cbf790-8e78-4131-a242-43d9e0c5e55c",
   "fields": {
-    "line": "fcc6c6a3-23d0-42f8-9b96-4c2d012360c6",
     "image": "178328a0-1604-4d6b-861f-4964fbe406b2",
+    "line": "fcc6c6a3-23d0-42f8-9b96-4c2d012360c6",
     "sequence": 0,
     "x_min": 309,
     "x_max": 268,
@@ -2597,8 +2597,8 @@
   "model": "pp.character",
   "pk": "c4de5717-c86a-4545-9161-e73ca59b9424",
   "fields": {
-    "line": "5d1709ba-a669-4b9e-a377-1ac6f1f5b79d",
     "image": "24ec272a-aa93-432b-9f3f-3bf29940020c",
+    "line": "5d1709ba-a669-4b9e-a377-1ac6f1f5b79d",
     "sequence": 1,
     "x_min": 462,
     "x_max": 321,
@@ -2611,8 +2611,8 @@
   "model": "pp.character",
   "pk": "ca3c8f7f-b2dc-4e6c-8103-5e3d73e8d2b9",
   "fields": {
-    "line": "35bfb914-b605-4edc-bf9c-73be710879ee",
     "image": "f3cf7bd2-09b5-4b17-9303-2d0209c55931",
+    "line": "35bfb914-b605-4edc-bf9c-73be710879ee",
     "sequence": 0,
     "x_min": 212,
     "x_max": 124,
@@ -2625,8 +2625,8 @@
   "model": "pp.character",
   "pk": "ce423a6b-9157-4db7-949e-b17b1fe3c8b3",
   "fields": {
-    "line": "e077e5cb-461d-4471-ae31-ca6f9c5ffc92",
     "image": "1a21cd09-d0da-48ef-95ed-2e7ac58fe9cc",
+    "line": "e077e5cb-461d-4471-ae31-ca6f9c5ffc92",
     "sequence": 0,
     "x_min": 490,
     "x_max": 280,
@@ -2639,8 +2639,8 @@
   "model": "pp.character",
   "pk": "d3173fd1-ea0a-4e9d-9d37-884f5c2460cf",
   "fields": {
-    "line": "fcc6c6a3-23d0-42f8-9b96-4c2d012360c6",
     "image": "5cac6918-6676-41f6-aebe-9359a29dd347",
+    "line": "fcc6c6a3-23d0-42f8-9b96-4c2d012360c6",
     "sequence": 1,
     "x_min": 12,
     "x_max": 7,
@@ -2653,8 +2653,8 @@
   "model": "pp.character",
   "pk": "d69fef4c-0cff-40d9-a923-737d8f7723b4",
   "fields": {
-    "line": "9cf30b76-1828-4587-a86f-bbf7515657a7",
     "image": "b31969dc-fb73-422a-a6aa-1df75f77349a",
+    "line": "9cf30b76-1828-4587-a86f-bbf7515657a7",
     "sequence": 1,
     "x_min": 413,
     "x_max": 146,
@@ -2667,8 +2667,8 @@
   "model": "pp.character",
   "pk": "d92c8f63-2416-4475-ac7b-69a7b0398a90",
   "fields": {
-    "line": "fa944ef4-a252-4245-9f65-8d6ccf862d94",
     "image": "1bc31c81-16a3-4f87-8278-bfdc730ce8dc",
+    "line": "fa944ef4-a252-4245-9f65-8d6ccf862d94",
     "sequence": 0,
     "x_min": 454,
     "x_max": 151,
@@ -2681,8 +2681,8 @@
   "model": "pp.character",
   "pk": "da5cf978-6066-46f3-a51e-0105843d0275",
   "fields": {
-    "line": "4b69af30-3cbe-415f-9224-f12996cfcad2",
     "image": "51e47785-97f4-4287-8789-290892cc7ea6",
+    "line": "4b69af30-3cbe-415f-9224-f12996cfcad2",
     "sequence": 0,
     "x_min": 88,
     "x_max": 455,
@@ -2695,8 +2695,8 @@
   "model": "pp.character",
   "pk": "dad92c1b-4dea-4c52-97fd-2d76e958a5f8",
   "fields": {
-    "line": "e077e5cb-461d-4471-ae31-ca6f9c5ffc92",
     "image": "898bff38-87b5-4140-8119-e42b20e40571",
+    "line": "e077e5cb-461d-4471-ae31-ca6f9c5ffc92",
     "sequence": 0,
     "x_min": 6,
     "x_max": 162,
@@ -2709,8 +2709,8 @@
   "model": "pp.character",
   "pk": "daeaedac-4a4b-4f83-902f-29a7a4c68c4f",
   "fields": {
-    "line": "8809aac8-0ac3-4d2c-b0c0-07b583a8e97c",
     "image": "202d341d-c976-4019-b9f3-abb697382ecb",
+    "line": "8809aac8-0ac3-4d2c-b0c0-07b583a8e97c",
     "sequence": 1,
     "x_min": 305,
     "x_max": 386,
@@ -2723,8 +2723,8 @@
   "model": "pp.character",
   "pk": "db62ac51-7af4-418e-b6ab-8a3a002f61da",
   "fields": {
-    "line": "fd0f4ab9-2a53-470c-aa79-b7d790b6f9ee",
     "image": "152bd984-8c22-4a03-9c1e-e4ff3a519efb",
+    "line": "fd0f4ab9-2a53-470c-aa79-b7d790b6f9ee",
     "sequence": 0,
     "x_min": 499,
     "x_max": 358,
@@ -2737,8 +2737,8 @@
   "model": "pp.character",
   "pk": "dc722c25-e1ee-42c8-8e16-c04550b9ada4",
   "fields": {
-    "line": "8a9c2b46-f22f-4d21-8327-1078fb02dd4f",
     "image": "1210eb57-53a5-4c28-b7ca-f2753f2dcd41",
+    "line": "8a9c2b46-f22f-4d21-8327-1078fb02dd4f",
     "sequence": 0,
     "x_min": 135,
     "x_max": 35,
@@ -2751,8 +2751,8 @@
   "model": "pp.character",
   "pk": "ec083497-0f26-4dc6-be87-6c0a6ff70fc2",
   "fields": {
-    "line": "7e3b99e9-8a3d-4865-9176-8bb8b3e006a8",
     "image": "90b34588-e9a6-4963-94c1-16141994fef8",
+    "line": "7e3b99e9-8a3d-4865-9176-8bb8b3e006a8",
     "sequence": 1,
     "x_min": 247,
     "x_max": 271,
@@ -2765,8 +2765,8 @@
   "model": "pp.character",
   "pk": "f217198a-a5ee-4ae1-a021-64119b57f787",
   "fields": {
-    "line": "fa944ef4-a252-4245-9f65-8d6ccf862d94",
     "image": "c8af3b0b-e03c-499b-8756-3591c2b4b21d",
+    "line": "fa944ef4-a252-4245-9f65-8d6ccf862d94",
     "sequence": 1,
     "x_min": 258,
     "x_max": 187,
@@ -2779,8 +2779,8 @@
   "model": "pp.character",
   "pk": "f551b4ec-3982-484b-9df4-bdaf903f6710",
   "fields": {
-    "line": "8159b7ff-6f61-4be0-8b49-cb57fd774ef8",
     "image": "75412aa4-1e76-476a-b585-46c544fe6a38",
+    "line": "8159b7ff-6f61-4be0-8b49-cb57fd774ef8",
     "sequence": 0,
     "x_min": 56,
     "x_max": 84,
@@ -2793,8 +2793,8 @@
   "model": "pp.character",
   "pk": "f595266c-c1a2-418e-b4b2-3256b7d047ec",
   "fields": {
-    "line": "94e81ad3-a79e-43f4-bcc0-1688eb8c44bf",
     "image": "ea1cd2cc-7cd2-46bb-944d-f3ba7aee258e",
+    "line": "94e81ad3-a79e-43f4-bcc0-1688eb8c44bf",
     "sequence": 1,
     "x_min": 348,
     "x_max": 467,
@@ -2807,8 +2807,8 @@
   "model": "pp.character",
   "pk": "f71e99e1-50a2-4610-af1a-07f464689ebf",
   "fields": {
-    "line": "fd0f4ab9-2a53-470c-aa79-b7d790b6f9ee",
     "image": "e71252b5-3e4a-4337-8e4d-f3d35689096f",
+    "line": "fd0f4ab9-2a53-470c-aa79-b7d790b6f9ee",
     "sequence": 1,
     "x_min": 314,
     "x_max": 16,
@@ -2836,11 +2836,85 @@
   }
 },
 {
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$5QujQK0FnkFv$mCm1OSkOwA5WW4uKNYtnY9XTiUNaal11aGPaSK90iNs=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "susan",
+    "first_name": "",
+    "last_name": "",
+    "email": "susan@pp.org",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-08-24T20:35:24.364Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "authtoken.token",
+  "pk": "7ea89599a81a3fb68d667fc799b4bd0b6c5919b5",
+  "fields": {
+    "user": 2,
+    "created": "2019-08-24T20:36:04.867Z"
+  }
+},
+{
   "model": "authtoken.token",
   "pk": "e48806a81d59ef7495d25731d74486388d9be2f6",
   "fields": {
     "user": 1,
     "created": "2019-07-19T11:59:47.623Z"
+  }
+},
+{
+  "model": "pp.charactergrouping",
+  "pk": "75e7dbca-5f25-49fb-bddd-f35fdb65a65b",
+  "fields": {
+    "created_by": 1,
+    "date_created": "2019-08-24T20:44:12.798Z",
+    "label": "More Bs",
+    "notes": "Some thoughts on the letter B",
+    "characters": [
+      "ca3c8f7f-b2dc-4e6c-8103-5e3d73e8d2b9",
+      "c1a04bf0-a23b-4f24-8acd-a33b390b99bc",
+      "6c931287-7104-4fa5-977b-019931960f7c",
+      "053fbea7-fc7e-49ac-85e9-ea7077e528c2",
+      "942ef5d2-e562-424c-b94d-65850e3bf225"
+    ]
+  }
+},
+{
+  "model": "pp.charactergrouping",
+  "pk": "899ccb30-a909-4fe7-a374-031a6d9b86f3",
+  "fields": {
+    "created_by": 1,
+    "date_created": "2019-08-24T20:42:37.775Z",
+    "label": "Some As",
+    "notes": "",
+    "characters": [
+      "c4de5717-c86a-4545-9161-e73ca59b9424",
+      "f551b4ec-3982-484b-9df4-bdaf903f6710",
+      "6224fc6d-3f32-49b4-b2d6-69fc47d2db45",
+      "3696ce0b-bfdd-45a5-b67d-a912616d8b8f",
+      "7ec22b26-c272-4e53-8ea6-95e9d6fbf2c1"
+    ]
+  }
+},
+{
+  "model": "pp.charactergrouping",
+  "pk": "dbe627b9-813b-4853-b79b-dca0ed3b6c9b",
+  "fields": {
+    "created_by": 2,
+    "date_created": "2019-08-24T20:45:13.245Z",
+    "label": "Some Cs that I like",
+    "notes": "lots more notes",
+    "characters": [
+      "ec083497-0f26-4dc6-be87-6c0a6ff70fc2",
+      "75d29705-ef80-40e0-b275-0f3a0819508a"
+    ]
   }
 }
 ]
