@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from collections import namedtuple
 import uuid
 from django.conf import settings
@@ -344,3 +345,16 @@ class Character(ImagedModel):
         ymax = self.line.y_max
         return bbox(xmin, xmax, ymin, ymax)
 
+# User-based models
+class UserBasedModel(uuidModel):
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="%(class)ss")
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
+        ordering = ["created_by", "-date_created"]
+
+class CharacterGrouping(UserBasedModel):
+    label = models.CharField(max_length=200, help_text="A descriptive label (will appear in menus etc)", unique=True)
+    notes = models.TextField(max_length=10000, blank=True, null=False, help_text="A description or notes about the grouping")
+    characters = models.ManyToManyField(Character, related_name="charactergroupings")
