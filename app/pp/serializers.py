@@ -10,6 +10,7 @@ class CharacterClassSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ImageSerializer(serializers.HyperlinkedModelSerializer):
+    web_url = serializers.URLField()
     class Meta:
         model = models.Image
         fields = ["url", "id", "label", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]
@@ -498,7 +499,7 @@ class SpreadCreateSeralizer(serializers.ModelSerializer):
 
 class BookListSerializer(serializers.HyperlinkedModelSerializer):
     cover_page = PageFlatSerializer(many=False)
-
+    # n_spreads = serializers.IntegerField()
     class Meta:
         model = models.Book
         fields = [
@@ -509,7 +510,7 @@ class BookListSerializer(serializers.HyperlinkedModelSerializer):
             "publisher",
             "title",
             "pdf",
-            "n_spreads",
+            # "n_spreads",
             "cover_page",
         ]
 
@@ -552,6 +553,7 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
         read_only=True,
     )
     cover_page = PageFlatSerializer(many=False, read_only=True)
+    n_spreads = serializers.IntegerField()
 
     class Meta:
         model = models.Book

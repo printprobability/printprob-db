@@ -15,6 +15,7 @@ DEBUG = os.environ["DEBUG_STATUS"] == "True"
 
 ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
 
+IMAGE_BASEURL = os.environ["IMAGE_BASEURL"]
 
 # Application definition
 

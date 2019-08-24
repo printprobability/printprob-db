@@ -1,6 +1,7 @@
 from django.db import models
 from collections import namedtuple
 import uuid
+from django.conf import settings
 
 
 class uuidModel(models.Model):
@@ -135,7 +136,7 @@ class Image(uuidModel):
         return f"{self.id} - {self.jpg}"
 
     def web_url(self):
-        return f"/img{self.jpg}"
+        return f"{settings.IMAGE_BASEURL}{self.jpg}"
 
 
 class ImagedModel(uuidModel):
