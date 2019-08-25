@@ -6,3 +6,4 @@ omit =
   */migrations/*
   */fixtures/*
   htmlcov/*
+  */tests/*
