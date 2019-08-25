@@ -3,7 +3,7 @@ version: "3"
 services:
 
   postgres:
-    image: postgres:11.4
+    image: postgres:11.5
     volumes:
       - pp:/var/lib/postgresql/data:z
     ports:
