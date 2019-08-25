@@ -670,6 +670,16 @@
 },
 {
   "model": "pp.image",
+  "pk": "92724af8-56e0-4d70-ab4e-f66df4af193c",
+  "fields": {
+    "jpg": "/baz/baff.jpg",
+    "tif": "/floof/flaff/tif",
+    "jpg_md5": "aea9c20f-0716-44e7-93e0-6268811f3006",
+    "tif_md5": "45dc6bd6-d11f-4e04-9160-6f8c013b3e73"
+  }
+},
+{
+  "model": "pp.image",
   "pk": "92abc703-7c18-4734-ad3d-38ef4896ada1",
   "fields": {
     "jpg": "/school/decision/during/feeling.jpg",
@@ -2822,7 +2832,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$150000$yyFJp1N6KVsz$n23f97mc22Bbty8bjoM4q4TL18+crKg3JuC99EoYDxk=",
-    "last_login": "2019-07-19T01:46:19.813Z",
+    "last_login": "2019-08-24T21:12:41.205Z",
     "is_superuser": true,
     "username": "root",
     "first_name": "",

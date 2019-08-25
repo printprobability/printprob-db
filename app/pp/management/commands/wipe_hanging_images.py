@@ -8,8 +8,6 @@ class Command(BaseCommand):
     help = "Wipe all images not referenced by a Page, Line, Character, etc."
 
     def handle(self, *args, **options):
-        models.Image.objects.exclude(depicts_spread__isnull=False).exclude(
-            depicts_page__isnull=False
-        ).exclude(depicts_line__isnull=False).exclude(
-            depicts_character__isnull=False
-        ).delete()
+        models.Image.objects.exclude(spreads__isnull=False).exclude(
+            pages__isnull=False
+        ).exclude(lines__isnull=False).exclude(characters__isnull=False).delete()

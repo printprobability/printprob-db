@@ -3,6 +3,7 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
+from django.core.management import call_command
 from pp import models
 
 # Create your tests here.
@@ -1084,3 +1085,15 @@ class CharacterGroupingClassViewTest(TestCase):
 
     def test_noaccess(self):
         noaccess(self)
+
+
+class DocTestCase(TestCase):
+    fixtures = ["test.json"]
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.Image.objects.count()
+
+    def test_wipe_hanging_images(self):
+        call_command("wipe_hanging_images")
+        self.assertLess(models.Image.objects.count(), self.OBJCOUNT)
