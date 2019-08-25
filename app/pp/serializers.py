@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.db import transaction
+from django.contrib.auth.models import User
 from . import models
 
 
@@ -593,3 +594,23 @@ class LineGroupCreateSerializer(serializers.ModelSerializer):
         model = models.LineGroup
         fields = ["url", "id", "label", "page", "created_by_run", "lines"]
 
+class CharacterGroupingListSerializer(serializers.HyperlinkedModelSerializer):
+    created_by = serializers.StringRelatedField()
+    class Meta:
+        model = models.CharacterGrouping
+        fields = ["url", "id", "label", "notes", "created_by", "date_created"]
+
+
+class CharacterGroupingDetailSerializer(serializers.HyperlinkedModelSerializer):
+    created_by = serializers.StringRelatedField()
+    characters = CharacterFlatSerializer(many=True)
+    class Meta:
+        model = models.CharacterGrouping
+        fields = fields = ["url", "id", "label", "notes", "created_by", "date_created", "characters"]
+
+
+class CharacterGroupingCreateSerializer(serializers.ModelSerializer):
+    created_by = serializers.SlugRelatedField(slug_field="username",read_only=False, queryset=User.objects.all())
+    class Meta:
+        model = models.CharacterGrouping
+        fields = ["url", "id", "created_by", "date_created", "label", "notes", "characters"]

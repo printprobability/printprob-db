@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from django.db import transaction
 from django.db.models import Count
+from django.contrib.auth.models import User
 from rest_framework import permissions
 from django_filters import rest_framework as filters
 from . import models, serializers
@@ -36,12 +37,12 @@ class BookViewSet(CRUDViewSet):
     queryset = (
         models.Book.objects.annotate(n_spreads=Count("spreads"))
         .prefetch_related(
-        "spreads",
-        "pageruns",
-        "pageruns__pages",
-        "lineruns",
-        "linegroupruns__linegroups",
-        "characterruns",
+            "spreads",
+            "pageruns",
+            "pageruns__pages",
+            "lineruns",
+            "linegroupruns__linegroups",
+            "characterruns",
         )
         .all()
     )
@@ -332,3 +333,31 @@ class CharacterClassViewset(CRUDViewSet):
     serializer_class = serializers.CharacterClassSerializer
     filterset_class = CharacterClassFilter
 
+
+class CharacterGroupingFilter(filters.FilterSet):
+    created_by = filters.CharFilter(
+        field_name="created_by__username"
+    )
+
+
+class CharacterGroupingViewSet(viewsets.ModelViewSet):
+    queryset = models.CharacterGrouping.objects.select_related(
+        "created_by"
+    ).prefetch_related("characters", "characters__image")
+    filterset_class = CharacterGroupingFilter
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return serializers.CharacterGroupingDetailSerializer
+        elif self.action == "list":
+            return serializers.CharacterGroupingListSerializer
+        return serializers.CharacterGroupingCreateSerializer
+
+    def create(self, request):
+        creation_data = request.data
+        creation_data["created_by"] = request.user
+        serializer = self.get_serializer(data=creation_data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

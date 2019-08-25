@@ -2,6 +2,7 @@ from django.test import TestCase
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
 from pp import models
 
 # Create your tests here.
@@ -14,14 +15,18 @@ def noaccess(self):
     self.assertEqual(self.client.delete(self.ENDPOINT).status_code, 403)
 
 
-def as_auth(func):
-    def auth_client(self):
-        token = Token.objects.get(user__username="root")
-        self.client = APIClient()
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
-        return func(self)
-
-    return auth_client
+def as_auth(username="root"):
+    """
+    Run a test using an APIClient authorized with a particular username. Defaults to "root"
+    """
+    def auth_as_user(func):
+        def auth_client(self):
+            token = Token.objects.get(user__username=username)
+            self.client = APIClient()
+            self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+            return func(self)
+        return auth_client
+    return auth_as_user
 
 
 class RootViewTest(TestCase):
@@ -107,7 +112,7 @@ class PageRunTestCase(TestCase):
         )
         self.assertEqual(res.status_code, 201)
         for k in [
-            "url",
+            "url"
             "id",
             "book",
             "params",
@@ -999,3 +1004,83 @@ class DocTestCase(TestCase):
     def test_get_docs(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
+
+
+class CharacterGroupingClassViewTest(TestCase):
+
+    fixtures = ["test.json"]
+
+    ENDPOINT = reverse("charactergrouping-list")
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.OBJCOUNT = models.CharacterGrouping.objects.count()
+        cls.SUSANCOUNT = models.CharacterGrouping.objects.filter(created_by__username="susan").count()
+        cls.OBJ1 = models.CharacterGrouping.objects.first().pk
+        cls.STR1 = str(cls.OBJ1)
+        cls.CHARS_1 = models.Character.objects.all()[1:5].values_list("id", flat=True)
+        cls.CHARS_2 = models.Character.objects.all()[6:8].values_list("id", flat=True)
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        for k in ["url", "id", "label", "created_by", "date_created", "notes", "characters"]:
+            self.assertIn(k, res.data["results"][0])
+
+    @as_auth
+    def test_get_filter(self):
+        res = self.client.get(self.ENDPOINT, params={"user": "susan"})
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.SUSANCOUNT)
+        for k in ["url", "id", "label", "created_by", "date_created", "notes", "characters"]:
+            self.assertIn(k, res.data["results"][0])
+        for res in res.data["results"]:
+            self.assertEqual(res["created_by"], "susan")
+
+    @as_auth
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["count"], self.OBJCOUNT)
+        for k in ["url", "id", "label", "created_by", "date_created","notes"]:
+            self.assertIn(k, res.data["results"][0])
+
+    @as_auth
+    def test_get_detail(self):
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        for k in ["url", "id", "label", "created_by", "date_created","notes", "characters"]:
+            self.assertIn(k, res.data)
+        self.assertIsInstance(res.data["characters"][0], dict)
+
+    @as_auth
+    def test_delete(self):
+        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 204)
+        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(delres.status_code, 404)
+
+    @as_auth(username="root")
+    def test_post_root(self):
+        res = self.client.post(self.ENDPOINT, data={"label": "foo", "notes": "bar", "characters": self.CHARS_1})
+        self.assertEqual(res.status_code, 201)
+        for k in ["url", "id", "label", "created_by", "date_created","notes", "characters"]:
+            self.assertIn(k, res.data)
+        self.assertEqual(res.data["created_by"], "root")
+        for char_id in res.data["characters"]:
+            self.assertIn(char_id, self.CHARS_1)
+
+    @as_auth(username="susan")
+    def test_post_susan(self):
+        res = self.client.post(self.ENDPOINT, data={"label": "foo", "notes": "bar", "characters": self.CHARS_2})
+        self.assertEqual(res.status_code, 201)
+        for k in ["url", "id", "label", "created_by", "date_created","notes", "characters"]:
+            self.assertIn(k, res.data)
+        self.assertEqual(res.data["created_by"], "susan")
+        for char_id in res.data["characters"]:
+            self.assertIn(char_id, self.CHARS_2)
+
+    def test_noaccess(self):
+        noaccess(self)
