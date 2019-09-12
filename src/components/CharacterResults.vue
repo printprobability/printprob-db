@@ -9,7 +9,8 @@ import CharacterImage from "./CharacterImage.vue";
 export default {
   name: "CharacterResults",
   props: {
-    selected_character_class: String
+    selected_character_class: String,
+    selected_book: String
   },
   components: {
     CharacterImage
@@ -27,7 +28,10 @@ export default {
       console.log(this.selected_character_class);
       return this.$http
         .get("http://localhost/characters/", {
-          params: { character_class: this.selected_character_class }
+          params: {
+            character_class: this.selected_character_class,
+            book: this.selected_book
+          }
         })
         .then(
           response => {

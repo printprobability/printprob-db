@@ -3,11 +3,13 @@
     <b-form-select
       v-model="selected_character_class"
       :options="character_classes"
-      @input="input_charclass"
+      @input="input_swap"
     ></b-form-select>
+    <b-form-select v-model="selected_book" :options="book_ids" @input="input_swap"></b-form-select>
     <CharacterResults
       :selected_character_class="this.$route.query.classname"
-      :key="this.$route.query.classname"
+      :selected_book="this.$route.query.book"
+      :key="this.$route.query.classname + this.$route.query.book"
     />
   </div>
 </template>
@@ -23,23 +25,35 @@ export default {
   data: function(d) {
     return {
       character_classes: [],
-      selected_character_class: null
+      book_ids: [],
+      selected_character_class: String,
+      selected_book: Number
     };
   },
   methods: {
-    input_charclass: function() {
+    input_swap: function() {
       this.$router.push({
         name: "CharacterListView",
-        query: { classname: this.selected_character_class }
+        query: {
+          classname: this.selected_character_class,
+          book: this.selected_book
+        }
       });
     },
-    get_charcacter_classes: function(
-      l = "http://localhost/character_classes/"
-    ) {
-      return this.$http.get(l).then(
+    get_charcacter_classes: function() {
+      return this.$http.get("http://localhost/character_classes/").then(
         response => {
-          var classnames = response.data.results.map(x => x.classname);
-          this.character_classes = classnames;
+          this.character_classes = response.data.results.map(x => x.classname);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    },
+    get_book_ids: function() {
+      return this.$http.get("http://localhost/books/").then(
+        response => {
+          this.book_ids = response.data.results.map(x => x.eebo);
         },
         error => {
           console.log(error);
@@ -49,6 +63,9 @@ export default {
   },
   mounted: function() {
     this.get_charcacter_classes();
+    this.get_book_ids();
+    this.selected_character_class = this.$route.query.classname;
+    this.selected_book = this.$route.query.book;
   }
 };
 </script>
