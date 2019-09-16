@@ -111,7 +111,7 @@ class PageRunTestCase(TestCase):
         )
         self.assertEqual(res.status_code, 201)
         for k in [
-            "url"
+            "url",
             "id",
             "book",
             "params",
