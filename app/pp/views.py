@@ -360,6 +360,7 @@ class CharacterGroupingViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             for char in serializer.data["characters"]:
                 obj.characters.add(char)
+                obj.save()
             return Response({"status": "characters added"})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

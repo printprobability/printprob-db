@@ -1016,10 +1016,11 @@ class CharacterGroupingClassViewTest(TestCase):
     def setUpTestData(cls):
         cls.OBJCOUNT = models.CharacterGrouping.objects.count()
         cls.SUSANCOUNT = models.CharacterGrouping.objects.filter(created_by__username="susan").count()
-        cls.OBJ1 = models.CharacterGrouping.objects.first().pk
-        cls.STR1 = str(cls.OBJ1)
+        cls.OBJ1 = models.CharacterGrouping.objects.first()
+        cls.STR1 = str(cls.OBJ1.pk)
         cls.CHARS_1 = models.Character.objects.all()[1:5].values_list("id", flat=True)
         cls.CHARS_2 = models.Character.objects.all()[6:8].values_list("id", flat=True)
+        cls.CHARS_ORIG = cls.OBJ1.characters.all().values_list("id", flat=True)
 
     @as_auth()
     def test_get(self):
@@ -1084,12 +1085,13 @@ class CharacterGroupingClassViewTest(TestCase):
 
     @as_auth()
     def test_add_chars(self):
-        patch_res = self.client.patch(self.ENDPOINT + self.STR1 + "/", data = {"characters": self.CHARS_2})
+        patch_res = self.client.patch(self.ENDPOINT + self.STR1 + "/add_characters/", data = {"characters": self.CHARS_2})
         self.assertEqual(patch_res.status_code, 200)
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
+        #print([a["id"] for a in res.data["characters"]])
         all_ids = [char["id"] for char in res.data["characters"]]
-        target_ids = [str(i) for i in list(self.CHARS_1) + list(self.CHARS_2)]
+        target_ids = [str(i) for i in list(self.CHARS_ORIG) + list(self.CHARS_2)]
         for char_id in all_ids:
             self.assertIn(char_id, target_ids)
 
