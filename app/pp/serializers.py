@@ -650,3 +650,13 @@ class CharacterGroupingCreateSerializer(serializers.ModelSerializer):
             "characters",
         ]
 
+
+class CharacterGroupingCharacterListSerializer(serializers.ModelSerializer):
+    characters = serializers.PrimaryKeyRelatedField(
+        queryset=models.Character.objects.all(), many=True
+    )
+
+    class Meta:
+        model = models.CharacterGrouping
+        fields = ["characters"]
+

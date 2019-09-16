@@ -350,3 +350,16 @@ class CharacterGroupingViewSet(viewsets.ModelViewSet):
         elif self.action == "list":
             return serializers.CharacterGroupingListSerializer
         return serializers.CharacterGroupingCreateSerializer
+
+    @action(detail=True, methods=["patch"])
+    def add_characters(self, request, pk=None):
+        obj = self.get_object()
+        serializer = serializers.CharacterGroupingCharacterListSerializer(
+            data=request.data
+        )
+        if serializer.is_valid():
+            for char in serializer.data["characters"]:
+                obj.characters.add(char)
+            return Response({"status": "characters added"})
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

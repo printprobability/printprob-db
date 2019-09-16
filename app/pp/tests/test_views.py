@@ -1082,6 +1082,17 @@ class CharacterGroupingClassViewTest(TestCase):
         for char_id in res.data["characters"]:
             self.assertIn(char_id, self.CHARS_2)
 
+    @as_auth()
+    def test_add_chars(self):
+        patch_res = self.client.patch(self.ENDPOINT + self.STR1 + "/", data = {"characters": self.CHARS_2})
+        self.assertEqual(patch_res.status_code, 200)
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        all_ids = [char["id"] for char in res.data["characters"]]
+        target_ids = [str(i) for i in list(self.CHARS_1) + list(self.CHARS_2)]
+        for char_id in all_ids:
+            self.assertIn(char_id, target_ids)
+
     def test_noaccess(self):
         noaccess(self)
 
