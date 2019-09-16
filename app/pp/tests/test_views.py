@@ -1030,7 +1030,7 @@ class CharacterGroupingClassViewTest(TestCase):
 
     @as_auth
     def test_get_filter(self):
-        res = self.client.get(self.ENDPOINT, params={"user": "susan"})
+        res = self.client.get(self.ENDPOINT, params={"created_by": "susan"})
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.SUSANCOUNT)
         for k in ["url", "id", "label", "created_by", "date_created", "notes", "characters"]:
