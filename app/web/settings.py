@@ -51,7 +51,6 @@ CSRF_TRUSTED_ORIGINS = [os.environ["VUE_ORIGIN"]] + ALLOWED_HOSTS
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_NAME = "xsrfcookie"
 
-
 ROOT_URLCONF = "web.urls"
 
 TEMPLATES = [
@@ -82,6 +81,7 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "TEST_REQUEST_DEFAULT_FORMAT": "json",
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "HTML_SELECT_CUTOFF": 50,
 }
 
 SWAGGER_SETTINGS = {
