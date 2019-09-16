@@ -16,24 +16,25 @@ def noaccess(self):
     self.assertEqual(self.client.delete(self.ENDPOINT).status_code, 403)
 
 
-def as_auth(func):
-    """
-    Run a test using an APIClient authorized with a particular username. Defaults to "root"
-    """
+def as_auth(username="root"):
+    def as_auth_name(func):
+        """
+        Run a test using an APIClient authorized with a particular username. Defaults to "root"
+        """
         def auth_client(self):
-        token = Token.objects.get(user__username="root")
+            token = Token.objects.get(user__username=username)
             self.client = APIClient()
             self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
             return func(self)
         return auth_client
-
+    return as_auth_name
 
 class RootViewTest(TestCase):
     fixtures = ["test.json"]
 
     ENDPOINT = reverse("api-root")
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -53,7 +54,7 @@ class PageRunTestCase(TestCase):
         cls.OBJ1 = models.PageRun.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -70,7 +71,7 @@ class PageRunTestCase(TestCase):
         ]:
             self.assertIn(k, res.data["results"][0])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -90,14 +91,14 @@ class PageRunTestCase(TestCase):
         self.assertIsInstance(res.data["book"], dict)
         self.assertIsInstance(res.data["pages"], list)
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         book = models.Book.objects.first().pk
         res = self.client.post(
@@ -137,7 +138,7 @@ class LineRunTestCase(TestCase):
         cls.OBJ1 = models.LineRun.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -154,7 +155,7 @@ class LineRunTestCase(TestCase):
         ]:
             self.assertIn(k, res.data["results"][0])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -174,14 +175,14 @@ class LineRunTestCase(TestCase):
         self.assertIsInstance(res.data["book"], dict)
         self.assertIsInstance(res.data["lines"], list)
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         book = models.Book.objects.first().pk
         res = self.client.post(
@@ -221,7 +222,7 @@ class LineGroupRunTestCase(TestCase):
         cls.OBJ1 = models.LineGroupRun.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -238,7 +239,7 @@ class LineGroupRunTestCase(TestCase):
         ]:
             self.assertIn(k, res.data["results"][0])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -258,14 +259,14 @@ class LineGroupRunTestCase(TestCase):
         self.assertIsInstance(res.data["book"], dict)
         self.assertIsInstance(res.data["linegroups"], list)
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         book = models.Book.objects.first().pk
         res = self.client.post(
@@ -305,7 +306,7 @@ class CharacterRunTestCase(TestCase):
         cls.OBJ1 = models.CharacterRun.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -322,7 +323,7 @@ class CharacterRunTestCase(TestCase):
         ]:
             self.assertIn(k, res.data["results"][0])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -342,14 +343,14 @@ class CharacterRunTestCase(TestCase):
         self.assertIsInstance(res.data["book"], dict)
         self.assertIsInstance(res.data["characters"], list)
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         book = models.Book.objects.first().pk
         res = self.client.post(
@@ -390,7 +391,7 @@ class BookViewTest(TestCase):
         cls.OBJ1 = models.Book.objects.first().eebo
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -409,7 +410,7 @@ class BookViewTest(TestCase):
             self.assertIn(k, res.data["results"][0])
         self.assertIn("jpg", res.data["results"][0]["cover_page"]["image"])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -442,14 +443,14 @@ class BookViewTest(TestCase):
         )
         self.assertIn("jpg", res.data["most_recent_pages"][0]["image"])
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         res = self.client.post(
             self.ENDPOINT,
@@ -474,7 +475,7 @@ class SpreadViewTest(TestCase):
         cls.OBJ1 = models.Spread.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -483,7 +484,7 @@ class SpreadViewTest(TestCase):
             self.assertIn(k, res.data["results"][0])
         self.assertIn("jpg", res.data["results"][0]["image"])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -502,14 +503,14 @@ class SpreadViewTest(TestCase):
         self.assertIsInstance(res.data["pages"], list)
         self.assertIn("jpg", res.data["most_recent_pages"][0]["image"])
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         book = models.Book.objects.first().pk
         image = models.Image.objects.first().pk
@@ -536,7 +537,7 @@ class PageViewTest(TestCase):
         cls.OBJ1 = models.Page.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -556,7 +557,7 @@ class PageViewTest(TestCase):
             self.assertIn(k, res.data["results"][0])
         self.assertIn("jpg", res.data["results"][0]["image"])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -578,14 +579,14 @@ class PageViewTest(TestCase):
         self.assertIsInstance(res.data["lines"], list)
         self.assertIn("jpg", res.data["image"])
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         spread = models.Spread.objects.first()
         image = models.Image.objects.first().pk
@@ -659,7 +660,7 @@ class LineViewTest(TestCase):
         cls.OBJ1 = models.Line.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -667,7 +668,7 @@ class LineViewTest(TestCase):
         for k in ["url", "id", "created_by_run", "page", "sequence", "y_min", "y_max"]:
             self.assertIn(k, res.data["results"][0])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -690,14 +691,14 @@ class LineViewTest(TestCase):
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["characters"], list)
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         page = models.Page.objects.first().pk
         image = models.Image.objects.first().pk
@@ -743,7 +744,7 @@ class LineGroupViewTest(TestCase):
         cls.OBJ1 = models.LineGroup.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -751,7 +752,7 @@ class LineGroupViewTest(TestCase):
         for k in ["url", "id", "page", "created_by_run", "lines"]:
             self.assertIn(k, res.data["results"][0])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -760,14 +761,14 @@ class LineGroupViewTest(TestCase):
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["lines"], list)
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         page = models.Page.objects.first()
         image = models.Image.objects.first().pk
@@ -801,7 +802,7 @@ class CharacterViewTest(TestCase):
         cls.OBJ1 = models.Character.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -828,7 +829,7 @@ class CharacterViewTest(TestCase):
         self.assertIn("side", res.data["results"][0]["page"])
         self.assertIn("sequence", res.data["results"][0]["line"])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -848,14 +849,14 @@ class CharacterViewTest(TestCase):
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         line = models.Line.objects.first().pk
         image = models.Image.objects.first().pk
@@ -906,7 +907,7 @@ class ImageViewTest(TestCase):
         cls.OBJ1 = models.Image.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -914,7 +915,7 @@ class ImageViewTest(TestCase):
         for k in ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"]:
             self.assertIn(k, res.data["results"][0])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -922,14 +923,14 @@ class ImageViewTest(TestCase):
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         res = self.client.post(
             self.ENDPOINT,
@@ -960,7 +961,7 @@ class CharacterClassViewTest(TestCase):
         cls.OBJ1 = models.CharacterClass.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -968,7 +969,7 @@ class CharacterClassViewTest(TestCase):
         for k in ["url", "classname"]:
             self.assertIn(k, res.data["results"][0])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -976,14 +977,14 @@ class CharacterClassViewTest(TestCase):
             self.assertIn(k, res.data)
         self.assertEqual(res.data["classname"], self.STR1)
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth
+    @as_auth()
     def test_post(self):
         res = self.client.post(self.ENDPOINT, data={"classname": "zed"})
         self.assertEqual(res.status_code, 201)
@@ -1020,7 +1021,7 @@ class CharacterGroupingClassViewTest(TestCase):
         cls.CHARS_1 = models.Character.objects.all()[1:5].values_list("id", flat=True)
         cls.CHARS_2 = models.Character.objects.all()[6:8].values_list("id", flat=True)
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
@@ -1028,25 +1029,25 @@ class CharacterGroupingClassViewTest(TestCase):
         for k in ["url", "id", "label", "created_by", "date_created", "notes", "characters"]:
             self.assertIn(k, res.data["results"][0])
 
-    @as_auth
+    @as_auth()
     def test_get_filter(self):
-        res = self.client.get(self.ENDPOINT, params={"created_by": "susan"})
+        res = self.client.get(self.ENDPOINT + "?created_by=susan")
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.SUSANCOUNT)
-        for k in ["url", "id", "label", "created_by", "date_created", "notes", "characters"]:
+        for k in ["url", "id", "label", "created_by", "date_created", "notes"]:
             self.assertIn(k, res.data["results"][0])
-        for res in res.data["results"]:
-            self.assertEqual(res["created_by"], "susan")
+        for entry in res.data["results"]:
+            self.assertEqual(entry["created_by"], "susan")
 
-    @as_auth
+    @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in ["url", "id", "label", "created_by", "date_created","notes"]:
+        for k in ["url", "id", "label", "created_by", "date_created", "notes"]:
             self.assertIn(k, res.data["results"][0])
 
-    @as_auth
+    @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -1054,14 +1055,14 @@ class CharacterGroupingClassViewTest(TestCase):
             self.assertIn(k, res.data)
         self.assertIsInstance(res.data["characters"][0], dict)
 
-    @as_auth
+    @as_auth()
     def test_delete(self):
         res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 204)
         delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(delres.status_code, 404)
 
-    @as_auth(username="root")
+    @as_auth()
     def test_post_root(self):
         res = self.client.post(self.ENDPOINT, data={"label": "foo", "notes": "bar", "characters": self.CHARS_1})
         self.assertEqual(res.status_code, 201)
