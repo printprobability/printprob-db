@@ -1089,11 +1089,21 @@ class CharacterGroupingClassViewTest(TestCase):
         self.assertEqual(patch_res.status_code, 200)
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        #print([a["id"] for a in res.data["characters"]])
         all_ids = [char["id"] for char in res.data["characters"]]
         target_ids = [str(i) for i in list(self.CHARS_ORIG) + list(self.CHARS_2)]
         for char_id in all_ids:
             self.assertIn(char_id, target_ids)
+
+    @as_auth()
+    def test_delete_chars(self):
+        chars_to_delete = self.CHARS_ORIG[:2]
+        patch_res = self.client.patch(self.ENDPOINT + self.STR1 + "/delete_characters/", data = {"characters": chars_to_delete})
+        self.assertEqual(patch_res.status_code, 200)
+        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
+        self.assertEqual(res.status_code, 200)
+        all_ids = [char["id"] for char in res.data["characters"]]
+        for char_id in [str(a) for a in chars_to_delete]:
+            self.assertNotIn(char_id, all_ids)
 
     def test_noaccess(self):
         noaccess(self)
