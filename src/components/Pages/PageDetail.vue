@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import LineImage from "./LineImage.vue";
+import LineImage from "../Lines/LineImage.vue";
 export default {
   name: "PageDetail",
   components: {

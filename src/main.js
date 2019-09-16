@@ -10,10 +10,12 @@ Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
-import BookList from "./components/BookList.vue";
-import BookDetail from "./components/BookDetail.vue";
-import PageDetail from "./components/PageDetail.vue";
-import CharacterList from "./components/CharacterList.vue"
+import Home from "./components/Home.vue"
+import BookList from "./components/Books/BookList.vue";
+import BookDetail from "./components/Books/BookDetail.vue";
+import PageDetail from "./components/Pages/PageDetail.vue";
+import CharacterList from "./components/Characters/CharacterList.vue"
+import CharacterGroup from "./components/CharacterGroups/CharacterGroup.vue"
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -25,6 +27,7 @@ export const http = axios.create({
 Vue.prototype.$http = http;
 
 const routes = [
+  { path: "/", name: "HomeView", component: Home },
   { path: "/books", name: "BookListView", component: BookList },
   { path: "/books/:id", name: "BookDetailView", component: BookDetail },
   { path: "/pages/:id", name: "PageDetailView", component: PageDetail },

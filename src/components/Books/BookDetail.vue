@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import PageImage from "./PageImage.vue";
+import PageImage from "../Pages/PageImage.vue";
 
 export default {
   name: "BookDetail",

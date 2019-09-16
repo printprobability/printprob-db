@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <b-navbar toggleable="lg" type="dark" variant="secondary">
-      <b-navbar-brand href="#">Print & Probability</b-navbar-brand>
+      <b-navbar-brand href="/">Print & Probability</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
