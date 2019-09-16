@@ -16,18 +16,16 @@ def noaccess(self):
     self.assertEqual(self.client.delete(self.ENDPOINT).status_code, 403)
 
 
-def as_auth(username="root"):
+def as_auth(func):
     """
     Run a test using an APIClient authorized with a particular username. Defaults to "root"
     """
-    def auth_as_user(func):
         def auth_client(self):
-            token = Token.objects.get(user__username=username)
+        token = Token.objects.get(user__username="root")
             self.client = APIClient()
             self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
             return func(self)
         return auth_client
-    return auth_as_user
 
 
 class RootViewTest(TestCase):
