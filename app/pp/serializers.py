@@ -12,6 +12,7 @@ class CharacterClassSerializer(serializers.HyperlinkedModelSerializer):
 
 class ImageSerializer(serializers.HyperlinkedModelSerializer):
     web_url = serializers.URLField(read_only=True)
+
     class Meta:
         model = models.Image
         fields = ["url", "id", "label", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]
@@ -56,7 +57,6 @@ class CharacterFlatSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class PageRunListSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = models.PageRun
         fields = [
@@ -371,7 +371,16 @@ class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
 class LineListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Line
-        fields = ["url", "id", "label", "created_by_run", "page", "sequence", "y_min", "y_max"]
+        fields = [
+            "url",
+            "id",
+            "label",
+            "created_by_run",
+            "page",
+            "sequence",
+            "y_min",
+            "y_max",
+        ]
 
 
 class LineCreateSerializer(serializers.ModelSerializer):
@@ -501,6 +510,7 @@ class SpreadCreateSeralizer(serializers.ModelSerializer):
 class BookListSerializer(serializers.HyperlinkedModelSerializer):
     cover_page = PageFlatSerializer(many=False)
     n_spreads = serializers.IntegerField()
+
     class Meta:
         model = models.Book
         fields = [
@@ -594,23 +604,49 @@ class LineGroupCreateSerializer(serializers.ModelSerializer):
         model = models.LineGroup
         fields = ["url", "id", "label", "page", "created_by_run", "lines"]
 
+
 class CharacterGroupingListSerializer(serializers.HyperlinkedModelSerializer):
-    created_by = serializers.StringRelatedField()
+    created_by = serializers.SlugRelatedField(slug_field="username", read_only=True)
+
     class Meta:
         model = models.CharacterGrouping
         fields = ["url", "id", "label", "notes", "created_by", "date_created"]
 
 
 class CharacterGroupingDetailSerializer(serializers.HyperlinkedModelSerializer):
-    created_by = serializers.StringRelatedField()
+    created_by = serializers.SlugRelatedField(slug_field="username", read_only=True)
     characters = CharacterFlatSerializer(many=True)
+
     class Meta:
         model = models.CharacterGrouping
-        fields = fields = ["url", "id", "label", "notes", "created_by", "date_created", "characters"]
+        fields = fields = [
+            "url",
+            "id",
+            "label",
+            "notes",
+            "created_by",
+            "date_created",
+            "characters",
+        ]
 
 
 class CharacterGroupingCreateSerializer(serializers.ModelSerializer):
-    created_by = serializers.SlugRelatedField(slug_field="username",read_only=False, queryset=User.objects.all())
+    created_by = serializers.SlugRelatedField(
+        slug_field="username",
+        read_only=False,
+        queryset=User.objects.all(),
+        default=serializers.CurrentUserDefault(),
+    )
+
     class Meta:
         model = models.CharacterGrouping
-        fields = ["url", "id", "created_by", "date_created", "label", "notes", "characters"]
+        fields = [
+            "url",
+            "id",
+            "created_by",
+            "date_created",
+            "label",
+            "notes",
+            "characters",
+        ]
+

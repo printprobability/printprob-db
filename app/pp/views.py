@@ -335,9 +335,7 @@ class CharacterClassViewset(CRUDViewSet):
 
 
 class CharacterGroupingFilter(filters.FilterSet):
-    created_by = filters.CharFilter(
-        field_name="created_by__username"
-    )
+    created_by = filters.CharFilter(field_name="created_by__username")
 
 
 class CharacterGroupingViewSet(viewsets.ModelViewSet):
@@ -352,12 +350,3 @@ class CharacterGroupingViewSet(viewsets.ModelViewSet):
         elif self.action == "list":
             return serializers.CharacterGroupingListSerializer
         return serializers.CharacterGroupingCreateSerializer
-
-    def create(self, request):
-        creation_data = request.data
-        creation_data["created_by"] = request.user
-        serializer = self.get_serializer(data=creation_data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
