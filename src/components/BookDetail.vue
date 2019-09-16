@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     get_book: function(id) {
-      return this.$http.get("http://localhost/books/" + id + "/").then(
+      return this.$http.get("/books/" + id + "/").then(
         response => {
           this.book = response.data;
         },

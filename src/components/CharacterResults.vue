@@ -27,7 +27,7 @@ export default {
     get_characters: function() {
       console.log(this.selected_character_class);
       return this.$http
-        .get("http://localhost/characters/", {
+        .get("/characters/", {
           params: {
             character_class: this.selected_character_class,
             book: this.selected_book

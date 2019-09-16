@@ -18,7 +18,11 @@ import CharacterList from "./components/CharacterList.vue"
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.withCredentials = true;
-Vue.prototype.$http = axios;
+export const http = axios.create({
+  baseURL: "http://localhost"
+})
+
+Vue.prototype.$http = http;
 
 const routes = [
   { path: "/books", name: "BookListView", component: BookList },

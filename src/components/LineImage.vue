@@ -19,7 +19,7 @@ export default {
       var payload = {
         image: id
       };
-      return this.$http.post("http://localhost/captures/", payload).then(
+      return this.$http.post("/captures/", payload).then(
         response => {
           console.log(response);
         },
@@ -29,7 +29,7 @@ export default {
       );
     },
     removeClassification: function(id) {
-      return this.$http.delete("http://localhost/captures/" + id).then(
+      return this.$http.delete("/captures/" + id).then(
         response => {
           console.log(response);
         },

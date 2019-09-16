@@ -41,7 +41,7 @@ export default {
       });
     },
     get_charcacter_classes: function() {
-      return this.$http.get("http://localhost/character_classes/").then(
+      return this.$http.get("/character_classes/").then(
         response => {
           this.character_classes = response.data.results.map(x => x.classname);
         },
@@ -51,7 +51,7 @@ export default {
       );
     },
     get_book_ids: function() {
-      return this.$http.get("http://localhost/books/").then(
+      return this.$http.get("/books/").then(
         response => {
           this.book_ids = response.data.results.map(x => x.eebo);
         },

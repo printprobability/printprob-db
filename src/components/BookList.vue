@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     get_books: function() {
-      return this.$http.get("http://localhost/books/").then(
+      return this.$http.get("/books/").then(
         response => {
           this.books = response.data.results;
           this.pagination.count = response.data.count;

@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     get_page: function(id) {
-      return this.$http.get("http://localhost/pages/" + id + "/").then(
+      return this.$http.get("/pages/" + id + "/").then(
         response => {
           this.page = response.data;
         },
