@@ -1,10 +1,12 @@
 <template>
   <div class="booklist">
-    <h1>Search Books</h1>
     <div class="card m-2">
-      <div class="card-header">Options</div>
+      <div class="card-header">Filter</div>
       <div class="card-body">
-        <b-form-input v-model="publisher_name_search" placeholder="Enter partial publisher name" />
+        <b-form-input
+          v-model="publisher_name_search"
+          placeholder="Search by partial publisher name"
+        />
       </div>
     </div>
     <div class="card m-2">
