@@ -9,6 +9,10 @@
 </template>
 
 <script>
+/* eslint-disable */
+
+import { HTTP } from "../../main";
+
 export default {
   name: "LineImage",
   props: {
@@ -19,7 +23,7 @@ export default {
       var payload = {
         image: id
       };
-      return this.$http.post("/captures/", payload).then(
+      return HTTP.post("/captures/", payload).then(
         response => {
           console.log(response);
         },
@@ -29,7 +33,7 @@ export default {
       );
     },
     removeClassification: function(id) {
-      return this.$http.delete("/captures/" + id).then(
+      return HTTP.delete("/captures/" + id).then(
         response => {
           console.log(response);
         },
@@ -40,7 +44,6 @@ export default {
     },
     toggleClassification: function(line) {
       var img = line.pref_image;
-      console.log(img.bad_capture);
       if (img.bad_capture) {
         var reqres = this.removeClassification(img.id);
       } else {

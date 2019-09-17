@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import axios from 'axios'
 import app from './App.vue'
+import axios from 'axios'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -10,21 +10,20 @@ Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
-import Home from "./components/Home.vue"
-import BookList from "./components/Books/BookList.vue";
-import BookDetail from "./components/Books/BookDetail.vue";
-import PageDetail from "./components/Pages/PageDetail.vue";
-import CharacterList from "./components/Characters/CharacterList.vue"
-import CharacterGroup from "./components/CharacterGroups/CharacterGroup.vue"
+import Home from "./components/Home"
+import BookList from "./components/Books/BookList";
+import BookDetail from "./components/Books/BookDetail";
+import PageDetail from "./components/Pages/PageDetail";
+import CharacterList from "./components/Characters/CharacterList"
+import CharacterGroup from "./components/CharacterGroups/CharacterGroup"
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.withCredentials = true;
-export const http = axios.create({
+
+export const HTTP = axios.create({
   baseURL: "http://localhost"
 })
-
-Vue.prototype.$http = http;
 
 const routes = [
   { path: "/", name: "HomeView", component: Home },
@@ -39,22 +38,7 @@ const router = new VueRouter({
   routes: routes
 })
 
-Vue.mixin({
-  methods: {
-    page_path: function (p, params) {
-      console.log(`Getting ${p} with params: ${params}`)
-      return this.$http.get(p, { params: params }).then(response => {
-        console.log(`count: ${response.data.count}`)
-        var response_collector = response.data.results
-        if (!!response.data.next) {
-          console.log(`Getting next at ${response.data.next}`)
-          response_collector.concat(this.page_path(response.data.next))
-        }
-        return response_collector
-      })
-    }
-  }
-});
+
 
 new Vue({
   router,

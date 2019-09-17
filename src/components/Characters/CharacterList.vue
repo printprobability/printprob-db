@@ -1,71 +1,42 @@
 <template>
-  <div id="app">
-    <b-form-select
-      v-model="selected_character_class"
-      :options="character_classes"
-      @input="input_swap"
-    ></b-form-select>
-    <b-form-select v-model="selected_book" :options="book_ids" @input="input_swap"></b-form-select>
+  <div id="charlist">
+    <div class="card m-2">
+      <CharacterClassSelect @selected="assign_selected_character" />
+      <BookSelect @selected="assign_selected_book" />
+    </div>
     <CharacterResults
-      :selected_character_class="this.$route.query.classname"
-      :selected_book="this.$route.query.book"
-      :key="this.$route.query.classname + this.$route.query.book"
+      :selected_character_class="selected_character_class"
+      :selected_book="selected_book"
     />
   </div>
 </template>
 
 <script>
-import CharacterResults from "./CharacterResults.vue";
+import CharacterClassSelect from "../Menus/CharacterClassSelect";
+import CharacterResults from "./CharacterResults";
+import BookSelect from "../Menus/BookSelect";
 
 export default {
   name: "CharacterList",
   components: {
-    CharacterResults
+    CharacterClassSelect,
+    CharacterResults,
+    BookSelect
   },
-  data: function(d) {
+  data() {
     return {
       character_classes: [],
-      book_ids: [],
-      selected_character_class: String,
-      selected_book: Number
+      selected_character_class: "",
+      selected_book: null
     };
   },
   methods: {
-    input_swap: function() {
-      this.$router.push({
-        name: "CharacterListView",
-        query: {
-          classname: this.selected_character_class,
-          book: this.selected_book
-        }
-      });
+    assign_selected_character: function(character_class) {
+      this.selected_character_class = character_class;
     },
-    get_charcacter_classes: function() {
-      return this.$http.get("/character_classes/").then(
-        response => {
-          this.character_classes = response.data.results.map(x => x.classname);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    },
-    get_book_ids: function() {
-      return this.$http.get("/books/").then(
-        response => {
-          this.book_ids = response.data.results.map(x => x.eebo);
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    assign_selected_book: function(book) {
+      this.selected_book = book;
     }
-  },
-  mounted: function() {
-    this.get_charcacter_classes();
-    this.get_book_ids();
-    this.selected_character_class = this.$route.query.classname;
-    this.selected_book = this.$route.query.book;
   }
 };
 </script>

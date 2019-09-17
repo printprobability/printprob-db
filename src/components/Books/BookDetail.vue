@@ -9,21 +9,23 @@
 </template>
 
 <script>
-import PageImage from "../Pages/PageImage.vue";
+import PageImage from "../Pages/PageImage";
+
+import {HTTP} from "../../main";
 
 export default {
   name: "BookDetail",
   components: {
     PageImage
   },
-  data: function(d) {
+  data(d) {
     return {
       book: {}
     };
   },
   methods: {
     get_book: function(id) {
-      return this.$http.get("/books/" + id + "/").then(
+      http.get("/books/" + id + "/").then(
         response => {
           this.book = response.data;
         },

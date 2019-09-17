@@ -8,7 +8,11 @@
       <img :src="book.cover_page.image.web_url" class="book-cover-image" />
     </div>
     <div class="card-footer">
-      <code>{{ book.eebo }}</code>
+      <p>
+        EEBO id:
+        <code>{{ book.eebo }}</code>
+      </p>
+      <p></p>
     </div>
   </div>
 </template>

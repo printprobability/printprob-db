@@ -8,14 +8,16 @@
 </template>
 
 <script>
-import BookCover from "./BookCover.vue";
+import BookCover from "./BookCover";
+
+import { HTTP } from "../../main";
 
 export default {
   name: "BookList",
   components: {
     BookCover
   },
-  data: function(d) {
+  data() {
     return {
       books: [],
       pagination: {
@@ -27,7 +29,7 @@ export default {
   },
   methods: {
     get_books: function() {
-      return this.$http.get("/books/").then(
+      return HTTP.get("/books/").then(
         response => {
           this.books = response.data.results;
           this.pagination.count = response.data.count;

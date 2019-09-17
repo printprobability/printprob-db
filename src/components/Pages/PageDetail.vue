@@ -26,20 +26,22 @@
 </template>
 
 <script>
-import LineImage from "../Lines/LineImage.vue";
+import LineImage from "../Lines/LineImage";
+import { HTTP } from "../../main";
+
 export default {
   name: "PageDetail",
   components: {
     LineImage
   },
-  data: function(d) {
+  data() {
     return {
       page: {}
     };
   },
   methods: {
     get_page: function(id) {
-      return this.$http.get("/pages/" + id + "/").then(
+      return HTTP.get("/pages/" + id + "/").then(
         response => {
           this.page = response.data;
         },
@@ -53,7 +55,7 @@ export default {
     this.get_page(this.$route.params.id);
   },
   watch: {
-    $route(to, from) {
+    $route() {
       this.get_page(this.$route.params.id);
     }
   }
