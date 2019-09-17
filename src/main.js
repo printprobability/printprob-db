@@ -37,7 +37,7 @@ const router = new VueRouter({
   routes: routes
 })
 
-export const APIConstants = Object.freeze({ REST_PAGE_SIZE: 100 })
+export const APIConstants = Object.freeze({ REST_PAGE_SIZE: 100, DEBOUNCE_DELAY: 750 })
 
 new Vue({
   router,

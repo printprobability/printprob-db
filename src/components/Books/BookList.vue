@@ -1,49 +1,38 @@
 <template>
-  <div id="app">
-    <h1>All Books</h1>
-    <div class="book-covers card-columns">
-      <BookCover v-for="book in books" :book="book" :key="book.eebo" />
+  <div class="booklist">
+    <h1>Search Books</h1>
+    <div class="card m-2">
+      <div class="card-header">Options</div>
+      <div class="card-body">
+        <b-form-input v-model="publisher_name_search" placeholder="Enter partial publisher name" />
+      </div>
+    </div>
+    <div class="card m-2">
+      <BookResults :publisher="debounced_publisher_name" />
     </div>
   </div>
 </template>
 
 <script>
-import BookCover from "./BookCover";
-
-import { HTTP } from "../../main";
+import BookResults from "./BookResults";
+import _ from "lodash";
+import { APIConstants } from "../../main";
 
 export default {
   name: "BookList",
   components: {
-    BookCover
+    BookResults
   },
   data() {
     return {
-      books: [],
-      pagination: {
-        count: null,
-        next: null,
-        previous: null
-      }
+      publisher_name_search: "",
+      debounced_publisher_name: ""
     };
   },
-  methods: {
-    get_books: function() {
-      return HTTP.get("/books/").then(
-        response => {
-          this.books = response.data.results;
-          this.pagination.count = response.data.count;
-          this.pagination.next = response.data.next;
-          this.pagination.previous = response.data.previous;
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-  },
-  mounted: function() {
-    this.get_books();
+  watch: {
+    publisher_name_search: _.debounce(function() {
+      this.debounced_publisher_name = this.publisher_name_search;
+    }, APIConstants.DEBOUNCE_DELAY)
   }
 };
 </script>
