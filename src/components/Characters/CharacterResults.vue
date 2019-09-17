@@ -1,12 +1,27 @@
 <template>
-  <div class="d-flex flex-wrap char-images">
-    <CharacterImage v-for="character in characters" :character="character" :key="character.id" />
+  <div class="char-images">
+    <div class="paginator">
+      <p
+        v-show="pagination_needed"
+      >Displaying {{ characters.length }} out of {{ total_char_count }} characters</p>
+      <b-pagination
+        v-show="pagination_needed"
+        v-model="page"
+        :total-rows="total_char_count"
+        :per-page="REST_PAGE_SIZE"
+        aria-controls="character-results"
+      />
+    </div>
+    <div class="d-flex flex-wrap" id="character-results">
+      <CharacterImage v-for="character in characters" :character="character" :key="character.id" />
+    </div>
   </div>
 </template>
 
 <script>
 import CharacterImage from "./CharacterImage";
-import { HTTP } from "../../main";
+import { HTTP, APIConstants } from "../../main";
+
 export default {
   name: "CharacterResults",
   props: {
@@ -19,15 +34,28 @@ export default {
   data() {
     return {
       characters: [],
-      total_char_count: null
+      total_char_count: null,
+      prev_page: null,
+      next_page: null,
+      page: 1,
+      REST_PAGE_SIZE: APIConstants.REST_PAGE_SIZE
     };
+  },
+  computed: {
+    pagination_needed: function() {
+      return this.total_char_count > this.REST_PAGE_SIZE;
+    },
+    rest_offset: function() {
+      return (this.page - 1) * this.REST_PAGE_SIZE;
+    }
   },
   methods: {
     get_characters: function() {
       return HTTP.get("/characters/", {
         params: {
           character_class: this.selected_character_class,
-          book: this.selected_book
+          book: this.selected_book,
+          offset: this.rest_offset
         }
       }).then(
         response => {
@@ -47,6 +75,9 @@ export default {
       this.get_characters();
     },
     selected_book: function() {
+      this.get_characters();
+    },
+    rest_offset: function() {
       this.get_characters();
     }
   }

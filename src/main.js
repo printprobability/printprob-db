@@ -15,7 +15,6 @@ import BookList from "./components/Books/BookList";
 import BookDetail from "./components/Books/BookDetail";
 import PageDetail from "./components/Pages/PageDetail";
 import CharacterList from "./components/Characters/CharacterList"
-import CharacterGroup from "./components/CharacterGroups/CharacterGroup"
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -38,7 +37,7 @@ const router = new VueRouter({
   routes: routes
 })
 
-
+export const APIConstants = Object.freeze({ REST_PAGE_SIZE: 100 })
 
 new Vue({
   router,

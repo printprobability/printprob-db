@@ -11,21 +11,21 @@
 <script>
 import PageImage from "../Pages/PageImage";
 
-import {HTTP} from "../../main";
+import { HTTP } from "../../main";
 
 export default {
   name: "BookDetail",
   components: {
     PageImage
   },
-  data(d) {
+  data() {
     return {
       book: {}
     };
   },
   methods: {
     get_book: function(id) {
-      http.get("/books/" + id + "/").then(
+      HTTP.get("/books/" + id + "/").then(
         response => {
           this.book = response.data;
         },
