@@ -1,8 +1,11 @@
 <template>
   <div id="charlist">
     <div class="card m-2">
-      <CharacterClassSelect @selected="assign_selected_character" />
-      <BookSelect @selected="assign_selected_book" />
+      <div class="card-header">Filter</div>
+      <div class="card-body">
+        <CharacterClassSelect @selected="assign_selected_character" />
+        <BookSelect @selected="assign_selected_book" />
+      </div>
     </div>
     <CharacterResults
       :selected_character_class="selected_character_class"
