@@ -10,6 +10,7 @@
     <CharacterResults
       :selected_character_class="selected_character_class"
       :selected_book="selected_book"
+      @update="update"
     />
   </div>
 </template>
@@ -39,6 +40,9 @@ export default {
     },
     assign_selected_book: function(book) {
       this.selected_book = book;
+    },
+    update: function(characters) {
+      this.$emit("update", characters);
     }
   }
 };

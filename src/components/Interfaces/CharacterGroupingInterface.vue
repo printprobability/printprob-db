@@ -6,7 +6,7 @@
     </div>
     <div class="row">
       <div class="col-8">
-        <CharacterList />
+        <CharacterList @update="update_displayed_images" />
       </div>
       <div class="col-4">
         <div class="card">
@@ -33,6 +33,7 @@ import CharacterGrouping from "../CharacterGroups/CharacterGrouping";
 import CharacterImage from "../Characters/CharacterImage";
 import CharacterList from "../Characters/CharacterList";
 import { HTTP } from "../../main";
+import _ from "lodash";
 
 export default {
   name: "CharacterGroupingInterface",
@@ -45,8 +46,20 @@ export default {
   data() {
     return {
       cg_id: null,
-      selected_cg: null
+      selected_cg: null,
+      displayed_images: []
     };
+  },
+  computed: {
+    intersecting_images: function() {
+      var cg_ids = this.selected_cg.characters.map(c => c.image.id);
+      var ls_ids = this.displayed_images.map(c => c.image.id);
+      if ((cg_ids.length > 0) & (ls_ids.length > 0)) {
+        return _.intersection(cg_ids, ls_ids);
+      } else {
+        return [];
+      }
+    }
   },
   methods: {
     get_cg: function(pk) {
@@ -61,6 +74,9 @@ export default {
     },
     set_cg: function(cg_id) {
       this.cg_id = cg_id;
+    },
+    update_displayed_images: function(imgs) {
+      this.displayed_images = imgs;
     }
   },
   watch: {

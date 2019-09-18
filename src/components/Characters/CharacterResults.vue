@@ -79,6 +79,9 @@ export default {
     },
     rest_offset: function() {
       this.get_characters();
+    },
+    characters: function() {
+      this.$emit("update", this.characters);
     }
   }
 };
