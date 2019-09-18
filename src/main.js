@@ -24,6 +24,10 @@ export const HTTP = axios.create({
   baseURL: "http://localhost"
 })
 
+export const APIConstants = {
+  REST_PAGE_SIZE: 100
+}
+
 const routes = [
   { path: "/", name: "HomeView", component: Home },
   { path: "/books", name: "BookListView", component: BookList },
@@ -36,8 +40,6 @@ const router = new VueRouter({
   mode: 'history',
   routes: routes
 })
-
-export const APIConstants = Object.freeze({ REST_PAGE_SIZE: 100, DEBOUNCE_DELAY: 750 })
 
 new Vue({
   router,

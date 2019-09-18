@@ -18,7 +18,6 @@
 <script>
 import BookResults from "./BookResults";
 import _ from "lodash";
-import { APIConstants } from "../../main";
 
 export default {
   name: "BookList",
@@ -34,7 +33,7 @@ export default {
   watch: {
     publisher_name_search: _.debounce(function() {
       this.debounced_publisher_name = this.publisher_name_search;
-    }, APIConstants.DEBOUNCE_DELAY)
+    }, 750)
   }
 };
 </script>
