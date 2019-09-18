@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     character_tooltip: function() {
-      return `${this.character.book.title}, page ${this.character.spread.sequence}${this.character.page.side}, l. ${this.character.line.sequence} c. ${this.character.sequence}`;
+      return this.character.label;
     }
   }
 };

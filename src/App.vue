@@ -9,6 +9,7 @@
         <b-navbar-nav>
           <b-nav-item to="/books">Books</b-nav-item>
           <b-nav-item to="/characters">Characters</b-nav-item>
+          <b-nav-item to="/group_characters">Edit Groupings</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

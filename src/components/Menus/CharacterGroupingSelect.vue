@@ -2,7 +2,7 @@
   <b-form-select
     class="my-2"
     v-model="selected_character_grouping"
-    :options="character_grouping"
+    :options="character_groupings"
     @input="select_character_grouping"
   ></b-form-select>
 </template>
@@ -28,7 +28,9 @@ export default {
               text: "Select character grouping",
               value: null
             },
-            response.data.results.map(x => x.label)
+            response.data.results.map(x => {
+              return { value: x.id, text: x.label };
+            })
           );
           this.character_groupings = cg_options;
         },

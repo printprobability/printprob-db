@@ -15,6 +15,7 @@ import BookList from "./components/Books/BookList";
 import BookDetail from "./components/Books/BookDetail";
 import PageDetail from "./components/Pages/PageDetail";
 import CharacterList from "./components/Characters/CharacterList"
+import CharacterGroupingInterface from "./components/Interfaces/CharacterGroupingInterface"
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -34,6 +35,7 @@ const routes = [
   { path: "/books/:id", name: "BookDetailView", component: BookDetail },
   { path: "/pages/:id", name: "PageDetailView", component: PageDetail },
   { path: "/characters/", name: "CharacterListView", component: CharacterList },
+  { path: "/group_characters/", name: "CharacterGroupingView", component: CharacterGroupingInterface }
 ]
 
 const router = new VueRouter({
