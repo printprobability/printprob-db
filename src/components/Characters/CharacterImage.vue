@@ -4,6 +4,7 @@
     class="character-image my-1 mx-auto"
     v-b-tooltip.hover
     :title="character_tooltip"
+    :class="{ highligted: highlight }"
   />
 </template>
 
@@ -11,7 +12,8 @@
 export default {
   name: "CharacterImage",
   props: {
-    character: Object
+    character: Object,
+    highlight: Boolean
   },
   computed: {
     character_tooltip: function() {
@@ -26,5 +28,9 @@ export default {
 img.character-image {
   max-width: 100px;
   border: 2px solid black;
+}
+
+img.highligted {
+  border: 5px solid red;
 }
 </style>

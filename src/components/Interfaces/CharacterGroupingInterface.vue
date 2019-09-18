@@ -16,7 +16,10 @@
             <b-list-group v-if="selected_cg">
               <template v-for="character in selected_cg.characters">
                 <b-list-item :key="character.id">
-                  <CharacterImage :character="character" />
+                  <CharacterImage
+                    :character="character"
+                    :highlight="intersecting_images.includes(character.id)"
+                  />
                 </b-list-item>
               </template>
             </b-list-group>
@@ -52,8 +55,8 @@ export default {
   },
   computed: {
     intersecting_images: function() {
-      var cg_ids = this.selected_cg.characters.map(c => c.image.id);
-      var ls_ids = this.displayed_images.map(c => c.image.id);
+      var cg_ids = this.selected_cg.characters.map(c => c.id);
+      var ls_ids = this.displayed_images.map(c => c.id);
       if ((cg_ids.length > 0) & (ls_ids.length > 0)) {
         return _.intersection(cg_ids, ls_ids);
       } else {
