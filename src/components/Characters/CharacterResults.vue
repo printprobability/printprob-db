@@ -1,9 +1,7 @@
 <template>
   <div class="char-images">
     <div class="paginator">
-      <p
-        v-show="pagination_needed"
-      >Displaying {{ characters.length }} out of {{ total_char_count }} characters</p>
+      <p>Displaying {{ characters.length }} out of {{ total_char_count }} characters</p>
       <b-pagination
         v-show="pagination_needed"
         v-model="page"
@@ -34,7 +32,7 @@ export default {
   data() {
     return {
       characters: [],
-      total_char_count: null,
+      total_char_count: 0,
       prev_page: null,
       next_page: null,
       page: 1,
