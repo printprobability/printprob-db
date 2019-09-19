@@ -33,8 +33,6 @@ export default {
     return {
       characters: [],
       total_char_count: 0,
-      prev_page: null,
-      next_page: null,
       page: 1,
       REST_PAGE_SIZE: APIConstants.REST_PAGE_SIZE
     };
