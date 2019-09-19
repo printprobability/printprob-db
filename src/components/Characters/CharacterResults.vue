@@ -11,7 +11,12 @@
       />
     </div>
     <div class="d-flex flex-wrap" id="character-results">
-      <CharacterImage v-for="character in characters" :character="character" :key="character.id" />
+      <CharacterImage
+        v-for="character in characters"
+        :character="character"
+        :key="character.id"
+        :highlight="highlighted_characters.includes(character.id)"
+      />
     </div>
   </div>
 </template>
@@ -24,7 +29,8 @@ export default {
   name: "CharacterResults",
   props: {
     selected_character_class: String,
-    selected_book: null
+    selected_book: null,
+    highlighted_characters: []
   },
   components: {
     CharacterImage
@@ -57,8 +63,6 @@ export default {
         response => {
           this.characters = response.data.results;
           this.total_char_count = response.data.count;
-          this.prev_page = response.data.previous;
-          this.next_page = response.data.next;
         },
         error => {
           console.log(error);

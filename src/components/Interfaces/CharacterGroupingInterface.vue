@@ -6,7 +6,10 @@
     </div>
     <div class="row">
       <div class="col-8">
-        <CharacterList @update="update_displayed_images" />
+        <CharacterList
+          :highlighted_characters="intersecting_images"
+          @update="update_displayed_images"
+        />
       </div>
       <div class="col-4">
         <div class="card">
@@ -55,9 +58,9 @@ export default {
   },
   computed: {
     intersecting_images: function() {
-      var cg_ids = this.selected_cg.characters.map(c => c.id);
-      var ls_ids = this.displayed_images.map(c => c.id);
-      if ((cg_ids.length > 0) & (ls_ids.length > 0)) {
+      if (!!this.selected_cg & !!this.displayed_images) {
+        var cg_ids = this.selected_cg.characters.map(c => c.id);
+        var ls_ids = this.displayed_images.map(c => c.id);
         return _.intersection(cg_ids, ls_ids);
       } else {
         return [];

@@ -10,6 +10,7 @@
     <CharacterResults
       :selected_character_class="selected_character_class"
       :selected_book="selected_book"
+      :highlighted_characters="highlighted_characters"
       @update="update"
     />
   </div>
@@ -22,6 +23,9 @@ import BookSelect from "../Menus/BookSelect";
 
 export default {
   name: "CharacterList",
+  props: {
+    highlighted_characters: []
+  },
   components: {
     CharacterClassSelect,
     CharacterResults,
