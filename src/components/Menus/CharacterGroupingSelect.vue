@@ -1,7 +1,7 @@
 <template>
   <b-form-select
     class="my-2"
-    v-model="selected_character_grouping"
+    v-model="value"
     :options="character_groupings"
     @input="select_character_grouping"
   ></b-form-select>
@@ -13,9 +13,11 @@ import _ from "lodash";
 
 export default {
   name: "CharacterGroupingSelect",
+  props: {
+    value: String
+  },
   data() {
     return {
-      selected_character_grouping: null,
       character_groupings: []
     };
   },
@@ -40,7 +42,7 @@ export default {
       );
     },
     select_character_grouping: function() {
-      this.$emit("selected", this.selected_character_grouping);
+      this.$emit("input", this.value);
     }
   },
   created() {

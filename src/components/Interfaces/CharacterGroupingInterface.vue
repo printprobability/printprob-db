@@ -15,8 +15,10 @@
       <div class="col-4">
         <div class="card">
           <div class="card-body">
-            <CharacterGroupingSelect @selected="set_cg" />
-            <CharacterGrouping :cg="selected_cg" />
+            <b-button @click="show_new_cg_card=!show_new_cg_card">New group</b-button>
+            <NewCharacterGrouping v-if="show_new_cg_card" @new_group="create_group" />
+            <CharacterGroupingSelect v-model="selected_cg_id" :key="cg_menu_key" />
+            <CharacterGrouping v-if="selected_cg" :cg="selected_cg" />
             <b-list-group v-if="selected_cg">
               <template v-for="character in selected_cg.characters">
                 <b-list-item :key="character.id">
@@ -38,6 +40,7 @@
 <script>
 import CharacterGroupingSelect from "../Menus/CharacterGroupingSelect";
 import CharacterGrouping from "../CharacterGroups/CharacterGrouping";
+import NewCharacterGrouping from "../CharacterGroups/NewCharacterGrouping";
 import CharacterImage from "../Characters/CharacterImage";
 import CharacterList from "../Characters/CharacterList";
 import { HTTP } from "../../main";
@@ -48,14 +51,17 @@ export default {
   components: {
     CharacterGroupingSelect,
     CharacterGrouping,
+    NewCharacterGrouping,
     CharacterImage,
     CharacterList
   },
   data() {
     return {
-      cg_id: null,
+      selected_cg_id: null,
       selected_cg: null,
-      displayed_images: []
+      displayed_images: [],
+      show_new_cg_card: false,
+      cg_menu_key: 0
     };
   },
   computed: {
@@ -80,22 +86,20 @@ export default {
         }
       );
     },
-    set_cg: function(cg_id) {
-      this.cg_id = cg_id;
-    },
     update_displayed_images: function(imgs) {
       this.displayed_images = imgs;
     },
     register_character: function(char_id) {
-      if (!!this.cg_id) {
+      if (!!this.selected_cg_id) {
         // Send the add request to the endpoint
         return HTTP.patch(
-          "/character_groupings/" + this.cg_id + "/add_characters/",
+          "/character_groupings/" + this.selected_cg_id + "/add_characters/",
           { characters: [char_id] }
         ).then(
           response => {
+            response;
             // If it worked, update the character grouping view
-            this.get_cg(this.cg_id);
+            this.get_cg(this.selected_cg_id);
           },
           error => {
             console.log(error);
@@ -104,25 +108,45 @@ export default {
       }
     },
     deregister_character: function(char_id) {
-      if (!!this.cg_id) {
+      if (!!this.selected_cg_id) {
         // Send the add request to the endpoint
         return HTTP.patch(
-          "/character_groupings/" + this.cg_id + "/delete_characters/",
+          "/character_groupings/" + this.selected_cg_id + "/delete_characters/",
           { characters: [char_id] }
         ).then(
           response => {
+            response;
             // If it worked, update the character grouping view
-            this.get_cg(this.cg_id);
+            this.get_cg(this.selected_cg_id);
           },
           error => {
             console.log(error);
           }
         );
       }
+    },
+    create_group: function(obj) {
+      var payload = {
+        label: obj.label,
+        notes: obj.notes,
+        characters: []
+      };
+      return HTTP.post("/character_groupings/", payload).then(
+        response => {
+          this.refresh_cg_menu();
+          this.selected_cg_id = response.data.id;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    },
+    refresh_cg_menu: function() {
+      this.cg_menu_key += 1;
     }
   },
   watch: {
-    cg_id: function(id) {
+    selected_cg_id: function(id) {
       this.get_cg(id);
     }
   }
