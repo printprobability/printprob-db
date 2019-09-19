@@ -23,6 +23,7 @@
                   <CharacterImage
                     :character="character"
                     :highlight="intersecting_images.includes(character.id)"
+                    @char_clicked="deregister_character"
                   />
                 </b-list-item>
               </template>
@@ -94,7 +95,23 @@ export default {
         ).then(
           response => {
             // If it worked, update the character grouping view
-            console.log(response);
+            this.get_cg(this.cg_id);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    },
+    deregister_character: function(char_id) {
+      if (!!this.cg_id) {
+        // Send the add request to the endpoint
+        return HTTP.patch(
+          "/character_groupings/" + this.cg_id + "/delete_characters/",
+          { characters: [char_id] }
+        ).then(
+          response => {
+            // If it worked, update the character grouping view
             this.get_cg(this.cg_id);
           },
           error => {
