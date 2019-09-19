@@ -12,6 +12,7 @@
       :selected_book="selected_book"
       :highlighted_characters="highlighted_characters"
       @update="update"
+      @char_clicked="$emit('char_clicked', $event)"
     />
   </div>
 </template>
@@ -24,7 +25,7 @@ import BookSelect from "../Menus/BookSelect";
 export default {
   name: "CharacterList",
   props: {
-    highlighted_characters: []
+    highlighted_characters: Array
   },
   components: {
     CharacterClassSelect,

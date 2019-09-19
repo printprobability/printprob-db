@@ -2,6 +2,7 @@
   <img
     :src="character.image.web_url"
     class="character-image my-1 mx-auto"
+    @click="$emit('char_clicked', character.id)"
     v-b-tooltip.hover
     :title="character_tooltip"
     :class="{ highligted: highlight }"

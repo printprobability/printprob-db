@@ -9,6 +9,7 @@
         <CharacterList
           :highlighted_characters="intersecting_images"
           @update="update_displayed_images"
+          @char_clicked="register_character"
         />
       </div>
       <div class="col-4">
@@ -83,6 +84,24 @@ export default {
     },
     update_displayed_images: function(imgs) {
       this.displayed_images = imgs;
+    },
+    register_character: function(char_id) {
+      if (!!this.cg_id) {
+        // Send the add request to the endpoint
+        return HTTP.patch(
+          "/character_groupings/" + this.cg_id + "/add_characters/",
+          { characters: [char_id] }
+        ).then(
+          response => {
+            // If it worked, update the character grouping view
+            console.log(response);
+            this.get_cg(this.cg_id);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
     }
   },
   watch: {

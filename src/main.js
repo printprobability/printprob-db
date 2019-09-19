@@ -18,7 +18,7 @@ import CharacterList from "./components/Characters/CharacterList"
 import CharacterGroupingInterface from "./components/Interfaces/CharacterGroupingInterface"
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
-axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfCookieName = "xsrfcookie";
 axios.defaults.withCredentials = true;
 
 export const HTTP = axios.create({

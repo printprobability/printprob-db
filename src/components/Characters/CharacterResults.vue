@@ -16,6 +16,7 @@
         :character="character"
         :key="character.id"
         :highlight="highlighted_characters.includes(character.id)"
+        @char_clicked="$emit('char_clicked', $event)"
       />
     </div>
   </div>
@@ -30,7 +31,7 @@ export default {
   props: {
     selected_character_class: String,
     selected_book: null,
-    highlighted_characters: []
+    highlighted_characters: Array
   },
   components: {
     CharacterImage
