@@ -310,7 +310,9 @@ class CharacterFilter(filters.FilterSet):
 
 
 class CharacterViewSet(CRUDViewSet):
-    queryset = models.Character.objects.select_related("image").all()
+    queryset = models.Character.objects.select_related(
+        "image", "line", "line__page", "line__page__spread", "line__page__spread__book"
+    ).all()
     filterset_class = CharacterFilter
 
     def get_serializer_class(self):

@@ -7,12 +7,17 @@ from django.conf import settings
 
 class uuidModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    label = models.CharField(max_length=300, default="", editable=False)
 
     class Meta:
         abstract = True
 
-    def label(self):
-        return str(self)
+    def save(self, *args, **kwargs):
+        self.label = self.labeller
+        super(uuidModel, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.label
 
 
 class Run(uuidModel):
@@ -30,7 +35,7 @@ class Run(uuidModel):
         abstract = True
         ordering = ["-date_started"]
 
-    def __str__(self):
+    def labeller(self):
         return f"{str(self.id)} - {self.date_started}"
 
 
@@ -71,11 +76,11 @@ class Book(models.Model):
     class Meta:
         ordering = ["eebo"]
 
-    def __str__(self):
-        return f"{self.eebo} - {self.title}"
-
     def label(self):
         return str(self)
+
+    def __str__(self):
+        return f"{self.eebo}: {self.publisher} - {self.title}"
 
     def all_runs(self):
         return {
@@ -133,7 +138,7 @@ class Image(uuidModel):
     jpg_md5 = models.UUIDField(help_text="md5 hash of the jpg file (as hex digest)")
     tif_md5 = models.UUIDField(help_text="md5 hash of the tif file (as hex digest)")
 
-    def __str__(self):
+    def labeller(self):
         return f"{self.id} - {self.jpg}"
 
     def web_url(self):
@@ -164,7 +169,7 @@ class Spread(ImagedModel):
         unique_together = (("book", "sequence"),)
         ordering = ("book", "sequence")
 
-    def __str__(self):
+    def labeller(self):
         return f"{self.book.title} spread {self.sequence}"
 
     def most_recent_pages(self):
@@ -205,7 +210,7 @@ class Page(ImagedModel):
         unique_together = (("created_by_run", "spread", "side"),)
         ordering = ["created_by_run", "spread", "side"]
 
-    def __str__(self):
+    def labeller(self):
         return f"{self.spread.book.title} p. {self.spread.sequence}-{self.side}"
 
     def n_lines(self):
@@ -252,7 +257,7 @@ class Line(ImagedModel):
         unique_together = (("created_by_run", "page", "sequence"),)
         ordering = ["created_by_run", "page", "sequence"]
 
-    def __str__(self):
+    def labeller(self):
         return f"{self.page} l. {self.sequence}"
 
     def n_chars(self):
@@ -322,7 +327,7 @@ class Character(ImagedModel):
         unique_together = (("created_by_run", "line", "sequence"),)
         ordering = ["created_by_run", "line", "sequence"]
 
-    def __str__(self):
+    def labeller(self):
         return f"{self.line} c. {self.sequence} ({self.character_class} - {self.class_probability})"
 
     def book(self):

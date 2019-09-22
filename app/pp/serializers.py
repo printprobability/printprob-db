@@ -278,10 +278,6 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
-    book = BookFlatSerializer()
-    spread = SpreadFlatSerializer()
-    page = PageFlatSerializer()
-    line = LineFlatSerializer()
     image = ImageSerializer()
 
     class Meta:
@@ -291,10 +287,6 @@ class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
             "id",
             "label",
             "created_by_run",
-            "book",
-            "spread",
-            "page",
-            "line",
             "sequence",
             "x_min",
             "x_max",

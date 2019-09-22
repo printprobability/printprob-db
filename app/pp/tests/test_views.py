@@ -21,13 +21,17 @@ def as_auth(username="root"):
         """
         Run a test using an APIClient authorized with a particular username. Defaults to "root"
         """
+
         def auth_client(self):
             token = Token.objects.get(user__username=username)
             self.client = APIClient()
             self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
             return func(self)
+
         return auth_client
+
     return as_auth_name
+
 
 class RootViewTest(TestCase):
     fixtures = ["test.json"]
@@ -811,11 +815,6 @@ class CharacterViewTest(TestCase):
             "url",
             "id",
             "created_by_run",
-            "book",
-            "spread",
-            "page",
-            "line",
-            "sequence",
             "x_min",
             "x_max",
             "character_class",
@@ -824,10 +823,7 @@ class CharacterViewTest(TestCase):
             "label",
         ]:
             self.assertIn(k, res.data["results"][0])
-        self.assertIn("eebo", res.data["results"][0]["book"])
-        self.assertIn("sequence", res.data["results"][0]["spread"])
-        self.assertIn("side", res.data["results"][0]["page"])
-        self.assertIn("sequence", res.data["results"][0]["line"])
+        self.assertIn("web_url", res.data["image"])
 
     @as_auth()
     def test_get_detail(self):
@@ -996,6 +992,7 @@ class CharacterClassViewTest(TestCase):
     def test_noaccess(self):
         noaccess(self)
 
+
 class DocTestCase(TestCase):
     fixtures = ["test.json"]
 
@@ -1015,7 +1012,9 @@ class CharacterGroupingClassViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.OBJCOUNT = models.CharacterGrouping.objects.count()
-        cls.SUSANCOUNT = models.CharacterGrouping.objects.filter(created_by__username="susan").count()
+        cls.SUSANCOUNT = models.CharacterGrouping.objects.filter(
+            created_by__username="susan"
+        ).count()
         cls.OBJ1 = models.CharacterGrouping.objects.first()
         cls.STR1 = str(cls.OBJ1.pk)
         cls.CHARS_1 = models.Character.objects.all()[1:5].values_list("id", flat=True)
@@ -1027,7 +1026,15 @@ class CharacterGroupingClassViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in ["url", "id", "label", "created_by", "date_created", "notes", "characters"]:
+        for k in [
+            "url",
+            "id",
+            "label",
+            "created_by",
+            "date_created",
+            "notes",
+            "characters",
+        ]:
             self.assertIn(k, res.data["results"][0])
 
     @as_auth()
@@ -1052,7 +1059,15 @@ class CharacterGroupingClassViewTest(TestCase):
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        for k in ["url", "id", "label", "created_by", "date_created","notes", "characters"]:
+        for k in [
+            "url",
+            "id",
+            "label",
+            "created_by",
+            "date_created",
+            "notes",
+            "characters",
+        ]:
             self.assertIn(k, res.data)
         self.assertIsInstance(res.data["characters"][0], dict)
 
@@ -1065,9 +1080,20 @@ class CharacterGroupingClassViewTest(TestCase):
 
     @as_auth()
     def test_post_root(self):
-        res = self.client.post(self.ENDPOINT, data={"label": "foo", "notes": "bar", "characters": self.CHARS_1})
+        res = self.client.post(
+            self.ENDPOINT,
+            data={"label": "foo", "notes": "bar", "characters": self.CHARS_1},
+        )
         self.assertEqual(res.status_code, 201)
-        for k in ["url", "id", "label", "created_by", "date_created","notes", "characters"]:
+        for k in [
+            "url",
+            "id",
+            "label",
+            "created_by",
+            "date_created",
+            "notes",
+            "characters",
+        ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["created_by"], "root")
         for char_id in res.data["characters"]:
@@ -1075,9 +1101,20 @@ class CharacterGroupingClassViewTest(TestCase):
 
     @as_auth(username="susan")
     def test_post_susan(self):
-        res = self.client.post(self.ENDPOINT, data={"label": "foo", "notes": "bar", "characters": self.CHARS_2})
+        res = self.client.post(
+            self.ENDPOINT,
+            data={"label": "foo", "notes": "bar", "characters": self.CHARS_2},
+        )
         self.assertEqual(res.status_code, 201)
-        for k in ["url", "id", "label", "created_by", "date_created","notes", "characters"]:
+        for k in [
+            "url",
+            "id",
+            "label",
+            "created_by",
+            "date_created",
+            "notes",
+            "characters",
+        ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["created_by"], "susan")
         for char_id in res.data["characters"]:
@@ -1085,7 +1122,10 @@ class CharacterGroupingClassViewTest(TestCase):
 
     @as_auth()
     def test_add_chars(self):
-        patch_res = self.client.patch(self.ENDPOINT + self.STR1 + "/add_characters/", data = {"characters": self.CHARS_2})
+        patch_res = self.client.patch(
+            self.ENDPOINT + self.STR1 + "/add_characters/",
+            data={"characters": self.CHARS_2},
+        )
         self.assertEqual(patch_res.status_code, 200)
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
@@ -1097,7 +1137,10 @@ class CharacterGroupingClassViewTest(TestCase):
     @as_auth()
     def test_delete_chars(self):
         chars_to_delete = self.CHARS_ORIG[:2]
-        patch_res = self.client.patch(self.ENDPOINT + self.STR1 + "/delete_characters/", data = {"characters": chars_to_delete})
+        patch_res = self.client.patch(
+            self.ENDPOINT + self.STR1 + "/delete_characters/",
+            data={"characters": chars_to_delete},
+        )
         self.assertEqual(patch_res.status_code, 200)
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
