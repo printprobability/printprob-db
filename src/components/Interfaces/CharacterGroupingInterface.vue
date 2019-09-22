@@ -1,35 +1,52 @@
 <template>
   <div class="container">
-    <h1>Compose Character Groups</h1>
-    <div class="card">
-      <p>Add and edit custom character groups here. Browse all characters on the left. On the right, select an existing character grouping or make a new one, and then click on characters to add them.</p>
-    </div>
+    <h1 class="my-2">Compose Character Groups</h1>
+    <p
+      class="my-2"
+    >Add and edit custom character groups here. Browse all characters on the left. On the right, select an existing character grouping or make a new one, and then click on characters to add them.</p>
     <div class="row">
-      <div class="col-8">
+      <div class="col-7">
         <CharacterList
           :highlighted_characters="intersecting_images"
           @update="update_displayed_images"
           @char_clicked="register_character"
         />
       </div>
-      <div class="col-4">
+      <div class="col-5">
         <div class="card">
           <div class="card-body">
             <b-button @click="show_new_cg_card=!show_new_cg_card">New group</b-button>
-            <NewCharacterGrouping v-if="show_new_cg_card" @new_group="create_group" />
+            <NewCharacterGrouping
+              v-if="show_new_cg_card"
+              @new_group="create_group"
+              @cancel_create="show_new_cg_card=false"
+            />
             <CharacterGroupingSelect v-model="selected_cg_id" :key="cg_menu_key" />
-            <CharacterGrouping v-if="selected_cg" :cg="selected_cg" />
-            <b-list-group v-if="selected_cg">
-              <template v-for="character in selected_cg.characters">
-                <b-list-item :key="character.id">
+            <div class="card" v-if="selected_cg">
+              <div class="card-body">
+                <p>
+                  <strong v-if="selected_cg.notes">Notes:</strong>
+                  {{ selected_cg.notes }}
+                </p>
+                <div
+                  class="d-flex flex-wrap justify-content-around"
+                  v-if="selected_cg.characters.length>0"
+                >
                   <CharacterImage
+                    v-for="character in selected_cg.characters"
+                    :key="character.id"
                     :character="character"
                     :highlight="intersecting_images.includes(character.id)"
                     @char_clicked="deregister_character"
                   />
-                </b-list-item>
-              </template>
-            </b-list-group>
+                </div>
+                <div v-else class="card my-2">This group has no characters yet.</div>
+              </div>
+              <div class="card-footer d-flex justify-content-between">
+                <small>Created by {{ selected_cg.created_by }} on {{ display_date(selected_cg.date_created) }}</small>
+                <b-button @click="delete_group" variant="danger" size="sm">Delete</b-button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -39,18 +56,17 @@
 
 <script>
 import CharacterGroupingSelect from "../Menus/CharacterGroupingSelect";
-import CharacterGrouping from "../CharacterGroups/CharacterGrouping";
 import NewCharacterGrouping from "../CharacterGroups/NewCharacterGrouping";
 import CharacterImage from "../Characters/CharacterImage";
 import CharacterList from "../Characters/CharacterList";
 import { HTTP } from "../../main";
+import moment from "moment";
 import _ from "lodash";
 
 export default {
   name: "CharacterGroupingInterface",
   components: {
     CharacterGroupingSelect,
-    CharacterGrouping,
     NewCharacterGrouping,
     CharacterImage,
     CharacterList
@@ -76,15 +92,20 @@ export default {
     }
   },
   methods: {
+    display_date: function(date) {
+      return moment(new Date(date)).format("MM-DD-YY, h:mm a");
+    },
     get_cg: function(pk) {
-      return HTTP.get("/character_groupings/" + pk + "/").then(
-        response => {
-          this.selected_cg = response.data;
-        },
-        error => {
-          console.log(error);
-        }
-      );
+      if (!!pk) {
+        return HTTP.get("/character_groupings/" + pk + "/").then(
+          response => {
+            this.selected_cg = response.data;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
     },
     update_displayed_images: function(imgs) {
       this.displayed_images = imgs;
@@ -135,6 +156,22 @@ export default {
         response => {
           this.refresh_cg_menu();
           this.selected_cg_id = response.data.id;
+          this.show_new_cg_card = false;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    },
+    delete_group: function() {
+      return HTTP.delete(
+        "/character_groupings/" + this.selected_cg.id + "/"
+      ).then(
+        response => {
+          console.log(response);
+          this.refresh_cg_menu();
+          this.selected_cg_id = null;
+          this.selected_cg = null;
         },
         error => {
           console.log(error);
@@ -147,8 +184,17 @@ export default {
   },
   watch: {
     selected_cg_id: function(id) {
+      this.$router.push({
+        path: "/group_characters",
+        query: _.assign({}, this.$route.query, {
+          character_group: id
+        })
+      });
       this.get_cg(id);
     }
+  },
+  created: function() {
+    this.selected_cg_id = this.$route.query.character_group;
   }
 };
 </script>

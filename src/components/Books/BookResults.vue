@@ -1,5 +1,6 @@
 <template>
   <div class="book-images">
+    <Spinner v-if="progress_spinner" />
     <div class="paginator">
       <p v-show="pagination_needed">Displaying {{ books.length }} out of {{ count }} books</p>
       <b-pagination
@@ -18,22 +19,27 @@
 
 <script>
 import BookCover from "./BookCover";
+import Spinner from "../Interfaces/Spinner";
 import { HTTP, APIConstants } from "../../main";
+import _ from "lodash";
 
 export default {
   name: "BookResults",
   props: {
-    publisher: String
+    publisher: String,
+    title: String
   },
   components: {
-    BookCover
+    BookCover,
+    Spinner
   },
   data() {
     return {
       books: [],
       count: null,
       page: 1,
-      REST_PAGE_SIZE: APIConstants.REST_PAGE_SIZE
+      REST_PAGE_SIZE: APIConstants.REST_PAGE_SIZE,
+      progress_spinner: false
     };
   },
   computed: {
@@ -49,24 +55,35 @@ export default {
       return HTTP.get("/books/", {
         params: {
           offset: this.rest_offset,
-          publisher: this.publisher
+          publisher: this.publisher,
+          title: this.title
         }
       }).then(
         response => {
           this.books = response.data.results;
           this.count = response.data.count;
+          this.progress_spinner = false;
         },
         error => {
           console.log(error);
         }
       );
-    }
+    },
+    debounced_get_books: _.debounce(function() {
+      this.get_books();
+    }, 750)
   },
   watch: {
     publisher: function() {
-      this.get_books();
+      this.progress_spinner = true;
+      this.debounced_get_books();
+    },
+    title: function() {
+      this.progress_spinner = true;
+      this.debounced_get_books();
     },
     rest_offset: function() {
+      this.progress_spinner = true;
       this.get_books();
     }
   },

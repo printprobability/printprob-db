@@ -3,21 +3,18 @@
     <div class="card m-2">
       <div class="card-header">Filter</div>
       <div class="card-body">
-        <b-form-input
-          v-model="publisher_name_search"
-          placeholder="Search by partial publisher name"
-        />
+        <b-form-input v-model="publisher_search" placeholder="Search by partial publisher name" />
+        <b-form-input v-model="title_search" placeholder="Search by partial title" />
       </div>
     </div>
     <div class="card m-2">
-      <BookResults :publisher="debounced_publisher_name" />
+      <BookResults :publisher="publisher_search" :title="title_search" />
     </div>
   </div>
 </template>
 
 <script>
 import BookResults from "./BookResults";
-import _ from "lodash";
 
 export default {
   name: "BookList",
@@ -26,14 +23,9 @@ export default {
   },
   data() {
     return {
-      publisher_name_search: "",
-      debounced_publisher_name: ""
+      publisher_search: "",
+      title_search: ""
     };
-  },
-  watch: {
-    publisher_name_search: _.debounce(function() {
-      this.debounced_publisher_name = this.publisher_name_search;
-    }, 750)
   }
 };
 </script>

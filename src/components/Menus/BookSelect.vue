@@ -23,7 +23,9 @@ export default {
               text: "Select books",
               value: null
             },
-            response.data.results.map(x => x.eebo)
+            response.data.results.map(x => {
+              return { text: x.publisher + " - " + x.title, value: x.eebo };
+            })
           );
           this.books = book_options;
         },

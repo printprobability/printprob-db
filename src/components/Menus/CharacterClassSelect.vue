@@ -13,9 +13,12 @@ import _ from "lodash";
 
 export default {
   name: "CharacterClassSelect",
+  props: {
+    selected_character_class: null
+  },
   data() {
     return {
-      selected_character_class: null,
+      // selected_character_class: null,
       character_classes: []
     };
   },
@@ -24,7 +27,7 @@ export default {
       return HTTP.get("/character_classes/").then(
         response => {
           var character_options = _.concat(
-            { text: "Select a Character", value: null },
+            { text: "Select a character class", value: null },
             response.data.results.map(x => x.classname)
           );
           this.character_classes = character_options;
