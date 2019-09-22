@@ -13,6 +13,13 @@
       </b-collapse>
     </b-navbar>
     <router-view></router-view>
+    <nav class="navbar sticky-bottom navbar-dark bg-secondary">
+      <b-nav-text>
+        ©
+        <a href="https://library.cmu.edu">Carnegie Mellon University Libraries</a> 2019. Built by
+        <a href="https://matthewlincoln.net">Matthew Lincoln</a>.
+      </b-nav-text>
+    </nav>
   </div>
 </template>
 

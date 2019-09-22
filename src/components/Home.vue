@@ -1,5 +1,5 @@
 <template>
-  <b-jumbotron header="Print Viewer" lead>
+  <b-jumbotron header="Print Viewer" lead class="my-2">
     <p>
       An interactive viewer for Carnegie Mellon University's
       <em>Print and Probability</em> project to create a dictionary of distinctive early modern type.
