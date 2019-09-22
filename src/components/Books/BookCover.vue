@@ -1,5 +1,5 @@
 <template>
-  <div class="card book-card">
+  <div class="card book-card m-2">
     <div class="card-header">
       <router-link :to="{name: 'BookDetailView', params: {id: book.eebo}}">{{ book.title }}</router-link>
       ({{ book.n_spreads }} spreads)
