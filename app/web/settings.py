@@ -22,7 +22,6 @@ IMAGE_BASEURL = os.environ["IMAGE_BASEURL"]
 INSTALLED_APPS = [
     "pp.apps.ppConfig",
     "rest_framework",
-    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
