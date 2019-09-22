@@ -462,7 +462,7 @@ class SpreadListSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Spread
-        fields = ["url", "id", "book", "sequence", "image"]
+        fields = ["url", "id", "label", "book", "sequence", "image"]
 
 
 class SpreadDetailSerializer(serializers.HyperlinkedModelSerializer):

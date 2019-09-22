@@ -13,7 +13,7 @@ class uuidModel(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        self.label = self.labeller
+        self.label = self.labeller()
         super(uuidModel, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -122,6 +122,9 @@ class Task(uuidModel):
     class Meta:
         abstract = True
         ordering = ["date_entered"]
+
+    def labeller(self):
+        return f"{date_entered}"
 
 
 class Image(uuidModel):
@@ -282,6 +285,9 @@ class LineGroup(uuidModel):
         LineGroupRun, on_delete=models.CASCADE, related_name="linegroups"
     )
 
+    def labeller(self):
+        return f"{self.page} grouping"
+
 
 class CharacterClass(models.Model):
     classname = models.CharField(
@@ -379,3 +385,5 @@ class CharacterGrouping(UserBasedModel):
         Character, related_name="charactergroupings", blank=True
     )
 
+    def labeller(self):
+        return self.label

@@ -484,7 +484,7 @@ class SpreadViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in ["url", "id", "book", "sequence", "image"]:
+        for k in ["url", "id", "label", "book", "sequence", "image"]:
             self.assertIn(k, res.data["results"][0])
         self.assertIn("jpg", res.data["results"][0]["image"])
 
@@ -823,7 +823,7 @@ class CharacterViewTest(TestCase):
             "label",
         ]:
             self.assertIn(k, res.data["results"][0])
-        self.assertIn("web_url", res.data["image"])
+        self.assertIn("web_url", res.data["results"][0]["image"])
 
     @as_auth()
     def test_get_detail(self):
