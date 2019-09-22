@@ -21,13 +21,13 @@ axios.defaults.xsrfCookieName = "xsrfcookie";
 axios.defaults.withCredentials = true;
 
 export const HTTP = axios.create({
-  baseURL: "http://localhost"
+  baseURL: "http://localhost/api"
 })
 
 Vue.prototype.$APIConstants = {
   REST_PAGE_SIZE: 100,
-  API_LOGIN: "/auth_login/?next=/",
-  API_LOGOUT: "/auth_logout/?next=/"
+  API_LOGIN: "/api/auth/login/?next=/",
+  API_LOGOUT: "/api/auth/logout/?next=/"
 }
 
 const routes = [

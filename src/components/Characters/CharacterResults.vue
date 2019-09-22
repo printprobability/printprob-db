@@ -37,7 +37,7 @@
 <script>
 import CharacterImage from "./CharacterImage";
 import Spinner from "../Interfaces/Spinner";
-import { HTTP, APIConstants } from "../../main";
+import { HTTP } from "../../main";
 import _ from "lodash";
 
 export default {

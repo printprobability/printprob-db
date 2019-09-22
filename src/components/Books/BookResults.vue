@@ -20,7 +20,7 @@
 <script>
 import BookCover from "./BookCover";
 import Spinner from "../Interfaces/Spinner";
-import { HTTP, APIConstants } from "../../main";
+import { HTTP } from "../../main";
 import _ from "lodash";
 
 export default {
