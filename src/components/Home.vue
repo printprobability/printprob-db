@@ -1,10 +1,9 @@
 <template>
-  <b-jumbotron header="Print Viewer" :lead="display_count" class="my-2">
+  <b-jumbotron header="Print & Probability Viewer" :lead="display_count" class="my-2">
     <p>
       An interactive viewer and editor for Carnegie Mellon University's
       <em>Print and Probability</em> project to create a dictionary of distinctive early modern type.
     </p>
-    <b-button variant="primary" href="http://localhost/api-authlogin">Log in</b-button>
   </b-jumbotron>
 </template>
 

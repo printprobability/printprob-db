@@ -7,7 +7,7 @@
         v-show="pagination_needed"
         v-model="page"
         :total-rows="count"
-        :per-page="REST_PAGE_SIZE"
+        :per-page="$APIConstants.REST_PAGE_SIZE"
         aria-controls="book-results"
       />
     </div>
@@ -38,16 +38,15 @@ export default {
       books: [],
       count: null,
       page: 1,
-      REST_PAGE_SIZE: APIConstants.REST_PAGE_SIZE,
       progress_spinner: false
     };
   },
   computed: {
     pagination_needed: function() {
-      return this.count > this.REST_PAGE_SIZE;
+      return this.count > this.$APIConstants.REST_PAGE_SIZE;
     },
     rest_offset: function() {
-      return (this.page - 1) * this.REST_PAGE_SIZE;
+      return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
     }
   },
   methods: {

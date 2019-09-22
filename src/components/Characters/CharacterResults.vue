@@ -3,12 +3,12 @@
     <div class="card-header">
       <Spinner v-if="progress_spinner" />
       <div class="paginator" v-if="characters.length>0">
-        <p>Characters {{1 + (page - 1) * REST_PAGE_SIZE }} to {{ (page - 1) * REST_PAGE_SIZE + characters.length }} out of {{ total_char_count }} characters</p>
+        <p>Characters {{1 + (page - 1) * $APIConstants.REST_PAGE_SIZE }} to {{ (page - 1) * $APIConstants.REST_PAGE_SIZE + characters.length }} out of {{ total_char_count }} characters</p>
         <b-pagination
           v-show="pagination_needed"
           v-model="page"
           :total-rows="total_char_count"
-          :per-page="REST_PAGE_SIZE"
+          :per-page="$APIConstants.REST_PAGE_SIZE"
           aria-controls="character-results"
         />
       </div>
@@ -27,7 +27,7 @@
       <b-pagination
         v-model="page"
         :total-rows="total_char_count"
-        :per-page="REST_PAGE_SIZE"
+        :per-page="$APIConstants.REST_PAGE_SIZE"
         aria-controls="character-results"
       />
     </div>
@@ -56,16 +56,15 @@ export default {
       characters: [],
       total_char_count: 0,
       page: 1,
-      REST_PAGE_SIZE: APIConstants.REST_PAGE_SIZE,
       progress_spinner: false
     };
   },
   computed: {
     pagination_needed: function() {
-      return this.total_char_count > this.REST_PAGE_SIZE;
+      return this.total_char_count > this.$APIConstants.REST_PAGE_SIZE;
     },
     rest_offset: function() {
-      return (this.page - 1) * this.REST_PAGE_SIZE;
+      return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
     }
   },
   methods: {

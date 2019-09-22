@@ -24,8 +24,10 @@ export const HTTP = axios.create({
   baseURL: "http://localhost"
 })
 
-export const APIConstants = {
-  REST_PAGE_SIZE: 100
+Vue.prototype.$APIConstants = {
+  REST_PAGE_SIZE: 100,
+  API_LOGIN: "/auth_login/?next=/",
+  API_LOGOUT: "/auth_logout/?next=/"
 }
 
 const routes = [

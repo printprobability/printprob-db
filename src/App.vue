@@ -9,6 +9,8 @@
         <b-navbar-nav>
           <b-nav-item to="/books">View Books</b-nav-item>
           <b-nav-item to="/group_characters">Edit Groupings</b-nav-item>
+          <b-nav-item :href="$APIConstants.API_LOGIN">Login</b-nav-item>
+          <b-nav-item :href="$APIConstants.API_LOGOUT">Logout</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
