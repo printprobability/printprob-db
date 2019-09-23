@@ -22,7 +22,6 @@ services:
     command: "bash -c ${SERVE_COMMAND}"
     volumes:
       - ./app:/vol/app:z
-      - ${REAL_IMAGE_DIR}:${VIRTUAL_IMAGE_DIR}:z
       - ppstatic:/vol/static_files:z
     expose:
       - 8000
@@ -38,6 +37,7 @@ services:
     volumes:
       - ppstatic:/vol/static_files:z
       - ${REAL_IMAGE_DIR}:${VIRTUAL_IMAGE_DIR}:z
+      - ${VUE_DIST}:/vol/vue:z
       - ./nginx:/etc/nginx/conf.d:z
     ports:
       - "${NGINX_PORT}:4000"
