@@ -3,7 +3,7 @@
     class="my-2"
     v-model="selected_character_class"
     :options="character_classes"
-    @input="select_class"
+    @input="$emit('input', selected_character_class)"
   ></b-form-select>
 </template>
 
@@ -14,11 +14,14 @@ import _ from "lodash";
 export default {
   name: "CharacterClassSelect",
   props: {
-    selected_character_class: null
+    value: {
+      default: null,
+      type: String
+    }
   },
   data() {
     return {
-      // selected_character_class: null,
+      selected_character_class: null,
       character_classes: []
     };
   },
@@ -36,13 +39,11 @@ export default {
           console.log(error);
         }
       );
-    },
-    select_class: function() {
-      this.$emit("selected", this.selected_character_class);
     }
   },
   created() {
     this.get_charcacter_classes();
+    this.selected_character_class = this.value;
   }
 };
 </script>

@@ -1,5 +1,10 @@
 <template>
-  <b-form-select class="my-2" v-model="selected_book" :options="books" @input="select_book"></b-form-select>
+  <b-form-select
+    class="my-2"
+    v-model="selected_book"
+    :options="books"
+    @input="$emit('input', selected_book)"
+  ></b-form-select>
 </template>
 
 <script>
@@ -8,6 +13,12 @@ import _ from "lodash";
 
 export default {
   name: "BookSelect",
+  props: {
+    value: {
+      type: Number,
+      default: null
+    }
+  },
   data() {
     return {
       selected_book: null,
@@ -33,13 +44,11 @@ export default {
           console.log(error);
         }
       );
-    },
-    select_book: function() {
-      this.$emit("selected", this.selected_book);
     }
   },
   created() {
     this.get_books();
+    this.selected_book = this.value;
   }
 };
 </script>

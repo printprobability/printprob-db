@@ -184,17 +184,8 @@ export default {
   },
   watch: {
     selected_cg_id: function(id) {
-      this.$router.push({
-        path: "/group_characters",
-        query: _.assign({}, this.$route.query, {
-          character_group: id
-        })
-      });
       this.get_cg(id);
     }
-  },
-  created: function() {
-    this.selected_cg_id = this.$route.query.character_group;
   }
 };
 </script>
