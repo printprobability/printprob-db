@@ -4,7 +4,7 @@
       An interactive viewer and editor for Carnegie Mellon University's
       <em>Print and Probability</em> project to create a dictionary of distinctive early modern type.
     </p>
-    <b-button v-if="!logged_in" href="$APIConstants.API_LOGIN" variant="primary">Log In</b-button>
+    <b-button v-if="!logged_in" :href="$APIConstants.API_LOGIN" variant="primary">Log In</b-button>
     <template v-else>
       <h4>{{ display_count }}</h4>
       <p>
