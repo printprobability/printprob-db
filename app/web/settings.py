@@ -13,7 +13,7 @@ SECRET_KEY = os.environ["SECRET"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ["DEBUG_STATUS"] == "True"
 
-ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"]]
+ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"], f"{os.environ['ALLOWED_HOSTS']}:8080"]
 
 IMAGE_BASEURL = os.environ["IMAGE_BASEURL"]
 
@@ -45,8 +45,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = [f"http://{os.environ['ALLOWED_HOSTS']}"]
-CSRF_TRUSTED_ORIGINS = [os.environ["ALLOWED_HOSTS"]]
+CORS_ORIGIN_WHITELIST = [f"http://{ah}" for ah in ALLOWED_HOSTS]
+CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_NAME = "xsrfcookie"
 
