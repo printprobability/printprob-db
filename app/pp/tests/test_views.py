@@ -446,6 +446,7 @@ class BookViewTest(TestCase):
             res.data["most_recent_pages"][-1]["spread_sequence"],
         )
         self.assertIn("jpg", res.data["most_recent_pages"][0]["image"])
+        self.assertIn("date_started", res.data["all_runs"]["pages"][0])
 
     @as_auth()
     def test_delete(self):

@@ -532,18 +532,10 @@ class BookRunsSerializer(serializers.Serializer):
 
 
 class BookAllRunsSerializer(serializers.Serializer):
-    pages = serializers.HyperlinkedRelatedField(
-        many=True, view_name="pagerun-detail", read_only=True
-    )
-    lines = serializers.HyperlinkedRelatedField(
-        many=True, view_name="linerun-detail", read_only=True
-    )
-    linegroups = serializers.HyperlinkedRelatedField(
-        many=True, view_name="linegrouprun-detail", read_only=True
-    )
-    characters = serializers.HyperlinkedRelatedField(
-        many=True, view_name="characterrun-detail", read_only=True
-    )
+    pages = PageRunDetailSerializer(many=True)
+    lines = LineRunDetailSerializer(many=True)
+    linegroups = LineGroupRunDetailSerializer(many=True)
+    characters = CharacterRunDetailSerializer(many=True)
 
 
 class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
