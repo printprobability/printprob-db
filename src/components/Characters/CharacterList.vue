@@ -1,10 +1,11 @@
 <template>
   <div id="charlist">
     <div class="card">
-      <div class="card-header">Filter</div>
+      <div class="card-header">Filter Characters</div>
       <div class="card-body">
         <CharacterClassSelect v-model="selected_character_class" />
         <BookSelect v-model="selected_book" />
+        <BadCharacterRadio v-model="bad_character" />
       </div>
     </div>
     <div class="char-images card my-2">
@@ -46,6 +47,7 @@
 <script>
 import CharacterClassSelect from "../Menus/CharacterClassSelect";
 import BookSelect from "../Menus/BookSelect";
+import BadCharacterRadio from "../Menus/BadCharacterRadio";
 import CharacterImage from "./CharacterImage";
 import Spinner from "../Interfaces/Spinner";
 import { HTTP } from "../../main";
@@ -58,6 +60,7 @@ export default {
   components: {
     CharacterClassSelect,
     BookSelect,
+    BadCharacterRadio,
     CharacterImage,
     Spinner
   },
@@ -66,6 +69,7 @@ export default {
       characters: [],
       character_classes: [],
       total_char_count: 0,
+      bad_character: null,
       progress_spinner: false,
       selected_page: 1,
       selected_character_class: null,
@@ -87,6 +91,7 @@ export default {
         params: {
           character_class: this.selected_character_class,
           book: this.selected_book,
+          bad: this.bad_character,
           offset: this.rest_offset
         }
       }).then(
@@ -113,6 +118,9 @@ export default {
       this.get_characters();
     },
     selected_page: function() {
+      this.get_characters();
+    },
+    bad_character: function() {
       this.get_characters();
     }
   },
