@@ -38,8 +38,8 @@
           </b-list-group>
         </div>
       </div>
-      <SpreadList :spreads="book.spreads" />
     </div>
+    <SpreadList :spreads="book.spreads" />
   </div>
 </template>
 
