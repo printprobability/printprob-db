@@ -24,13 +24,24 @@
               >{{ new_cg_card.button_text[new_cg_card.show] }}</b-button>
               <CharacterGroupingSelect v-model="selected_cg_id" :key="cg_menu_key" />
             </div>
-            <NewCharacterGrouping v-if="new_cg_card.show" @new_group="create_group" />
+            <NewCharacterGrouping v-show="new_cg_card.show" @new_group="create_group" />
           </div>
           <div class="card-body" v-if="selected_cg">
-            <p>
-              <strong v-if="selected_cg.notes">Notes:</strong>
-              {{ selected_cg.notes }}
-            </p>
+            <dl class="row">
+              <dt class="col-sm-3">Label</dt>
+              <dd
+                class="col-sm-9"
+                contenteditable="contenteditable"
+                @blur="edit_group(selected_cg.id, 'label', $event.target.innerText)"
+              >{{ selected_cg.label }}</dd>
+
+              <dt class="col-sm-3">Notes</dt>
+              <dd
+                class="col-sm-9"
+                contenteditable="contenteditable"
+                @blur="edit_group(selected_cg.id, 'notes', $event.target.innerText)"
+              >{{ selected_cg.notes }}</dd>
+            </dl>
             <div
               class="d-flex flex-wrap justify-content-around"
               v-if="selected_cg.characters.length>0"
@@ -43,7 +54,7 @@
                 @char_clicked="deregister_character"
               />
             </div>
-            <div v-else class="card my-2">This group has no characters yet.</div>
+            <b-alert v-else show variant="info">This group has no characters yet.</b-alert>
           </div>
           <div class="card-footer d-flex justify-content-between" v-if="selected_cg">
             <small>Created by {{ selected_cg.created_by }} on {{ display_date(selected_cg.date_created) }}</small>
@@ -161,7 +172,8 @@ export default {
       this.new_cg_card.show = !this.new_cg_card.show;
     },
     create_group: function(obj) {
-      var payload = {
+      this.new_cg_card.show = false;
+      const payload = {
         label: obj.label,
         notes: obj.notes,
         characters: []
@@ -170,7 +182,6 @@ export default {
         response => {
           this.refresh_cg_menu();
           this.selected_cg_id = response.data.id;
-          this.show_new_cg_card = false;
         },
         error => {
           console.log(error);
@@ -186,6 +197,19 @@ export default {
           this.refresh_cg_menu();
           this.selected_cg_id = null;
           this.selected_cg = null;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    },
+    edit_group: function(id, field, content) {
+      var payload = {};
+      payload[field] = content;
+      return HTTP.patch("/character_groupings/" + id + "/", payload).then(
+        response => {
+          this.refresh_cg_menu();
+          this.selected_cg_id = response.data.id;
         },
         error => {
           console.log(error);
