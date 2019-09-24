@@ -331,6 +331,11 @@ class Character(ImagedModel):
         help_text="Which pipeline run created this object instance",
         related_name="characters",
     )
+    bad = models.BooleanField(
+        db_index=True,
+        null=True,
+        help_text="Has this character been marked as bad by human reviewers?",
+    )
 
     class Meta:
         unique_together = (("created_by_run", "line", "sequence"),)

@@ -307,6 +307,9 @@ class CharacterFilter(filters.FilterSet):
     character_class = filters.ModelChoiceFilter(
         queryset=models.CharacterClass.objects.all()
     )
+    bad = filters.BooleanFilter(field_name="bad", label="Bad characters?")
+
+    order = filters.OrderingFilter(fields=(("class_probability", "class_probability"),))
 
 
 class CharacterViewSet(CRUDViewSet):
