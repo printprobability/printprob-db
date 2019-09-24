@@ -14,14 +14,19 @@
       </div>
       <div class="col-5">
         <div class="card">
+          <div class="card-header">
+            <div class="d-inline-flex align-items-center">
+              <b-button
+                @click="toggle_create"
+                size="sm"
+                class="mr-2"
+                :variant="new_cg_card.button_variant[new_cg_card.show]"
+              >{{ new_cg_card.button_text[new_cg_card.show] }}</b-button>
+              <CharacterGroupingSelect v-model="selected_cg_id" :key="cg_menu_key" />
+            </div>
+            <NewCharacterGrouping v-if="new_cg_card.show" @new_group="create_group" />
+          </div>
           <div class="card-body">
-            <b-button @click="show_new_cg_card=!show_new_cg_card">New group</b-button>
-            <NewCharacterGrouping
-              v-if="show_new_cg_card"
-              @new_group="create_group"
-              @cancel_create="show_new_cg_card=false"
-            />
-            <CharacterGroupingSelect v-model="selected_cg_id" :key="cg_menu_key" />
             <div class="card" v-if="selected_cg">
               <div class="card-body">
                 <p>
@@ -76,7 +81,17 @@ export default {
       selected_cg_id: null,
       selected_cg: null,
       displayed_images: [],
-      show_new_cg_card: false,
+      new_cg_card: {
+        show: false,
+        button_variant: {
+          false: "primary",
+          true: "warning"
+        },
+        button_text: {
+          false: "New",
+          true: "Cancel"
+        }
+      },
       cg_menu_key: 0
     };
   },
@@ -145,6 +160,9 @@ export default {
           }
         );
       }
+    },
+    toggle_create: function() {
+      this.new_cg_card.show = !this.new_cg_card.show;
     },
     create_group: function(obj) {
       var payload = {

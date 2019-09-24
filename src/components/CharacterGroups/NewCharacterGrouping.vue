@@ -1,14 +1,12 @@
 <template>
-  <div class="card">
-    <div class="card-header">
-      Create a new character group
-      <b-button @click="$emit('cancel_create')" size="sm" variant="warning">X</b-button>
-    </div>
-    <div class="card-body">
-      <b-input v-model="label" placeholder="Label (required)" :state="label_state"></b-input>
-      <b-input v-model="notes" placeholder="Notes"></b-input>
-      <b-button @click="create_new_group">Create</b-button>
-    </div>
+  <div class="container">
+    <b-form-group id="label-group" label="Label" description="Required">
+      <b-input id="notes-input" v-model="label" placeholder="Label (required)" :state="label_state"></b-input>
+    </b-form-group>
+    <b-form-group id="notes-group" label="Label" description="Required">
+      <b-input id="notes-input" v-model="notes" placeholder="Notes"></b-input>
+    </b-form-group>
+    <b-button @click="create_new_group" variant="success">Create</b-button>
   </div>
 </template>
 
