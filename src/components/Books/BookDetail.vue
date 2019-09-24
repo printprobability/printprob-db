@@ -1,16 +1,48 @@
 <template>
   <div class="container">
-    <h2>{{ $route.params.id }} - {{ book.title }} - {{ book.publisher }}</h2>
-    <p>{{ book.n_pages }} pages</p>
-    <div class="d-flex flex-wrap justify-content-between">
-      <PageImage v-for="page in book.most_recent_pages" :key="page.id" :page="page"></PageImage>
+    <div class="row">
+      <div class="col-4">
+        <div class="card my-2">
+          <div class="card-header">EEBO Metadata</div>
+          <div class="card-body">
+            <h3>{{ book.title }}</h3>
+            <p>Published by: {{ book.publisher }}</p>
+            <p>EEBO id: {{ book.eebo }}</p>
+            <p>{{ book.n_spreads }} Spreads</p>
+          </div>
+        </div>
+        <PageImage :page="book.cover_page" />
+      </div>
+      <div class="col-8">
+        <div class="card my-2">
+          <div class="card-header">Bridges Runs</div>
+          <b-list-group flush>
+            <b-list-group-item v-for="(runs, runtype) in book.all_runs" :key="runtype">
+              <h5>{{ runtype }}</h5>
+              <b-table
+                v-if="runs.length > 0"
+                :items="run_table_formatter(runs, runtype)"
+                :fields="display_fields"
+                primary-key="id"
+                small
+                bordered
+                head-variant="light"
+                hover
+                selectable
+              />
+              <p v-else>No runs for this type yet.</p>
+            </b-list-group-item>
+          </b-list-group>
+        </div>
+      </div>
     </div>
+    <div class="d-flex flex-wrap justify-content-between"></div>
   </div>
 </template>
 
 <script>
 import PageImage from "../Pages/PageImage";
-
+import moment from "moment";
 import { HTTP } from "../../main";
 
 export default {
@@ -20,7 +52,8 @@ export default {
   },
   data() {
     return {
-      book: {}
+      book: {},
+      display_fields: ["count", "date_started"]
     };
   },
   methods: {
@@ -33,6 +66,19 @@ export default {
           console.log(error);
         }
       );
+    },
+    display_date: function(date) {
+      return moment(new Date(date)).format("MM-DD-YY, h:mm a");
+    },
+    run_table_formatter: function(run, runtype) {
+      return run.map(r => {
+        return {
+          id: r.id,
+          type: runtype,
+          count: r[runtype].length,
+          date_started: this.display_date(r.date_started)
+        };
+      });
     }
   },
   mounted: function() {

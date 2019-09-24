@@ -12,13 +12,20 @@
       />
     </div>
     <div class="d-flex flex-wrap" id="book-results">
-      <BookCover v-for="book in books" :book="book" :key="book.eebo" />
+      <PageImage
+        v-for="book in books"
+        :key="book.eebo"
+        :page="book.cover_page"
+        :header="book.publisher + ': ' + book.title"
+        :footer="'EEBO: ' + book.eebo"
+        :link="{name: 'BookDetailView', params: {id: book.eebo}}"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import BookCover from "./BookCover";
+import PageImage from "../Pages/PageImage";
 import Spinner from "../Interfaces/Spinner";
 import { HTTP } from "../../main";
 import _ from "lodash";
@@ -30,7 +37,7 @@ export default {
     title: String
   },
   components: {
-    BookCover,
+    PageImage,
     Spinner
   },
   data() {
