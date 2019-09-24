@@ -34,7 +34,7 @@ export default {
         response => {
           var book_options = _.concat(
             {
-              text: "Select books",
+              text: "All books",
               value: null
             },
             response.data.results.map(x => {
