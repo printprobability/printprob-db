@@ -58,7 +58,16 @@
           </div>
           <div class="card-footer d-flex justify-content-between" v-if="selected_cg">
             <small>Created by {{ selected_cg.created_by }} on {{ display_date(selected_cg.date_created) }}</small>
-            <b-button @click="delete_group" variant="danger" size="sm">Delete</b-button>
+            <b-button v-b-modal.delete-modal variant="danger" size="sm">Delete</b-button>
+            <b-modal
+              id="delete-modal"
+              title="Delete group?"
+              ok-variant="danger"
+              ok-title="Delete"
+              @ok="delete_group"
+            >
+              <p>Are you sure? This can't be undone.</p>
+            </b-modal>
           </div>
         </div>
       </div>
