@@ -7,7 +7,8 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav v-if="logged_in">
-          <b-nav-item to="/books">View Books</b-nav-item>
+          <b-nav-item to="/books">Browse Books</b-nav-item>
+          <b-nav-item to="/review_characters">Review Characters</b-nav-item>
           <b-nav-item to="/group_characters">Edit Groupings</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
