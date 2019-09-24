@@ -6,7 +6,7 @@
   >
     <b-form-radio v-model="value" name="bad-character-include" value="null">Show all</b-form-radio>
     <b-form-radio v-model="value" name="bad-character-show" value="true">Show only bad</b-form-radio>
-    <b-form-radio v-model="value" name="bad-character-exclude" value="false">Exclude all bad</b-form-radio>
+    <b-form-radio v-model="value" name="bad-character-exclude" value="false">Show only good</b-form-radio>
   </b-form-group>
 </template>
 

@@ -6,6 +6,7 @@
         <CharacterClassSelect v-model="selected_character_class" />
         <BookSelect v-model="selected_book" />
         <BadCharacterRadio v-model="bad_character" />
+        <CharacterOrderingSelect v-model="order" />
       </div>
     </div>
     <div class="char-images card my-2">
@@ -46,6 +47,7 @@
 
 <script>
 import CharacterClassSelect from "../Menus/CharacterClassSelect";
+import CharacterOrderingSelect from "../Menus/CharacterOrderingSelect";
 import BookSelect from "../Menus/BookSelect";
 import BadCharacterRadio from "../Menus/BadCharacterRadio";
 import CharacterImage from "./CharacterImage";
@@ -59,6 +61,7 @@ export default {
   },
   components: {
     CharacterClassSelect,
+    CharacterOrderingSelect,
     BookSelect,
     BadCharacterRadio,
     CharacterImage,
@@ -73,7 +76,8 @@ export default {
       progress_spinner: false,
       selected_page: 1,
       selected_character_class: null,
-      selected_book: null
+      selected_book: null,
+      order: null
     };
   },
   computed: {
@@ -92,6 +96,7 @@ export default {
           character_class: this.selected_character_class,
           book: this.selected_book,
           bad: this.bad_character,
+          order: this.order,
           offset: this.rest_offset
         }
       }).then(
@@ -121,6 +126,9 @@ export default {
       this.get_characters();
     },
     bad_character: function() {
+      this.get_characters();
+    },
+    order: function() {
       this.get_characters();
     }
   },

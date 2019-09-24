@@ -1,10 +1,13 @@
 <template>
-  <b-form-select
-    class="my-2"
-    v-model="selected_book"
-    :options="books"
-    @input="$emit('input', selected_book)"
-  ></b-form-select>
+  <b-form-group id="book-group" label-for="book-select" label="Source book">
+    <b-form-select
+      id="book-select"
+      class="my-2"
+      v-model="selected_book"
+      :options="books"
+      @input="$emit('input', selected_book)"
+    />
+  </b-form-group>
 </template>
 
 <script>

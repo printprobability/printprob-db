@@ -1,10 +1,16 @@
 <template>
-  <b-form-select
-    class="my-2"
-    v-model="selected_character_class"
-    :options="character_classes"
-    @input="$emit('input', selected_character_class)"
-  ></b-form-select>
+  <b-form-group
+    id="character-class-group"
+    label-for="character-class-select"
+    label="Character class"
+  >
+    <b-form-select
+      id="character-class-id"
+      v-model="selected_character_class"
+      :options="character_classes"
+      @input="$emit('input', selected_character_class)"
+    />
+  </b-form-group>
 </template>
 
 <script>
@@ -30,7 +36,7 @@ export default {
       return HTTP.get("/character_classes/").then(
         response => {
           var character_options = _.concat(
-            { text: "Select a character class", value: null },
+            { text: "all characters", value: null },
             response.data.results.map(x => x.classname)
           );
           this.character_classes = character_options;
