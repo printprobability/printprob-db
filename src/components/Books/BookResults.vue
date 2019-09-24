@@ -1,5 +1,5 @@
 <template>
-  <div class="book-images">
+  <div class="book-images my-2">
     <Spinner v-if="progress_spinner" />
     <div class="paginator">
       <p v-show="pagination_needed">Displaying {{ books.length }} out of {{ count }} books</p>
@@ -13,6 +13,7 @@
     </div>
     <div class="d-flex flex-wrap" id="book-results">
       <PageImage
+        class="mr-2"
         v-for="book in books"
         :key="book.eebo"
         :page="book.cover_page"

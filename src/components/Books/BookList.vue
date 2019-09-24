@@ -7,9 +7,7 @@
         <b-form-input v-model="title_search" placeholder="Search by partial title" />
       </div>
     </div>
-    <div class="my-2">
-      <BookResults :publisher="publisher_search" :title="title_search" />
-    </div>
+    <BookResults :publisher="publisher_search" :title="title_search" />
   </div>
 </template>
 

@@ -33,7 +33,7 @@ Vue.prototype.$APIConstants = {
 const routes = [
   { path: "/", name: "HomeView", component: Home },
   { path: "/books", name: "BookListView", component: BookList },
-  { path: "/books/:id", name: "BookDetailView", component: BookDetail },
+  { path: "/books/:id", name: "BookDetailView", component: BookDetail, props: (route) => ({ id: Number(route.params.id) }) },
   { path: "/pages/:id", name: "PageDetailView", component: PageDetail },
   { path: "/group_characters/", name: "CharacterGroupingView", component: CharacterGroupingInterface }
 ]

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div v-if="book" class="container">
     <div class="row">
       <div class="col-4">
         <div class="card my-2">
@@ -11,6 +11,7 @@
             <p>Published by: {{ book.publisher }}</p>
             <p>EEBO id: {{ book.eebo }}</p>
             <p>{{ book.n_spreads }} Spreads</p>
+            <b-button variant="success" :href="book.pdf">Download PDF</b-button>
           </div>
         </div>
         <PageImage header="Cover Page (most recent run)" :page="book.cover_page" />
@@ -31,13 +32,14 @@
                 head-variant="light"
                 hover
                 selectable
+                @row-selected="select_run($event.payload, runtype)"
               />
               <p v-else>No runs for this segmentation type yet.</p>
             </b-list-group-item>
           </b-list-group>
         </div>
       </div>
-      <SpreadList :book="book" />
+      <SpreadList :spreads="book.spreads" />
     </div>
   </div>
 </template>
@@ -54,9 +56,12 @@ export default {
     PageImage,
     SpreadList
   },
+  props: {
+    id: Number
+  },
   data() {
     return {
-      book: {},
+      book: null,
       display_fields: ["count", "date_started"]
     };
   },
@@ -83,10 +88,13 @@ export default {
           date_started: this.display_date(r.date_started)
         };
       });
+    },
+    select_run: function(run, runtype) {
+      console.log(runtype + " " + run.id);
     }
   },
-  mounted: function() {
-    this.get_book(this.$route.params.id);
+  created: function() {
+    this.get_book(this.id);
   }
 };
 </script>
