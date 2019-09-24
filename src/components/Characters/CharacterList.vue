@@ -30,6 +30,7 @@
           :character="character"
           :key="character.id"
           :highlight="highlighted_characters.includes(character.id)"
+          :bad="bad_characters.includes(character.id)"
           @char_clicked="$emit('char_clicked', $event)"
         />
       </div>
@@ -57,7 +58,18 @@ import { HTTP } from "../../main";
 export default {
   name: "CharacterList",
   props: {
-    highlighted_characters: Array
+    highlighted_characters: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    },
+    bad_characters: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    }
   },
   components: {
     CharacterClassSelect,

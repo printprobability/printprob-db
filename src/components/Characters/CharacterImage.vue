@@ -5,7 +5,7 @@
     @click="$emit('char_clicked', character.id)"
     v-b-tooltip.hover
     :title="character_tooltip"
-    :class="{ highligted: highlight }"
+    :class="{ highligted: highlight, bad: bad, bad: character.bad }"
   />
 </template>
 
@@ -14,7 +14,8 @@ export default {
   name: "CharacterImage",
   props: {
     character: Object,
-    highlight: Boolean
+    highlight: Boolean,
+    bad: Boolean
   },
   computed: {
     character_tooltip: function() {
@@ -28,10 +29,15 @@ export default {
 <style scoped>
 img.character-image {
   max-width: 100px;
-  border: 2px solid black;
+  border: 1px solid black;
 }
 
 img.highligted {
+  border: 5px solid rgb(163, 163, 238);
+}
+
+img.bad {
   border: 5px solid red;
+  filter: invert(100%);
 }
 </style>
