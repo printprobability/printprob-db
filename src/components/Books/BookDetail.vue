@@ -14,7 +14,6 @@
             <b-button variant="success" :href="book.pdf">Download PDF</b-button>
           </div>
         </div>
-        <PageImage header="Cover Page (most recent run)" :page="book.cover_page" />
       </div>
       <div class="col-8">
         <div class="card my-2">
@@ -46,14 +45,12 @@
 
 <script>
 import SpreadList from "../Spreads/SpreadList";
-import PageImage from "../Pages/PageImage";
 import moment from "moment";
 import { HTTP } from "../../main";
 
 export default {
   name: "BookDetail",
   components: {
-    PageImage,
     SpreadList
   },
   props: {

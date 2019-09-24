@@ -12,11 +12,11 @@
       />
     </div>
     <div class="d-flex flex-wrap" id="book-results">
-      <PageImage
+      <SpreadImage
         class="mr-2"
         v-for="book in books"
         :key="book.eebo"
-        :page="book.cover_page"
+        :spread="book.cover_spread"
         :header="book.publisher + ': ' + book.title"
         :footer="'EEBO: ' + book.eebo"
         :link="{name: 'BookDetailView', params: {id: book.eebo}}"
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import PageImage from "../Pages/PageImage";
+import SpreadImage from "../Spreads/SpreadImage";
 import Spinner from "../Interfaces/Spinner";
 import { HTTP } from "../../main";
 import _ from "lodash";
@@ -38,7 +38,7 @@ export default {
     title: String
   },
   components: {
-    PageImage,
+    SpreadImage,
     Spinner
   },
   data() {
