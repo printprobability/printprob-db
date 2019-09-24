@@ -5,9 +5,7 @@
       <template v-else>{{ header }}</template>
     </div>
     <div class="card-body">
-      <router-link :to="{name: 'PageDetailView', params: {id: page.id}}">
-        <img class="page-image" :src="page.image.web_url" />
-      </router-link>
+      <img class="spread-image" :src="spread.image.web_url" />
     </div>
     <div v-if="footer" class="card-footer">{{ footer }}</div>
   </div>
@@ -15,9 +13,9 @@
 
 <script>
 export default {
-  name: "PageImage",
+  name: "SpreadImage",
   props: {
-    page: Object,
+    spread: Object,
     header: String,
     footer: String,
     link: {
@@ -30,8 +28,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-img.page-image {
-  max-width: 200px;
+img.spread-image {
+  max-width: 400px;
   max-height: 250px;
 }
 </style>

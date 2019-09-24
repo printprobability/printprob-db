@@ -5,17 +5,19 @@
         <div class="card my-2">
           <div class="card-header">EEBO Metadata</div>
           <div class="card-body">
-            <h3>{{ book.title }}</h3>
+            <router-link :to="{name: 'BookDetailView', params: {id: book.eebo}}">
+              <h4>{{ book.title }}</h4>
+            </router-link>
             <p>Published by: {{ book.publisher }}</p>
             <p>EEBO id: {{ book.eebo }}</p>
             <p>{{ book.n_spreads }} Spreads</p>
           </div>
         </div>
-        <PageImage :page="book.cover_page" />
+        <PageImage header="Cover Page (most recent run)" :page="book.cover_page" />
       </div>
       <div class="col-8">
         <div class="card my-2">
-          <div class="card-header">Bridges Runs</div>
+          <div class="card-header">Bridges Jobs</div>
           <b-list-group flush>
             <b-list-group-item v-for="(runs, runtype) in book.all_runs" :key="runtype">
               <h5>{{ runtype }}</h5>
@@ -30,17 +32,18 @@
                 hover
                 selectable
               />
-              <p v-else>No runs for this type yet.</p>
+              <p v-else>No runs for this segmentation type yet.</p>
             </b-list-group-item>
           </b-list-group>
         </div>
       </div>
+      <SpreadList :book="book" />
     </div>
-    <div class="d-flex flex-wrap justify-content-between"></div>
   </div>
 </template>
 
 <script>
+import SpreadList from "../Spreads/SpreadList";
 import PageImage from "../Pages/PageImage";
 import moment from "moment";
 import { HTTP } from "../../main";
@@ -48,7 +51,8 @@ import { HTTP } from "../../main";
 export default {
   name: "BookDetail",
   components: {
-    PageImage
+    PageImage,
+    SpreadList
   },
   data() {
     return {
