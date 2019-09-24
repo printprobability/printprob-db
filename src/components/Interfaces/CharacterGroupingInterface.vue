@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <h1 class="my-2">Compose Character Groups</h1>
     <p
       class="my-2"

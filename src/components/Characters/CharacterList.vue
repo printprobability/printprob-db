@@ -5,8 +5,14 @@
       <div class="card-body">
         <CharacterClassSelect v-model="selected_character_class" />
         <BookSelect v-model="selected_book" />
-        <BadCharacterRadio v-model="bad_character" />
-        <CharacterOrderingSelect v-model="order" />
+        <b-row>
+          <div class="col-6">
+            <BadCharacterRadio v-model="bad_character" />
+          </div>
+          <div class="col-6">
+            <CharacterOrderingSelect v-model="order" />
+          </div>
+        </b-row>
       </div>
     </div>
     <div class="char-images card my-2">

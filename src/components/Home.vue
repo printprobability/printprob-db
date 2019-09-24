@@ -1,18 +1,13 @@
 <template>
-  <b-jumbotron header="Print & Probability Viewer" class="my-2">
-    <p>
+  <b-jumbotron header="Print & Probability Workbench" class="m-5">
+    <template v-slot:lead>
       An interactive viewer and editor for Carnegie Mellon University's
       <em>Print and Probability</em> project to create a dictionary of distinctive early modern type.
-    </p>
+    </template>
+    <hr class="my-4" />
     <b-button v-if="!logged_in" :href="$APIConstants.API_LOGIN" variant="primary">Log In</b-button>
     <template v-else>
-      <h4>{{ display_count }}</h4>
-      <p>
-        <b-button to="/books" variant="info">Browse books</b-button>
-      </p>
-      <p>
-        <b-button to="/group_characters" variant="info">Edit character groups</b-button>
-      </p>
+      <p>{{ display_count }}</p>
     </template>
   </b-jumbotron>
 </template>

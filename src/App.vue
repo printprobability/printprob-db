@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <b-navbar toggleable="lg" type="dark" variant="secondary">
       <b-navbar-brand to="/">Print & Probability</b-navbar-brand>
 
