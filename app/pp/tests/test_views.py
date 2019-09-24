@@ -408,11 +408,11 @@ class BookViewTest(TestCase):
             "title",
             "pdf",
             "n_spreads",
-            "cover_page",
+            "cover_spread",
             "label",
         ]:
             self.assertIn(k, res.data["results"][0])
-        self.assertIn("jpg", res.data["results"][0]["cover_page"]["image"])
+        self.assertIn("jpg", res.data["results"][0]["cover_spread"]["image"])
 
     @as_auth()
     def test_get_detail(self):

@@ -500,7 +500,7 @@ class SpreadCreateSeralizer(serializers.ModelSerializer):
 
 
 class BookListSerializer(serializers.HyperlinkedModelSerializer):
-    cover_page = PageFlatSerializer(many=False)
+    cover_spread = SpreadFlatSerializer(many=False)
     n_spreads = serializers.IntegerField()
 
     class Meta:
@@ -514,7 +514,7 @@ class BookListSerializer(serializers.HyperlinkedModelSerializer):
             "title",
             "pdf",
             "n_spreads",
-            "cover_page",
+            "cover_spread",
         ]
 
 
@@ -547,7 +547,6 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
         help_text="Ordered pages from the most recent page segmentation run",
         read_only=True,
     )
-    cover_page = PageFlatSerializer(many=False, read_only=True)
     n_spreads = serializers.IntegerField()
 
     class Meta:
@@ -560,7 +559,6 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
             "publisher",
             "title",
             "pdf",
-            "cover_page",
             "n_spreads",
             "spreads",
             "most_recent_runs",

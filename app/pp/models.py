@@ -104,6 +104,9 @@ class Book(models.Model):
         """
         return self.pageruns.first().pages.all()
 
+    def cover_spread(self):
+        return self.spreads.first()
+
     def cover_page(self):
         return self.most_recent_pages().first()
 
