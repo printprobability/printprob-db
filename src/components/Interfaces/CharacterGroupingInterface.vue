@@ -26,32 +26,28 @@
             </div>
             <NewCharacterGrouping v-if="new_cg_card.show" @new_group="create_group" />
           </div>
-          <div class="card-body">
-            <div class="card" v-if="selected_cg">
-              <div class="card-body">
-                <p>
-                  <strong v-if="selected_cg.notes">Notes:</strong>
-                  {{ selected_cg.notes }}
-                </p>
-                <div
-                  class="d-flex flex-wrap justify-content-around"
-                  v-if="selected_cg.characters.length>0"
-                >
-                  <CharacterImage
-                    v-for="character in selected_cg.characters"
-                    :key="character.id"
-                    :character="character"
-                    :highlight="intersecting_images.includes(character.id)"
-                    @char_clicked="deregister_character"
-                  />
-                </div>
-                <div v-else class="card my-2">This group has no characters yet.</div>
-              </div>
-              <div class="card-footer d-flex justify-content-between">
-                <small>Created by {{ selected_cg.created_by }} on {{ display_date(selected_cg.date_created) }}</small>
-                <b-button @click="delete_group" variant="danger" size="sm">Delete</b-button>
-              </div>
+          <div class="card-body" v-if="selected_cg">
+            <p>
+              <strong v-if="selected_cg.notes">Notes:</strong>
+              {{ selected_cg.notes }}
+            </p>
+            <div
+              class="d-flex flex-wrap justify-content-around"
+              v-if="selected_cg.characters.length>0"
+            >
+              <CharacterImage
+                v-for="character in selected_cg.characters"
+                :key="character.id"
+                :character="character"
+                :highlight="intersecting_images.includes(character.id)"
+                @char_clicked="deregister_character"
+              />
             </div>
+            <div v-else class="card my-2">This group has no characters yet.</div>
+          </div>
+          <div class="card-footer d-flex justify-content-between" v-if="selected_cg">
+            <small>Created by {{ selected_cg.created_by }} on {{ display_date(selected_cg.date_created) }}</small>
+            <b-button @click="delete_group" variant="danger" size="sm">Delete</b-button>
           </div>
         </div>
       </div>
