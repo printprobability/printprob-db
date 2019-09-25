@@ -32,7 +32,7 @@ services:
       - start_dependencies
 
   nginx:
-    image: nginx:1.17.1
+    image: nginx:1.17.4
     restart: always
     volumes:
       - ppstatic:/vol/static_files:z
