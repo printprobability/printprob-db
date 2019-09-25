@@ -36,7 +36,7 @@ services:
     restart: always
     volumes:
       - ppstatic:/vol/static_files:z
-      - ${REAL_IMAGE_DIR}:${VIRTUAL_IMAGE_DIR}:z
+      - ${REAL_IMAGE_DIR}:/vol/img:z
       - ${VUE_DIST}:/vol/vue:z
       - ./nginx:/etc/nginx/conf.d:z
     ports:
@@ -48,6 +48,7 @@ services:
     depends_on:
       - start_dependencies
       - web
+    command: sh -c "envsubst '$$ALLOWED_HOSTS $$CERT_PATH $$KEY_PATH' < /etc/nginx/conf.d/pp.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 
 volumes:
   pp:
