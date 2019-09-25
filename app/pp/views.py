@@ -144,22 +144,6 @@ class ImageFilter(filters.FilterSet):
         distinct=True,
         help_text="Retrive the image pointer that references this file",
     )
-    depicted_spreads = filters.ModelChoiceFilter(
-        queryset=models.Spread.objects.all(),
-        help_text="Retrieve image that depicts this spread id",
-    )
-    depicted_pages = filters.ModelChoiceFilter(
-        queryset=models.Page.objects.all(),
-        help_text="Retrive the image that depicts this page id",
-    )
-    depicted_lines = filters.ModelChoiceFilter(
-        queryset=models.Line.objects.all(),
-        help_text="Retrive the image that depicts this line id",
-    )
-    depicted_characters = filters.ModelChoiceFilter(
-        queryset=models.Character.objects.all(),
-        help_text="Retrieve the image that depicts this character id",
-    )
 
 
 class ImageViewSet(CRUDViewSet):
