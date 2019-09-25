@@ -3,11 +3,11 @@
 set -e
 set -x
 
-source /home/mlincoln/db/.env
+source /vol/pp/.env
 
-/usr/local/bin/docker-compose -f /home/mlincoln/db/docker-compose.yml --project-directory /home/mlincoln/db/ exec -T postgres pg_dumpall -U app > /home/mlincoln/bkp/bkp.sql
+/usr/local/bin/docker-compose -f /vol/pp/docker-compose.yml --project-directory /vol/pp/ exec -T postgres pg_dumpall -U app > /vol/bkp/bkp.sql
 
-cd /home/mlincoln/bkp
+cd /vol/bkp
 /usr/bin/git add .
 DATE=`date +%Y-%m-%d`
 /usr/bin/git commit -m "incremental backup $DATE"
