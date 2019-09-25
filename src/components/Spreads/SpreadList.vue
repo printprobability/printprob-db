@@ -1,6 +1,7 @@
 <template>
-  <div class="card-columns">
+  <div class="d-flex justify-content-left flex-wrap">
     <SpreadImage
+      class="m-2"
       v-for="spread in spreads"
       :spread="spread"
       :key="spread.id"

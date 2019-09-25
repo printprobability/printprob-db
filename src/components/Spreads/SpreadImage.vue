@@ -1,5 +1,5 @@
 <template>
-  <div class="card my-2">
+  <div class="card spread-card my-2">
     <div class="card-header">
       <router-link v-if="link" :to="link">{{ header }}</router-link>
       <template v-else>{{ header }}</template>
