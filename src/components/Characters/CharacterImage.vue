@@ -29,6 +29,7 @@ export default {
 <style scoped>
 img.character-image {
   max-width: 100px;
+  max-height: 100px;
   border: 1px solid black;
 }
 
