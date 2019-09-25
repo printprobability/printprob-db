@@ -13,7 +13,7 @@
         />
       </div>
       <div class="col-5">
-        <div class="card">
+        <div class="card sticky-top">
           <div class="card-header">
             <div class="d-inline-flex align-items-center">
               <b-button
