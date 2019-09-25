@@ -1,5 +1,5 @@
 <template>
-  <div v-if="book" class="container">
+  <div v-if="book" class="container-fluid">
     <div class="row">
       <div class="col-4">
         <div class="card my-2">
