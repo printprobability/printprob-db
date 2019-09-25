@@ -28,7 +28,7 @@ wipe: blank
 	docker-compose exec web python manage.py migrate
 restore: blank
 	docker-compose up -d postgres
-	docker-compose exec -T postgres psql -U app -d postgres < bkp.sql
+	docker-compose exec -T postgres psql -U app -d postgres < ../bkp/bkp.sql
 	$(MAKE) restart
 dumptest:
 	docker-compose exec web python manage.py dumpdata --indent 2 -e admin.logentry -e auth.permission -e contenttypes -e sessions -o pp/fixtures/test.json
