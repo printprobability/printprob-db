@@ -70,7 +70,6 @@ import CharacterRunSelect from "../Menus/CharacterRunSelect";
 import CharacterImage from "./CharacterImage";
 import Spinner from "../Interfaces/Spinner";
 import { HTTP } from "../../main";
-import _ from "lodash";
 
 export default {
   name: "CharacterList",
