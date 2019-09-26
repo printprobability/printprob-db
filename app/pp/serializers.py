@@ -327,6 +327,15 @@ class CharacterCreateSerializer(serializers.ModelSerializer):
         ]
 
 
+class CharacterAnnotateSerializer(serializers.Serializer):
+    characters = serializers.PrimaryKeyRelatedField(
+        queryset=models.Character.objects.all(), many=True
+    )
+    human_character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all(), many=False
+    )
+
+
 class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
     image = ImageSerializer(many=False)
     characters = serializers.HyperlinkedRelatedField(

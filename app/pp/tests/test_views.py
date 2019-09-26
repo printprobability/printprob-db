@@ -808,6 +808,7 @@ class CharacterViewTest(TestCase):
         cls.OBJCOUNT = models.Character.objects.count()
         cls.OBJ1 = models.Character.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
+        cls.CHARS1 = models.Character.objects.filter(human_character_class__isnull=True)[1:10]
 
     @as_auth()
     def test_get(self):
@@ -894,6 +895,10 @@ class CharacterViewTest(TestCase):
 
     def test_noaccess(self):
         noaccess(self)
+
+    @as_auth
+    def test_annotate(self):
+        payload =
 
 
 class ImageViewTest(TestCase):

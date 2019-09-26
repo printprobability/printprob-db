@@ -12,7 +12,7 @@ from . import models, serializers
 
 
 class CRUDViewSet(viewsets.ModelViewSet):
-    http_method_names = [u"get", u"post", u"delete", u"head", u"options", u"trace"]
+    http_method_names = ["get", "post", "delete", "head", "options", "trace"]
 
 
 class BookFilter(filters.FilterSet):
@@ -317,6 +317,22 @@ class CharacterViewSet(CRUDViewSet):
         elif self.action == "list":
             return serializers.CharacterListSerializer
         return serializers.CharacterCreateSerializer
+
+    @action(detail=False, methods=["post"])
+    @transaction.atomic
+    def annotate(self, request):
+        serializer = serializers.CharacterAnnotateSerializer(data=request.data)
+        if serializer.is_valid():
+            target_characters = serializer.validated_data["characters"]
+
+            for char in target_characters:
+                char.human_character_class = serializer.validated_data[
+                    "human_character_class"
+                ]
+                char.save()
+            return Response({"status": f"{len(target_characters)} updated"})
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CharacterClassFilter(filters.FilterSet):
