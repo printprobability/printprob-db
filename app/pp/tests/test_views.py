@@ -94,6 +94,7 @@ class PageRunTestCase(TestCase):
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["book"], dict)
         self.assertIsInstance(res.data["pages"], list)
+        self.assertIn("image", res.data["pages"][0])
 
     @as_auth()
     def test_delete(self):

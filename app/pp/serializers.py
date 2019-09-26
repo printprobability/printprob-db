@@ -74,6 +74,7 @@ class PageRunListSerializer(serializers.HyperlinkedModelSerializer):
 
 class PageRunDetailSerializer(serializers.HyperlinkedModelSerializer):
     book = BookFlatSerializer(many=False)
+    pages = PageFlatSerializer(many=True)
 
     class Meta:
         model = models.PageRun

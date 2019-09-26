@@ -91,7 +91,7 @@ class RunFilter(filters.FilterSet):
 
 
 class PageRunViewSet(CRUDViewSet):
-    queryset = models.PageRun.objects.all()
+    queryset = models.PageRun.objects.prefetch_related("pages").all()
     filterset_class = RunFilter
 
     def get_serializer_class(self):
