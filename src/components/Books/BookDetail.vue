@@ -10,8 +10,7 @@
             </router-link>
             <p>Published by: {{ book.publisher }}</p>
             <p>EEBO id: {{ book.eebo }}</p>
-            <p>{{ book.n_spreads }} Spreads</p>
-            <b-button variant="success" :href="book.pdf">Download PDF</b-button>
+            <p @click="detail_show='spreads'">{{ book.n_spreads }} Spreads</p>
           </div>
         </div>
       </div>
@@ -29,9 +28,7 @@
                 small
                 bordered
                 head-variant="light"
-                hover
-                selectable
-                @row-selected="select_run($event.payload, runtype)"
+                @row-clicked="select_run"
               />
               <p v-else>No runs for this segmentation type yet.</p>
             </b-list-group-item>
@@ -39,19 +36,28 @@
         </div>
       </div>
     </div>
-    <SpreadList :spreads="book.spreads" />
+    <SpreadList v-if="detail_show=='spreads'" :spreads="book.spreads" />
+    <PageList v-if="detail_show=='pages'" :page_run="selected_run" />
+    <CharacterList
+      v-if="detail_show=='characters'"
+      :initial_values="{page: 1, character_class: null, book: book.eebo}"
+    />
   </div>
 </template>
 
 <script>
 import SpreadList from "../Spreads/SpreadList";
+import PageList from "../Pages/PageList";
+import CharacterList from "../Characters/CharacterList";
 import moment from "moment";
 import { HTTP } from "../../main";
 
 export default {
   name: "BookDetail",
   components: {
-    SpreadList
+    SpreadList,
+    PageList,
+    CharacterList
   },
   props: {
     id: Number
@@ -59,7 +65,9 @@ export default {
   data() {
     return {
       book: null,
-      display_fields: ["count", "date_started"]
+      display_fields: ["count", "date_started"],
+      detail_show: "spreads",
+      selected_run: null
     };
   },
   methods: {
@@ -86,8 +94,18 @@ export default {
         };
       });
     },
-    select_run: function(run, runtype) {
-      console.log(runtype + " " + run.id);
+    select_run: function(payload) {
+      const run_type = payload.type;
+      const run_id = payload.id;
+      return HTTP.get("/runs/" + run_type + "/" + run_id + "/").then(
+        response => {
+          this.selected_run = response.data;
+          this.detail_show = run_type;
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   },
   created: function() {
@@ -95,9 +113,3 @@ export default {
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-img.line-image {
-}
-</style>

@@ -3,9 +3,9 @@
     <b-form-select
       id="book-select"
       class="my-2"
-      v-model="selected_book"
+      v-model="value"
       :options="books"
-      @input="$emit('input', selected_book)"
+      @input="$emit('input', value)"
     />
   </b-form-group>
 </template>
@@ -24,7 +24,6 @@ export default {
   },
   data() {
     return {
-      selected_book: null,
       books: []
     };
   },
@@ -49,9 +48,8 @@ export default {
       );
     }
   },
-  created() {
+  mounted() {
     this.get_books();
-    this.selected_book = this.value;
   }
 };
 </script>

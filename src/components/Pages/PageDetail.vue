@@ -27,38 +27,19 @@
 
 <script>
 import LineImage from "../Lines/LineImage";
-import { HTTP } from "../../main";
 
 export default {
   name: "PageDetail",
   components: {
     LineImage
   },
+  props: {
+    page: Object
+  },
   data() {
-    return {
-      page: {}
-    };
+    return {};
   },
-  methods: {
-    get_page: function(id) {
-      return HTTP.get("/pages/" + id + "/").then(
-        response => {
-          this.page = response.data;
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-  },
-  mounted: function() {
-    this.get_page(this.$route.params.id);
-  },
-  watch: {
-    $route() {
-      this.get_page(this.$route.params.id);
-    }
-  }
+  methods: {}
 };
 </script>
 

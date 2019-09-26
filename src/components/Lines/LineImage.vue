@@ -1,69 +1,20 @@
 <template>
-  <p>
-    <img
-      :src="line.image.web_url"
-      class="line-image my-3 mx-auto"
-      @click="toggleClassification(line)"
-    />
-  </p>
+  <img :src="line.image.web_url" class="line-image my-3 mx-auto" @click="$emit('line.click', line)" />
 </template>
 
 <script>
-/* eslint-disable */
-
-import { HTTP } from "../../main";
-
 export default {
   name: "LineImage",
   props: {
     line: Object
-  },
-  methods: {
-    addClassification: function(id) {
-      var payload = {
-        image: id
-      };
-      return HTTP.post("/captures/", payload).then(
-        response => {
-          console.log(response);
-        },
-        errors => {
-          console.log(errors);
-        }
-      );
-    },
-    removeClassification: function(id) {
-      return HTTP.delete("/captures/" + id).then(
-        response => {
-          console.log(response);
-        },
-        errors => {
-          console.log(errors);
-        }
-      );
-    },
-    toggleClassification: function(line) {
-      var img = line.pref_image;
-      if (img.bad_capture) {
-        var reqres = this.removeClassification(img.id);
-      } else {
-        var reqres = this.addClassification(img.id);
-      }
-      img.bad_capture = !img.bad_capture;
-      return reqres;
-    }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 img.line-image {
   max-width: 800px;
+  max-height: 200px;
   border: 2px solid black;
-}
-img.selected-line-image {
-  border: 3px solid red;
-  filter: blur(5px);
 }
 </style>

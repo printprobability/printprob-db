@@ -1,13 +1,11 @@
 <template>
-  <div class="card my-2">
+  <div class="card m-2">
     <div class="card-header">
       <router-link v-if="link" :to="link">{{ header }}</router-link>
       <template v-else>{{ header }}</template>
     </div>
     <div class="card-body">
-      <router-link :to="{name: 'PageDetailView', params: {id: page.id}}">
-        <img class="page-image" :src="page.image.web_url" />
-      </router-link>
+      <img class="page-image" :src="page.image.web_url" />
     </div>
     <div v-if="footer" class="card-footer">{{ footer }}</div>
   </div>

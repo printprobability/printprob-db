@@ -1,9 +1,9 @@
 <template>
   <b-form-select
     class="my-2"
-    v-model="value"
+    v-model="selected"
     :options="character_groupings"
-    @input="select_character_grouping"
+    @input="$emit('input', selected)"
   ></b-form-select>
 </template>
 
@@ -18,6 +18,7 @@ export default {
   },
   data() {
     return {
+      selected: this.value,
       character_groupings: []
     };
   },
@@ -40,9 +41,6 @@ export default {
           console.log(error);
         }
       );
-    },
-    select_character_grouping: function() {
-      this.$emit("input", this.value);
     }
   },
   created() {

@@ -13,7 +13,8 @@ Vue.config.productionTip = false
 import Home from "./components/Home"
 import BookList from "./components/Books/BookList";
 import BookDetail from "./components/Books/BookDetail";
-import PageDetail from "./components/Pages/PageDetail";
+import SpreadList from "./components/Spreads/SpreadList";
+import PageList from "./components/Pages/PageList";
 import CharacterGroupingInterface from "./components/Interfaces/CharacterGroupingInterface";
 import CharacterReviewInterface from "./components/Interfaces/CharacterReviewInterface";
 
@@ -34,8 +35,19 @@ Vue.prototype.$APIConstants = {
 const routes = [
   { path: "/", name: "HomeView", component: Home },
   { path: "/books", name: "BookListView", component: BookList },
-  { path: "/books/:id", name: "BookDetailView", component: BookDetail, props: (route) => ({ id: Number(route.params.id) }) },
-  { path: "/pages/:id", name: "PageDetailView", component: PageDetail },
+  {
+    path: "/books/:id", name: "BookDetailView", component: BookDetail, props: (route) => ({ id: Number(route.params.id) }),
+    children: [
+      {
+        path: "spreads",
+        component: SpreadList
+      },
+      {
+        path: "pages",
+        component: PageList
+      }
+    ]
+  },
   { path: "/group_characters", name: "CharacterGroupingView", component: CharacterGroupingInterface },
   { path: "/character_review", name: "CharacterReviewView", component: CharacterReviewInterface }
 ]

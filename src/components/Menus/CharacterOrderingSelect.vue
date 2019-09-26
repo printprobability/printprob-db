@@ -12,23 +12,24 @@
 <script>
 export default {
   name: "CharacterOrderingSelect",
+  props: {
+    value: {
+      type: String,
+      default: "-class_probability"
+    }
+  },
   data() {
     return {
       options: [
         {
-          value: null,
-          text: "created"
+          value: "-class_probability",
+          text: "Probability (descending)"
         },
         {
           value: "class_probability",
           text: "Probability (ascending)"
-        },
-        {
-          value: "-class_probability",
-          text: "Probability (descending)"
         }
-      ],
-      value: null
+      ]
     };
   }
 };

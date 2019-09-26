@@ -60,6 +60,7 @@ import BadCharacterRadio from "../Menus/BadCharacterRadio";
 import CharacterImage from "./CharacterImage";
 import Spinner from "../Interfaces/Spinner";
 import { HTTP } from "../../main";
+import _ from "lodash";
 
 export default {
   name: "CharacterList",
@@ -75,6 +76,17 @@ export default {
       default: function() {
         return [];
       }
+    },
+    initial_values: {
+      default() {
+        return {
+          page: 1,
+          character_class: null,
+          book: null,
+          order: "-class_probability"
+        };
+      },
+      type: Object
     }
   },
   components: {
@@ -150,9 +162,12 @@ export default {
       this.get_characters();
     }
   },
-  created: function() {
-    this.get_characters();
-  }
+  mounted: _.debounce(function() {
+    this.selected_page = this.initial_values.page;
+    this.selected_character_class = this.initial_values.character_class;
+    this.selected_book = this.initial_values.book;
+    this.order = this.initial_values.order;
+  }, 100)
 };
 </script>
 
