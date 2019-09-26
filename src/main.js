@@ -14,14 +14,15 @@ import Home from "./components/Home"
 import BookList from "./components/Books/BookList";
 import BookDetail from "./components/Books/BookDetail";
 import PageDetail from "./components/Pages/PageDetail";
-import CharacterGroupingInterface from "./components/Interfaces/CharacterGroupingInterface"
+import CharacterGroupingInterface from "./components/Interfaces/CharacterGroupingInterface";
+import CharacterReviewInterface from "./components/Interfaces/CharacterReviewInterface";
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.xsrfCookieName = "xsrfcookie";
 axios.defaults.withCredentials = true;
 
 export const HTTP = axios.create({
-  baseURL: "http://localhost/api"
+  baseURL: process.env.VUE_APP_PP_ENDPOINT
 })
 
 Vue.prototype.$APIConstants = {
@@ -35,7 +36,8 @@ const routes = [
   { path: "/books", name: "BookListView", component: BookList },
   { path: "/books/:id", name: "BookDetailView", component: BookDetail, props: (route) => ({ id: Number(route.params.id) }) },
   { path: "/pages/:id", name: "PageDetailView", component: PageDetail },
-  { path: "/group_characters/", name: "CharacterGroupingView", component: CharacterGroupingInterface }
+  { path: "/group_characters", name: "CharacterGroupingView", component: CharacterGroupingInterface },
+  { path: "/character_review", name: "CharacterReviewView", component: CharacterReviewInterface }
 ]
 
 const router = new VueRouter({
