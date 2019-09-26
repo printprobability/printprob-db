@@ -148,7 +148,7 @@ export default {
           book: this.selected_book,
           created_by_run: this.selected_character_run,
           bad: this.bad_character,
-          order: this.order,
+          order: this.selected_order,
           offset: this.rest_offset
         }
       }).then(
@@ -183,7 +183,7 @@ export default {
     bad_character: function() {
       this.get_characters();
     },
-    order: function() {
+    selected_order: function() {
       this.get_characters();
     }
   },
