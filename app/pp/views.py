@@ -291,6 +291,9 @@ class CharacterFilter(filters.FilterSet):
     character_class = filters.ModelChoiceFilter(
         queryset=models.CharacterClass.objects.all()
     )
+    human_character_class = filters.ModelChoiceFilter(
+        queryset=models.CharacterClass.objects.all()
+    )
     bad = filters.BooleanFilter(field_name="bad", label="Bad characters?")
 
     order = filters.OrderingFilter(fields=(("class_probability", "class_probability"),))
@@ -298,7 +301,13 @@ class CharacterFilter(filters.FilterSet):
 
 class CharacterViewSet(CRUDViewSet):
     queryset = models.Character.objects.select_related(
-        "image", "line", "line__page", "line__page__spread", "line__page__spread__book"
+        "image",
+        "line",
+        "line__page",
+        "line__page__spread",
+        "line__page__spread__book",
+        "character_class",
+        "human_character_class",
     ).all()
     filterset_class = CharacterFilter
 

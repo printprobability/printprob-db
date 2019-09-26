@@ -53,7 +53,15 @@ class CharacterFlatSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Character
-        fields = ["url", "id", "label", "sequence", "image", "character_class", "bad"]
+        fields = [
+            "url",
+            "id",
+            "label",
+            "sequence",
+            "image",
+            "character_class",
+            "human_character_class",
+        ]
 
 
 class PageRunListSerializer(serializers.HyperlinkedModelSerializer):
@@ -277,7 +285,7 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
             "x_max",
             "character_class",
             "class_probability",
-            "bad",
+            "human_character_class",
         ]
 
 
@@ -297,7 +305,7 @@ class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
             "character_class",
             "class_probability",
             "image",
-            "bad",
+            "human_character_class",
         ]
 
 

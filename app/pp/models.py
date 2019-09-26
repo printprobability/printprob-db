@@ -324,17 +324,19 @@ class Character(ImagedModel):
     character_class = models.ForeignKey(
         CharacterClass, on_delete=models.CASCADE, related_name="assigned_to"
     )
+    human_character_class = models.ForeignKey(
+        CharacterClass,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="human_assigned_to",
+    )
     class_probability = models.FloatField()
     created_by_run = models.ForeignKey(
         CharacterRun,
         on_delete=models.CASCADE,
         help_text="Which pipeline run created this object instance",
         related_name="characters",
-    )
-    bad = models.BooleanField(
-        db_index=True,
-        null=True,
-        help_text="Has this character been marked as bad by human reviewers?",
     )
 
     class Meta:
