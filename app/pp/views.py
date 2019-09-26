@@ -323,13 +323,13 @@ class CharacterViewSet(CRUDViewSet):
     def annotate(self, request):
         serializer = serializers.CharacterAnnotateSerializer(data=request.data)
         if serializer.is_valid():
-            target_characters = serializer.validated_data["characters"]
+            target_characters = [
+                char.id for char in serializer.validated_data["characters"]
+            ]
 
-            for char in target_characters:
-                char.human_character_class = serializer.validated_data[
-                    "human_character_class"
-                ]
-                char.save()
+            models.Character.objects.filter(id__in=target_characters).update(
+                human_character_class=serializer.validated_data["human_character_class"]
+            )
             return Response({"status": f"{len(target_characters)} updated"})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
