@@ -204,6 +204,8 @@ class LineGroupRunCreateSerializer(serializers.ModelSerializer):
 
 
 class CharacterRunListSerializer(serializers.HyperlinkedModelSerializer):
+    book = BookFlatSerializer(many=False)
+
     class Meta:
         model = models.CharacterRun
         fields = [

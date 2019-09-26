@@ -327,6 +327,7 @@ class CharacterRunTestCase(TestCase):
             "label",
         ]:
             self.assertIn(k, res.data["results"][0])
+        self.assertIn("eebo", res.data["results"][0]["book"])
 
     @as_auth()
     def test_get_detail(self):
