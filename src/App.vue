@@ -9,7 +9,7 @@
         <b-navbar-nav v-if="logged_in">
           <b-nav-item to="/books">Browse Books</b-nav-item>
           <b-nav-dropdown text="Tasks">
-            <b-dropdown-item to="/review_characters">Review Characters</b-dropdown-item>
+            <b-dropdown-item to="/character_review">Review Characters</b-dropdown-item>
             <b-dropdown-item to="/group_characters">Edit Groupings</b-dropdown-item>
           </b-nav-dropdown>
         </b-navbar-nav>

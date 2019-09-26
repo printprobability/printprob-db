@@ -5,7 +5,7 @@
     @click="$emit('char_clicked', character.id)"
     v-b-tooltip.hover
     :title="character_tooltip"
-    :class="{ highligted: highlight, bad: bad, bad: character.bad }"
+    :class="{ highligted: highlight, marked_good: good, marked_bad: bad }"
   />
 </template>
 
@@ -15,7 +15,8 @@ export default {
   props: {
     character: Object,
     highlight: Boolean,
-    bad: Boolean
+    bad: Boolean,
+    good: Boolean
   },
   computed: {
     character_tooltip: function() {
@@ -27,6 +28,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.overlay {
+  z-index: 10;
+}
+
+.overlay.highlighted {
+  color: rgba(247, 244, 112);
+}
+
+.overlay.marked_bad {
+  background: rgba(255, 0, 0, 0.5);
+}
+
+.overlay.marked_good {
+  background: rgba(0, 128, 0, 0.5);
+}
+
 img.character-image {
   max-width: 100px;
   max-height: 100px;
@@ -34,11 +51,14 @@ img.character-image {
 }
 
 img.highligted {
-  border: 5px solid rgb(163, 163, 238);
+  filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(180deg);
 }
 
-img.bad {
-  border: 5px solid red;
-  filter: invert(100%);
+img.marked_bad {
+  filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(320deg);
+}
+
+img.marked_good {
+  filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(70deg);
 }
 </style>

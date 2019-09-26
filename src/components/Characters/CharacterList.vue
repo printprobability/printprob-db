@@ -46,6 +46,7 @@
           :key="character.id"
           :highlight="highlighted_characters.includes(character.id)"
           :bad="bad_characters.includes(character.id)"
+          :good="good_characters.includes(character.id)"
           @char_clicked="$emit('char_clicked', $event)"
         />
       </div>
@@ -81,6 +82,12 @@ export default {
       }
     },
     bad_characters: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    },
+    good_characters: {
       type: Array,
       default: function() {
         return [];

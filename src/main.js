@@ -45,7 +45,15 @@ const routes = [
       character_run: route.query.character_run
     })
   },
-  { path: "/character_review", name: "CharacterReviewView", component: CharacterReviewInterface }
+  {
+    path: "/character_review", name: "CharacterReviewView", component: CharacterReviewInterface, props: (route) => ({
+      page: (!!route.query.page) ? Number(route.query.page) : 1,
+      character_class: route.query.character_class,
+      book: (!!route.query.book) ? Number(route.query.book) : null,
+      order: route.query.order,
+      character_run: route.query.character_run
+    })
+  }
 ]
 
 const router = new VueRouter({

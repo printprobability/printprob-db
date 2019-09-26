@@ -2,7 +2,8 @@
   <b-form-group
     id="character-class-group"
     label-for="character-class-select"
-    label="Character class"
+    :label="label"
+    :description="description"
   >
     <b-form-select
       id="character-class-id"
@@ -21,6 +22,14 @@ export default {
   name: "CharacterClassSelect",
   props: {
     value: {
+      default: null,
+      type: String
+    },
+    label: {
+      default: "Character Class",
+      type: String
+    },
+    description: {
       default: null,
       type: String
     }
