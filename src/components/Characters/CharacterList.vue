@@ -3,13 +3,22 @@
     <div class="card">
       <div class="card-header">Filter Characters</div>
       <div class="card-body">
-        <CharacterClassSelect v-model="selected_character_class" />
-        <BookSelect v-model="selected_book" />
+        <div class="row">
+          <div class="col-4">
+            <CharacterClassSelect v-model="selected_character_class" />
+          </div>
+          <div class="col-4">
+            <BookSelect v-model="selected_book" />
+          </div>
+          <div class="col-4">
+            <CharacterRunSelect v-model="selected_character_run" :book="selected_book" />
+          </div>
+        </div>
         <b-row>
-          <div class="col-6">
+          <div class="col-4">
             <BadCharacterRadio v-model="bad_character" />
           </div>
-          <div class="col-6">
+          <div class="col-4">
             <CharacterOrderingSelect v-model="order" />
           </div>
         </b-row>
@@ -57,6 +66,7 @@ import CharacterClassSelect from "../Menus/CharacterClassSelect";
 import CharacterOrderingSelect from "../Menus/CharacterOrderingSelect";
 import BookSelect from "../Menus/BookSelect";
 import BadCharacterRadio from "../Menus/BadCharacterRadio";
+import CharacterRunSelect from "../Menus/CharacterRunSelect";
 import CharacterImage from "./CharacterImage";
 import Spinner from "../Interfaces/Spinner";
 import { HTTP } from "../../main";
@@ -83,7 +93,8 @@ export default {
           page: 1,
           character_class: null,
           book: null,
-          order: "-class_probability"
+          order: "-class_probability",
+          character_run: null
         };
       },
       type: Object
@@ -92,6 +103,7 @@ export default {
   components: {
     CharacterClassSelect,
     CharacterOrderingSelect,
+    CharacterRunSelect,
     BookSelect,
     BadCharacterRadio,
     CharacterImage,
@@ -106,6 +118,7 @@ export default {
       progress_spinner: false,
       selected_page: 1,
       selected_character_class: null,
+      selected_character_run: null,
       selected_book: null,
       order: null
     };
@@ -125,6 +138,7 @@ export default {
         params: {
           character_class: this.selected_character_class,
           book: this.selected_book,
+          created_by_run: this.selected_character_run,
           bad: this.bad_character,
           order: this.order,
           offset: this.rest_offset
@@ -149,6 +163,9 @@ export default {
     selected_character_class: function() {
       this.get_characters();
     },
+    selected_character_run: function() {
+      this.get_characters();
+    },
     selected_book: function() {
       this.get_characters();
     },
@@ -165,6 +182,7 @@ export default {
   mounted: _.debounce(function() {
     this.selected_page = this.initial_values.page;
     this.selected_character_class = this.initial_values.character_class;
+    this.selected_character_run = this.initial_values.character_run;
     this.selected_book = this.initial_values.book;
     this.order = this.initial_values.order;
   }, 100)

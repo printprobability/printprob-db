@@ -40,7 +40,7 @@
     <PageList v-if="detail_show=='pages'" :page_run="selected_run" />
     <CharacterList
       v-if="detail_show=='characters'"
-      :initial_values="{page: 1, character_class: null, book: book.eebo}"
+      :initial_values="{page: 1, character_class: null, book: book.eebo, character_run: selected_run.id}"
     />
   </div>
 </template>

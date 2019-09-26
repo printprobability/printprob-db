@@ -7,9 +7,9 @@
     <b-form-select
       id="character-run-select"
       class="my-2"
-      v-model="selected_character_run"
+      v-model="value"
       :options="character_runs"
-      @input="$emit('input', selected_character_run)"
+      @input="$emit('input', value)"
     />
   </b-form-group>
 </template>
@@ -22,27 +22,35 @@ export default {
   name: "CharacterRunSelect",
   props: {
     value: {
+      type: String,
+      default: null
+    },
+    book: {
       type: Number,
       default: null
     }
   },
   data() {
     return {
-      selected_character_run: null,
       character_runs: []
     };
   },
   methods: {
     get_character_runs: function() {
-      return HTTP.get("/character_runs/").then(
+      return HTTP.get("/runs/characters/", {
+        params: { book: this.book }
+      }).then(
         response => {
           var character_run_options = _.concat(
             {
-              text: "All character_runs",
+              text: "All character runs",
               value: null
             },
             response.data.results.map(x => {
-              return x.book.eebo + " - " + x.date_stared;
+              return {
+                text: x.book.label + " - " + x.date_stared,
+                value: x.id
+              };
             })
           );
           this.character_runs = character_run_options;
@@ -53,9 +61,8 @@ export default {
       );
     }
   },
-  mounted() {
+  created() {
     this.get_character_runs();
-    this.selected_character_run = this.value;
   }
 };
 </script>
