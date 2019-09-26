@@ -36,7 +36,15 @@ const routes = [
   {
     path: "/books/:id", name: "BookDetailView", component: BookDetail, props: (route) => ({ id: Number(route.params.id) })
   },
-  { path: "/group_characters", name: "CharacterGroupingView", component: CharacterGroupingInterface },
+  {
+    path: "/group_characters", name: "CharacterGroupingView", component: CharacterGroupingInterface, props: (route) => ({
+      page: (!!route.query.page) ? Number(route.query.page) : 1,
+      character_class: route.query.character_class,
+      book: (!!route.query.book) ? Number(route.query.book) : null,
+      order: route.query.order,
+      character_run: route.query.character_run
+    })
+  },
   { path: "/character_review", name: "CharacterReviewView", component: CharacterReviewInterface }
 ]
 

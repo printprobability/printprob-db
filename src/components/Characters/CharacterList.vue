@@ -19,7 +19,7 @@
             <BadCharacterRadio v-model="bad_character" />
           </div>
           <div class="col-4">
-            <CharacterOrderingSelect v-model="order" />
+            <CharacterOrderingSelect v-model="selected_order" />
           </div>
         </b-row>
       </div>
@@ -87,17 +87,25 @@ export default {
         return [];
       }
     },
-    initial_values: {
-      default() {
-        return {
-          page: 1,
-          character_class: null,
-          book: null,
-          order: "-class_probability",
-          character_run: null
-        };
-      },
-      type: Object
+    page: {
+      default: 1,
+      type: Number
+    },
+    character_class: {
+      default: null,
+      type: String
+    },
+    book: {
+      default: null,
+      type: Number
+    },
+    order: {
+      default: "-class_probability",
+      type: String
+    },
+    character_run: {
+      default: null,
+      type: String
     }
   },
   components: {
@@ -116,11 +124,11 @@ export default {
       total_char_count: 0,
       bad_character: null,
       progress_spinner: false,
-      selected_page: 1,
-      selected_character_class: null,
-      selected_character_run: null,
-      selected_book: null,
-      order: null
+      selected_page: this.page,
+      selected_character_class: this.character_class,
+      selected_character_run: this.character_run,
+      selected_book: this.book,
+      selected_order: this.order
     };
   },
   computed: {
@@ -179,13 +187,9 @@ export default {
       this.get_characters();
     }
   },
-  mounted: _.debounce(function() {
-    this.selected_page = this.initial_values.page;
-    this.selected_character_class = this.initial_values.character_class;
-    this.selected_character_run = this.initial_values.character_run;
-    this.selected_book = this.initial_values.book;
-    this.order = this.initial_values.order;
-  }, 100)
+  created() {
+    this.get_characters();
+  }
 };
 </script>
 

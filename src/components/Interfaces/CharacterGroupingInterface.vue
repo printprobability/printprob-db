@@ -8,6 +8,11 @@
       <div class="col-7">
         <CharacterList
           :highlighted_characters="intersecting_images"
+          :page="page"
+          :character_class="character_class"
+          :book="book"
+          :order="order"
+          :character_run="character_run"
           @update="update_displayed_images"
           @char_clicked="register_character"
         />
@@ -92,6 +97,7 @@ export default {
     CharacterImage,
     CharacterList
   },
+  props: ["page", "character_class", "book", "order", "character_run"],
   data() {
     return {
       selected_cg_id: null,
