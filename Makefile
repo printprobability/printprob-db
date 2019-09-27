@@ -26,6 +26,8 @@ wipe: blank
 	docker-compose exec postgres psql -U app -d postgres -c 'CREATE DATABASE pp;'
 	$(MAKE) restart
 	docker-compose exec web python manage.py migrate
+backup:
+	docker-compose exec -T postgres pg_dumpall -U app > bkp.sql
 restore: blank
 	docker-compose up -d postgres
 	docker-compose exec -T postgres psql -U app -d postgres < ../bkp/bkp.sql
