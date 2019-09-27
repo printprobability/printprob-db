@@ -344,7 +344,7 @@ class Character(ImagedModel):
         ordering = ["created_by_run", "line", "sequence"]
 
     def labeller(self):
-        return f"{self.line} c. {self.sequence} ({self.character_class} - {self.class_probability})"
+        return f"{self.line} c. {self.sequence}"
 
     def book(self):
         return self.line.page.spread.book
