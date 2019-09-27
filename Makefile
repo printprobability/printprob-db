@@ -27,7 +27,8 @@ wipe: blank
 	$(MAKE) restart
 	docker-compose exec web python manage.py migrate
 backup:
-	docker-compose exec -T postgres pg_dumpall -U app > bkp.sql
+	docker-compose exec -T postgres pg_dumpall -U app > ../bkp/bkp.sql
+	cd ../bkp && git commit -am 'incremental commit'
 restore: blank
 	docker-compose up -d postgres
 	docker-compose exec -T postgres psql -U app -d postgres < ../bkp/bkp.sql
