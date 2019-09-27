@@ -2,9 +2,9 @@
   <b-form-group id="ordering-group" label="Sort by">
     <b-form-select
       id="ordering-select"
-      v-model="value"
+      :value="value"
       :options="options"
-      @input="$emit('input', value)"
+      @input="$emit('input', $event)"
     />
   </b-form-group>
 </template>

@@ -1,9 +1,9 @@
 <template>
   <b-form-select
     class="my-2"
-    :val="selected"
+    :value="value"
     :options="character_groupings"
-    @input="$emit('input', selected)"
+    @input="$emit('input', $event)"
   ></b-form-select>
 </template>
 
@@ -18,7 +18,6 @@ export default {
   },
   data() {
     return {
-      selected: this.value,
       character_groupings: []
     };
   },

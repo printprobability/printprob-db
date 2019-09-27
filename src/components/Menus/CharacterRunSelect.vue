@@ -7,9 +7,9 @@
     <b-form-select
       id="character-run-select"
       class="my-2"
-      v-model="value"
+      :value="value"
       :options="character_runs"
-      @input="$emit('input', value)"
+      @input="$emit('input', $event)"
     />
   </b-form-group>
 </template>

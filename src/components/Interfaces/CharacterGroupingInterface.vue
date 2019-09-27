@@ -9,11 +9,16 @@
         <CharacterList
           :highlighted_characters="intersecting_images"
           :page="page"
+          @page_input="change_page"
           :character_class="character_class"
+          @character_class_input="change_character_class"
           :book="book"
+          @book_input="change_book"
           :order="order"
+          @order_input="change_order"
           :character_run="character_run"
-          @update="update_displayed_images"
+          @character_run_input="change_character_run"
+          v-model="displayed_images"
           @char_clicked="register_character"
         />
       </div>
@@ -27,7 +32,7 @@
                 class="mr-2"
                 :variant="new_cg_card.button_variant[new_cg_card.show]"
               >{{ new_cg_card.button_text[new_cg_card.show] }}</b-button>
-              <CharacterGroupingSelect v-model="selected_cg_id" :key="cg_menu_key" />
+              <CharacterGroupingSelect v-model="cg_id" :key="cg_menu_key" />
             </div>
             <NewCharacterGrouping v-show="new_cg_card.show" @new_group="create_group" />
           </div>
@@ -97,10 +102,9 @@ export default {
     CharacterImage,
     CharacterList
   },
-  props: ["page", "character_class", "book", "order", "character_run"],
   data() {
     return {
-      selected_cg_id: null,
+      cg_id: null,
       selected_cg: null,
       displayed_images: [],
       new_cg_card: {
@@ -114,7 +118,12 @@ export default {
           true: "Cancel"
         }
       },
-      cg_menu_key: 0
+      cg_menu_key: 0,
+      page: 1,
+      book: null,
+      character_class: null,
+      order: "-class_probability",
+      character_run: null
     };
   },
   computed: {
@@ -144,20 +153,17 @@ export default {
         );
       }
     },
-    update_displayed_images: function(imgs) {
-      this.displayed_images = imgs;
-    },
     register_character: function(char_id) {
-      if (!!this.selected_cg_id) {
+      if (!!this.cg_id) {
         // Send the add request to the endpoint
         return HTTP.patch(
-          "/character_groupings/" + this.selected_cg_id + "/add_characters/",
+          "/character_groupings/" + this.cg_id + "/add_characters/",
           { characters: [char_id] }
         ).then(
           response => {
             response;
             // If it worked, update the character grouping view
-            this.get_cg(this.selected_cg_id);
+            this.get_cg(this.cg_id);
           },
           error => {
             console.log(error);
@@ -166,16 +172,16 @@ export default {
       }
     },
     deregister_character: function(char_id) {
-      if (!!this.selected_cg_id) {
+      if (!!this.cg_id) {
         // Send the add request to the endpoint
         return HTTP.patch(
-          "/character_groupings/" + this.selected_cg_id + "/delete_characters/",
+          "/character_groupings/" + this.cg_id + "/delete_characters/",
           { characters: [char_id] }
         ).then(
           response => {
             response;
             // If it worked, update the character grouping view
-            this.get_cg(this.selected_cg_id);
+            this.get_cg(this.cg_id);
           },
           error => {
             console.log(error);
@@ -196,7 +202,7 @@ export default {
       return HTTP.post("/character_groupings/", payload).then(
         response => {
           this.refresh_cg_menu();
-          this.selected_cg_id = response.data.id;
+          this.cg_id = response.data.id;
         },
         error => {
           console.log(error);
@@ -210,7 +216,7 @@ export default {
         response => {
           console.log(response);
           this.refresh_cg_menu();
-          this.selected_cg_id = null;
+          this.cg_id = null;
           this.selected_cg = null;
         },
         error => {
@@ -224,7 +230,7 @@ export default {
       return HTTP.patch("/character_groupings/" + id + "/", payload).then(
         response => {
           this.refresh_cg_menu();
-          this.selected_cg_id = response.data.id;
+          this.cg_id = response.data.id;
         },
         error => {
           console.log(error);
@@ -233,10 +239,25 @@ export default {
     },
     refresh_cg_menu: function() {
       this.cg_menu_key += 1;
+    },
+    change_page: function(value) {
+      this.page = value;
+    },
+    change_character_class: function(value) {
+      this.character_class = value;
+    },
+    change_book: function(value) {
+      this.book = value;
+    },
+    change_order: function(value) {
+      this.order = value;
+    },
+    change_character_run: function(value) {
+      this.character_run = value;
     }
   },
   watch: {
-    selected_cg_id: function(id) {
+    cg_id: function(id) {
       this.get_cg(id);
     }
   }

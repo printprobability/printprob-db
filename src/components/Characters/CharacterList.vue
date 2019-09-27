@@ -5,21 +5,31 @@
       <div class="card-body" v-if="!freeze">
         <div class="row">
           <div class="col-4">
-            <CharacterClassSelect v-model="selected_character_class" />
+            <CharacterClassSelect
+              :value="character_class"
+              @input="$emit('character_class_input', $event)"
+            />
           </div>
           <div class="col-4">
-            <BookSelect v-model="selected_book" />
+            <BookSelect :value="book" @input="$emit('book_input', $event)" />
           </div>
           <div class="col-4">
-            <CharacterRunSelect v-model="selected_character_run" :book="selected_book" />
+            <CharacterRunSelect
+              :value="character_run"
+              @input="$emit('character_run_input', $event)"
+              :book="book"
+            />
           </div>
         </div>
         <b-row>
           <div class="col-4">
-            <BadCharacterRadio v-model="bad_character" />
+            <BadCharacterRadio
+              :value="bad_character"
+              @input="$emit('bad_character_input', $event)"
+            />
           </div>
           <div class="col-4">
-            <CharacterOrderingSelect v-model="selected_order" />
+            <CharacterOrderingSelect :value="order" @input="$emit('order_input', $event)" />
           </div>
         </b-row>
       </div>
@@ -30,11 +40,12 @@
     <div class="char-images card my-2">
       <div class="card-header">
         <Spinner v-if="progress_spinner" />
-        <div class="paginator" v-if="characters.length>0 && !freeze">
-          <p>Characters {{1 + (selected_page - 1) * $APIConstants.REST_PAGE_SIZE }} to {{ (selected_page - 1) * $APIConstants.REST_PAGE_SIZE + characters.length }} out of {{ total_char_count }} characters</p>
+        <div class="paginator" v-if="value.length>0 && !freeze">
+          <p>Characters {{1 + (page - 1) * $APIConstants.REST_PAGE_SIZE }} to {{ (page - 1) * $APIConstants.REST_PAGE_SIZE + value.length }} out of {{ total_char_count }} characters</p>
           <b-pagination
             v-show="pagination_needed"
-            v-model="selected_page"
+            :value="page"
+            @input="$emit('page_input', $event)"
             :total-rows="total_char_count"
             :per-page="$APIConstants.REST_PAGE_SIZE"
             aria-controls="character-results"
@@ -42,9 +53,9 @@
         </div>
         <div show v-else>No matching characters</div>
       </div>
-      <div class="d-flex flex-wrap card-body" id="character-results" v-if="characters.length>0">
+      <div class="d-flex flex-wrap card-body" id="character-results" v-if="value.length>0">
         <CharacterImage
-          v-for="character in characters"
+          v-for="character in value"
           :character="character"
           :key="character.id"
           :highlight="highlighted_characters.includes(character.id)"
@@ -55,7 +66,8 @@
       </div>
       <div class="card-footer" v-show="pagination_needed && !freeze">
         <b-pagination
-          v-model="selected_page"
+          :value="page"
+          @input="$emit('page_input', $event)"
           :total-rows="total_char_count"
           :per-page="$APIConstants.REST_PAGE_SIZE"
           aria-controls="character-results"
@@ -123,6 +135,11 @@ export default {
     character_run: {
       default: null,
       type: String
+    },
+    value: {
+      // Here is where the characters themselves live
+      type: Array,
+      default: () => []
     }
   },
   components: {
@@ -136,16 +153,9 @@ export default {
   },
   data() {
     return {
-      characters: [],
-      character_classes: [],
       total_char_count: 0,
       bad_character: null,
-      progress_spinner: false,
-      selected_page: this.page,
-      selected_character_class: this.character_class,
-      selected_character_run: this.character_run,
-      selected_book: this.book,
-      selected_order: this.order
+      progress_spinner: false
     };
   },
   computed: {
@@ -153,24 +163,24 @@ export default {
       return this.total_char_count > this.$APIConstants.REST_PAGE_SIZE;
     },
     rest_offset: function() {
-      return (this.selected_page - 1) * this.$APIConstants.REST_PAGE_SIZE;
+      return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
     }
   },
   methods: {
-    get_characters: function() {
+    get_characters() {
       this.progress_spinner = true;
       return HTTP.get("/characters/", {
         params: {
-          character_class: this.selected_character_class,
-          book: this.selected_book,
-          created_by_run: this.selected_character_run,
+          character_class: this.character_class,
+          book: this.book,
+          created_by_run: this.character_run,
           bad: this.bad_character,
-          order: this.selected_order,
+          order: this.order,
           offset: this.rest_offset
         }
       }).then(
         response => {
-          this.characters = response.data.results;
+          this.$emit("input", response.data.results);
           this.total_char_count = response.data.count;
           this.progress_spinner = false;
         },
@@ -182,29 +192,23 @@ export default {
     }
   },
   watch: {
-    characters: function() {
-      this.$emit("update", this.characters);
-    },
-    selected_character_class: function() {
+    character_class() {
       this.get_characters();
     },
-    selected_character_run: function() {
+    book() {
       this.get_characters();
     },
-    selected_book: function() {
+    character_run() {
       this.get_characters();
     },
-    selected_page: function() {
+    order() {
       this.get_characters();
     },
-    bad_character: function() {
-      this.get_characters();
-    },
-    selected_order: function() {
+    rest_offset() {
       this.get_characters();
     }
   },
-  created() {
+  mounted() {
     this.get_characters();
   }
 };

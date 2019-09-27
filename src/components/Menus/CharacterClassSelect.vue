@@ -7,9 +7,9 @@
   >
     <b-form-select
       id="character-class-id"
-      v-model="value"
+      :value="value"
       :options="character_classes"
-      @input="$emit('input', value)"
+      @input="$emit('input', $event)"
     />
   </b-form-group>
 </template>
@@ -55,7 +55,7 @@ export default {
       );
     }
   },
-  mounted() {
+  created() {
     this.get_charcacter_classes();
   }
 };

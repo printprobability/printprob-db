@@ -3,9 +3,9 @@
     <b-form-select
       id="book-select"
       class="my-2"
-      v-model="value"
+      :value="value"
       :options="books"
-      @input="$emit('input', value)"
+      @input="$emit('input', $event)"
     />
   </b-form-group>
 </template>
