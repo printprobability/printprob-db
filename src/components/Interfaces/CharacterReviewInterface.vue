@@ -11,9 +11,16 @@
       :good_characters="good_characters"
       :bad_characters="bad_characters"
       :page="page"
-      :book="book"
+      @page_input="change_page"
       :character_class="character_class"
+      @character_class_input="change_character_class"
+      :book="book"
+      @book_input="change_book"
       :order="order"
+      @order_input="change_order"
+      :character_run="character_run"
+      @character_run_input="change_character_run"
+      v-model="displayed_images"
     />
     <b-row class="d-flex align-items-center">
       <div class="col-4">
@@ -69,35 +76,17 @@ export default {
     CharacterList,
     CharacterClassSelect
   },
-  props: {
-    page: {
-      default: 1,
-      type: Number
-    },
-    character_class: {
-      default: null,
-      type: String
-    },
-    book: {
-      default: null,
-      type: Number
-    },
-    order: {
-      default: "-class_probability",
-      type: String
-    },
-    character_run: {
-      default: null,
-      type: String
-    }
-  },
   data() {
     return {
       new_class: null,
       displayed_images: [],
       disable_commit: true,
       cl_key: 1,
-      selected_page: this.page
+      page: 1,
+      character_class: null,
+      book: null,
+      order: "-class_probability",
+      character_run: null
     };
   },
   computed: {
@@ -184,14 +173,33 @@ export default {
         return HTTP.post("/characters/annotate/", payload).then(
           response => {
             console.log(response);
-            this.selected_page += 1;
           },
           error => {
             console.log(error);
           }
         );
       });
+      this.page += 1;
+    },
+    change_page: function(value) {
+      this.page = value;
+    },
+    change_character_class: function(value) {
+      this.character_class = value;
+    },
+    change_book: function(value) {
+      this.book = value;
+    },
+    change_order: function(value) {
+      this.order = value;
+    },
+    change_character_run: function(value) {
+      this.character_run = value;
     }
+  },
+  created() {
+    this.book = this.$route.query.book;
+    this.character_run = this.$route.query.character_run;
   }
 };
 </script>
