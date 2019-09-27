@@ -38,18 +38,12 @@
     </div>
     <SpreadList v-if="detail_show=='spreads'" :spreads="book.spreads" />
     <PageList v-if="detail_show=='pages'" :page_run="selected_run" />
-    <CharacterList
-      v-if="detail_show=='characters'"
-      :book="book.eebo"
-      :character_run="selected_run.id"
-    />
   </div>
 </template>
 
 <script>
 import SpreadList from "../Spreads/SpreadList";
 import PageList from "../Pages/PageList";
-import CharacterList from "../Characters/CharacterList";
 import moment from "moment";
 import { HTTP } from "../../main";
 
@@ -57,8 +51,7 @@ export default {
   name: "BookDetail",
   components: {
     SpreadList,
-    PageList,
-    CharacterList
+    PageList
   },
   props: {
     id: Number
@@ -98,15 +91,22 @@ export default {
     select_run: function(payload) {
       const run_type = payload.type;
       const run_id = payload.id;
-      return HTTP.get("/runs/" + run_type + "/" + run_id + "/").then(
-        response => {
-          this.selected_run = response.data;
-          this.detail_show = run_type;
-        },
-        error => {
-          console.log(error);
-        }
-      );
+      if (run_type == "characters") {
+        this.$router.push({
+          name: "CharacterReviewView",
+          query: { book: this.id, character_run: run_id }
+        });
+      } else {
+        return HTTP.get("/runs/" + run_type + "/" + run_id + "/").then(
+          response => {
+            this.selected_run = response.data;
+            this.detail_show = run_type;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
     }
   },
   created: function() {
