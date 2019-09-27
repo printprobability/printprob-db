@@ -1,7 +1,7 @@
 <template>
   <b-form-select
     class="my-2"
-    v-model="selected"
+    :val="selected"
     :options="character_groupings"
     @input="$emit('input', selected)"
   ></b-form-select>

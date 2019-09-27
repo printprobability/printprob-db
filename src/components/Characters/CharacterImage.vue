@@ -1,12 +1,23 @@
 <template>
-  <img
-    :src="character.image.web_url"
-    class="character-image m-1"
-    @click="$emit('char_clicked', character.id)"
-    v-b-tooltip.hover
-    :title="character_tooltip"
-    :class="{ highligted: highlight, marked_good: good, marked_bad: bad }"
-  />
+  <div>
+    <img
+      :id="character.id"
+      :src="character.image.web_url"
+      class="character-image m-1"
+      @click="$emit('char_clicked', character.id)"
+      :class="{ highligted: highlight, marked_good: good, marked_bad: bad }"
+    />
+    <b-popover
+      :target="character.id"
+      :title="character.label"
+      triggers="hover"
+      placement="top"
+      :delay="pop_delay"
+    >
+      <p>Machine: {{ character.character_class }} ({{ (character.class_probability * 100).toFixed(2) }}%)</p>
+      <p>Human: {{ character.human_character_class }}</p>
+    </b-popover>
+  </div>
 </template>
 
 <script>
@@ -18,9 +29,18 @@ export default {
     bad: Boolean,
     good: Boolean
   },
+  data() {
+    return {
+      pop_delay: { show: 750, hide: 10 }
+    };
+  },
   computed: {
     character_tooltip: function() {
-      return this.character.label;
+      return (
+        this.character.label +
+        "hu class: " +
+        this.character.human_character_class
+      );
     }
   }
 };
@@ -28,22 +48,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.overlay {
-  z-index: 10;
-}
-
-.overlay.highlighted {
-  color: rgba(247, 244, 112);
-}
-
-.overlay.marked_bad {
-  background: rgba(255, 0, 0, 0.5);
-}
-
-.overlay.marked_good {
-  background: rgba(0, 128, 0, 0.5);
-}
-
 img.character-image {
   max-width: 100px;
   max-height: 100px;

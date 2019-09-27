@@ -1,11 +1,19 @@
 <template>
   <div class="container-fluid">
     <h1>Review character quality</h1>
+    <b-alert
+      variant="warning"
+    >Do not change filter settings if you have any pending annotations. Make sure to commit the annotations to the database first.</b-alert>
     <CharacterList
+      freeze_message="You have unsaved changes pending. Plese commit changes to the DB or reset them before changing the character search query"
       @update="update_displayed_images"
       @char_clicked="toggle_character"
       :good_characters="good_characters"
       :bad_characters="bad_characters"
+      :page="page"
+      :book="book"
+      :character_class="character_class"
+      :order="order"
     />
     <b-row class="d-flex align-items-center">
       <div class="col-4">
@@ -16,7 +24,7 @@
         />
       </div>
       <div class="col-2">
-        <b-button block @click="reset" variant="secondary">Reset</b-button>
+        <b-button block @click="nullify" variant="secondary">Null all</b-button>
       </div>
       <div class="col-2">
         <b-button
@@ -52,6 +60,7 @@
 <script>
 import CharacterList from "../Characters/CharacterList";
 import CharacterClassSelect from "../Menus/CharacterClassSelect";
+import { HTTP } from "../../main";
 import _ from "lodash";
 
 export default {
@@ -86,11 +95,28 @@ export default {
     return {
       new_class: null,
       displayed_images: [],
-      good_characters: [],
-      bad_characters: []
+      disable_commit: true,
+      cl_key: 1,
+      selected_page: this.page
     };
   },
   computed: {
+    good_characters() {
+      return _.filter(
+        this.displayed_images,
+        x =>
+          !!x.human_character_class &&
+          x.character_class == x.human_character_class
+      ).map(x => x.id);
+    },
+    bad_characters() {
+      return _.filter(
+        this.displayed_images,
+        x =>
+          !!x.human_character_class &&
+          x.character_class != x.human_character_class
+      ).map(x => x.id);
+    },
     accept_title() {
       return (
         "Will confirm all characters as having the class " +
@@ -102,40 +128,70 @@ export default {
       return (
         "Will mark all characters as having the new class " + this.new_class
       );
-    },
-    disable_commit() {
-      return this.good_characters.length < 1 && this.bad_characters.length < 1;
     }
   },
   methods: {
     update_displayed_images: function(imgs) {
       this.displayed_images = imgs;
+      this.disable_commit = true;
     },
     toggle_character: function(id) {
-      console.log(id);
-      if (this.good_characters.includes(id)) {
-        this.good_characters = _.difference(this.good_characters, [id]);
-        this.bad_characters = _.union(this.bad_characters, [id]);
-      } else if (this.bad_characters.includes(id)) {
-        this.bad_characters = _.difference(this.bad_characters, [id]);
-        this.good_characters = _.union(this.good_characters, [id]);
+      const i = _.findIndex(this.displayed_images, x => x.id == id);
+      if (!this.displayed_images[i].human_character_class) {
+        this.displayed_images[i].human_character_class = this.new_class;
+      } else if (
+        this.displayed_images[i].human_character_class !=
+        this.displayed_images[i].character_class
+      ) {
+        this.displayed_images[i].human_character_class = this.displayed_images[
+          i
+        ].character_class;
       } else {
-        this.good_characters = _.union(this.good_characters, [id]);
+        this.displayed_images[i].human_character_class = this.new_class;
       }
+      this.disable_commit = false;
     },
     mark_all_correct() {
-      this.good_characters = this.displayed_images.map(x => x.id);
-      this.bad_characters = [];
+      _.each(
+        this.displayed_images,
+        x => (x.human_character_class = x.character_class)
+      );
+      this.disable_commit = false;
     },
     mark_all_replace() {
-      this.bad_characters = this.displayed_images.map(x => x.id);
-      this.good_characters = [];
+      _.each(
+        this.displayed_images,
+        x => (x.human_character_class = this.new_class)
+      );
+      this.disable_commit = false;
     },
-    reset() {
-      this.bad_characters = [];
-      this.good_characters = [];
+    nullify() {
+      _.each(this.displayed_images, x => (x.human_character_class = null));
+      this.disable_commit = false;
     },
-    commit_marks() {}
+    refresh_cl() {},
+    commit_marks() {
+      const updates = _.groupBy(this.displayed_images, "human_character_class");
+      console.log(updates);
+      _.forEach(updates, (g, k) => {
+        const ids = g.map(x => x.id);
+        var hcc = k == "null" ? null : k;
+        const payload = {
+          characters: ids,
+          human_character_class: hcc
+        };
+        console.log(payload);
+        return HTTP.post("/characters/annotate/", payload).then(
+          response => {
+            console.log(response);
+            this.selected_page += 1;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      });
+    }
   }
 };
 </script>

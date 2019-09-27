@@ -2,7 +2,7 @@
   <div id="charlist">
     <div class="card">
       <div class="card-header">Filter Characters</div>
-      <div class="card-body">
+      <div class="card-body" v-if="!freeze">
         <div class="row">
           <div class="col-4">
             <CharacterClassSelect v-model="selected_character_class" />
@@ -23,11 +23,14 @@
           </div>
         </b-row>
       </div>
+      <div v-else class="card-body">
+        <b-alert show variant="warning">{{ freeze_message }}</b-alert>
+      </div>
     </div>
     <div class="char-images card my-2">
       <div class="card-header">
         <Spinner v-if="progress_spinner" />
-        <div class="paginator" v-if="characters.length>0">
+        <div class="paginator" v-if="characters.length>0 && !freeze">
           <p>Characters {{1 + (selected_page - 1) * $APIConstants.REST_PAGE_SIZE }} to {{ (selected_page - 1) * $APIConstants.REST_PAGE_SIZE + characters.length }} out of {{ total_char_count }} characters</p>
           <b-pagination
             v-show="pagination_needed"
@@ -37,7 +40,7 @@
             aria-controls="character-results"
           />
         </div>
-        <div v-else>No matching characters</div>
+        <div show v-else>No matching characters</div>
       </div>
       <div class="d-flex flex-wrap card-body" id="character-results" v-if="characters.length>0">
         <CharacterImage
@@ -50,7 +53,7 @@
           @char_clicked="$emit('char_clicked', $event)"
         />
       </div>
-      <div class="card-footer" v-show="pagination_needed">
+      <div class="card-footer" v-show="pagination_needed && !freeze">
         <b-pagination
           v-model="selected_page"
           :total-rows="total_char_count"
@@ -75,6 +78,14 @@ import { HTTP } from "../../main";
 export default {
   name: "CharacterList",
   props: {
+    freeze: {
+      type: Boolean,
+      default: false
+    },
+    freeze_message: {
+      type: String,
+      default: ""
+    },
     highlighted_characters: {
       type: Array,
       default: function() {
