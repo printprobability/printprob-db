@@ -893,12 +893,23 @@ class CharacterViewTest(TestCase):
         ]:
             self.assertIn(k, res.data)
 
+    @as_auth()
+    def test_annotate(self):
+        char_ids = [str(c.id) for c in self.CHARS1]
+        res = self.client.post(
+            f"{self.ENDPOINT}annotate/",
+            data={
+                "characters": char_ids,
+                "human_character_class": "a"
+            })
+        self.assertEqual(res.status_code, 200)
+        for i in char_ids:
+            res = self.client.get(f"{self.ENDPOINT}{i}/")
+            self.assertEqual(res.data["human_character_class"], "a")
+
+
     def test_noaccess(self):
         noaccess(self)
-
-    @as_auth
-    def test_annotate(self):
-        payload =
 
 
 class ImageViewTest(TestCase):

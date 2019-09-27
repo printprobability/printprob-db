@@ -50,6 +50,12 @@ class LineFlatSerializer(serializers.HyperlinkedModelSerializer):
 
 class CharacterFlatSerializer(serializers.HyperlinkedModelSerializer):
     image = ImageSerializer()
+    character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
+    human_character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
 
     class Meta:
         model = models.Character
@@ -267,6 +273,12 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
     spread = SpreadFlatSerializer(many=False)
     page = PageFlatSerializer(many=False)
     line = LineFlatSerializer(many=False)
+    character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
+    human_character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
 
     class Meta:
         model = models.Character
@@ -291,6 +303,12 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
 
 class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
     image = ImageSerializer()
+    character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
+    human_character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
 
     class Meta:
         model = models.Character
@@ -310,6 +328,10 @@ class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CharacterCreateSerializer(serializers.ModelSerializer):
+    character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
+
     class Meta:
         model = models.Character
         fields = [
@@ -332,7 +354,7 @@ class CharacterAnnotateSerializer(serializers.Serializer):
         queryset=models.Character.objects.all(), many=True
     )
     human_character_class = serializers.PrimaryKeyRelatedField(
-        queryset=models.CharacterClass.objects.all(), many=False
+        queryset=models.CharacterClass.objects.all(), many=False, allow_null=True
     )
 
 
