@@ -16,6 +16,7 @@
     >
       <p>Machine: {{ character.character_class }} ({{ (character.class_probability * 100).toFixed(2) }}%)</p>
       <p>Human: {{ character.human_character_class }}</p>
+      <router-link :to="character_link">See character in context</router-link>
     </b-popover>
   </div>
 </template>
@@ -31,16 +32,24 @@ export default {
   },
   data() {
     return {
-      pop_delay: { show: 750, hide: 10 }
+      pop_delay: { show: 750, hide: 500 }
     };
   },
   computed: {
-    character_tooltip: function() {
+    character_tooltip() {
       return (
         this.character.label +
         "hu class: " +
         this.character.human_character_class
       );
+    },
+    character_link() {
+      return {
+        name: "CharacterDetailView",
+        params: {
+          id: this.character.id
+        }
+      };
     }
   }
 };

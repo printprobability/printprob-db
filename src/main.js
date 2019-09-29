@@ -5,9 +5,11 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueRouter from 'vue-router'
+import VueKonva from 'vue-konva'
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
+Vue.use(VueKonva)
 
 Vue.config.productionTip = false
 import Home from "./components/Home"
@@ -15,6 +17,8 @@ import BookList from "./components/Books/BookList";
 import BookDetail from "./components/Books/BookDetail";
 import CharacterGroupingInterface from "./components/Interfaces/CharacterGroupingInterface";
 import CharacterReviewInterface from "./components/Interfaces/CharacterReviewInterface";
+import SpreadDetail from "./components/Spreads/SpreadDetail";
+import CharacterDetail from "./components/Characters/CharacterDetail"
 
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.xsrfCookieName = "xsrfcookie";
@@ -35,6 +39,12 @@ const routes = [
   { path: "/books", name: "BookListView", component: BookList },
   {
     path: "/books/:id", name: "BookDetailView", component: BookDetail, props: (route) => ({ id: Number(route.params.id) })
+  },
+  {
+    path: "/spreads/:id", name: "SpreadDetailView", component: SpreadDetail, props: (route) => ({ id: route.params.id })
+  },
+  {
+    path: "/characters/:id", name: "CharacterDetailView", component: CharacterDetail, props: (route) => ({ id: route.params.id })
   },
   {
     path: "/group_characters", name: "CharacterGroupingView", component: CharacterGroupingInterface, props: (route) => ({
