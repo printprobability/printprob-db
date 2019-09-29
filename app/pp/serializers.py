@@ -393,6 +393,7 @@ class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
             "label",
             "created_by_run",
             "page",
+            "page_side",
             "sequence",
             "image",
             "y_min",
@@ -405,6 +406,8 @@ class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class LineListSerializer(serializers.HyperlinkedModelSerializer):
+    image = ImageSerializer(many=False)
+
     class Meta:
         model = models.Line
         fields = [
@@ -413,9 +416,11 @@ class LineListSerializer(serializers.HyperlinkedModelSerializer):
             "label",
             "created_by_run",
             "page",
+            "page_side",
             "sequence",
             "y_min",
             "y_max",
+            "image",
         ]
 
 
@@ -576,22 +581,15 @@ class BookRunsSerializer(serializers.Serializer):
 
 
 class BookAllRunsSerializer(serializers.Serializer):
-    pages = PageRunDetailSerializer(many=True)
-    lines = LineRunDetailSerializer(many=True)
-    linegroups = LineGroupRunDetailSerializer(many=True)
-    characters = CharacterRunDetailSerializer(many=True)
+    pages = PageRunListSerializer(many=True)
+    lines = LineRunListSerializer(many=True)
+    linegroups = LineGroupRunListSerializer(many=True)
+    characters = CharacterRunListSerializer(many=True)
 
 
 class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
     spreads = SpreadListSerializer(many=True)
-    most_recent_runs = BookRunsSerializer()
     all_runs = BookAllRunsSerializer()
-    most_recent_pages = PageFlatSerializer(
-        many=True,
-        help_text="Ordered pages from the most recent page segmentation run",
-        read_only=True,
-    )
-    n_spreads = serializers.IntegerField()
 
     class Meta:
         model = models.Book
@@ -603,11 +601,8 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
             "publisher",
             "title",
             "pdf",
-            "n_spreads",
             "spreads",
-            "most_recent_runs",
             "all_runs",
-            "most_recent_pages",
         ]
 
 

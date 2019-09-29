@@ -427,27 +427,14 @@ class BookViewTest(TestCase):
             "publisher",
             "title",
             "pdf",
-            "n_spreads",
             "spreads",
-            "most_recent_runs",
             "all_runs",
-            "most_recent_pages",
             "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["eebo"], self.OBJ1)
         self.assertIsInstance(res.data["spreads"], list)
-        self.assertIsInstance(res.data["most_recent_runs"], dict)
         self.assertIsInstance(res.data["all_runs"], dict)
-        self.assertIsInstance(res.data["most_recent_pages"], list)
-        self.assertIsInstance(res.data["most_recent_pages"][0], dict)
-        self.assertEquals(res.data["most_recent_pages"][0]["side"], "l")
-        self.assertEquals(res.data["most_recent_pages"][1]["side"], "r")
-        self.assertLess(
-            res.data["most_recent_pages"][0]["spread_sequence"],
-            res.data["most_recent_pages"][-1]["spread_sequence"],
-        )
-        self.assertIn("jpg", res.data["most_recent_pages"][0]["image"])
         self.assertIn("date_started", res.data["all_runs"]["pages"][0])
 
     @as_auth()
@@ -672,8 +659,9 @@ class LineViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in ["url", "id", "created_by_run", "page", "sequence", "y_min", "y_max"]:
+        for k in ["url", "id", "created_by_run", "page", "page_side", "sequence", "y_min", "y_max", "image"]:
             self.assertIn(k, res.data["results"][0])
+        self.assertIn("web_url", res.data["results"][0]["image"])
 
     @as_auth()
     def test_get_detail(self):
@@ -684,6 +672,7 @@ class LineViewTest(TestCase):
             "id",
             "created_by_run",
             "page",
+            "page_side",
             "sequence",
             "image",
             "y_min",

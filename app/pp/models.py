@@ -280,6 +280,9 @@ class Line(ImagedModel):
     def line_height(self):
         return self.y_max - self.y_min
 
+    def page_side(self):
+        return self.page.side
+
 
 class LineGroup(uuidModel):
     page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="linegroups")
