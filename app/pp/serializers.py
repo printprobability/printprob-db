@@ -279,6 +279,7 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
     human_character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
+    absolute_coords = serializers.JSONField()
 
     class Meta:
         model = models.Character
@@ -298,6 +299,7 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
             "character_class",
             "class_probability",
             "human_character_class",
+            "absolute_coords",
         ]
 
 

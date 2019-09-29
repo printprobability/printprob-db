@@ -152,6 +152,7 @@ class Image(uuidModel):
 
 
 class ImagedModel(uuidModel):
+
     image = models.ForeignKey(
         Image, on_delete=models.CASCADE, related_name="%(class)ss"
     )
@@ -359,15 +360,17 @@ class Character(ImagedModel):
         return self.line.page
 
     def absolute_coords(self):
-        """
-        Return a bounding box based on the pixels in the original page image. This doesn't yet take rotation into account :( Might need to make that the responsibility of the app
-        """
-        bbox = namedtuple("BoundingBox", "xmin xmax ymin ymax")
+        bbox = {}
         xmin = self.line.page.x_min + self.x_min
         xmax = self.line.page.x_min + self.x_max
         ymin = self.line.y_min
         ymax = self.line.y_max
-        return bbox(xmin, xmax, ymin, ymax)
+        return [
+            {"x": xmin, "y": ymin},
+            {"x": xmax, "y": ymin},
+            {"x": xmax, "y": ymax},
+            {"x": xmin, "y": ymax},
+        ]
 
 
 # User-based models
