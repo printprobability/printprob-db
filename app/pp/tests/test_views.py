@@ -1024,7 +1024,7 @@ class DocTestCase(TestCase):
         self.assertEqual(res.status_code, 200)
 
 
-class CharacterGroupingClassViewTest(TestCase):
+class CharacterGroupingViewTest(TestCase):
 
     fixtures = ["test.json"]
 
