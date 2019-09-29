@@ -1,5 +1,9 @@
 <template>
-  <img :src="line.image.web_url" class="line-image my-3 mx-auto" @click="$emit('line.click', line)" />
+  <img
+    :src="line.image.web_url"
+    class="line-image my-3 mx-auto"
+    @click="$emit('line_clicked', line)"
+  />
 </template>
 
 <script>
@@ -13,8 +17,8 @@ export default {
 
 <style scoped>
 img.line-image {
-  max-width: 800px;
-  max-height: 200px;
+  max-width: 600px;
+  max-height: 75px;
   border: 2px solid black;
 }
 </style>
