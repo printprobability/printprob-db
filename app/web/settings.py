@@ -16,6 +16,7 @@ DEBUG = os.environ["DEBUG_STATUS"] == "True"
 ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"], f"{os.environ['ALLOWED_HOSTS']}:8080"]
 
 IMAGE_BASEURL = os.environ["IMAGE_BASEURL"]
+REAL_IMAGE_BASEDIR = "/vol/img"
 
 # Application definition
 

@@ -1,4 +1,9 @@
+import zipfile
+import os
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.conf import settings
+from django.utils.text import slugify
 from rest_framework import viewsets, views, generics, status, mixins
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -390,3 +395,26 @@ class CharacterGroupingViewSet(viewsets.ModelViewSet):
             return Response({"status": "characters removed"})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=["get"])
+    def download(self, request, pk=None):
+        response = HttpResponse(content_type="application/zip")
+        obj = self.get_object()
+
+        zip_file_name = f"character_group-{slugify(obj.label)}-{obj.id}.zip"
+
+        if obj.characters.count() < 1:
+            return Response(
+                [{"error": "This character group has no characters to download"}],
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        filenames = obj.characters.all().values_list("image__jpg", flat=True)
+
+        zip_file = zipfile.ZipFile(response, "w")
+        for filename in filenames:
+            fdir, fname = os.path.split(filename)
+            zip_file.write(f"{settings.REAL_IMAGE_BASEDIR}/{filename}", fname)
+        zip_file.close()
+        response["Content-Disposition"] = f"attachment; filename={zip_file_name}"
+
+        return response

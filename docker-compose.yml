@@ -23,6 +23,7 @@ services:
     volumes:
       - ./app:/vol/app:z
       - ppstatic:/vol/static_files:z
+      - ${REAL_IMAGE_DIR}:/vol/img:z
     expose:
       - 8000
     links:
