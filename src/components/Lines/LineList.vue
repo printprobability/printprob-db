@@ -51,7 +51,7 @@ export default {
   methods: {
     get_line_run: function(id, spread) {
       return HTTP.get("/lines/", {
-        params: { created_by_run: id, spread_sequence: spread - 1 }
+        params: { created_by_run: id, spread_sequence: spread }
       }).then(
         response => {
           this.lines = _.groupBy(response.data.results, "page_side");
