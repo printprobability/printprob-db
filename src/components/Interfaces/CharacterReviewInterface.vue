@@ -3,7 +3,9 @@
     <h1>Review character quality</h1>
     <b-alert
       variant="warning"
+      show
     >Do not change filter settings if you have any pending annotations. Make sure to commit the annotations to the database first.</b-alert>
+    <b-toast variant="success" id="success_toast">Characters updated</b-toast>
     <CharacterList
       freeze_message="You have unsaved changes pending. Plese commit changes to the DB or reset them before changing the character search query"
       @update="update_displayed_images"
@@ -11,18 +13,19 @@
       :good_characters="good_characters"
       :bad_characters="bad_characters"
       :page="page"
-      @page_input="change_page"
+      @page_input="page=$event"
       :character_class="character_class"
-      @character_class_input="change_character_class"
+      @character_class_input="character_class=$event"
       :book="book"
-      @book_input="change_book"
+      @book_input="book=$event"
       :char_agreement="char_agreement"
-      @char_agreement_input="change_char_agreement"
+      @char_agreement_input="char_agreement=$event"
       :order="order"
-      @order_input="change_order"
+      @order_input="order=$event"
       :character_run="character_run"
-      @character_run_input="change_character_run"
+      @character_run_input="character_run=$event"
       v-model="displayed_images"
+      :key="char_list_key"
     />
     <b-row class="d-flex align-items-center">
       <div class="col-4">
@@ -89,7 +92,8 @@ export default {
       book: null,
       order: "-class_probability",
       character_run: null,
-      char_agreement: "all"
+      char_agreement: "all",
+      char_list_key: 0
     };
   },
   computed: {
@@ -176,31 +180,14 @@ export default {
         return HTTP.post("/characters/annotate/", payload).then(
           response => {
             console.log(response);
+            this.$bvToast.show("success_toast");
+            this.char_list_key += 1;
           },
           error => {
             console.log(error);
           }
         );
       });
-      this.page += 1;
-    },
-    change_page: function(value) {
-      this.page = value;
-    },
-    change_character_class: function(value) {
-      this.character_class = value;
-    },
-    change_book: function(value) {
-      this.book = value;
-    },
-    change_order: function(value) {
-      this.order = value;
-    },
-    change_character_run: function(value) {
-      this.character_run = value;
-    },
-    change_char_agreement: function(value) {
-      this.char_agreement = value;
     }
   },
   created() {

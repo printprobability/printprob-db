@@ -9,15 +9,17 @@
         <CharacterList
           :highlighted_characters="intersecting_images"
           :page="page"
-          @page_input="change_page"
+          @page_input="page=$event"
           :character_class="character_class"
-          @character_class_input="change_character_class"
+          @character_class_input="character_class=$event"
           :book="book"
-          @book_input="change_book"
+          @book_input="book=$event"
+          :char_agreement="char_agreement"
+          @char_agreement_input="char_agreement=$event"
           :order="order"
-          @order_input="change_order"
+          @order_input="order=$event"
           :character_run="character_run"
-          @character_run_input="change_character_run"
+          @character_run_input="character_run=$event"
           v-model="displayed_images"
           @char_clicked="register_character"
         />
@@ -128,7 +130,8 @@ export default {
       book: null,
       character_class: null,
       order: "-class_probability",
-      character_run: null
+      character_run: null,
+      char_agreement: "all"
     };
   },
   computed: {
@@ -244,21 +247,6 @@ export default {
     },
     refresh_cg_menu: function() {
       this.cg_menu_key += 1;
-    },
-    change_page: function(value) {
-      this.page = value;
-    },
-    change_character_class: function(value) {
-      this.character_class = value;
-    },
-    change_book: function(value) {
-      this.book = value;
-    },
-    change_order: function(value) {
-      this.order = value;
-    },
-    change_character_run: function(value) {
-      this.character_run = value;
     }
   },
   watch: {
