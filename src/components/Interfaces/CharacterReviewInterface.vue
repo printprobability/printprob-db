@@ -7,7 +7,6 @@
     >Do not change filter settings if you have any pending annotations. Make sure to commit the annotations to the database first.</b-alert>
     <b-toast variant="success" id="success_toast">Characters updated</b-toast>
     <CharacterList
-      freeze_message="You have unsaved changes pending. Plese commit changes to the DB or reset them before changing the character search query"
       @update="update_displayed_images"
       @char_clicked="toggle_character"
       :good_characters="good_characters"

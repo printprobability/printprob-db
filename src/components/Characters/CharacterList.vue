@@ -2,7 +2,7 @@
   <div id="charlist">
     <div class="card">
       <div class="card-header">Filter Characters</div>
-      <div class="card-body" v-if="!freeze">
+      <div class="card-body">
         <div class="row">
           <div class="col-4">
             <CharacterClassSelect
@@ -33,14 +33,11 @@
           </div>
         </b-row>
       </div>
-      <div v-else class="card-body">
-        <b-alert show variant="warning">{{ freeze_message }}</b-alert>
-      </div>
     </div>
     <div class="char-images card my-2">
       <div class="card-header">
         <Spinner v-if="progress_spinner" />
-        <div class="paginator" v-if="value.length>0 && !freeze">
+        <div class="paginator" v-if="value.length>0">
           <p>Characters {{1 + (page - 1) * $APIConstants.REST_PAGE_SIZE }} to {{ (page - 1) * $APIConstants.REST_PAGE_SIZE + value.length }} out of {{ total_char_count }} characters</p>
           <b-pagination
             v-show="pagination_needed"
@@ -64,7 +61,7 @@
           @char_clicked="$emit('char_clicked', $event)"
         />
       </div>
-      <div class="card-footer" v-show="pagination_needed && !freeze">
+      <div class="card-footer" v-show="pagination_needed">
         <b-pagination
           :value="page"
           @input="$emit('page_input', $event)"
@@ -90,14 +87,6 @@ import { HTTP } from "../../main";
 export default {
   name: "CharacterList",
   props: {
-    freeze: {
-      type: Boolean,
-      default: false
-    },
-    freeze_message: {
-      type: String,
-      default: ""
-    },
     highlighted_characters: {
       type: Array,
       default: function() {
