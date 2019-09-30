@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from django.db import transaction
-from django.db.models import Count
+from django.db.models import Count, F
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from django_filters import rest_framework as filters
@@ -299,9 +299,29 @@ class CharacterFilter(filters.FilterSet):
     human_character_class = filters.ModelChoiceFilter(
         queryset=models.CharacterClass.objects.all()
     )
-    bad = filters.BooleanFilter(field_name="bad", label="Bad characters?")
-
+    agreement = filters.ChoiceFilter(
+        choices=(
+            ("all", "all"),
+            ("unknown", "unknown"),
+            ("agreement", "agreement"),
+            ("disagreement", "disagreement"),
+        ),
+        method="class_agreement",
+        label="Machine/human class agreement",
+    )
     order = filters.OrderingFilter(fields=(("class_probability", "class_probability"),))
+
+    def class_agreement(self, queryset, name, value):
+        if value == "unknown":
+            return queryset.filter(human_character_class__isnull=True)
+        elif value == "agreement":
+            return queryset.filter(character_class__exact=F("human_character_class"))
+        elif value == "disagreement":
+            return queryset.exclude(character_class=F("human_character_class")).exclude(
+                human_character_class__isnull=True
+            )
+        else:
+            return queryset
 
 
 class CharacterViewSet(CRUDViewSet):
