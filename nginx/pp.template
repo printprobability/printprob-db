@@ -1,15 +1,13 @@
 server {
-    listen 4000;
-    server_name ${ALLOWED_HOSTS};
-    access_log  /var/log/nginx/web.log;
-
-    listen 443 ssl;
-    server_name ${ALLOWED_HOSTS};
+    ${PP_NGINX_LISTEN}
+    ${PP_NGINX_SERVER_NAME}
     ssl_certificate ${CERT_PATH};
     ssl_certificate_key ${KEY_PATH};
     keepalive_timeout 70;
     ssl_session_cache shared:SSL:10m;
     ssl_session_timeout 10m;
+
+    access_log  /var/log/nginx/web.log;
 
     location /static/ {
         alias /vol/static_files/;
