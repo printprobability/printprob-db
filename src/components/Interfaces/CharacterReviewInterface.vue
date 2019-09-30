@@ -37,10 +37,9 @@
               label="Replacement class"
               description="New class to replace the machine assignment"
             />
-            <b-button block @click="nullify" variant="secondary">Null all</b-button>
+            <b-button block :title="null_title" @click="nullify" variant="secondary">Null all</b-button>
             <b-button
               block
-              v-b-tooltip.hover
               :title="accept_title"
               @click="mark_all_correct"
               variant="success"
@@ -48,13 +47,13 @@
             <b-button
               block
               :disabled="!new_class"
-              v-b-tooltip.hover
               :title="replace_title"
               @click="mark_all_replace"
               variant="warning"
             >Replace all</b-button>
             <b-button
               block
+              :title="commit_title"
               :disabled="disable_commit"
               @click="commit_marks"
               variant="primary"
@@ -110,17 +109,19 @@ export default {
           x.character_class != x.human_character_class
       ).map(x => x.id);
     },
+    null_title() {
+      return "Will mark all characters as having no human-assigned character class";
+    },
     accept_title() {
-      return (
-        "Will confirm all characters as having the class " +
-        this.character_class +
-        " (the machine-assigned class)"
-      );
+      return "Will confirm all characters as having the class assigned to them on Bridges.";
     },
     replace_title() {
       return (
         "Will mark all characters as having the new class " + this.new_class
       );
+    },
+    commit_title() {
+      return "Will commit the current changes to the database.";
     }
   },
   methods: {
