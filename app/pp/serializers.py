@@ -18,6 +18,13 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["url", "id", "label", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]
 
 
+class BookTitleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Book
+        fields = ["eebo", "title", "publisher"]
+        page_size = 100000
+
+
 class BookFlatSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Book

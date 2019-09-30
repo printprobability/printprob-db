@@ -454,6 +454,14 @@ class BookViewTest(TestCase):
         for k in ["url", "eebo", "vid", "publisher", "title", "pdf"]:
             self.assertIn(k, res.data)
 
+    @as_auth()
+    def test_titles_only(self):
+        res=self.client.get(f"{self.ENDPOINT}titles_only/")
+        self.assertEqual(res.status_code, 200)
+        self.assertNotIn("next", res.data)
+        for k in ["eebo", "title", "publisher"]:
+            self.assertIn(k, res.data[0])
+
     def test_noaccess(self):
         noaccess(self)
 

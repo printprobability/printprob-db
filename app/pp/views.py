@@ -60,6 +60,12 @@ class BookViewSet(CRUDViewSet):
             return serializers.BookListSerializer
         return serializers.BookCreateSerializer
 
+    @action(detail=False, methods=["get"])
+    def titles_only(self, request):
+        all_books = models.Book.objects.all()
+        serializer = serializers.BookTitleSerializer(all_books, many=True)
+        return Response(serializer.data)
+
 
 class SpreadFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
