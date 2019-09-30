@@ -24,15 +24,17 @@ axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.xsrfCookieName = "xsrfcookie";
 axios.defaults.withCredentials = true;
 
+Vue.prototype.$APIConstants = {
+  REST_PAGE_SIZE: 100,
+  API_LOGIN: "/api/auth/login/?next=/",
+  API_LOGOUT: "/api/auth/logout/?next=/",
+  PP_ENDPOINT: process.env.VUE_APP_PP_ENDPOINT
+}
+
 export const HTTP = axios.create({
   baseURL: process.env.VUE_APP_PP_ENDPOINT
 })
 
-Vue.prototype.$APIConstants = {
-  REST_PAGE_SIZE: 100,
-  API_LOGIN: "/api/auth/login/?next=/",
-  API_LOGOUT: "/api/auth/logout/?next=/"
-}
 
 const routes = [
   { path: "/", name: "HomeView", component: Home },

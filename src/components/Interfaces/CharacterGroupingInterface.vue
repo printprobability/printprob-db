@@ -73,7 +73,7 @@
             <b-button
               variant="info"
               size="sm"
-              :href="'http://localhost/api/character_groupings/' + cg_id + '/download/'"
+              :href="$APIConstants.PP_ENDPOINT + '/character_groupings/' + cg_id + '/download/'"
             >Download ZIP</b-button>
             <b-button v-b-modal.delete-modal variant="danger" size="sm">Delete</b-button>
             <b-modal
