@@ -16,6 +16,8 @@
       @character_class_input="change_character_class"
       :book="book"
       @book_input="change_book"
+      :char_agreement="char_agreement"
+      @char_agreement_input="change_char_agreement"
       :order="order"
       @order_input="change_order"
       :character_run="character_run"
@@ -86,7 +88,8 @@ export default {
       character_class: null,
       book: null,
       order: "-class_probability",
-      character_run: null
+      character_run: null,
+      char_agreement: "all"
     };
   },
   computed: {
@@ -195,6 +198,9 @@ export default {
     },
     change_character_run: function(value) {
       this.character_run = value;
+    },
+    change_char_agreement: function(value) {
+      this.char_agreement = value;
     }
   },
   created() {

@@ -23,9 +23,9 @@
         </div>
         <b-row>
           <div class="col-4">
-            <BadCharacterRadio
-              :value="bad_character"
-              @input="$emit('bad_character_input', $event)"
+            <CharacterAgreementRadio
+              :value="char_agreement"
+              @input="$emit('char_agreement_input', $event)"
             />
           </div>
           <div class="col-4">
@@ -81,7 +81,7 @@
 import CharacterClassSelect from "../Menus/CharacterClassSelect";
 import CharacterOrderingSelect from "../Menus/CharacterOrderingSelect";
 import BookSelect from "../Menus/BookSelect";
-import BadCharacterRadio from "../Menus/BadCharacterRadio";
+import CharacterAgreementRadio from "../Menus/CharacterAgreementRadio";
 import CharacterRunSelect from "../Menus/CharacterRunSelect";
 import CharacterImage from "./CharacterImage";
 import Spinner from "../Interfaces/Spinner";
@@ -132,6 +132,10 @@ export default {
       default: "-class_probability",
       type: String
     },
+    char_agreement: {
+      default: "all",
+      type: String
+    },
     character_run: {
       default: null,
       type: String
@@ -147,14 +151,13 @@ export default {
     CharacterOrderingSelect,
     CharacterRunSelect,
     BookSelect,
-    BadCharacterRadio,
+    CharacterAgreementRadio,
     CharacterImage,
     Spinner
   },
   data() {
     return {
       total_char_count: 0,
-      bad_character: null,
       progress_spinner: false
     };
   },
@@ -174,7 +177,7 @@ export default {
           character_class: this.character_class,
           book: this.book,
           created_by_run: this.character_run,
-          bad: this.bad_character,
+          agreement: this.char_agreement,
           order: this.order,
           offset: this.rest_offset
         }
@@ -199,6 +202,9 @@ export default {
       this.get_characters();
     },
     character_run() {
+      this.get_characters();
+    },
+    char_agreement() {
       this.get_characters();
     },
     order() {
