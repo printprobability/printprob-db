@@ -1,68 +1,66 @@
 <template>
   <div class="container-fluid">
     <h1>Review character quality</h1>
-    <b-alert
-      variant="warning"
-      show
-    >Do not change filter settings if you have any pending annotations. Make sure to commit the annotations to the database first.</b-alert>
     <b-toast variant="success" id="success_toast">Characters updated</b-toast>
-    <CharacterList
-      @update="update_displayed_images"
-      @char_clicked="toggle_character"
-      :good_characters="good_characters"
-      :bad_characters="bad_characters"
-      :page="page"
-      @page_input="page=$event"
-      :character_class="character_class"
-      @character_class_input="character_class=$event"
-      :book="book"
-      @book_input="book=$event"
-      :char_agreement="char_agreement"
-      @char_agreement_input="char_agreement=$event"
-      :order="order"
-      @order_input="order=$event"
-      :character_run="character_run"
-      @character_run_input="character_run=$event"
-      v-model="displayed_images"
-      :key="char_list_key"
-    />
-    <b-row class="d-flex align-items-center">
-      <div class="col-4">
-        <CharacterClassSelect
-          v-model="new_class"
-          label="Replacement class"
-          description="New class to replace the machine assignment"
+    <b-row>
+      <div class="col-7">
+        <b-alert
+          variant="warning"
+          show
+        >Do not change filter settings if you have any pending annotations. Make sure to commit the annotations to the database first.</b-alert>
+        <CharacterList
+          @update="update_displayed_images"
+          @char_clicked="toggle_character"
+          :good_characters="good_characters"
+          :bad_characters="bad_characters"
+          :page="page"
+          @page_input="page=$event"
+          :character_class="character_class"
+          @character_class_input="character_class=$event"
+          :book="book"
+          @book_input="book=$event"
+          :char_agreement="char_agreement"
+          @char_agreement_input="char_agreement=$event"
+          :order="order"
+          @order_input="order=$event"
+          :character_run="character_run"
+          @character_run_input="character_run=$event"
+          v-model="displayed_images"
+          :key="char_list_key"
         />
       </div>
-      <div class="col-2">
-        <b-button block @click="nullify" variant="secondary">Null all</b-button>
-      </div>
-      <div class="col-2">
-        <b-button
-          block
-          v-b-tooltip.hover
-          :title="accept_title"
-          @click="mark_all_correct"
-          variant="success"
-        >Accept all</b-button>
-      </div>
-      <div class="col-2">
-        <b-button
-          block
-          :disabled="!new_class"
-          v-b-tooltip.hover
-          :title="replace_title"
-          @click="mark_all_replace"
-          variant="warning"
-        >Replace all</b-button>
-      </div>
-      <div class="col-2">
-        <b-button
-          block
-          :disabled="disable_commit"
-          @click="commit_marks"
-          variant="primary"
-        >Commit to DB</b-button>
+      <div class="col-5">
+        <div class="card sticky-top">
+          <div class="card-body">
+            <CharacterClassSelect
+              v-model="new_class"
+              label="Replacement class"
+              description="New class to replace the machine assignment"
+            />
+            <b-button block @click="nullify" variant="secondary">Null all</b-button>
+            <b-button
+              block
+              v-b-tooltip.hover
+              :title="accept_title"
+              @click="mark_all_correct"
+              variant="success"
+            >Accept all</b-button>
+            <b-button
+              block
+              :disabled="!new_class"
+              v-b-tooltip.hover
+              :title="replace_title"
+              @click="mark_all_replace"
+              variant="warning"
+            >Replace all</b-button>
+            <b-button
+              block
+              :disabled="disable_commit"
+              @click="commit_marks"
+              variant="primary"
+            >Commit to DB</b-button>
+          </div>
+        </div>
       </div>
     </b-row>
   </div>
