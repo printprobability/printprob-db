@@ -1,26 +1,37 @@
 <template>
   <div v-if="book" class="container-fluid">
     <div class="row">
-      <div class="col-4">
+      <div class="col-6">
         <div class="card my-2">
           <div class="card-header">EEBO Metadata</div>
           <div class="card-body">
-            <router-link :to="{name: 'BookDetailView', params: {id: book.eebo}}">
-              <h4>{{ book.title }}</h4>
-            </router-link>
-            <p>Published by: {{ book.publisher }}</p>
+            <h5>{{ book.title }}</h5>
+            <p>Publisher: {{ book.publisher }}</p>
             <p>EEBO id: {{ book.eebo }}</p>
-            <p @click="detail_show='spreads'">{{ book.n_spreads }} Spreads</p>
+            <p>
+              Proquest link:
+              <a :href="book.pdf">{{ book.pdf }}</a>
+            </p>
           </div>
         </div>
       </div>
-      <div class="col-8">
+      <div class="col-6">
         <div class="card my-2">
-          <div class="card-header">Bridges Jobs</div>
+          <div class="card-header">Components</div>
           <b-list-group flush>
+            <b-list-group-item>
+              <h5>spreads</h5>
+              <p
+                v-if="book.spreads.length>0"
+                @click="detail_show='spreads'"
+                class="clickable"
+              >{{ book.spreads.length }} spreads</p>
+              <p v-else>No spreads have been loaded for this book yet.</p>
+            </b-list-group-item>
             <b-list-group-item v-for="(runs, runtype) in book.all_runs" :key="runtype">
               <h5>{{ runtype }}</h5>
               <b-table
+                class="clickable"
                 v-if="runs.length > 0"
                 :items="run_table_formatter(runs, runtype)"
                 :fields="display_fields"
@@ -67,7 +78,7 @@ export default {
     return {
       book: null,
       display_fields: ["count", "date_started"],
-      detail_show: "spreads",
+      detail_show: null,
       selected_run: null,
       selected_run_id: null
     };
@@ -125,3 +136,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.clickable {
+  cursor: pointer;
+}
+</style>
