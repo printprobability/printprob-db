@@ -21,14 +21,17 @@ export default {
   },
   data() {
     return {
-      nchars: null
+      nchars: null,
+      nbooks: null
     };
   },
   computed: {
     display_count: function() {
-      if (!!this.nchars) {
+      if (!!this.nchars && !!this.nbooks) {
         return (
           "Indexing " +
+          this.nbooks.toLocaleString() +
+          " books with " +
           this.nchars.toLocaleString() +
           " characters and counting..."
         );
@@ -51,10 +54,25 @@ export default {
           console.log(error);
         }
       );
+    },
+    get_nbooks: function() {
+      return HTTP.get("/books/", {
+        params: {
+          limit: 1
+        }
+      }).then(
+        response => {
+          this.nbooks = response.data.count;
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   },
   mounted: function() {
     this.get_nchars();
+    this.get_nbooks();
   }
 };
 </script>
