@@ -13,6 +13,9 @@
             >
               <b-form-input id="publisher-input" v-model="publisher_search" placeholder="overton" />
             </b-form-group>
+            <b-form-group id="book-image-group" label="Only show books with images">
+              <b-form-checkbox id="book-image-input" v-model="has_image" />
+            </b-form-group>
           </div>
           <div class="col-6">
             <b-form-group
@@ -42,7 +45,8 @@ export default {
   data() {
     return {
       publisher_search: "",
-      title_search: ""
+      title_search: "",
+      has_image: false
     };
   }
 };

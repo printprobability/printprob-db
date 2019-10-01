@@ -11,22 +11,36 @@
         aria-controls="book-results"
       />
     </div>
-    <div class="d-flex flex-wrap" id="book-results">
-      <SpreadImage
-        class="mr-2"
-        v-for="book in books"
-        :key="book.eebo"
-        :spread="book.cover_spread"
-        :header="book.publisher + ': ' + book.title"
-        :footer="'EEBO: ' + book.eebo"
-        :link="{name: 'BookDetailView', params: {id: book.eebo}}"
-      />
-    </div>
+    <b-list-group class="container">
+      <b-list-group-item v-for="book in books" :key="book.eebo">
+        <b-media>
+          <template v-slot:aside>
+            <div class="cover-image-frame">
+              <img
+                v-if="!!book.cover_spread"
+                class="cover-image"
+                :src="book.cover_spread.image.web_url"
+              />
+              <small v-else>No images for this book yet</small>
+            </div>
+          </template>
+          <div class="d-flex justify-content-between">
+            <router-link :to="{name: 'BookDetailView', params: {id: book.eebo}}">
+              <h5>{{ truncate(book.title, 80) }}</h5>
+            </router-link>
+            <code>{{ book.eebo }}</code>
+          </div>
+          <p>{{ book.publisher }}</p>
+          <small>
+            <a :href="book.pdf">{{ book.pdf }}</a>
+          </small>
+        </b-media>
+      </b-list-group-item>
+    </b-list-group>
   </div>
 </template>
 
 <script>
-import SpreadImage from "../Spreads/SpreadImage";
 import Spinner from "../Interfaces/Spinner";
 import { HTTP } from "../../main";
 import _ from "lodash";
@@ -38,7 +52,6 @@ export default {
     title: String
   },
   components: {
-    SpreadImage,
     Spinner
   },
   data() {
@@ -78,7 +91,10 @@ export default {
     },
     debounced_get_books: _.debounce(function() {
       this.get_books();
-    }, 750)
+    }, 750),
+    truncate: function(input, length) {
+      return input.length > length ? `${input.substring(0, length)}...` : input;
+    }
   },
   watch: {
     publisher: function() {
@@ -100,5 +116,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.cover-image-frame {
+  height: 160px;
+  width: 160px;
+}
+img.cover-image {
+  display: block;
+  max-width: 150px;
+  max-height: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
