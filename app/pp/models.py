@@ -59,16 +59,16 @@ class Book(models.Model):
     eebo = models.PositiveIntegerField(primary_key=True, help_text="EEBO ID number")
     vid = models.PositiveIntegerField(unique=True, help_text="Alternate ID number")
     title = models.CharField(
-        max_length=1000, db_index=True, help_text="Title (as cataloged by EEBO)"
+        max_length=2000, db_index=True, help_text="Title (as cataloged by EEBO)"
     )
     publisher = models.CharField(
         blank=True,
         null=False,
-        max_length=500,
+        max_length=2000,
         help_text="Publisher (as cataloged by EEBO)",
     )
     pdf = models.CharField(
-        max_length=2000,
+        max_length=1500,
         help_text="relative file path to root directory containing pdfs",
         unique=True,
     )
