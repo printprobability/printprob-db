@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <router-link v-if="page.book" :to="{name: 'BookDetailView', params: {id: page.book.eebo}}">
-      <h2>{{ $route.params.id }} - {{ page.book.title }} - page {{ page.spread_sequence }} {{ page.side }}</h2>
+    <router-link v-if="page.book" :to="{name: 'BookDetailView', params: {id: page.book.id}}">
+      <h2>{{ $route.params.id }} - {{ page.book.pq_publisher }} - page {{ page.spread_sequence }} {{ page.side }}</h2>
     </router-link>
     <div class="button-pagination d-flex justify-content-between">
       <button

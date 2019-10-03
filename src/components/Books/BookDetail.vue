@@ -5,13 +5,21 @@
         <div class="card my-2">
           <div class="card-header">EEBO Metadata</div>
           <div class="card-body">
-            <h5>{{ book.title }}</h5>
-            <p>Publisher: {{ book.publisher }}</p>
+            <h5>{{ book.pq_title }}</h5>
+            <p>Publisher: {{ book.pq_publisher }}</p>
             <p>EEBO id: {{ book.eebo }}</p>
             <p>
               Proquest link:
-              <a :href="book.pdf">{{ book.pdf }}</a>
+              <a :href="book.pq_url">{{ book.pq_url }}</a>
             </p>
+          </div>
+        </div>
+        <div class="card my-2">
+          <div class="card-header">P&P Metadata</div>
+          <div class="card-body">
+            <p>Publisher: {{ book.publisher }}</p>
+            <p>Date early: {{ book.date_early }}</p>
+            <p>Date late: {{ book.date_late }}</p>
           </div>
         </div>
       </div>
@@ -113,7 +121,7 @@ export default {
       if (run_type == "characters") {
         this.$router.push({
           name: "CharacterReviewView",
-          query: { book: Number(this.id), character_run: run_id }
+          query: { book: this.id, character_run: run_id }
         });
       } else if (run_type == "lines") {
         this.detail_show = run_type;

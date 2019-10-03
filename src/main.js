@@ -40,7 +40,7 @@ const routes = [
   { path: "/", name: "HomeView", component: Home },
   { path: "/books", name: "BookListView", component: BookList },
   {
-    path: "/books/:id", name: "BookDetailView", component: BookDetail, props: (route) => ({ id: Number(route.params.id) })
+    path: "/books/:id", name: "BookDetailView", component: BookDetail, props: (route) => ({ id: route.params.id })
   },
   {
     path: "/spreads/:id", name: "SpreadDetailView", component: SpreadDetail, props: (route) => ({ id: route.params.id })
@@ -52,7 +52,7 @@ const routes = [
     path: "/group_characters", name: "CharacterGroupingView", component: CharacterGroupingInterface, props: (route) => ({
       page: (!!route.query.page) ? Number(route.query.page) : 1,
       character_class: route.query.character_class,
-      book: (!!route.query.book) ? Number(route.query.book) : null,
+      book: (!!route.query.book) ? route.query.book : null,
       order: route.query.order,
       character_run: route.query.character_run
     })
@@ -61,7 +61,7 @@ const routes = [
     path: "/character_review", name: "CharacterReviewView", component: CharacterReviewInterface, props: (route) => ({
       page: (!!route.query.page) ? Number(route.query.page) : 1,
       character_class: route.query.character_class,
-      book: (!!route.query.book) ? Number(route.query.book) : null,
+      book: (!!route.query.book) ? route.query.book : null,
       order: route.query.order,
       character_run: route.query.character_run
     })

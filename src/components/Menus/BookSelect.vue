@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     get_books: function() {
-      return HTTP.get("/books/").then(
+      return HTTP.get("/books/", { params: { images: true } }).then(
         response => {
           var book_options = _.concat(
             {
@@ -37,7 +37,7 @@ export default {
               value: null
             },
             response.data.results.map(x => {
-              return { text: x.publisher + " - " + x.title, value: x.eebo };
+              return { text: x.pq_title, value: x.id };
             })
           );
           this.books = book_options;

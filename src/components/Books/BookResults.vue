@@ -12,7 +12,7 @@
       />
     </div>
     <b-list-group class="container">
-      <b-list-group-item v-for="book in books" :key="book.eebo">
+      <b-list-group-item v-for="book in books" :key="book.id">
         <b-media>
           <template v-slot:aside>
             <div class="cover-image-frame">
@@ -21,18 +21,20 @@
                 class="cover-image"
                 :src="book.cover_spread.image.web_url"
               />
-              <small v-else>No images for this book yet</small>
+              <small v-else>Not run yet</small>
             </div>
           </template>
           <div class="d-flex justify-content-between">
-            <router-link :to="{name: 'BookDetailView', params: {id: book.eebo}}">
-              <h5>{{ truncate(book.title, 80) }}</h5>
+            <router-link :to="{name: 'BookDetailView', params: {id: book.id}}">
+              <h5>{{ truncate(book.pq_title, 80) }}</h5>
             </router-link>
-            <code>{{ book.eebo }}</code>
+            <small>
+              <pre>{{ book.id }}</pre>
+            </small>
           </div>
-          <p>{{ book.publisher }}</p>
+          <p>{{ book.pq_publisher }}</p>
           <small>
-            <a :href="book.pdf">{{ book.pdf }}</a>
+            <a :href="book.pq_url">{{ book.pq_url }}</a>
           </small>
         </b-media>
       </b-list-group-item>
@@ -49,7 +51,8 @@ export default {
   name: "BookResults",
   props: {
     publisher: String,
-    title: String
+    title: String,
+    has_images: Boolean
   },
   components: {
     Spinner
@@ -75,8 +78,9 @@ export default {
       return HTTP.get("/books/", {
         params: {
           offset: this.rest_offset,
-          publisher: this.publisher,
-          title: this.title
+          pq_publisher: this.publisher,
+          pq_title: this.title,
+          images: this.has_images
         }
       }).then(
         response => {
@@ -104,6 +108,10 @@ export default {
     title: function() {
       this.progress_spinner = true;
       this.debounced_get_books();
+    },
+    has_images: function() {
+      this.progress_spinner = true;
+      this.get_books();
     },
     rest_offset: function() {
       this.progress_spinner = true;
