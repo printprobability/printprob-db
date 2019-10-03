@@ -12,3 +12,4 @@ htmlcov/
 images/
 nginx/
 *.sql
+*.json

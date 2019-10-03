@@ -43,3 +43,7 @@ coverage:
 	-docker-compose exec web coverage run manage.py test
 	docker-compose exec web coverage html
 	open app/htmlcov/index.html
+dumpusers:
+	docker-compose exec web python manage.py dumpdata --indent 2 auth authtoken -e auth.permission -o users.json
+restoreusers:
+	docker-compose exec web python manage.py loaddata users.json
