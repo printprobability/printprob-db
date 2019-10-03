@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from django.db import transaction
-from django.db.models import Count, F
+from django.db.models import Count, F, Exists, OuterRef
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from django_filters import rest_framework as filters
@@ -23,20 +23,44 @@ class CRUDViewSet(viewsets.ModelViewSet):
 class BookFilter(filters.FilterSet):
     eebo = filters.NumberFilter(help_text="Numeric EEBO ID")
     vid = filters.NumberFilter(help_text="Numeric VID")
-    title = filters.CharFilter(
+    pq_title = filters.CharFilter(
         help_text="books with titles containing this string (case insensitive)",
         lookup_expr="icontains",
     )
-    publisher = filters.CharFilter(
+    pq_publisher = filters.CharFilter(
         help_text="books with publisher labels containing this string (case insensitive)",
         lookup_expr="icontains",
     )
-    pdf = filters.CharFilter(help_text="book with this PDF filepath")
+    images = filters.BooleanFilter(
+        method="has_images",
+        label="Has images?",
+        help_text="Has been processed with full images on Bridges?",
+    )
+    order = filters.OrderingFilter(
+        fields=(
+            ("pq_title", "Title"),
+            ("pq_author", "Author"),
+            ("date_early", "Published after"),
+        )
+    )
+
+    def has_images(self, queryset, name, value):
+        char_ref = models.Character.objects.filter(
+            line__page__spread__book=OuterRef("pk")
+        )
+
+        if value:
+            return (
+                queryset.annotate(has_chars=Exists(char_ref))
+                .filter(has_chars=True)
+                .all()
+            )
+        return queryset
 
 
 class BookViewSet(CRUDViewSet):
     """
-    list: Lists all books. Along with [`CharacterClass`](#character-class-create), `Book` instances use a human-readable ID (here, the EEBO id) rather than a UUID.
+    list: Lists all books.
     """
 
     queryset = (
@@ -59,12 +83,6 @@ class BookViewSet(CRUDViewSet):
         elif self.action == "list":
             return serializers.BookListSerializer
         return serializers.BookCreateSerializer
-
-    @action(detail=False, methods=["get"])
-    def titles_only(self, request):
-        all_books = models.Book.objects.all()
-        serializer = serializers.BookTitleSerializer(all_books, many=True)
-        return Response(serializer.data)
 
 
 class SpreadFilter(filters.FilterSet):

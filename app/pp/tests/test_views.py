@@ -394,7 +394,7 @@ class BookViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.OBJCOUNT = models.Book.objects.count()
-        cls.OBJ1 = models.Book.objects.first().eebo
+        cls.OBJ1 = models.Book.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
 
     @as_auth()
@@ -404,10 +404,16 @@ class BookViewTest(TestCase):
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         for k in [
             "url",
+            "id",
             "eebo",
             "vid",
             "publisher",
-            "title",
+            "pq_publisher",
+            "pq_title",
+            "pq_author",
+            "pq_url",
+            "date_early",
+            "date_late",
             "pdf",
             "n_spreads",
             "cover_spread",
@@ -422,17 +428,23 @@ class BookViewTest(TestCase):
         self.assertEqual(res.status_code, 200)
         for k in [
             "url",
+            "id",
             "eebo",
             "vid",
             "publisher",
-            "title",
+            "pq_publisher",
+            "pq_title",
+            "pq_author",
+            "pq_url",
+            "date_early",
+            "date_late",
             "pdf",
             "spreads",
             "all_runs",
             "label",
         ]:
             self.assertIn(k, res.data)
-        self.assertEqual(res.data["eebo"], self.OBJ1)
+        self.assertEqual(res.data["id"], self.STR1)
         self.assertIsInstance(res.data["spreads"], list)
         self.assertIsInstance(res.data["all_runs"], dict)
         self.assertIn("date_started", res.data["all_runs"]["pages"][0])
@@ -448,19 +460,12 @@ class BookViewTest(TestCase):
     def test_post(self):
         res = self.client.post(
             self.ENDPOINT,
-            data={"eebo": 101, "vid": 202, "title": "foobar", "pdf": "foobar"},
+            data={"eebo": 101, "vid": 202, "pq_title": "foobar", "pdf": "foobar"},
         )
         self.assertEqual(res.status_code, 201)
-        for k in ["url", "eebo", "vid", "publisher", "title", "pdf"]:
+        for k in ["url", "eebo", "vid", "pq_title", "pdf"]:
             self.assertIn(k, res.data)
 
-    @as_auth()
-    def test_titles_only(self):
-        res=self.client.get(f"{self.ENDPOINT}titles_only/")
-        self.assertEqual(res.status_code, 200)
-        self.assertNotIn("next", res.data)
-        for k in ["eebo", "title", "publisher"]:
-            self.assertIn(k, res.data[0])
 
     def test_noaccess(self):
         noaccess(self)

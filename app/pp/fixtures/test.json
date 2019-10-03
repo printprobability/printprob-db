@@ -4,7 +4,7 @@
   "pk": "3deb2d61-0997-4a0c-861a-e7df8b27e49e",
   "fields": {
     "label": "",
-    "book": 5678,
+    "book": "632ac978-1097-4492-8006-44d8ab3ba5ac",
     "script_path": "/window/key/throughout/consumer.py",
     "script_md5": "24e67c24-2e52-4dd5-9827-a765ae2e89ef",
     "date_started": "2019-07-19T12:56:12.703Z",
@@ -16,7 +16,7 @@
   "pk": "41ddeb86-e83d-4768-96dd-f2ecfc2f80c5",
   "fields": {
     "label": "",
-    "book": 1234,
+    "book": "7f011d30-a07e-48a2-bf86-5d90d5eeef50",
     "script_path": "/perhaps/election/offer/authority.py",
     "script_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
     "date_started": "2019-07-19T12:56:12.619Z",
@@ -28,7 +28,7 @@
   "pk": "1fad0375-7b4f-4cb8-ba36-ea6db62a8991",
   "fields": {
     "label": "",
-    "book": 5678,
+    "book": "632ac978-1097-4492-8006-44d8ab3ba5ac",
     "script_path": "/way/nation/avoid/create.py",
     "script_md5": "7a1c0cb0-ebb7-46c3-a87e-21d00fbe62fb",
     "date_started": "2019-07-19T12:56:12.996Z",
@@ -40,7 +40,7 @@
   "pk": "744a4c52-2335-4711-8d78-306d3d629d84",
   "fields": {
     "label": "",
-    "book": 1234,
+    "book": "7f011d30-a07e-48a2-bf86-5d90d5eeef50",
     "script_path": "/reduce/majority/now/quality.py",
     "script_md5": "a3bf1dc4-35f9-4b73-8b67-474e8051a0cb",
     "date_started": "2019-07-19T12:56:12.794Z",
@@ -52,7 +52,7 @@
   "pk": "388054c9-154e-464c-bcc7-ccdeb8aeb026",
   "fields": {
     "label": "",
-    "book": 5678,
+    "book": "632ac978-1097-4492-8006-44d8ab3ba5ac",
     "script_path": "/read/agency/explain/single.py",
     "script_md5": "24de1e9c-cb62-413d-b03b-72051fb43b99",
     "date_started": "2019-07-19T12:56:13.534Z",
@@ -64,7 +64,7 @@
   "pk": "db27c40d-2e1a-48ff-a157-d3adfb5640d0",
   "fields": {
     "label": "",
-    "book": 1234,
+    "book": "7f011d30-a07e-48a2-bf86-5d90d5eeef50",
     "script_path": "/education/subject/knowledge/quickly.py",
     "script_md5": "18b101d4-6bf9-4c06-9438-8dbe33a55058",
     "date_started": "2019-07-19T12:56:13.308Z",
@@ -76,7 +76,7 @@
   "pk": "1fb3823b-0dda-413b-b1ea-c8eb9b4950c8",
   "fields": {
     "label": "",
-    "book": 5678,
+    "book": "632ac978-1097-4492-8006-44d8ab3ba5ac",
     "script_path": "/capital/science/painting/girl.py",
     "script_md5": "3495d90a-5f2c-4a04-80e1-417739888965",
     "date_started": "2019-07-19T12:56:14.380Z",
@@ -88,7 +88,7 @@
   "pk": "36baaed7-d29b-4271-a4bc-d12e26d0289c",
   "fields": {
     "label": "",
-    "book": 1234,
+    "book": "7f011d30-a07e-48a2-bf86-5d90d5eeef50",
     "script_path": "/wrong/within/produce/west.py",
     "script_md5": "ed57cd0a-849a-4a06-8581-0c753f9ec248",
     "date_started": "2019-07-19T12:56:13.768Z",
@@ -100,7 +100,7 @@
   "pk": "b878db65-e8ad-4a85-89c4-883a9904b85e",
   "fields": {
     "label": "",
-    "book": 1234,
+    "book": "7f011d30-a07e-48a2-bf86-5d90d5eeef50",
     "script_path": "/ask/common/white/also.py",
     "script_md5": "7cf3b80c-77e9-4ace-b455-57670e273981",
     "date_started": "2019-07-19T12:56:15.015Z",
@@ -109,22 +109,36 @@
 },
 {
   "model": "pp.book",
-  "pk": 1234,
+  "pk": "632ac978-1097-4492-8006-44d8ab3ba5ac",
   "fields": {
-    "vid": 231,
-    "title": "Space bad analysis blue.",
+    "label": "Economy dog thus us national term.",
+    "eebo": 5678,
+    "vid": 987,
+    "pq_title": "Economy dog thus us national term.",
+    "pq_publisher": "",
+    "pq_author": "susan",
+    "pq_url": "www.example.com",
     "publisher": "",
-    "pdf": "/can/run/identify/different.pdf"
+    "pdf": "/food/central/other/son.pdf",
+    "date_early": "1618-07-19",
+    "date_late": "1630-07-01"
   }
 },
 {
   "model": "pp.book",
-  "pk": 5678,
+  "pk": "7f011d30-a07e-48a2-bf86-5d90d5eeef50",
   "fields": {
-    "vid": 987,
-    "title": "Economy dog thus us national term.",
+    "label": "Space bad analysis blue.",
+    "eebo": 1234,
+    "vid": 231,
+    "pq_title": "Space bad analysis blue.",
+    "pq_publisher": "",
+    "pq_author": "paul",
+    "pq_url": "www.example.com",
     "publisher": "",
-    "pdf": "/food/central/other/son.pdf"
+    "pdf": "/can/run/identify/different.pdf",
+    "date_early": "1618-07-19",
+    "date_late": "1630-07-01"
   }
 },
 {
@@ -1332,7 +1346,7 @@
   "fields": {
     "label": "",
     "image": "add0efe5-f91a-4773-9a98-ed60ad6153e4",
-    "book": 1234,
+    "book": "7f011d30-a07e-48a2-bf86-5d90d5eeef50",
     "sequence": 1
   }
 },
@@ -1342,7 +1356,7 @@
   "fields": {
     "label": "",
     "image": "8a59f2a2-d9bc-4a07-9270-a94414f62fdb",
-    "book": 5678,
+    "book": "632ac978-1097-4492-8006-44d8ab3ba5ac",
     "sequence": 1
   }
 },
@@ -1352,7 +1366,7 @@
   "fields": {
     "label": "",
     "image": "afba790b-f4ed-41a6-b3dd-1e514851f489",
-    "book": 5678,
+    "book": "632ac978-1097-4492-8006-44d8ab3ba5ac",
     "sequence": 0
   }
 },
@@ -1362,7 +1376,7 @@
   "fields": {
     "label": "",
     "image": "c688b650-96a2-4234-9784-d0b2e089bc52",
-    "book": 1234,
+    "book": "7f011d30-a07e-48a2-bf86-5d90d5eeef50",
     "sequence": 0
   }
 },

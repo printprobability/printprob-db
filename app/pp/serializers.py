@@ -18,17 +18,24 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["url", "id", "label", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]
 
 
-class BookTitleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Book
-        fields = ["eebo", "title", "publisher"]
-        page_size = 100000
-
-
 class BookFlatSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Book
-        fields = ["url", "eebo", "label", "vid", "publisher", "title", "pdf"]
+        fields = [
+            "url",
+            "id",
+            "eebo",
+            "label",
+            "vid",
+            "pq_publisher",
+            "pq_title",
+            "pq_author",
+            "date_early",
+            "date_late",
+            "pq_url",
+            "publisher",
+            "pdf",
+        ]
 
 
 class SpreadFlatSerializer(serializers.HyperlinkedModelSerializer):
@@ -565,11 +572,17 @@ class BookListSerializer(serializers.HyperlinkedModelSerializer):
         model = models.Book
         fields = [
             "url",
+            "id",
             "eebo",
             "vid",
             "label",
             "publisher",
-            "title",
+            "pq_publisher",
+            "pq_title",
+            "pq_url",
+            "pq_author",
+            "date_early",
+            "date_late",
             "pdf",
             "n_spreads",
             "cover_spread",
@@ -579,7 +592,20 @@ class BookListSerializer(serializers.HyperlinkedModelSerializer):
 class BookCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Book
-        fields = ["url", "eebo", "label", "vid", "publisher", "title", "pdf"]
+        fields = [
+            "url",
+            "id",
+            "eebo",
+            "label",
+            "vid",
+            "pq_publisher",
+            "pq_title",
+            "pq_author",
+            "pq_url",
+            "date_early",
+            "date_late",
+            "pdf",
+        ]
 
 
 class BookRunsSerializer(serializers.Serializer):
@@ -604,11 +630,17 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
         model = models.Book
         fields = [
             "url",
+            "id",
             "eebo",
             "label",
             "vid",
             "publisher",
-            "title",
+            "pq_publisher",
+            "pq_title",
+            "pq_author",
+            "pq_url",
+            "date_early",
+            "date_late",
             "pdf",
             "spreads",
             "all_runs",

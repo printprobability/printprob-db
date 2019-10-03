@@ -2,12 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from collections import namedtuple
 import uuid
+from datetime import date
 from django.conf import settings
 
 
 class uuidModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    label = models.CharField(max_length=300, default="", editable=False)
+    label = models.CharField(max_length=200, default="", editable=False, blank=True)
 
     class Meta:
         abstract = True
@@ -55,32 +56,50 @@ class CharacterRun(Run):
     params = models.CharField(max_length=1000)
 
 
-class Book(models.Model):
-    eebo = models.PositiveIntegerField(primary_key=True, help_text="EEBO ID number")
-    vid = models.PositiveIntegerField(unique=True, help_text="Alternate ID number")
-    title = models.CharField(
-        max_length=2000, db_index=True, help_text="Title (as cataloged by EEBO)"
+class Book(uuidModel):
+    eebo = models.PositiveIntegerField(
+        db_index=True, null=True, help_text="EEBO ID number", editable=False
     )
-    publisher = models.CharField(
+    vid = models.PositiveIntegerField(
+        db_index=True, null=True, help_text="Proquest ID number", editable=False
+    )
+    pq_title = models.CharField(
+        max_length=2000,
+        db_index=True,
+        help_text="Title (as cataloged by EEBO)",
+        editable=False,
+    )
+    pq_publisher = models.CharField(
         blank=True,
-        null=False,
         max_length=2000,
         help_text="Publisher (as cataloged by EEBO)",
+        editable=False,
+    )
+    pq_author = models.CharField(
+        blank=True,
+        max_length=2000,
+        help_text="Author (as cataloged by EEBO)",
+        editable=False,
+    )
+    pq_url = models.URLField(
+        max_length=1000, blank=True, help_text="ProQuest URL", editable=False
+    )
+    publisher = models.CharField(
+        blank=True, max_length=2000, help_text="Publisher as asserted by P&P team"
     )
     pdf = models.CharField(
+        blank=True,
         max_length=1500,
         help_text="relative file path to root directory containing pdfs",
-        unique=True,
     )
+    date_early = models.DateField(default=date(year=1550, month=1, day=1))
+    date_late = models.DateField(default=date(year=1800, month=12, day=12))
 
     class Meta:
-        ordering = ["eebo"]
+        ordering = ["pq_title"]
 
-    def label(self):
-        return str(self)
-
-    def __str__(self):
-        return f"{self.eebo}: {self.publisher} - {self.title}"
+    def labeller(self):
+        return str(self.vid)
 
     def all_runs(self):
         return {
@@ -145,7 +164,7 @@ class Image(uuidModel):
     tif_md5 = models.UUIDField(help_text="md5 hash of the tif file (as hex digest)")
 
     def labeller(self):
-        return f"{self.id} - {self.jpg}"
+        return self.jpg
 
     def web_url(self):
         return f"{settings.IMAGE_BASEURL}{self.jpg}"
@@ -177,7 +196,7 @@ class Spread(ImagedModel):
         ordering = ("book", "sequence")
 
     def labeller(self):
-        return f"{self.book.title} spread {self.sequence}"
+        return f"{self.book} spread {self.sequence}"
 
     def most_recent_pages(self):
         return self.book.pageruns.first().pages.filter(spread=self)
@@ -218,7 +237,7 @@ class Page(ImagedModel):
         ordering = ["created_by_run", "spread", "side"]
 
     def labeller(self):
-        return f"{self.spread.book.title} p. {self.spread.sequence}-{self.side}"
+        return f"{self.spread.book} p. {self.spread.sequence}-{self.side}"
 
     def n_lines(self):
         return self.lines.count()

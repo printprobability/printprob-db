@@ -13,22 +13,41 @@ ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
 books = glob("/Volumes/data_mdlincoln/pp/chars/*")
 print(books)
 
+
 def cleanpath(s):
     """
     Make the absolute paths from my local storage into relative paths
     """
-    return re.sub("^.+/pp/", "/", s)
+    return re.sub("^.+/chars/", "/chars/", s)
 
+
+# post character classes
+char_classes = []
+for book in books:
+    allchars = glob(f"{book}/**/*.tif", recursive=True)
+    for char in allchars:
+        char_class = re.search(r"([A-Z]_[a-z]{2})\.tif", char).groups()[0]
+        char_classes.append(char_class)
+
+for cc in set(char_classes):
+    # Make sure that the character class has been registered in the database. Right now this just takes a string as a primary key, and doesn't use the UUID pattern that we need for classes where there are going to be thousands or millions of instances
+    requests.post(f"{b}character_classes/", data={"classname": cc}, headers=ht).json()
 
 for book in books:
-    book_id = book.split("/")[5].split("_")[1]
+
+    book_eebo = book.split("/")[3].split("_")[1]
+
+    book_id = requests.get(f"{b}books/", params={"eebo": book_eebo}, headers=ht).json()[
+        "results"
+    ][0]["id"]
+
     char_run = requests.post(
         f"{b}runs/characters/",
         data={
             "params": str(uuid4()),
             "script_path": str(uuid4()),
             "script_md5": uuid4(),
-            "book": int(book_id),
+            "book": book_id,
         },
         headers=ht,
     ).json()["id"]
@@ -36,10 +55,7 @@ for book in books:
     # Get all the character images from a given book
     allchars = glob(f"{book}/**/*.tif", recursive=True)
     for char in allchars:
-
-        # Collect the book ID
-        book_id = int(re.search(r"_(\d{8})_", char).groups()[0])
-
+        print(char)
         # Get the sequence of the spread in that book
         spread_seq = int(re.search(r"-(\d{3})_", char).groups()[0])
 
@@ -87,18 +103,14 @@ for book in books:
                     "tif": charpath,
                     "jpg": re.sub("tif", "jpg", charpath),
                     "jpg_md5": md5(open(char, "rb").read()).hexdigest(),
-                    "tif_md5": md5(open(char, "rb").read()).hexdigest(),},
+                    "tif_md5": md5(open(char, "rb").read()).hexdigest(),
+                },
                 headers=ht,
             ).json()["id"]
         except:
             char_image = requests.get(
                 f"{b}images/", params={"filepath": charpath}, headers=ht
             ).json()["results"][0]["id"]
-
-        # Make sure that the character class has been registered in the database. Right now this just takes a string as a primary key, and doesn't use the UUID pattern that we need for classes where there are going to be thousands or millions of instances
-        requests.post(
-            f"{b}character_classes/", data={"classname": char_class}, headers=ht
-        ).json()
 
         # Finally, create the character in the database, passing in the run UUID, line UUID that we retrieved, the image UUID, the character class name, and its sequence on the line
         char_id = requests.post(
@@ -115,4 +127,4 @@ for book in books:
             },
             headers=ht,
         )
-        print(char_id.json())
+        print(char_id.json()["id"])

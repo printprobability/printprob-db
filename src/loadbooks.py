@@ -18,7 +18,7 @@ def cleanpath(s):
     """
     Make the absolute paths from my local storage into relative paths
     """
-    return re.sub("^.+/pp/", "/", s)
+    return re.sub("^.+/books/", "/books/", s)
 
 
 # Wipe out current data
@@ -32,19 +32,13 @@ for book in books:
     bnames = book.split("/")[-1].split("_")
     print(bnames)
 
-    # Create a new book in the database.
-    r = requests.post(
-        f"{b}books/",
-        data={
-            "eebo": int(bnames[1]),
-            "vid": int(bnames[2]),
-            "publisher": bnames[0],
-            "title": bnames[4],
-            "pdf": str(uuid4()),
-        },
-        headers=ht,
-    ).json()
+    # Get book ID from the database.
+    r = requests.get(f"{b}books/", params={"eebo": int(bnames[1])}, headers=ht).json()[
+        "results"
+    ][0]
     print(r)
+
+    book_id = r["id"]
 
     # Create the runs
     page_run = requests.post(
@@ -53,7 +47,7 @@ for book in books:
             "params": str(uuid4()),
             "script_path": str(uuid4()),
             "script_md5": uuid4(),
-            "book": int(bnames[1]),
+            "book": book_id,
         },
         headers=ht,
     ).json()["id"]
@@ -63,7 +57,7 @@ for book in books:
             "params": str(uuid4()),
             "script_path": str(uuid4()),
             "script_md5": uuid4(),
-            "book": int(bnames[1]),
+            "book": book_id,
         },
         headers=ht,
     ).json()["id"]
@@ -96,7 +90,7 @@ for book in books:
         # representing it.
         spread_id = requests.post(
             f"{b}spreads/",
-            data={"book": int(bnames[1]), "sequence": int(snames), "image": image_id},
+            data={"book": book_id, "sequence": int(snames), "image": image_id},
             headers=ht,
         ).json()["id"]
         print(spread_id)
