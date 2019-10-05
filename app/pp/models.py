@@ -99,7 +99,7 @@ class Book(uuidModel):
         ordering = ["pq_title"]
 
     def labeller(self):
-        return str(self.vid)
+        return f"({self.vid}) {self.pq_title[:30]}..."
 
     def all_runs(self):
         return {
@@ -321,6 +321,9 @@ class CharacterClass(models.Model):
         max_length=50,
         help_text="A human-readable, unique class identifier",
     )
+
+    class Meta:
+        ordering: ["classname"]
 
     def __str__(self):
         return self.classname
