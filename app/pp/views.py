@@ -41,6 +41,8 @@ class BookFilter(filters.FilterSet):
         label="Has images?",
         help_text="Has been processed with full images on Bridges?",
     )
+    year_early = filters.DateFilter(method="after_early", label="Started after date")
+    year_late = filters.DateFilter(method="before_late", label="Finished before date")
     order = filters.OrderingFilter(
         fields=(
             ("pq_title", "Title"),
@@ -61,6 +63,12 @@ class BookFilter(filters.FilterSet):
                 .all()
             )
         return queryset
+
+    def after_early(self, queryset, name, value):
+        return queryset.filter(date_early__gte=value)
+
+    def before_late(self, queryset, name, value):
+        return queryset.filter(date_late__lte=value)
 
 
 class BookViewSet(viewsets.ModelViewSet):

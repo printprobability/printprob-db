@@ -92,8 +92,12 @@ class Book(uuidModel):
         max_length=1500,
         help_text="relative file path to root directory containing pdfs",
     )
-    date_early = models.DateField(default=date(year=1550, month=1, day=1))
-    date_late = models.DateField(default=date(year=1800, month=12, day=12))
+    date_early = models.DateField(
+        default=date(year=1550, month=1, day=1), db_index=True
+    )
+    date_late = models.DateField(
+        default=date(year=1800, month=12, day=12), db_index=True
+    )
 
     class Meta:
         ordering = ["pq_title"]
