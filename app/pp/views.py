@@ -1,5 +1,6 @@
 import zipfile
 import os
+from django import forms
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
@@ -87,7 +88,9 @@ class BookViewSet(CRUDViewSet):
 
 class SpreadFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
-        queryset=models.Book.objects.all(), help_text="Spreads from this book ID"
+        queryset=models.Book.objects.all(),
+        help_text="Spreads from this book ID",
+        widget=forms.TextInput,
     )
     sequence = filters.NumberFilter(help_text="Spread sequence index")
 
@@ -115,7 +118,9 @@ class SpreadViewSet(CRUDViewSet):
 
 class RunFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
-        queryset=models.Book.objects.all(), help_text="Run associated with this book"
+        queryset=models.Book.objects.all(),
+        help_text="Run associated with this book",
+        widget=forms.TextInput,
     )
 
 
@@ -197,6 +202,7 @@ class PageFilter(filters.FilterSet):
         queryset=models.Book.objects.all(),
         help_text="Book ID for this page",
         field_name="spread__book",
+        widget=forms.TextInput,
     )
     spread_sequence = filters.NumberFilter(
         field_name="spread__sequence",
@@ -208,6 +214,7 @@ class PageFilter(filters.FilterSet):
     created_by_run = filters.ModelChoiceFilter(
         queryset=models.PageRun.objects.all(),
         help_text="The run ID that created this Page",
+        widget=forms.TextInput,
     )
 
 
@@ -235,6 +242,7 @@ class LineFilter(filters.FilterSet):
         field_name="page__spread__book",
         label="Book ID",
         help_text="Lines belonging to this book",
+        widget=forms.TextInput,
     )
     spread_sequence = filters.NumberFilter(
         field_name="page__spread__sequence",
@@ -250,6 +258,7 @@ class LineFilter(filters.FilterSet):
     created_by_run = filters.ModelChoiceFilter(
         queryset=models.LineRun.objects.all(),
         help_text="Which pipeline run created these lines",
+        widget=forms.TextInput,
     )
 
 
@@ -268,21 +277,32 @@ class LineViewSet(CRUDViewSet):
 
 class LineGroupFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
-        queryset=models.Book.objects.all(), field_name="spread__book", label="Book ID"
+        queryset=models.Book.objects.all(),
+        field_name="spread__book",
+        label="Book ID",
+        widget=forms.TextInput,
     )
     spread_sequence = filters.NumberFilter(
         field_name="spread__sequence", help_text="Spread sequence number in the book"
     )
     spread_id = filters.ModelChoiceFilter(
-        queryset=models.Spread.objects.all(), field_name="spread", label="Spread ID"
+        queryset=models.Spread.objects.all(),
+        field_name="spread",
+        label="Spread ID",
+        widget=forms.TextInput,
     )
     page = (
         filters.ModelChoiceFilter(
-            queryset=models.Page.objects.all(), field_name="pages__pk", label="Page ID"
+            queryset=models.Page.objects.all(),
+            field_name="pages__pk",
+            label="Page ID",
+            widget=forms.TextInput,
         ),
     )
     created_by_run = filters.ModelChoiceFilter(
-        queryset=models.LineGroupRun.objects.all(), label="Line Group Run ID"
+        queryset=models.LineGroupRun.objects.all(),
+        label="Line Group Run ID",
+        widget=forms.TextInput,
     )
 
 
@@ -303,6 +323,7 @@ class CharacterFilter(filters.FilterSet):
         queryset=models.Book.objects.all(),
         field_name="line__page__spread__book",
         label="Book ID",
+        widget=forms.TextInput,
     )
     spread_sequence = filters.NumberFilter(
         field_name="line__page__spread__sequence", label="Spread sequence"
@@ -315,13 +336,13 @@ class CharacterFilter(filters.FilterSet):
     )
     sequence = filters.NumberFilter()
     created_by_run = filters.ModelChoiceFilter(
-        queryset=models.CharacterRun.objects.all()
+        queryset=models.CharacterRun.objects.all(), widget=forms.TextInput
     )
     character_class = filters.ModelChoiceFilter(
-        queryset=models.CharacterClass.objects.all()
+        queryset=models.CharacterClass.objects.all(), widget=forms.TextInput
     )
     human_character_class = filters.ModelChoiceFilter(
-        queryset=models.CharacterClass.objects.all()
+        queryset=models.CharacterClass.objects.all(), widget=forms.TextInput
     )
     agreement = filters.ChoiceFilter(
         choices=(
