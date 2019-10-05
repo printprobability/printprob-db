@@ -7,7 +7,7 @@
     <hr class="my-4" />
     <b-button v-if="!logged_in" :href="$APIConstants.API_LOGIN" variant="primary">Log In</b-button>
     <template v-else>
-      <p>{{ display_count }}</p>
+      <p v-show="!!display_count">{{ display_count }}</p>
     </template>
   </b-jumbotron>
 </template>
@@ -36,7 +36,7 @@ export default {
           " characters and counting..."
         );
       } else {
-        return "???";
+        return null;
       }
     }
   },

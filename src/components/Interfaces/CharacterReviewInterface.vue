@@ -178,14 +178,14 @@ export default {
         return HTTP.post("/characters/annotate/", payload).then(
           response => {
             console.log(response);
-            this.$bvToast.show("success_toast");
-            this.char_list_key += 1;
           },
           error => {
             console.log(error);
           }
         );
       });
+      this.$bvToast.show("success_toast");
+      this.char_list_key += 1;
     }
   },
   created() {

@@ -4,6 +4,7 @@
     <div class="paginator">
       <p v-show="pagination_needed">Displaying {{ books.length }} out of {{ count }} books</p>
       <b-pagination
+        hide-goto-end-buttons
         v-show="pagination_needed"
         v-model="page"
         :total-rows="count"
@@ -24,15 +25,16 @@
               <small v-else>Not run yet</small>
             </div>
           </template>
-          <div class="d-flex justify-content-between">
-            <router-link :to="{name: 'BookDetailView', params: {id: book.id}}">
-              <h5>{{ truncate(book.pq_title, 80) }}</h5>
-            </router-link>
-            <small>
-              <pre>{{ book.id }}</pre>
-            </small>
-          </div>
+          <router-link :to="{name: 'BookDetailView', params: {id: book.id}}">
+            <h5>{{ truncate(book.pq_title, 80) }}</h5>
+          </router-link>
+          <p>{{ book.pq_author }}</p>
           <p>{{ book.pq_publisher }}</p>
+          <b-alert
+            show
+            variant="secondary"
+            v-if="!!book.publisher"
+          >P&P Publisher: {{ book.publisher}}</b-alert>
           <small>
             <a :href="book.pq_url">{{ book.pq_url }}</a>
           </small>
@@ -52,6 +54,9 @@ export default {
   props: {
     publisher: String,
     title: String,
+    author: String,
+    year_early: String,
+    year_late: String,
     has_images: Boolean
   },
   components: {
@@ -77,9 +82,13 @@ export default {
     get_books: function() {
       return HTTP.get("/books/", {
         params: {
+          limit: 25,
           offset: this.rest_offset,
           pq_publisher: this.publisher,
           pq_title: this.title,
+          pq_author: this.author,
+          year_early: this.year_early,
+          year_late: this.year_late,
           images: this.has_images
         }
       }).then(
@@ -106,6 +115,18 @@ export default {
       this.debounced_get_books();
     },
     title: function() {
+      this.progress_spinner = true;
+      this.debounced_get_books();
+    },
+    author: function() {
+      this.progress_spinner = true;
+      this.debounced_get_books();
+    },
+    year_early: function() {
+      this.progress_spinner = true;
+      this.debounced_get_books();
+    },
+    year_late: function() {
       this.progress_spinner = true;
       this.debounced_get_books();
     },

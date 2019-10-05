@@ -7,6 +7,7 @@
           <div class="card-body">
             <h5>{{ book.pq_title }}</h5>
             <p>Publisher: {{ book.pq_publisher }}</p>
+            <p>Author: {{ book.pq_author }}</p>
             <p>
               EEBO id:
               <code>{{ book.eebo }}</code>
@@ -28,9 +29,29 @@
               UUID:
               <code>{{ book.id }}</code>
             </p>
-            <p>Publisher: {{ book.publisher }}</p>
-            <p>Date early: {{ book.date_early }}</p>
-            <p>Date late: {{ book.date_late }}</p>
+
+            <dl class="row">
+              <dt class="col-sm-3">Publisher</dt>
+              <dd
+                class="col-sm-9"
+                contenteditable="contenteditable"
+                @blur="edit_group('publisher', $event.target.innerText)"
+              >{{ book.publisher }}</dd>
+
+              <dt class="col-sm-3">Created no earlier than</dt>
+              <dd
+                class="col-sm-9"
+                contenteditable="contenteditable"
+                @blur="edit_group('date_early', $event.target.innerText)"
+              >{{ book.date_early }}</dd>
+
+              <dt class="col-sm-3">Created no later than</dt>
+              <dd
+                class="col-sm-9"
+                contenteditable="contenteditable"
+                @blur="edit_group('date_late', $event.target.innerText)"
+              >{{ book.date_late }}</dd>
+            </dl>
           </div>
         </div>
       </div>
@@ -91,12 +112,12 @@ export default {
     LineList
   },
   props: {
-    id: Number
+    id: String
   },
   data() {
     return {
       book: null,
-      display_fields: ["count", "date_started"],
+      display_fields: ["date_started"],
       detail_show: null,
       selected_run: null,
       selected_run_id: null
@@ -121,7 +142,6 @@ export default {
         return {
           id: r.id,
           type: runtype,
-          count: 10,
           date_started: this.display_date(r.date_started)
         };
       });
@@ -148,6 +168,30 @@ export default {
           }
         );
       }
+    },
+    edit_group: function(fieldname, content) {
+      var payload = {};
+      payload[fieldname] = content;
+      return HTTP.patch("/books/" + this.id + "/", payload).then(
+        response => {
+          this.$bvToast.toast(`${fieldname} updated`, {
+            title: response.data.id,
+            autoHideDelay: 5000,
+            appendToast: true,
+            variant: "success"
+          });
+        },
+        error => {
+          for (let [k, v] of Object.entries(error.response.data)) {
+            this.$bvToast.toast(v, {
+              title: error.response.status + ": " + k,
+              autoHideDelay: 5000,
+              appendToast: true,
+              variant: "danger"
+            });
+          }
+        }
+      );
     }
   },
   created: function() {

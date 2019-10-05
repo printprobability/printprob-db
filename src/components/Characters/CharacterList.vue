@@ -41,6 +41,7 @@
         <div class="paginator" v-if="value.length>0">
           <p>Characters {{1 + (page - 1) * $APIConstants.REST_PAGE_SIZE }} to {{ (page - 1) * $APIConstants.REST_PAGE_SIZE + value.length }} out of {{ total_char_count }} characters</p>
           <b-pagination
+            hide-goto-end-buttons
             v-show="pagination_needed"
             :value="page"
             @input="$emit('page_input', $event)"
@@ -64,6 +65,7 @@
       </div>
       <div class="card-footer" v-show="pagination_needed">
         <b-pagination
+          hide-goto-end-buttons
           :value="page"
           @input="$emit('page_input', $event)"
           :total-rows="total_char_count"
