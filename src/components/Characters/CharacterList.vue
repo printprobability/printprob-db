@@ -11,10 +11,11 @@
             />
           </div>
           <div class="col-4">
-            <BookSelect :value="book" @input="$emit('book_input', $event)" />
+            <BookAutocomplete :value="book" @input="$emit('book_input', $event)" />
           </div>
           <div class="col-4">
             <CharacterRunSelect
+              v-if="!!book"
               :value="character_run"
               @input="$emit('character_run_input', $event)"
               :book="book"
@@ -77,7 +78,7 @@
 <script>
 import CharacterClassSelect from "../Menus/CharacterClassSelect";
 import CharacterOrderingSelect from "../Menus/CharacterOrderingSelect";
-import BookSelect from "../Menus/BookSelect";
+import BookAutocomplete from "../Menus/BookAutocomplete";
 import CharacterAgreementRadio from "../Menus/CharacterAgreementRadio";
 import CharacterRunSelect from "../Menus/CharacterRunSelect";
 import CharacterImage from "./CharacterImage";
@@ -115,7 +116,7 @@ export default {
     },
     book: {
       default: null,
-      type: Number
+      type: String
     },
     order: {
       default: "-class_probability",
@@ -139,7 +140,7 @@ export default {
     CharacterClassSelect,
     CharacterOrderingSelect,
     CharacterRunSelect,
-    BookSelect,
+    BookAutocomplete,
     CharacterAgreementRadio,
     CharacterImage,
     Spinner

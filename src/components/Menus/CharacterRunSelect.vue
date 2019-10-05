@@ -3,10 +3,10 @@
     id="character-run-group"
     label-for="character-run-select"
     label="Created by character run"
+    description="Show only characters from a particular run from the selected book."
   >
     <b-form-select
       id="character-run-select"
-      class="my-2"
       :value="value"
       :options="character_runs"
       @input="$emit('input', $event)"
@@ -16,7 +16,6 @@
 
 <script>
 import { HTTP } from "../../main";
-import _ from "lodash";
 
 export default {
   name: "CharacterRunSelect",
@@ -41,19 +40,13 @@ export default {
         params: { book: this.book }
       }).then(
         response => {
-          var character_run_options = _.concat(
-            {
-              text: "All character runs",
-              value: null
-            },
-            response.data.results.map(x => {
-              return {
-                text: x.book.label + " - " + x.date_stared,
-                value: x.id
-              };
-            })
-          );
-          this.character_runs = character_run_options;
+          this.character_runs = response.data.results.map(x => {
+            return {
+              text: x.date_started,
+              value: x.id
+            };
+          });
+          this.$emit("input", this.character_runs[0].value);
         },
         error => {
           console.log(error);

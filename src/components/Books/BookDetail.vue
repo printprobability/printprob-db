@@ -7,7 +7,14 @@
           <div class="card-body">
             <h5>{{ book.pq_title }}</h5>
             <p>Publisher: {{ book.pq_publisher }}</p>
-            <p>EEBO id: {{ book.eebo }}</p>
+            <p>
+              EEBO id:
+              <code>{{ book.eebo }}</code>
+            </p>
+            <p>
+              VID:
+              <code>{{ book.vid }}</code>
+            </p>
             <p>
               Proquest link:
               <a :href="book.pq_url">{{ book.pq_url }}</a>
@@ -17,6 +24,10 @@
         <div class="card my-2">
           <div class="card-header">P&P Metadata</div>
           <div class="card-body">
+            <p>
+              UUID:
+              <code>{{ book.id }}</code>
+            </p>
             <p>Publisher: {{ book.publisher }}</p>
             <p>Date early: {{ book.date_early }}</p>
             <p>Date late: {{ book.date_late }}</p>
