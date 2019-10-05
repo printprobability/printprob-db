@@ -1,9 +1,9 @@
-django==2.2.5
+django==2.2.6
 coverage>=4.5.4
 psycopg2-binary
 gunicorn
 tblib
-djangorestframework==3.10.2
+djangorestframework==3.10.3
 django-cors-headers
 Markdown
 Pygments
@@ -13,3 +13,4 @@ uritemplate
 faker
 drf-yasg>=1.16.1
 packaging
+tqdm

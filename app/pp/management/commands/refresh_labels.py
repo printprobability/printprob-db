@@ -1,6 +1,7 @@
 from django.core import management
 from django.core.management.base import BaseCommand
 from pp import models
+from tqdm import tqdm
 
 
 class Command(BaseCommand):
@@ -21,5 +22,5 @@ class Command(BaseCommand):
 
         for m in labelled_models:
             print(m)
-            for i in m.objects.all():
+            for i in tqdm(m.objects.all()):
                 i.save()
