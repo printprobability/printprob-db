@@ -602,6 +602,7 @@ class BookCreateSerializer(serializers.ModelSerializer):
             "pq_title",
             "pq_author",
             "pq_url",
+            "publisher",
             "date_early",
             "date_late",
             "pdf",

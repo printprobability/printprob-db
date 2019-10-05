@@ -32,6 +32,10 @@ class BookFilter(filters.FilterSet):
         help_text="books with publisher labels containing this string (case insensitive)",
         lookup_expr="icontains",
     )
+    pq_author = filters.CharFilter(
+        help_text="books with authors containing this string (case insensitive)",
+        lookup_expr="icontains",
+    )
     images = filters.BooleanFilter(
         method="has_images",
         label="Has images?",
@@ -59,7 +63,7 @@ class BookFilter(filters.FilterSet):
         return queryset
 
 
-class BookViewSet(CRUDViewSet):
+class BookViewSet(viewsets.ModelViewSet):
     """
     list: Lists all books.
     """
