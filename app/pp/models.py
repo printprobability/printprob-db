@@ -323,7 +323,7 @@ class CharacterClass(models.Model):
     )
 
     class Meta:
-        ordering: ["classname"]
+        ordering = ["classname"]
 
     def __str__(self):
         return self.classname
