@@ -39,16 +39,7 @@
       <div class="card-header">
         <Spinner v-if="progress_spinner" />
         <div class="paginator" v-if="value.length>0">
-          <p>Characters {{1 + (page - 1) * $APIConstants.REST_PAGE_SIZE }} to {{ (page - 1) * $APIConstants.REST_PAGE_SIZE + value.length }} out of {{ total_char_count }} characters</p>
-          <b-pagination
-            hide-goto-end-buttons
-            v-show="pagination_needed"
-            :value="page"
-            @input="$emit('page_input', $event)"
-            :total-rows="total_char_count"
-            :per-page="$APIConstants.REST_PAGE_SIZE"
-            aria-controls="character-results"
-          />
+          <CursorButtons :prev="prev" :next="next" @cursor="page_cursor($event)" />
         </div>
         <div show v-else>No matching characters</div>
       </div>
@@ -63,16 +54,6 @@
           @char_clicked="$emit('char_clicked', $event)"
         />
       </div>
-      <div class="card-footer" v-show="pagination_needed">
-        <b-pagination
-          hide-goto-end-buttons
-          :value="page"
-          @input="$emit('page_input', $event)"
-          :total-rows="total_char_count"
-          :per-page="$APIConstants.REST_PAGE_SIZE"
-          aria-controls="character-results"
-        />
-      </div>
     </div>
   </div>
 </template>
@@ -85,6 +66,7 @@ import CharacterAgreementRadio from "../Menus/CharacterAgreementRadio";
 import CharacterRunSelect from "../Menus/CharacterRunSelect";
 import CharacterImage from "./CharacterImage";
 import Spinner from "../Interfaces/Spinner";
+import CursorButtons from "../Menus/CursorButtons";
 import { HTTP } from "../../main";
 
 export default {
@@ -145,12 +127,16 @@ export default {
     BookAutocomplete,
     CharacterAgreementRadio,
     CharacterImage,
-    Spinner
+    Spinner,
+    CursorButtons
   },
   data() {
     return {
       total_char_count: 0,
-      progress_spinner: false
+      progress_spinner: false,
+      next: null,
+      prev: null,
+      cursor: null
     };
   },
   computed: {
@@ -162,6 +148,20 @@ export default {
     }
   },
   methods: {
+    cursor_param(url) {
+      if (!!url) {
+        const cursor_match = url.match(/cursor=([^&]+)/);
+        if (!!cursor_match) {
+          return decodeURIComponent(cursor_match[1]);
+        }
+      } else {
+        return null;
+      }
+    },
+    page_cursor(cursor) {
+      this.cursor = cursor;
+      this.get_characters();
+    },
     get_characters() {
       this.progress_spinner = true;
       return HTTP.get("/characters/", {
@@ -171,12 +171,14 @@ export default {
           created_by_run: this.character_run,
           agreement: this.char_agreement,
           order: this.order,
-          offset: this.rest_offset
+          cursor: this.cursor
         }
       }).then(
         response => {
           this.$emit("input", response.data.results);
-          this.total_char_count = response.data.count;
+          this.cursor = null;
+          this.prev = this.cursor_param(response.data.previous);
+          this.next = this.cursor_param(response.data.next);
           this.progress_spinner = false;
         },
         error => {
