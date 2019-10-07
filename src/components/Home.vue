@@ -42,11 +42,7 @@ export default {
   },
   methods: {
     get_nchars: function() {
-      return HTTP.get("/characters/", {
-        params: {
-          limit: 1
-        }
-      }).then(
+      return HTTP.get("/characters/count/").then(
         response => {
           this.nchars = response.data.count;
         },
@@ -56,11 +52,7 @@ export default {
       );
     },
     get_nbooks: function() {
-      return HTTP.get("/books/", {
-        params: {
-          limit: 1
-        }
-      }).then(
+      return HTTP.get("/books/count/").then(
         response => {
           this.nbooks = response.data.count;
         },
