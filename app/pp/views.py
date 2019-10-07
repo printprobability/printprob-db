@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
 from django.utils.text import slugify
-from rest_framework import viewsets, views, generics, status, mixins
+from rest_framework import viewsets, views, generics, status, mixins, pagination
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
@@ -381,6 +381,10 @@ class CharacterFilter(filters.FilterSet):
             return queryset
 
 
+class uuidPagination(pagination.CursorPagination):
+    ordering = "-class_probability"
+
+
 class CharacterViewSet(CRUDViewSet):
     queryset = models.Character.objects.select_related(
         "image",
@@ -392,6 +396,7 @@ class CharacterViewSet(CRUDViewSet):
         "human_character_class",
     ).all()
     filterset_class = CharacterFilter
+    pagination_class = uuidPagination
 
     def get_serializer_class(self):
         if self.action == "retrieve":
