@@ -12,7 +12,13 @@ from concurrent.futures import ThreadPoolExecutor
 class Command(BaseCommand):
     help = "Fill database with random images"
 
+    def add_arguments(self, parser):
+        parser.add_argument("n_books", nargs="+", type=int)
+
     def handle(self, *args, **options):
+
+        n_books = options["n_books"][0]
+
         ff = Faker()
         print("Wiping books")
         models.Book.objects.all().delete()
@@ -21,7 +27,7 @@ class Command(BaseCommand):
         models.CharacterClass.objects.all().delete()
 
         print("Generating books")
-        for i in tqdm(range(1, 11)):
+        for i in tqdm(range(1, n_books + 1)):
             book = models.Book.objects.create(
                 eebo=random.randrange(500000),
                 vid=random.randrange(500000),
