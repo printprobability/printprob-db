@@ -361,7 +361,7 @@ class Character(ImagedModel):
         on_delete=models.SET_NULL,
         related_name="human_assigned_to",
     )
-    class_probability = models.FloatField()
+    class_probability = models.FloatField(db_index=True)
     created_by_run = models.ForeignKey(
         CharacterRun,
         on_delete=models.CASCADE,
