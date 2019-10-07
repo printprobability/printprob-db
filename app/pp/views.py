@@ -18,7 +18,18 @@ from . import models, serializers
 
 
 class CRUDViewSet(viewsets.ModelViewSet):
-    http_method_names = ["get", "post", "delete", "head", "options", "trace"]
+    @action(detail=False, methods=["get"])
+    def count(self, request):
+        ocount = (
+            self.filterset_class(
+                self.request.GET,
+                # Get the baseline model without pre-joining anything
+                queryset=self.get_queryset().model.objects.all(),
+            )
+            .qs.values("pk")
+            .count()
+        )
+        return Response({"count": ocount})
 
 
 class BookFilter(filters.FilterSet):
@@ -71,7 +82,7 @@ class BookFilter(filters.FilterSet):
         return queryset.filter(date_late__lte=value)
 
 
-class BookViewSet(viewsets.ModelViewSet):
+class BookViewSet(CRUDViewSet):
     """
     list: Lists all books.
     """
@@ -439,7 +450,7 @@ class CharacterGroupingFilter(filters.FilterSet):
     created_by = filters.CharFilter(field_name="created_by__username")
 
 
-class CharacterGroupingViewSet(viewsets.ModelViewSet):
+class CharacterGroupingViewSet(CRUDViewSet):
     queryset = models.CharacterGrouping.objects.select_related(
         "created_by"
     ).prefetch_related("characters", "characters__image")
