@@ -51,8 +51,20 @@
               description="Only books whose dates are wholly within the specified range"
             >
               <b-form inline>
-                <b-form-input id="year-input-early" type="date" v-model="year_early" />and
-                <b-form-input id="year-input-late" type="date" v-model="year_late" />
+                <b-form-input
+                  class="mx-2"
+                  size="sm"
+                  id="year-input-early"
+                  type="date"
+                  v-model="year_early"
+                />and
+                <b-form-input
+                  class="mx-2"
+                  size="sm"
+                  id="year-input-late"
+                  type="date"
+                  v-model="year_late"
+                />
               </b-form>
             </b-form-group>
           </b-col>

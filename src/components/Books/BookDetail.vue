@@ -39,18 +39,24 @@
               >{{ book.publisher }}</dd>
 
               <dt class="col-sm-3">Created no earlier than</dt>
-              <dd
-                class="col-sm-9"
-                contenteditable="contenteditable"
-                @blur="edit_group('date_early', $event.target.innerText)"
-              >{{ book.date_early }}</dd>
+              <dd class="col-sm-9">
+                <b-form-input
+                  id="year-input-early"
+                  type="date"
+                  v-model="book.date_early"
+                  @blur="edit_group('date_early', book.date_early)"
+                />
+              </dd>
 
               <dt class="col-sm-3">Created no later than</dt>
-              <dd
-                class="col-sm-9"
-                contenteditable="contenteditable"
-                @blur="edit_group('date_late', $event.target.innerText)"
-              >{{ book.date_late }}</dd>
+              <dd class="col-sm-9">
+                <b-form-input
+                  id="year-input-early"
+                  type="date"
+                  v-model="book.date_late"
+                  @blur="edit_group('date_late', book.date_late)"
+                />
+              </dd>
             </dl>
           </div>
         </div>
