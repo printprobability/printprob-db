@@ -155,16 +155,19 @@ class Task(uuidModel):
 
 class Image(uuidModel):
     jpg = models.CharField(
+        blank=True,
+        default="",
         max_length=2000,
         help_text="relative file path to root directory containing all images",
-        unique=True,
     )
     tif = models.CharField(
         max_length=2000,
         help_text="relative file path to root directory containing all images",
         unique=True,
     )
-    jpg_md5 = models.UUIDField(help_text="md5 hash of the jpg file (as hex digest)")
+    jpg_md5 = models.UUIDField(
+        null=True, help_text="md5 hash of the jpg file (as hex digest)"
+    )
     tif_md5 = models.UUIDField(help_text="md5 hash of the tif file (as hex digest)")
 
     def labeller(self):
