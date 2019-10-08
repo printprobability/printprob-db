@@ -195,14 +195,6 @@ class CharacterRunViewSet(CRUDViewSet):
         return serializers.CharacterRunCreateSerializer
 
 
-class ImageFilter(filters.FilterSet):
-    filepath = filters.CharFilter(
-        field_name="files__filepath",
-        distinct=True,
-        help_text="Retrive the image pointer that references this file",
-    )
-
-
 class ImageViewSet(CRUDViewSet):
     """
     retrieve:
@@ -217,7 +209,6 @@ class ImageViewSet(CRUDViewSet):
 
     queryset = models.Image.objects.all()
     serializer_class = serializers.ImageSerializer
-    filterset_class = ImageFilter
 
 
 class PageFilter(filters.FilterSet):
