@@ -80,7 +80,8 @@ class Command(BaseCommand):
                     )
 
         print("Generating lines")
-        for book in tqdm(books):
+
+        def gen_lines(book):
             line_run = models.LineRun.objects.create(
                 book=book,
                 params=ff.license_plate(),
@@ -100,8 +101,16 @@ class Command(BaseCommand):
                         y_max=random.randrange(0, 500),
                     )
 
+        def gen_all_lines(books):
+            with ThreadPoolExecutor(max_workers=4) as pool:
+                results = list(tqdm(pool.map(gen_lines, books), total=books.count()))
+            return results
+
+        gen_all_lines(books)
+
         print("Generating linegroups")
-        for book in tqdm(books):
+
+        def gen_linegroups(book):
             linegroup_run = models.LineGroupRun.objects.create(
                 book=book,
                 params=ff.license_plate(),
@@ -118,10 +127,21 @@ class Command(BaseCommand):
                     for line in models.Line.objects.filter(page=page).order_by("?")[:1]:
                         lg.lines.add(line)
 
+        def gen_all_linegroups(books):
+            with ThreadPoolExecutor(max_workers=4) as pool:
+                results = list(
+                    tqdm(pool.map(gen_linegroups, books), total=books.count())
+                )
+            return results
+
+        gen_all_linegroups(books)
+
         all_letters = list(string.ascii_letters)
 
         for cc in all_letters:
             models.CharacterClass.objects.get_or_create(classname=cc)
+
+        all_classes = list(models.CharacterClass.objects.all())
 
         print("Generating characters")
 
@@ -134,15 +154,18 @@ class Command(BaseCommand):
             )
             book_lines = models.Line.objects.filter(page__spread__book=book).all()
 
+            image_list = []
             for line in tqdm(book_lines, leave=False):
                 for i in range(0, 60):
-                    randclass = models.CharacterClass.objects.get(
-                        classname=all_letters[random.randrange(0, 52)]
-                    )
+                    image_list.append(quickimage())
+
+            for line in tqdm(book_lines, leave=False):
+                for i in range(0, 60):
+                    randclass = all_classes[random.randrange(0, 52)]
                     models.Character.objects.create(
                         line=line,
                         created_by_run=character_run,
-                        image=quickimage(),
+                        image=image_list.pop(),
                         sequence=i,
                         x_min=random.randrange(0, 500),
                         x_max=random.randrange(0, 500),
@@ -150,5 +173,9 @@ class Command(BaseCommand):
                         class_probability=random.random(),
                     )
 
-        with ThreadPoolExecutor(max_workers=4) as pool:
-            pool.map(gen_chars, books)
+        def gen_all_chars(books):
+            with ThreadPoolExecutor(max_workers=4) as pool:
+                results = list(pool.map(gen_chars, books), total=books.count())
+            return results
+
+        gen_all_chars(books)
