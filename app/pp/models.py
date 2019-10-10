@@ -154,7 +154,7 @@ class Task(uuidModel):
 
 
 class BinaryImage(uuidModel):
-    data = models.BinaryField(editable=True, serialize=False)
+    data = models.BinaryField(editable=True)
 
     def labeller(self):
         return self.id

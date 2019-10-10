@@ -221,21 +221,32 @@ class ImageViewSet(CRUDViewSet):
     serializer_class = serializers.ImageSerializer
 
 
+class TiffBytesParser(parsers.BaseParser):
+    media_type = "*/*"
+
+    def parse(self, stream, mediat_type=None, parser_context=None):
+        """
+        Returns the raw bytes of the uploaded Tiff
+        """
+        return stream.read()
+
+
 class BinaryImageViewSet(CRUDViewSet):
     queryset = models.BinaryImage.objects.all()
-    parser_classes = (parsers.FileUploadParser,)
     serializer_class = serializers.BinaryImageSerializer
 
     def create(self, request, format=None):
-
-        if "file" not in request.data:
-            raise exceptions.ParseError("Empty content")
-
-        f = request.data["file"]
-
-        bi = models.BinaryImage.objects.create(data=bytes(f.read()))
-        response_serial = self.get_serializer(bi, many=False)
-        return Response(response_serial.data, status=status.HTTP_201_CREATED)
+        serializer = serializers.BinaryImageCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            obj = serializer.save()
+            headers = self.get_success_headers(serializer.data)
+            response_serializer = self.get_serializer(obj, many=False)
+            return Response(
+                response_serializer.data,
+                status=status.HTTP_201_CREATED,
+                headers=headers,
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=["get"])
     def file(self, request, pk=None):
@@ -243,9 +254,9 @@ class BinaryImageViewSet(CRUDViewSet):
         # response = StreamingHttpResponse(content_type="image/tiff")
         #
         # response["Content-Disposition"] = f'attachment; filename="{obj.id}.tiff"'
-        response = HttpResponse(b64encode(obj.data), content_type="image/tiff")
+        response = HttpResponse(bytes(obj.data), content_type="image/tiff")
         response["Content-Transfer-Encoding"] = "base64"
-        # response["Content-Disposition"] = f"attachment; filename={obj.id}.tiff"
+        response["Content-Disposition"] = f"attachment; filename={obj.id}.tiff"
         return response
 
 
