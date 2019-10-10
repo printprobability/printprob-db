@@ -4,21 +4,27 @@ import re
 from glob import glob
 from random import randrange
 from uuid import uuid4, UUID
-from hashlib import md5
+from base64 import b64encode
+from tqdm import tqdm
 
 # Enter the database hostname and authorization token
 b = os.environ["TEST_HOST"]
 ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
 
-books = glob("/Volumes/data_mdlincoln/pp/books/*")
-print(books)
+basepath = "../pp-images/books/"
+books = glob(f"{basepath}/*")
 
 
 def cleanpath(s):
     """
     Make the absolute paths from my local storage into relative paths
     """
-    return re.sub("^.+/books/", "/books/", s)
+    return s
+
+
+def img_enc(ipath):
+    image_bytes = open(ipath, "rb").read()
+    return b64encode(image_bytes)
 
 
 # Wipe out current data
@@ -27,16 +33,14 @@ for book in requests.get(f"{b}books/", headers=ht).json()["results"]:
     requests.delete(f"{b}books/{book['eebo']}/", headers = ht)
 """
 
-for book in books:
+for book in tqdm(books, desc="Books"):
     # Segment the book metadata
     bnames = book.split("/")[-1].split("_")
-    print(bnames)
 
     # Get book ID from the database.
     r = requests.get(f"{b}books/", params={"eebo": int(bnames[1])}, headers=ht).json()[
         "results"
     ][0]
-    print(r)
 
     book_id = r["id"]
 
@@ -64,26 +68,16 @@ for book in books:
 
     # Collect all the spread TIF files from that book's folder
     spread_pix = [f for f in glob(f"{book}/*.tif") if re.search("\d{3}\.tif", f)]
-    for s in spread_pix:
+    for s in tqdm(spread_pix, desc="Loading spreads", leave=False):
         # Segment the spread metadata
         snames = s.split("/")[-1].split("_")[-1].split("-")[-1].split(".")[0]
-        print(snames)
-        spath = cleanpath(s)
 
         # From the tiff and jpg filepaths, create a new Image in the database.
         # The JSON returned from this POST action will contain the UUID of the
         # newly-created image
         image_id = requests.post(
-            f"{b}images/",
-            data={
-                "tif": spath,
-                "jpg": re.sub("tif", "jpg", spath),
-                "jpg_md5": md5(open(s, "rb").read()).hexdigest(),
-                "tif_md5": md5(open(s, "rb").read()).hexdigest(),
-            },
-            headers=ht,
+            f"{b}images/", data={"data": img_enc(s)}, headers=ht
         ).json()["id"]
-        print(image_id)
 
         # Create a new Spread in the database, registering which book it comes
         # from, its sequence in the book, and passing the UUID of the image
@@ -93,7 +87,6 @@ for book in books:
             data={"book": book_id, "sequence": int(snames), "image": image_id},
             headers=ht,
         ).json()["id"]
-        print(spread_id)
 
         # For each spread, find the two Page images
         pagepics = [
@@ -109,14 +102,7 @@ for book in books:
         # Get the path of the left page and first save its image paths
         lpath = cleanpath(pagepics[0])
         left_page_pic = requests.post(
-            f"{b}images/",
-            data={
-                "tif": lpath,
-                "jpg": re.sub("tif", "jpg", lpath),
-                "jpg_md5": md5(open(pagepics[0], "rb").read()).hexdigest(),
-                "tif_md5": md5(open(pagepics[0], "rb").read()).hexdigest(),
-            },
-            headers=ht,
+            f"{b}images/", data={"data": img_enc(lpath)}, headers=ht
         ).json()["id"]
         # ...and then save the page itself into the db, connected to the spread UUID, the run UUID, and the image UUID
         left_page_id = requests.post(
@@ -135,14 +121,7 @@ for book in books:
         # Get the path of the right page and first save its image paths
         rpath = cleanpath(pagepics[1])
         right_page_pic = requests.post(
-            f"{b}images/",
-            data={
-                "tif": rpath,
-                "jpg": re.sub("tif", "jpg", rpath),
-                "jpg_md5": md5(open(pagepics[1], "rb").read()).hexdigest(),
-                "tif_md5": md5(open(pagepics[1], "rb").read()).hexdigest(),
-            },
-            headers=ht,
+            f"{b}images/", data={"data": img_enc(rpath)}, headers=ht
         ).json()["id"]
         # ...and then create its entry
         right_page_id = requests.post(
@@ -164,18 +143,10 @@ for book in books:
             for p in glob(f"{book}/*.tif")
             if re.search(f"{snames}_page1r_line\d+.tif", p)
         ]
-        for l in left_lines:
-            print(l)
+        for l in tqdm(left_lines, desc="Right page lines", leave=False):
             # Create an image for the line first, getting its UUID
             l_image_id = requests.post(
-                f"{b}images/",
-                data={
-                    "tif": cleanpath(l),
-                    "jpg": re.sub("tif", "jpg", cleanpath(l)),
-                    "jpg_md5": md5(open(l, "rb").read()).hexdigest(),
-                    "tif_md5": md5(open(l, "rb").read()).hexdigest(),
-                },
-                headers=ht,
+                f"{b}images/", data={"data": img_enc(l)}, headers=ht
             ).json()["id"]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])
 
@@ -199,17 +170,9 @@ for book in books:
             for p in glob(f"{book}/*.tif")
             if re.search(f"{snames}_page2r_line\d+.tif", p)
         ]
-        for l in right_lines:
-            print(l)
+        for l in tqdm(right_lines, desc="Left page lines", leave=False):
             l_image_id = requests.post(
-                f"{b}images/",
-                data={
-                    "tif": cleanpath(l),
-                    "jpg": re.sub("tif", "jpg", cleanpath(l)),
-                    "jpg_md5": md5(open(l, "rb").read()).hexdigest(),
-                    "tif_md5": md5(open(l, "rb").read()).hexdigest(),
-                },
-                headers=ht,
+                f"{b}images/", data={"data": img_enc(l)}, headers=ht
             ).json()["id"]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])
 

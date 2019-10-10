@@ -15,7 +15,15 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Image
-        fields = ["url", "id", "label", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]
+        fields = ["id", "url", "web_url"]
+
+
+class ImageContentSerializer(serializers.HyperlinkedModelSerializer):
+    web_url = serializers.URLField(read_only=True)
+
+    class Meta:
+        model = models.Image
+        fields = ["id", "url", "web_url", "data"]
 
 
 class BookFlatSerializer(serializers.HyperlinkedModelSerializer):

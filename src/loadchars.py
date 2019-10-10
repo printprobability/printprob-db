@@ -5,25 +5,33 @@ from glob import glob
 from random import random, randrange
 from uuid import uuid4, UUID
 from hashlib import md5
+from concurrent.futures import ThreadPoolExecutor
+from tqdm import tqdm
+from base64 import b64encode
+
 
 # Enter the database hostname and authorization token
 b = os.environ["TEST_HOST"]
 ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
 
-books = glob("/Volumes/data_mdlincoln/pp/chars/*")
-print(books)
+books = glob("../pp-images/chars/*")
 
 
 def cleanpath(s):
     """
     Make the absolute paths from my local storage into relative paths
     """
-    return re.sub("^.+/chars/", "/chars/", s)
+    return s
+
+
+def img_enc(ipath):
+    image_bytes = open(ipath, "rb").read()
+    return b64encode(image_bytes)
 
 
 # post character classes
 char_classes = []
-for book in books:
+for book in tqdm(books, desc="Books"):
     allchars = glob(f"{book}/**/*.tif", recursive=True)
     for char in allchars:
         char_class = re.search(r"([A-Z]_[a-z]{2})\.tif", char).groups()[0]
@@ -54,8 +62,8 @@ for book in books:
 
     # Get all the character images from a given book
     allchars = glob(f"{book}/**/*.tif", recursive=True)
-    for char in allchars:
-        print(char)
+
+    def load_char(char):
         # Get the sequence of the spread in that book
         spread_seq = int(re.search(r"-(\d{3})_", char).groups()[0])
 
@@ -95,22 +103,10 @@ for book in books:
 
         charpath = cleanpath(char)
 
-        # For some reason I was occasionally getting errors that some of the filepaths I was putting in had already been registered in the database, thus causing the endpoint to throw a unique constraint error. If this happens, we just GET the image UUID, passing in the filepath as a URL query parameter
-        try:
-            char_image = requests.post(
-                f"{b}images/",
-                data={
-                    "tif": charpath,
-                    "jpg": re.sub("tif", "jpg", charpath),
-                    "jpg_md5": md5(open(char, "rb").read()).hexdigest(),
-                    "tif_md5": md5(open(char, "rb").read()).hexdigest(),
-                },
-                headers=ht,
-            ).json()["id"]
-        except:
-            char_image = requests.get(
-                f"{b}images/", params={"filepath": charpath}, headers=ht
-            ).json()["results"][0]["id"]
+        char_res = requests.post(
+            f"{b}images/", data={"data": img_enc(charpath)}, headers=ht
+        )
+        char_image = char_res.json()["id"]
 
         # Finally, create the character in the database, passing in the run UUID, line UUID that we retrieved, the image UUID, the character class name, and its sequence on the line
         char_id = requests.post(
@@ -127,4 +123,17 @@ for book in books:
             },
             headers=ht,
         )
-        print(char_id.json()["id"])
+
+    def load_all_chars(every_character):
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            results = list(
+                tqdm(
+                    pool.map(load_char, every_character),
+                    total=len(allchars),
+                    desc="Characters",
+                    leave=False,
+                )
+            )
+        return results
+
+    load_all_chars(allchars)
