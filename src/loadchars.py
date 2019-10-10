@@ -12,7 +12,7 @@ from base64 import b64encode
 
 # Enter the database hostname and authorization token
 b = os.environ["TEST_HOST"]
-ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
+ht = {"Authorization": f"Token 373f5a24e62a8327971cce64dc5458dbfcfbd1d9"}
 
 books = glob("../pp-images/chars/*")
 

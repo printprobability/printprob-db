@@ -5,7 +5,16 @@ from django.shortcuts import render
 from django.http import HttpResponse, StreamingHttpResponse, FileResponse
 from django.conf import settings
 from django.utils.text import slugify
-from rest_framework import viewsets, views, generics, status, mixins, pagination
+from rest_framework import (
+    viewsets,
+    views,
+    generics,
+    status,
+    mixins,
+    pagination,
+    parsers,
+    exceptions,
+)
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
@@ -15,7 +24,7 @@ from django.contrib.auth.models import User
 from rest_framework import permissions
 from django_filters import rest_framework as filters
 from . import models, serializers
-import io
+from base64 import b64encode
 
 
 class CRUDViewSet(viewsets.ModelViewSet):
@@ -209,22 +218,24 @@ class ImageViewSet(CRUDViewSet):
     """
 
     queryset = models.Image.objects.all()
+    serializer_class = serializers.ImageSerializer
 
-    def get_serializer_class(self):
-        if self.action == "list":
-            return serializers.ImageSerializer
-        return serializers.ImageContentSerializer
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(
-            {"id": serializer.data["id"], "web_url": serializer.data["web_url"]},
-            status=status.HTTP_201_CREATED,
-            headers=headers,
-        )
+class BinaryImageViewSet(CRUDViewSet):
+    queryset = models.BinaryImage.objects.all()
+    parser_classes = (parsers.FileUploadParser,)
+    serializer_class = serializers.BinaryImageSerializer
+
+    def create(self, request, format=None):
+
+        if "file" not in request.data:
+            raise exceptions.ParseError("Empty content")
+
+        f = request.data["file"]
+
+        bi = models.BinaryImage.objects.create(data=bytes(f.read()))
+        response_serial = self.get_serializer(bi, many=False)
+        return Response(response_serial.data, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=["get"])
     def file(self, request, pk=None):
@@ -232,12 +243,9 @@ class ImageViewSet(CRUDViewSet):
         # response = StreamingHttpResponse(content_type="image/tiff")
         #
         # response["Content-Disposition"] = f'attachment; filename="{obj.id}.tiff"'
-        buffer = io.BytesIO()
-        buffer.write(bytes(obj.data))
-        buffer.seek(0)
-        response = StreamingHttpResponse(buffer, content_type="image/tiff")
+        response = HttpResponse(b64encode(obj.data), content_type="image/tiff")
         response["Content-Transfer-Encoding"] = "base64"
-        # response["Content-Disposition"] = f"attachment; filename='{obj.id}.tiff'"
+        # response["Content-Disposition"] = f"attachment; filename={obj.id}.tiff"
         return response
 
 

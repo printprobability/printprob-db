@@ -153,14 +153,32 @@ class Task(uuidModel):
         return f"{date_entered}"
 
 
-class Image(uuidModel):
-    data = models.BinaryField(editable=True)
+class BinaryImage(uuidModel):
+    data = models.BinaryField(editable=True, serialize=False)
 
     def labeller(self):
         return self.id
 
+
+class Image(uuidModel):
+    jpg = models.CharField(
+        max_length=2000,
+        help_text="relative file path to root directory containing all images",
+        unique=True,
+    )
+    tif = models.CharField(
+        max_length=2000,
+        help_text="relative file path to root directory containing all images",
+        unique=True,
+    )
+    jpg_md5 = models.UUIDField(help_text="md5 hash of the jpg file (as hex digest)")
+    tif_md5 = models.UUIDField(help_text="md5 hash of the tif file (as hex digest)")
+
+    def labeller(self):
+        return self.jpg
+
     def web_url(self):
-        return f"{settings.IMAGE_BASEURL}{self.id}/file/"
+        return f"{settings.IMAGE_BASEURL}{self.jpg}"
 
 
 class ImagedModel(uuidModel):
@@ -325,11 +343,14 @@ class CharacterClass(models.Model):
         return str(self)
 
 
-class Character(ImagedModel):
+class Character(uuidModel):
     """
     The definition of a character may change between runs in this model, since it depends on line segmentation, therefore it is a subclass of an Attempt.
     """
 
+    image = models.ForeignKey(
+        BinaryImage, on_delete=models.CASCADE, related_name="%(class)ss"
+    )
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name="characters")
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of characters on the line"

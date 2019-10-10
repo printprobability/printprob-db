@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.reverse import reverse
 from django.db import transaction
 from django.contrib.auth.models import User
 from . import models
@@ -18,12 +19,23 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["id", "url", "web_url"]
 
 
-class ImageContentSerializer(serializers.HyperlinkedModelSerializer):
-    web_url = serializers.URLField(read_only=True)
+class BinaryImageCreateSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.BinaryImage
+        fields = ["data"]
+
+
+class BinaryImageSerializer(serializers.HyperlinkedModelSerializer):
+    web_url = serializers.SerializerMethodField()
 
     class Meta:
-        model = models.Image
-        fields = ["id", "url", "web_url", "data"]
+        model = models.BinaryImage
+        fields = ["id", "url", "web_url"]
+
+    def get_web_url(self, obj):
+        return reverse(
+            "binaryimage-file", args=[obj.id], request=self.context.get("request")
+        )
 
 
 class BookFlatSerializer(serializers.HyperlinkedModelSerializer):
