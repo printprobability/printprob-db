@@ -25,6 +25,9 @@ def cleanpath(s):
 
 
 def img_enc(ipath):
+    """
+    Encodes binary data from the image as base64 to send to the database
+    """
     image_bytes = open(ipath, "rb").read()
     return b64encode(image_bytes)
 
@@ -104,7 +107,7 @@ for book in books:
         charpath = cleanpath(char)
 
         char_res = requests.post(
-            f"{b}images/", data={"data": img_enc(charpath)}, headers=ht
+            f"{b}binary_images/", data={"data": img_enc(charpath)}, headers=ht
         )
         char_image = char_res.json()["id"]
 

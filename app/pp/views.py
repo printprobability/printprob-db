@@ -251,9 +251,6 @@ class BinaryImageViewSet(CRUDViewSet):
     @action(detail=True, methods=["get"])
     def file(self, request, pk=None):
         obj = self.get_object()
-        # response = StreamingHttpResponse(content_type="image/tiff")
-        #
-        # response["Content-Disposition"] = f'attachment; filename="{obj.id}.tiff"'
         response = HttpResponse(bytes(obj.data), content_type="image/tiff")
         response["Content-Transfer-Encoding"] = "base64"
         response["Content-Disposition"] = f"attachment; filename={obj.id}.tiff"

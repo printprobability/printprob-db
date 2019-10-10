@@ -19,12 +19,19 @@ def cleanpath(s):
     """
     Make the absolute paths from my local storage into relative paths
     """
-    return s
+    return re.sub("^.+/books/", "/books/", s)
 
 
 def img_enc(ipath):
-    image_bytes = open(ipath, "rb").read()
-    return b64encode(image_bytes)
+    """
+    Returns a mock object with the required fields for a disk-stored image file.
+    """
+    return {
+        "jpg": re.sub("tif+", "jpg", cleanpath(ipath)),
+        "tif": cleanpath(ipath),
+        "tif_md5": uuid4(),
+        "jpg_md5": uuid4(),
+    }
 
 
 # Wipe out current data
@@ -75,9 +82,9 @@ for book in tqdm(books, desc="Books"):
         # From the tiff and jpg filepaths, create a new Image in the database.
         # The JSON returned from this POST action will contain the UUID of the
         # newly-created image
-        image_id = requests.post(
-            f"{b}images/", data={"data": img_enc(s)}, headers=ht
-        ).json()["id"]
+        image_id = requests.post(f"{b}images/", data=img_enc(s), headers=ht).json()[
+            "id"
+        ]
 
         # Create a new Spread in the database, registering which book it comes
         # from, its sequence in the book, and passing the UUID of the image
@@ -102,7 +109,7 @@ for book in tqdm(books, desc="Books"):
         # Get the path of the left page and first save its image paths
         lpath = cleanpath(pagepics[0])
         left_page_pic = requests.post(
-            f"{b}images/", data={"data": img_enc(lpath)}, headers=ht
+            f"{b}images/", data=img_enc(lpath), headers=ht
         ).json()["id"]
         # ...and then save the page itself into the db, connected to the spread UUID, the run UUID, and the image UUID
         left_page_id = requests.post(
@@ -121,7 +128,7 @@ for book in tqdm(books, desc="Books"):
         # Get the path of the right page and first save its image paths
         rpath = cleanpath(pagepics[1])
         right_page_pic = requests.post(
-            f"{b}images/", data={"data": img_enc(rpath)}, headers=ht
+            f"{b}images/", data=img_enc(rpath), headers=ht
         ).json()["id"]
         # ...and then create its entry
         right_page_id = requests.post(
@@ -146,7 +153,7 @@ for book in tqdm(books, desc="Books"):
         for l in tqdm(left_lines, desc="Right page lines", leave=False):
             # Create an image for the line first, getting its UUID
             l_image_id = requests.post(
-                f"{b}images/", data={"data": img_enc(l)}, headers=ht
+                f"{b}images/", data=img_enc(l), headers=ht
             ).json()["id"]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])
 
@@ -172,7 +179,7 @@ for book in tqdm(books, desc="Books"):
         ]
         for l in tqdm(right_lines, desc="Left page lines", leave=False):
             l_image_id = requests.post(
-                f"{b}images/", data={"data": img_enc(l)}, headers=ht
+                f"{b}images/", data=img_enc(l), headers=ht
             ).json()["id"]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])
 

@@ -16,7 +16,7 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Image
-        fields = ["id", "url", "web_url"]
+        fields = ["id", "url", "web_url", "jpg", "tif", "jpg_md5", "tif_md5"]
 
 
 class BinaryImageCreateSerializer(serializers.HyperlinkedModelSerializer):
@@ -83,7 +83,7 @@ class LineFlatSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CharacterFlatSerializer(serializers.HyperlinkedModelSerializer):
-    image = ImageSerializer()
+    image = BinaryImageSerializer()
     character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
@@ -302,7 +302,7 @@ class CharacterRunCreateSerializer(serializers.ModelSerializer):
 
 
 class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
-    image = ImageSerializer(many=False)
+    image = BinaryImageSerializer(many=False)
     book = BookFlatSerializer(many=False)
     spread = SpreadFlatSerializer(many=False)
     page = PageFlatSerializer(many=False)
@@ -338,7 +338,7 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
-    image = ImageSerializer()
+    image = BinaryImageSerializer()
     character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
