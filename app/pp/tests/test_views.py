@@ -1040,8 +1040,8 @@ class CharacterGroupingViewTest(TestCase):
         ).count()
         cls.OBJ1 = models.CharacterGrouping.objects.first()
         cls.STR1 = str(cls.OBJ1.pk)
-        cls.CHARS_1 = models.Character.objects.all()[1:5].values_list("id", flat=True)
-        cls.CHARS_2 = models.Character.objects.all()[6:8].values_list("id", flat=True)
+        cls.CHARS_1 = models.Character.objects.defer("data").all()[1:5].values_list("id", flat=True)
+        cls.CHARS_2 = models.Character.objects.defer("data").all()[6:8].values_list("id", flat=True)
         cls.CHARS_ORIG = cls.OBJ1.characters.all().values_list("id", flat=True)
 
     @as_auth()

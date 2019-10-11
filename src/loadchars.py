@@ -106,11 +106,6 @@ for book in books:
 
         charpath = cleanpath(char)
 
-        char_res = requests.post(
-            f"{b}binary_images/", data={"data": img_enc(charpath)}, headers=ht
-        )
-        char_image = char_res.json()["id"]
-
         # Finally, create the character in the database, passing in the run UUID, line UUID that we retrieved, the image UUID, the character class name, and its sequence on the line
         char_id = requests.post(
             f"{b}characters/",
@@ -122,7 +117,7 @@ for book in books:
                 "class_probability": random(),
                 "x_min": randrange(0, 500),
                 "x_max": randrange(0, 500),
-                "image": char_image,
+                "data": img_enc(charpath),
             },
             headers=ht,
         )

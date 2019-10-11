@@ -21,12 +21,6 @@ class Command(BaseCommand):
         n_books = options["n_books"][0]
 
         ff = Faker()
-        print("Wiping books")
-        models.Book.objects.all().delete()
-        print("Wiping images")
-        models.Image.objects.all().delete()
-        models.BinaryImage.objects.all().delete()
-        models.CharacterClass.objects.all().delete()
 
         print("Generating books")
         for i in tqdm(range(1, n_books + 1)):
@@ -159,11 +153,10 @@ class Command(BaseCommand):
             for line in tqdm(book_lines, leave=False):
                 for i in range(0, 60):
                     randclass = all_classes[random.randrange(0, 52)]
-                    new_image = models.BinaryImage.objects.create(data=os.urandom(1024))
                     models.Character.objects.create(
                         line=line,
                         created_by_run=character_run,
-                        image=new_image,
+                        data=os.urandom(1024),
                         sequence=i,
                         x_min=random.randrange(0, 500),
                         x_max=random.randrange(0, 500),

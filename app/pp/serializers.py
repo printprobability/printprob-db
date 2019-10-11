@@ -19,25 +19,6 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["id", "url", "web_url", "jpg", "tif", "jpg_md5", "tif_md5"]
 
 
-class BinaryImageCreateSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = models.BinaryImage
-        fields = ["data"]
-
-
-class BinaryImageSerializer(serializers.HyperlinkedModelSerializer):
-    web_url = serializers.SerializerMethodField()
-
-    class Meta:
-        model = models.BinaryImage
-        fields = ["id", "url", "web_url"]
-
-    def get_web_url(self, obj):
-        return reverse(
-            "binaryimage-file", args=[obj.id], request=self.context.get("request")
-        )
-
-
 class BookFlatSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Book
@@ -83,7 +64,7 @@ class LineFlatSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CharacterFlatSerializer(serializers.HyperlinkedModelSerializer):
-    image = BinaryImageSerializer()
+    image = serializers.SerializerMethodField(read_only=True)
     character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
@@ -102,6 +83,13 @@ class CharacterFlatSerializer(serializers.HyperlinkedModelSerializer):
             "character_class",
             "human_character_class",
         ]
+
+    def get_image(self, obj):
+        return {
+            "web_url": reverse(
+                "character-file", args=[obj.id], request=self.context.get("request")
+            )
+        }
 
 
 class PageRunListSerializer(serializers.HyperlinkedModelSerializer):
@@ -302,7 +290,7 @@ class CharacterRunCreateSerializer(serializers.ModelSerializer):
 
 
 class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
-    image = BinaryImageSerializer(many=False)
+    image = serializers.SerializerMethodField(read_only=True)
     book = BookFlatSerializer(many=False)
     spread = SpreadFlatSerializer(many=False)
     page = PageFlatSerializer(many=False)
@@ -336,9 +324,16 @@ class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
             "absolute_coords",
         ]
 
+    def get_image(self, obj):
+        return {
+            "web_url": reverse(
+                "character-file", args=[obj.id], request=self.context.get("request")
+            )
+        }
+
 
 class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
-    image = BinaryImageSerializer()
+    image = serializers.SerializerMethodField(read_only=True)
     character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
@@ -362,6 +357,13 @@ class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
             "human_character_class",
         ]
 
+    def get_image(self, obj):
+        return {
+            "web_url": reverse(
+                "character-file", args=[obj.id], request=self.context.get("request")
+            )
+        }
+
 
 class CharacterCreateSerializer(serializers.ModelSerializer):
     character_class = serializers.PrimaryKeyRelatedField(
@@ -370,6 +372,7 @@ class CharacterCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Character
+        extra_kwargs = {"data": {"write_only": True}}
         fields = [
             "url",
             "id",
@@ -381,13 +384,13 @@ class CharacterCreateSerializer(serializers.ModelSerializer):
             "x_max",
             "character_class",
             "class_probability",
-            "image",
+            "data",
         ]
 
 
 class CharacterAnnotateSerializer(serializers.Serializer):
     characters = serializers.PrimaryKeyRelatedField(
-        queryset=models.Character.objects.all(), many=True
+        queryset=models.Character.objects.defer("data").all(), many=True
     )
     human_character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all(), many=False, allow_null=True
@@ -398,13 +401,13 @@ class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
     image = ImageSerializer(many=False)
     characters = serializers.HyperlinkedRelatedField(
         many=True,
-        view_name="character-detail",
+        view_name="character-file",
         read_only=True,
         help_text="All Character instances ever produced from this line, under any run.",
     )
     most_recent_characters = serializers.HyperlinkedRelatedField(
         many=True,
-        view_name="character-detail",
+        view_name="character-file",
         read_only=True,
         help_text="Characters processed for this line during the most recent character run processed for this book.",
     )
@@ -736,7 +739,7 @@ class CharacterGroupingCreateSerializer(serializers.ModelSerializer):
 
 class CharacterGroupingCharacterListSerializer(serializers.ModelSerializer):
     characters = serializers.PrimaryKeyRelatedField(
-        queryset=models.Character.objects.all(), many=True
+        queryset=models.Character.objects.defer("data").all(), many=True
     )
 
     class Meta:

@@ -221,42 +221,6 @@ class ImageViewSet(CRUDViewSet):
     serializer_class = serializers.ImageSerializer
 
 
-class TiffBytesParser(parsers.BaseParser):
-    media_type = "*/*"
-
-    def parse(self, stream, mediat_type=None, parser_context=None):
-        """
-        Returns the raw bytes of the uploaded Tiff
-        """
-        return stream.read()
-
-
-class BinaryImageViewSet(CRUDViewSet):
-    queryset = models.BinaryImage.objects.all()
-    serializer_class = serializers.BinaryImageSerializer
-
-    def create(self, request, format=None):
-        serializer = serializers.BinaryImageCreateSerializer(data=request.data)
-        if serializer.is_valid():
-            obj = serializer.save()
-            headers = self.get_success_headers(serializer.data)
-            response_serializer = self.get_serializer(obj, many=False)
-            return Response(
-                response_serializer.data,
-                status=status.HTTP_201_CREATED,
-                headers=headers,
-            )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @action(detail=True, methods=["get"])
-    def file(self, request, pk=None):
-        obj = self.get_object()
-        response = HttpResponse(bytes(obj.data), content_type="image/tiff")
-        response["Content-Transfer-Encoding"] = "base64"
-        response["Content-Disposition"] = f"attachment; filename={obj.id}.tiff"
-        return response
-
-
 class PageFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
         queryset=models.Book.objects.all(),
@@ -434,15 +398,18 @@ class uuidPagination(pagination.CursorPagination):
 
 
 class CharacterViewSet(CRUDViewSet):
-    queryset = models.Character.objects.select_related(
-        "image",
-        "line",
-        "line__page",
-        "line__page__spread",
-        "line__page__spread__book",
-        "character_class",
-        "human_character_class",
-    ).all()
+    queryset = (
+        models.Character.objects.select_related(
+            "line",
+            "line__page",
+            "line__page__spread",
+            "line__page__spread__book",
+            "character_class",
+            "human_character_class",
+        )
+        .defer("data")
+        .all()
+    )
     filterset_class = CharacterFilter
     pagination_class = uuidPagination
 
@@ -452,6 +419,14 @@ class CharacterViewSet(CRUDViewSet):
         elif self.action == "list":
             return serializers.CharacterListSerializer
         return serializers.CharacterCreateSerializer
+
+    @action(detail=True, methods=["get"])
+    def file(self, request, pk=None):
+        obj = self.get_object()
+        response = HttpResponse(bytes(obj.data), content_type="image/tiff")
+        response["Content-Transfer-Encoding"] = "base64"
+        response["Content-Disposition"] = f"filename={obj.id}.tiff"
+        return response
 
     @action(detail=False, methods=["post"])
     @transaction.atomic

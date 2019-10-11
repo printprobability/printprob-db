@@ -152,11 +152,6 @@ class Task(uuidModel):
     def labeller(self):
         return f"{date_entered}"
 
-
-class BinaryImage(uuidModel):
-    data = models.BinaryField(editable=True)
-
-    def labeller(self):
         return self.id
 
 
@@ -348,9 +343,7 @@ class Character(uuidModel):
     The definition of a character may change between runs in this model, since it depends on line segmentation, therefore it is a subclass of an Attempt.
     """
 
-    image = models.ForeignKey(
-        BinaryImage, on_delete=models.CASCADE, related_name="%(class)ss"
-    )
+    data = models.BinaryField(editable=True)
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name="characters")
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of characters on the line"
