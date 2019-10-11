@@ -7,6 +7,7 @@ from tqdm import tqdm
 from django.core import management
 from django.core.management.base import BaseCommand
 from concurrent.futures import ThreadPoolExecutor
+import os
 
 
 class Command(BaseCommand):
@@ -24,6 +25,7 @@ class Command(BaseCommand):
         models.Book.objects.all().delete()
         print("Wiping images")
         models.Image.objects.all().delete()
+        models.BinaryImage.objects.all().delete()
         models.CharacterClass.objects.all().delete()
 
         print("Generating books")
@@ -154,18 +156,14 @@ class Command(BaseCommand):
             )
             book_lines = models.Line.objects.filter(page__spread__book=book).all()
 
-            image_list = []
-            for line in tqdm(book_lines, leave=False):
-                for i in range(0, 60):
-                    image_list.append(quickimage())
-
             for line in tqdm(book_lines, leave=False):
                 for i in range(0, 60):
                     randclass = all_classes[random.randrange(0, 52)]
+                    new_image = models.BinaryImage.objects.create(data=os.urandom(1024))
                     models.Character.objects.create(
                         line=line,
                         created_by_run=character_run,
-                        image=image_list.pop(),
+                        image=new_image,
                         sequence=i,
                         x_min=random.randrange(0, 500),
                         x_max=random.randrange(0, 500),
@@ -175,7 +173,6 @@ class Command(BaseCommand):
 
         def gen_all_chars(books):
             with ThreadPoolExecutor(max_workers=4) as pool:
-                results = list(pool.map(gen_chars, books), total=books.count())
-            return results
+                tqdm(pool.map(gen_chars, books), total=books.count())
 
         gen_all_chars(books)
