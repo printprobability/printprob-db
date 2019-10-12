@@ -397,7 +397,7 @@ class uuidPagination(pagination.CursorPagination):
     ordering = "-class_probability"
 
 
-class CharacterViewSet(CRUDViewSet):
+class CharacterViewSet(viewsets.ModelViewSet):
     queryset = (
         models.Character.objects.select_related(
             "line",
