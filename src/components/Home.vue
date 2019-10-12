@@ -31,7 +31,7 @@ export default {
         return (
           "Indexing " +
           this.nbooks.toLocaleString() +
-          " books with " +
+          " books with about " +
           this.nchars.toLocaleString() +
           " characters and counting..."
         );
@@ -42,9 +42,9 @@ export default {
   },
   methods: {
     get_nchars: function() {
-      return HTTP.get("/characters/count/").then(
+      return HTTP.get("/lines/count/").then(
         response => {
-          this.nchars = response.data.count;
+          this.nchars = response.data.count * 60;
         },
         error => {
           console.log(error);
