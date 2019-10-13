@@ -393,7 +393,7 @@ class CharacterFilter(filters.FilterSet):
             return queryset
 
 
-class uuidPagination(pagination.CursorPagination):
+class characterPagination(pagination.CursorPagination):
     ordering = "-class_probability"
 
 
@@ -411,7 +411,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
         .all()
     )
     filterset_class = CharacterFilter
-    pagination_class = uuidPagination
+    pagination_class = characterPagination
 
     def get_serializer_class(self):
         if self.action == "retrieve":
