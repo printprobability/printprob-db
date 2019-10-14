@@ -12,9 +12,12 @@ from base64 import b64encode
 
 # Enter the database hostname and authorization token
 b = os.environ["TEST_HOST"]
-ht = {"Authorization": f"Token 373f5a24e62a8327971cce64dc5458dbfcfbd1d9"}
+ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
 
 books = glob("../pp-images/chars/*")
+
+ses = requests.Session()
+# ses.verify = "/Users/mlincoln/certs/rootCA.pem"
 
 
 def cleanpath(s):
@@ -42,17 +45,17 @@ for book in tqdm(books, desc="Books"):
 
 for cc in set(char_classes):
     # Make sure that the character class has been registered in the database. Right now this just takes a string as a primary key, and doesn't use the UUID pattern that we need for classes where there are going to be thousands or millions of instances
-    requests.post(f"{b}character_classes/", data={"classname": cc}, headers=ht).json()
+    ses.post(f"{b}character_classes/", data={"classname": cc}, headers=ht).json()
 
 for book in books:
 
     book_eebo = book.split("/")[3].split("_")[1]
 
-    book_id = requests.get(f"{b}books/", params={"eebo": book_eebo}, headers=ht).json()[
+    book_id = ses.get(f"{b}books/", params={"eebo": book_eebo}, headers=ht).json()[
         "results"
     ][0]["id"]
 
-    char_run = requests.post(
+    char_run = ses.post(
         f"{b}runs/characters/",
         data={
             "params": str(uuid4()),
@@ -93,7 +96,7 @@ for book in books:
         # single unique line entry (N.B. this actually also needs a unique RUN
         # id parameter once we're working with multiple runs...). This will
         # send a GET request formatted like http://printprobdb.library.cmu.edu/lines/?book=99860883&spread_sequence=2&page_side=l&sequence=1&created_by_run=
-        line_id = requests.get(
+        line_id = ses.get(
             f"{b}lines/",
             params={
                 "book_id": book_id,
@@ -107,7 +110,7 @@ for book in books:
         charpath = cleanpath(char)
 
         # Finally, create the character in the database, passing in the run UUID, line UUID that we retrieved, the image UUID, the character class name, and its sequence on the line
-        char_id = requests.post(
+        char_id = ses.post(
             f"{b}characters/",
             data={
                 "created_by_run": char_run,

@@ -14,6 +14,9 @@ ht = {"Authorization": f"Token {os.environ['TEST_TOKEN']}"}
 basepath = "../pp-images/books/"
 books = glob(f"{basepath}/*")
 
+ses = requests.Session()
+# ses.verify = "/Users/mlincoln/certs/rootCA.pem"
+
 
 def cleanpath(s):
     """
@@ -45,14 +48,14 @@ for book in tqdm(books, desc="Books"):
     bnames = book.split("/")[-1].split("_")
 
     # Get book ID from the database.
-    r = requests.get(f"{b}books/", params={"eebo": int(bnames[1])}, headers=ht).json()[
+    r = ses.get(f"{b}books/", params={"eebo": int(bnames[1])}, headers=ht).json()[
         "results"
     ][0]
 
     book_id = r["id"]
 
     # Create the runs
-    page_run = requests.post(
+    page_run = ses.post(
         f"{b}runs/pages/",
         data={
             "params": str(uuid4()),
@@ -62,7 +65,7 @@ for book in tqdm(books, desc="Books"):
         },
         headers=ht,
     ).json()["id"]
-    line_run = requests.post(
+    line_run = ses.post(
         f"{b}runs/lines/",
         data={
             "params": str(uuid4()),
@@ -82,14 +85,12 @@ for book in tqdm(books, desc="Books"):
         # From the tiff and jpg filepaths, create a new Image in the database.
         # The JSON returned from this POST action will contain the UUID of the
         # newly-created image
-        image_id = requests.post(f"{b}images/", data=img_enc(s), headers=ht).json()[
-            "id"
-        ]
+        image_id = ses.post(f"{b}images/", data=img_enc(s), headers=ht).json()["id"]
 
         # Create a new Spread in the database, registering which book it comes
         # from, its sequence in the book, and passing the UUID of the image
         # representing it.
-        spread_id = requests.post(
+        spread_id = ses.post(
             f"{b}spreads/",
             data={"book": book_id, "sequence": int(snames), "image": image_id},
             headers=ht,
@@ -108,11 +109,11 @@ for book in tqdm(books, desc="Books"):
 
         # Get the path of the left page and first save its image paths
         lpath = cleanpath(pagepics[0])
-        left_page_pic = requests.post(
-            f"{b}images/", data=img_enc(lpath), headers=ht
-        ).json()["id"]
+        left_page_pic = ses.post(f"{b}images/", data=img_enc(lpath), headers=ht).json()[
+            "id"
+        ]
         # ...and then save the page itself into the db, connected to the spread UUID, the run UUID, and the image UUID
-        left_page_id = requests.post(
+        left_page_id = ses.post(
             f"{b}pages/",
             data={
                 "spread": spread_id,
@@ -127,11 +128,11 @@ for book in tqdm(books, desc="Books"):
 
         # Get the path of the right page and first save its image paths
         rpath = cleanpath(pagepics[1])
-        right_page_pic = requests.post(
+        right_page_pic = ses.post(
             f"{b}images/", data=img_enc(rpath), headers=ht
         ).json()["id"]
         # ...and then create its entry
-        right_page_id = requests.post(
+        right_page_id = ses.post(
             f"{b}pages/",
             data={
                 "spread": spread_id,
@@ -152,13 +153,13 @@ for book in tqdm(books, desc="Books"):
         ]
         for l in tqdm(left_lines, desc="Right page lines", leave=False):
             # Create an image for the line first, getting its UUID
-            l_image_id = requests.post(
-                f"{b}images/", data=img_enc(l), headers=ht
-            ).json()["id"]
+            l_image_id = ses.post(f"{b}images/", data=img_enc(l), headers=ht).json()[
+                "id"
+            ]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])
 
             # and then save the line to the database
-            line_id = requests.post(
+            line_id = ses.post(
                 f"{b}lines/",
                 data={
                     "created_by_run": line_run,
@@ -178,13 +179,13 @@ for book in tqdm(books, desc="Books"):
             if re.search(f"{snames}_page2r_line\d+.tif", p)
         ]
         for l in tqdm(right_lines, desc="Left page lines", leave=False):
-            l_image_id = requests.post(
-                f"{b}images/", data=img_enc(l), headers=ht
-            ).json()["id"]
+            l_image_id = ses.post(f"{b}images/", data=img_enc(l), headers=ht).json()[
+                "id"
+            ]
             lseq = int(re.search(r"(\d+)\.tif", l).groups()[0])
 
             # and then save the line to the database
-            line_id = requests.post(
+            line_id = ses.post(
                 f"{b}lines/",
                 data={
                     "created_by_run": line_run,
