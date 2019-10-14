@@ -84,7 +84,7 @@ class Book(uuidModel):
     pq_url = models.URLField(
         max_length=1000, blank=True, help_text="ProQuest URL", editable=False
     )
-    publisher = models.CharField(
+    pp_publisher = models.CharField(
         blank=True, max_length=2000, help_text="Publisher as asserted by P&P team"
     )
     pdf = models.CharField(

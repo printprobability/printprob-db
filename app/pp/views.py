@@ -19,7 +19,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from django.db import transaction
-from django.db.models import Count, F, Exists, OuterRef
+from django.db.models import Count, F, Q, Exists, OuterRef
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from django_filters import rest_framework as filters
@@ -57,10 +57,13 @@ class BookFilter(filters.FilterSet):
         help_text="books with authors containing this string (case insensitive)",
         lookup_expr="icontains",
     )
+    pp_publisher = filters.CharFilter(
+        help_text="books assinged to this printer by P&P team", lookup_expr="icontains"
+    )
     images = filters.BooleanFilter(
         method="has_images",
         label="Has images?",
-        help_text="Has been processed with full images on Bridges?",
+        help_text="Has been processed on Bridges?",
     )
     year_early = filters.DateFilter(method="after_early", label="Started after date")
     year_late = filters.DateFilter(method="before_late", label="Finished before date")
@@ -73,14 +76,18 @@ class BookFilter(filters.FilterSet):
     )
 
     def has_images(self, queryset, name, value):
-        char_ref = models.Character.objects.filter(
-            line__page__spread__book=OuterRef("pk")
-        )
+        page_run = models.PageRun.objects.filter(book=OuterRef("pk"))
+        line_run = models.LineRun.objects.filter(book=OuterRef("pk"))
+        character_run = models.CharacterRun.objects.filter(book=OuterRef("pk"))
 
         if value:
             return (
-                queryset.annotate(has_chars=Exists(char_ref))
-                .filter(has_chars=True)
+                queryset.annotate(
+                    has_pages=Exists(page_run),
+                    has_lines=Exists(line_run),
+                    has_characters=Exists(character_run),
+                )
+                .filter(Q(has_pages=True) | Q(has_lines=True) | Q(has_characters=True))
                 .all()
             )
         return queryset
