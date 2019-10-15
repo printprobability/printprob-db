@@ -432,7 +432,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
         obj = self.get_object()
         response = HttpResponse(bytes(obj.data), content_type="image/tiff")
         response["Content-Transfer-Encoding"] = "base64"
-        response["Content-Disposition"] = f"filename={obj.id}.tiff"
+        response["Content-Disposition"] = f"inline; filename={obj.id}.tiff"
         return response
 
     @action(detail=False, methods=["post"])
