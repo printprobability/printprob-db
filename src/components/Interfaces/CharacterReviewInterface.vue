@@ -88,7 +88,7 @@ export default {
       book: null,
       order: "-class_probability",
       character_run: null,
-      char_agreement: "all",
+      char_agreement: "unknown",
       char_list_key: 0
     };
   },
