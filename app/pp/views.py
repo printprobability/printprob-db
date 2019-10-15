@@ -430,7 +430,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=["get"])
     def file(self, request, pk=None):
         obj = self.get_object()
-        response = HttpResponse(bytes(obj.data), content_type="image/tiff")
+        response = HttpResponse(bytes(obj.data), content_type="image/png")
         response["Content-Transfer-Encoding"] = "base64"
         response["Content-Disposition"] = f"filename={obj.id}.tiff"
         return response
