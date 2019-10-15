@@ -40,11 +40,23 @@
         <h5>P&P metadata</h5>
         <b-row>
           <b-col cols="4">
+            <b-form-group
+              id="pp-publisher-group"
+              label="Search by partial publisher (as assigned by P&P)"
+            >
+              <b-form-input
+                id="pp-publisher-input"
+                v-model="pp_publisher_search"
+                placeholder="simmons"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col cols="4">
             <b-form-group id="book-image-group" label="Only show books with images">
               <b-form-checkbox id="book-image-input" v-model="has_images" />
             </b-form-group>
           </b-col>
-          <b-col cols="8">
+          <b-col cols="4">
             <b-form-group
               id="date-range-group"
               label="Books published between"
@@ -78,6 +90,7 @@
       :year_early="year_early"
       :year_late="year_late"
       :has_images="has_images"
+      :pp_publisher="pp_publisher_search"
     />
   </div>
 </template>
@@ -95,6 +108,7 @@ export default {
       publisher_search: "",
       title_search: "",
       author_search: "",
+      pp_publisher_search: "",
       year_early: null,
       year_late: null,
       has_images: false

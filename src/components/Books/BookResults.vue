@@ -57,7 +57,8 @@ export default {
     author: String,
     year_early: String,
     year_late: String,
-    has_images: Boolean
+    has_images: Boolean,
+    pp_publisher: String
   },
   components: {
     Spinner
@@ -89,7 +90,8 @@ export default {
           pq_author: this.author,
           year_early: this.year_early,
           year_late: this.year_late,
-          images: this.has_images
+          images: this.has_images,
+          pp_publisher: this.pp_publisher
         }
       }).then(
         response => {
@@ -134,12 +136,17 @@ export default {
       this.progress_spinner = true;
       this.get_books();
     },
+    pp_publisher: function() {
+      this.progress_spinner = true;
+      this.debounced_get_books();
+    },
     rest_offset: function() {
       this.progress_spinner = true;
       this.get_books();
     }
   },
   created() {
+    this.progress_spinner = true;
     this.get_books();
   }
 };
