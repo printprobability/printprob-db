@@ -2,6 +2,7 @@
 .vscode
 .env
 .src_env
+.local_src_env
 
 __pycache__/
 
