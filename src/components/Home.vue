@@ -8,6 +8,21 @@
     <b-button v-if="!logged_in" :href="$APIConstants.API_LOGIN" variant="primary">Log In</b-button>
     <template v-else>
       <p v-show="!!display_count">{{ display_count }}</p>
+      <b-alert variant="warning" show>
+        <p>A note about images: the workbench directly serves raw TIFF data to the browser. While Internet Explorer 10+ and Safari will display these natively, you will need plugins to view the images seamlessly on Firefox or Chrome:</p>
+        <ul>
+          <li>
+            <a
+              href="https://addons.mozilla.org/en-US/firefox/addon/tiff-viewer/"
+            >Firefox TIFF viewer</a>
+          </li>
+          <li>
+            <a
+              href="https://chrome.google.com/webstore/detail/inline-tiff-viewer/kkfncbfgbghoklckdmeljdjohpkknlma"
+            >Chrome Inline Tiff Viewer</a>
+          </li>
+        </ul>
+      </b-alert>
     </template>
   </b-jumbotron>
 </template>
