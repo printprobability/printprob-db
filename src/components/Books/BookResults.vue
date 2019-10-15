@@ -28,16 +28,21 @@
           <router-link :to="{name: 'BookDetailView', params: {id: book.id}}">
             <h5>{{ truncate(book.pq_title, 80) }}</h5>
           </router-link>
-          <p>{{ book.pq_author }}</p>
-          <p>{{ book.pq_publisher }}</p>
-          <b-alert
-            show
-            variant="secondary"
-            v-if="!!book.publisher"
-          >P&P Publisher: {{ book.publisher}}</b-alert>
-          <small>
-            <a :href="book.pq_url">{{ book.pq_url }}</a>
-          </small>
+          <b-row class="mt-3">
+            <b-col col="sm-6" class="border-right">
+              <p class="bg-light p-2">EEBO / ProQuest</p>
+              <small>
+                <a :href="book.pq_url">{{ book.pq_url }}</a>
+              </small>
+              <p>Author: {{ book.pq_author }}</p>
+              <p>Publisher: {{ book.pq_publisher }}</p>
+            </b-col>
+            <b-col col="sm-6">
+              <p class="bg-light p-2">P&P</p>
+              <p>Date between: {{ book.date_early }} and {{ book.date_late }}</p>
+              <p>Publisher: {{ book.pp_publisher }}</p>
+            </b-col>
+          </b-row>
         </b-media>
       </b-list-group-item>
     </b-list-group>
