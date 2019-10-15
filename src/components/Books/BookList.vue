@@ -91,6 +91,8 @@
       :year_late="year_late"
       :has_images="has_images"
       :pp_publisher="pp_publisher_search"
+      :page="page"
+      @update_page="page=$event"
     />
   </div>
 </template>
@@ -111,8 +113,38 @@ export default {
       pp_publisher_search: "",
       year_early: null,
       year_late: null,
-      has_images: false
+      has_images: false,
+      page: 1
     };
+  },
+  computed: {
+    view_params() {
+      return {
+        pq_publisher: this.publisher_search,
+        pq_title: this.title_search,
+        pq_author: this.author_search,
+        pp_publisher: this.pp_publisher_search,
+        year_early: this.year_early,
+        year_late: this.year_late,
+        has_images: this.has_images,
+        page: this.page
+      };
+    }
+  },
+  created() {
+    var pn = !!this.$route.query.page ? Number(this.$route.query.page) : 1;
+
+    this.publisher_search = this.$route.query.pq_publisher;
+    this.title = this.$route.query.pq_title;
+    this.author = this.$route.query.pq_author;
+    this.pp_publisher = this.$route.query.pp_publisher;
+    this.has_images = this.$route.query.has_images;
+    this.year_early = this.$route.query.date_early;
+    this.year_late = this.$route.query.date_late;
+    this.page = pn;
+  },
+  updated() {
+    this.$router.push({ name: "BookListView", query: this.view_params });
   }
 };
 </script>

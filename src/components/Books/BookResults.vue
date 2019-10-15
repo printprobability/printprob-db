@@ -29,7 +29,7 @@
             <h5>{{ truncate(book.pq_title, 80) }}</h5>
           </router-link>
           <b-row class="mt-3">
-            <b-col col="sm-6" class="border-right">
+            <b-col cols sm="6" class="border-right">
               <p class="bg-light p-2">EEBO / ProQuest</p>
               <small>
                 <a :href="book.pq_url">{{ book.pq_url }}</a>
@@ -37,7 +37,7 @@
               <p>Author: {{ book.pq_author }}</p>
               <p>Publisher: {{ book.pq_publisher }}</p>
             </b-col>
-            <b-col col="sm-6">
+            <b-col cols sm="6">
               <p class="bg-light p-2">P&P</p>
               <p>Date between: {{ book.date_early }} and {{ book.date_late }}</p>
               <p>Publisher: {{ book.pp_publisher }}</p>
@@ -63,7 +63,11 @@ export default {
     year_early: String,
     year_late: String,
     has_images: Boolean,
-    pp_publisher: String
+    pp_publisher: String,
+    page: {
+      type: Number,
+      default: 1
+    }
   },
   components: {
     Spinner
@@ -72,7 +76,6 @@ export default {
     return {
       books: [],
       count: null,
-      page: 1,
       progress_spinner: false
     };
   },
@@ -148,6 +151,9 @@ export default {
     rest_offset: function() {
       this.progress_spinner = true;
       this.get_books();
+    },
+    page() {
+      this.$emit("update_page", this.page);
     }
   },
   created() {
