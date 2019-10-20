@@ -123,7 +123,7 @@ export default {
   data() {
     return {
       book: null,
-      display_fields: ["date_started"],
+      display_fields: ["date_started", "count"],
       detail_show: null,
       selected_run: null,
       selected_run_id: null
@@ -148,7 +148,8 @@ export default {
         return {
           id: r.id,
           type: runtype,
-          date_started: this.display_date(r.date_started)
+          date_started: this.display_date(r.date_started),
+          count: r.component_count
         };
       });
     },
