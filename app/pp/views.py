@@ -121,9 +121,7 @@ class BookViewSet(CRUDViewSet):
     def get_serializer_class(self):
         if self.action == "retrieve":
             return serializers.BookDetailSerializer
-        elif self.action == "list":
-            return serializers.BookListSerializer
-        return serializers.BookCreateSerializer
+        return serializers.BookListSerializer
 
 
 class SpreadFilter(filters.FilterSet):
@@ -165,51 +163,27 @@ class RunFilter(filters.FilterSet):
 
 
 class PageRunViewSet(CRUDViewSet):
-    queryset = models.PageRun.objects.prefetch_related("pages").all()
+    queryset = models.PageRun.objects.all()
     filterset_class = RunFilter
-
-    def get_serializer_class(self):
-        if self.action == "retrieve":
-            return serializers.PageRunDetailSerializer
-        elif self.action == "list":
-            return serializers.PageRunListSerializer
-        return serializers.PageRunCreateSerializer
+    serializer_class = serializers.PageRunSerializer
 
 
 class LineRunViewSet(CRUDViewSet):
     queryset = models.LineRun.objects.all()
     filterset_class = RunFilter
-
-    def get_serializer_class(self):
-        if self.action == "retrieve":
-            return serializers.LineRunDetailSerializer
-        elif self.action == "list":
-            return serializers.LineRunListSerializer
-        return serializers.LineRunCreateSerializer
+    serializer_class = serializers.LineRunSerializer
 
 
 class LineGroupRunViewSet(CRUDViewSet):
     queryset = models.LineGroupRun.objects.all()
     filterset_class = RunFilter
-
-    def get_serializer_class(self):
-        if self.action == "retrieve":
-            return serializers.LineGroupRunDetailSerializer
-        elif self.action == "list":
-            return serializers.LineGroupRunListSerializer
-        return serializers.LineGroupRunCreateSerializer
+    serializer_class = serializers.LineGroupRunSerializer
 
 
 class CharacterRunViewSet(CRUDViewSet):
     queryset = models.CharacterRun.objects.all()
     filterset_class = RunFilter
-
-    def get_serializer_class(self):
-        if self.action == "retrieve":
-            return serializers.CharacterRunDetailSerializer
-        elif self.action == "list":
-            return serializers.CharacterRunListSerializer
-        return serializers.CharacterRunCreateSerializer
+    serializer_class = serializers.CharacterRunSerializer
 
 
 class ImageViewSet(CRUDViewSet):
@@ -472,7 +446,7 @@ class CharacterGroupingFilter(filters.FilterSet):
 class CharacterGroupingViewSet(CRUDViewSet):
     queryset = models.CharacterGrouping.objects.select_related(
         "created_by"
-    ).prefetch_related("characters", "characters__image")
+    ).prefetch_related("characters")
     filterset_class = CharacterGroupingFilter
 
     def get_serializer_class(self):

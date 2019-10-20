@@ -43,17 +43,29 @@ class Run(uuidModel):
 class PageRun(Run):
     params = models.CharField(max_length=1000)
 
+    def component_count(self):
+        return self.pages.count()
+
 
 class LineRun(Run):
     params = models.CharField(max_length=1000)
+
+    def component_count(self):
+        return self.lines.count()
 
 
 class LineGroupRun(Run):
     params = models.CharField(max_length=1000)
 
+    def component_count(self):
+        return self.linegroups.count()
+
 
 class CharacterRun(Run):
     params = models.CharField(max_length=1000)
+
+    def component_count(self):
+        return self.characters.count()
 
 
 class Book(uuidModel):

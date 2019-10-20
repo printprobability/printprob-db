@@ -4,6 +4,7 @@ from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.core.management import call_command
+from base64 import b64encode
 from pp import models
 
 # Create your tests here.
@@ -72,6 +73,7 @@ class PageRunTestCase(TestCase):
             "script_md5",
             "date_started",
             "label",
+            "component_count"
         ]:
             self.assertIn(k, res.data["results"][0])
 
@@ -87,14 +89,11 @@ class PageRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
-            "pages",
             "label",
+            "component_count"
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
-        self.assertIsInstance(res.data["book"], dict)
-        self.assertIsInstance(res.data["pages"], list)
-        self.assertIn("image", res.data["pages"][0])
 
     @as_auth()
     def test_delete(self):
@@ -157,6 +156,7 @@ class LineRunTestCase(TestCase):
             "script_md5",
             "date_started",
             "label",
+            "component_count"
         ]:
             self.assertIn(k, res.data["results"][0])
 
@@ -172,13 +172,11 @@ class LineRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
-            "lines",
             "label",
+            "component_count"
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
-        self.assertIsInstance(res.data["book"], dict)
-        self.assertIsInstance(res.data["lines"], list)
 
     @as_auth()
     def test_delete(self):
@@ -256,13 +254,10 @@ class LineGroupRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
-            "linegroups",
             "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
-        self.assertIsInstance(res.data["book"], dict)
-        self.assertIsInstance(res.data["linegroups"], list)
 
     @as_auth()
     def test_delete(self):
@@ -325,9 +320,9 @@ class CharacterRunTestCase(TestCase):
             "script_md5",
             "date_started",
             "label",
+            "component_count"
         ]:
             self.assertIn(k, res.data["results"][0])
-        self.assertIn("eebo", res.data["results"][0]["book"])
 
     @as_auth()
     def test_get_detail(self):
@@ -341,13 +336,11 @@ class CharacterRunTestCase(TestCase):
             "script_path",
             "script_md5",
             "date_started",
-            "characters",
             "label",
+            "component_count"
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
-        self.assertIsInstance(res.data["book"], dict)
-        self.assertIsInstance(res.data["characters"], list)
 
     @as_auth()
     def test_delete(self):
@@ -407,7 +400,7 @@ class BookViewTest(TestCase):
             "id",
             "eebo",
             "vid",
-            "publisher",
+            "pp_publisher",
             "pq_publisher",
             "pq_title",
             "pq_author",
@@ -431,7 +424,7 @@ class BookViewTest(TestCase):
             "id",
             "eebo",
             "vid",
-            "publisher",
+            "pp_publisher",
             "pq_publisher",
             "pq_title",
             "pq_author",
@@ -439,6 +432,7 @@ class BookViewTest(TestCase):
             "date_early",
             "date_late",
             "pdf",
+            "cover_spread",
             "spreads",
             "all_runs",
             "label",
@@ -489,7 +483,7 @@ class SpreadViewTest(TestCase):
         self.assertEqual(res.data["count"], self.OBJCOUNT)
         for k in ["url", "id", "label", "book", "sequence", "image"]:
             self.assertIn(k, res.data["results"][0])
-        self.assertIn("jpg", res.data["results"][0]["image"])
+        self.assertIn("web_url", res.data["results"][0]["image"])
 
     @as_auth()
     def test_get_detail(self):
@@ -501,14 +495,12 @@ class SpreadViewTest(TestCase):
             "book",
             "sequence",
             "image",
-            "most_recent_pages",
-            "pages",
             "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
-        self.assertIsInstance(res.data["pages"], list)
-        self.assertIn("jpg", res.data["most_recent_pages"][0]["image"])
+        self.assertIn("web_url", res.data["image"])
+        self.assertIn("id", res.data["book"])
 
     @as_auth()
     def test_delete(self):
@@ -562,7 +554,7 @@ class PageViewTest(TestCase):
             "label",
         ]:
             self.assertIn(k, res.data["results"][0])
-        self.assertIn("jpg", res.data["results"][0]["image"])
+        self.assertIn("web_url", res.data["results"][0]["image"])
 
     @as_auth()
     def test_get_detail(self):
@@ -577,14 +569,12 @@ class PageViewTest(TestCase):
             "x_min",
             "x_max",
             "image",
-            "most_recent_lines",
-            "lines",
             "label",
         ]:
             self.assertIn(k, res.data.keys())
         self.assertEqual(res.data["id"], self.STR1)
-        self.assertIsInstance(res.data["lines"], list)
-        self.assertIn("jpg", res.data["image"])
+        self.assertIn("web_url", res.data["image"])
+        self.assertIn("id", res.data["spread"])
 
     @as_auth()
     def test_delete(self):
@@ -690,15 +680,10 @@ class LineViewTest(TestCase):
             "image",
             "y_min",
             "y_max",
-            "most_recent_characters",
-            "characters",
-            "most_recent_linegroups",
-            "linegroups",
             "label",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
-        self.assertIsInstance(res.data["characters"], list)
 
     @as_auth()
     def test_delete(self):
@@ -807,7 +792,6 @@ class CharacterViewTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.OBJCOUNT = models.Character.objects.count()
         cls.OBJ1 = models.Character.objects.first().pk
         cls.STR1 = str(cls.OBJ1)
         cls.CHARS1 = models.Character.objects.filter(human_character_class__isnull=True)[1:10]
@@ -816,7 +800,6 @@ class CharacterViewTest(TestCase):
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.data["count"], self.OBJCOUNT)
         for k in [
             "url",
             "id",
@@ -826,8 +809,8 @@ class CharacterViewTest(TestCase):
             "character_class",
             "human_character_class",
             "class_probability",
-            "image",
             "label",
+            "image",
         ]:
             self.assertIn(k, res.data["results"][0])
         self.assertIn("web_url", res.data["results"][0]["image"])
@@ -842,16 +825,17 @@ class CharacterViewTest(TestCase):
             "created_by_run",
             "line",
             "sequence",
-            "image",
             "x_min",
             "x_max",
             "character_class",
             "human_character_class",
             "class_probability",
             "label",
+            "image",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
+        self.assertIn("web_url", res.data["image"])
 
     @as_auth()
     def test_delete(self):
@@ -863,7 +847,6 @@ class CharacterViewTest(TestCase):
     @as_auth()
     def test_post(self):
         line = models.Line.objects.first().pk
-        image = models.Image.objects.first().pk
         run = models.CharacterRun.objects.first().pk
         char_class = models.CharacterClass.objects.first().pk
         res = self.client.post(
@@ -872,7 +855,7 @@ class CharacterViewTest(TestCase):
                 "line": line,
                 "created_by_run": run,
                 "sequence": 100,
-                "image": image,
+                "data": b64encode(b"somebytes"),
                 "x_min": 0,
                 "x_max": 0,
                 "character_class": char_class,
@@ -890,10 +873,15 @@ class CharacterViewTest(TestCase):
             "x_max",
             "character_class",
             "class_probability",
-            "image",
             "label",
+            "image",
         ]:
             self.assertIn(k, res.data)
+
+    @as_auth()
+    def test_file(self):
+        res = self.client.get(f"{self.ENDPOINT}{self.STR1}/file/")
+        self.assertEqual(res.status_code, 200)
 
     @as_auth()
     def test_annotate(self):
@@ -931,7 +919,7 @@ class ImageViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"]:
+        for k in ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]:
             self.assertIn(k, res.data["results"][0])
 
     @as_auth()
@@ -1175,7 +1163,7 @@ class CharacterGroupingViewTest(TestCase):
         noaccess(self)
 
 
-class DocTestCase(TestCase):
+class WipeImagesTestCase(TestCase):
     fixtures = ["test.json"]
 
     @classmethod

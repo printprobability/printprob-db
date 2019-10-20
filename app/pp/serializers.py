@@ -4,14 +4,13 @@ from django.db import transaction
 from django.contrib.auth.models import User
 from . import models
 
-
-class CharacterClassSerializer(serializers.HyperlinkedModelSerializer):
+class CharacterClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CharacterClass
         fields = ["url", "classname", "label"]
 
 
-class ImageSerializer(serializers.HyperlinkedModelSerializer):
+class ImageSerializer(serializers.ModelSerializer):
     web_url = serializers.URLField(read_only=True)
 
     class Meta:
@@ -19,27 +18,7 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["id", "url", "web_url", "jpg", "tif", "jpg_md5", "tif_md5"]
 
 
-class BookFlatSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = models.Book
-        fields = [
-            "url",
-            "id",
-            "eebo",
-            "label",
-            "vid",
-            "pq_publisher",
-            "pq_title",
-            "pq_author",
-            "date_early",
-            "date_late",
-            "pq_url",
-            "pp_publisher",
-            "pdf",
-        ]
-
-
-class SpreadFlatSerializer(serializers.HyperlinkedModelSerializer):
+class SpreadFlatSerializer(serializers.ModelSerializer):
     image = ImageSerializer(many=False)
 
     class Meta:
@@ -47,7 +26,7 @@ class SpreadFlatSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["url", "id", "label", "sequence", "image"]
 
 
-class PageFlatSerializer(serializers.HyperlinkedModelSerializer):
+class PageFlatSerializer(serializers.ModelSerializer):
     image = ImageSerializer(many=False)
 
     class Meta:
@@ -55,7 +34,7 @@ class PageFlatSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["url", "id", "label", "spread", "spread_sequence", "side", "image"]
 
 
-class LineFlatSerializer(serializers.HyperlinkedModelSerializer):
+class LineFlatSerializer(serializers.ModelSerializer):
     image = ImageSerializer()
 
     class Meta:
@@ -63,7 +42,7 @@ class LineFlatSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["url", "id", "label", "sequence", "image"]
 
 
-class CharacterFlatSerializer(serializers.HyperlinkedModelSerializer):
+class CharacterFlatSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField(read_only=True)
     character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
@@ -92,7 +71,32 @@ class CharacterFlatSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
-class PageRunListSerializer(serializers.HyperlinkedModelSerializer):
+class BookListSerializer(serializers.ModelSerializer):
+    cover_spread = SpreadFlatSerializer(many=False, read_only=True)
+    n_spreads = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = models.Book
+        fields = [
+            "url",
+            "id",
+            "eebo",
+            "vid",
+            "label",
+            "pp_publisher",
+            "pq_publisher",
+            "pq_title",
+            "pq_url",
+            "pq_author",
+            "date_early",
+            "date_late",
+            "pdf",
+            "n_spreads",
+            "cover_spread",
+        ]
+
+
+class PageRunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.PageRun
         fields = [
@@ -104,46 +108,12 @@ class PageRunListSerializer(serializers.HyperlinkedModelSerializer):
             "script_path",
             "script_md5",
             "date_started",
-            "label",
+            "component_count",
         ]
+        read_only_fields = ["component_count", "label", "date_started", "id"]
 
 
-class PageRunDetailSerializer(serializers.HyperlinkedModelSerializer):
-    book = BookFlatSerializer(many=False)
-    pages = PageFlatSerializer(many=True)
-
-    class Meta:
-        model = models.PageRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-            "pages",
-            "label",
-        ]
-
-
-class PageRunCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.PageRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-        ]
-
-
-class LineRunListSerializer(serializers.HyperlinkedModelSerializer):
+class LineRunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LineRun
         fields = [
@@ -155,43 +125,12 @@ class LineRunListSerializer(serializers.HyperlinkedModelSerializer):
             "script_path",
             "script_md5",
             "date_started",
+            "component_count",
         ]
+        read_only_fields = ["component_count", "label", "date_started", "id"]
 
 
-class LineRunDetailSerializer(serializers.HyperlinkedModelSerializer):
-    book = BookFlatSerializer(many=False)
-
-    class Meta:
-        model = models.LineRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-            "lines",
-        ]
-
-
-class LineRunCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.LineRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-        ]
-
-
-class LineGroupRunListSerializer(serializers.HyperlinkedModelSerializer):
+class LineGroupRunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LineGroupRun
         fields = [
@@ -203,45 +142,12 @@ class LineGroupRunListSerializer(serializers.HyperlinkedModelSerializer):
             "script_path",
             "script_md5",
             "date_started",
+            "component_count",
         ]
+        read_only_fields = ["component_count", "label", "date_started", "id"]
 
 
-class LineGroupRunDetailSerializer(serializers.HyperlinkedModelSerializer):
-    book = BookFlatSerializer(many=False)
-
-    class Meta:
-        model = models.LineGroupRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-            "linegroups",
-        ]
-
-
-class LineGroupRunCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.LineGroupRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-        ]
-
-
-class CharacterRunListSerializer(serializers.HyperlinkedModelSerializer):
-    book = BookFlatSerializer(many=False)
-
+class CharacterRunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CharacterRun
         fields = [
@@ -253,176 +159,13 @@ class CharacterRunListSerializer(serializers.HyperlinkedModelSerializer):
             "script_path",
             "script_md5",
             "date_started",
+            "component_count",
         ]
+        read_only_fields = ["component_count", "label", "date_started", "id"]
 
 
-class CharacterRunDetailSerializer(serializers.HyperlinkedModelSerializer):
-    book = BookFlatSerializer(many=False)
-
-    class Meta:
-        model = models.CharacterRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-            "characters",
-        ]
-
-
-class CharacterRunCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.CharacterRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-        ]
-
-
-class CharacterDetailSerializer(serializers.HyperlinkedModelSerializer):
-    image = serializers.SerializerMethodField(read_only=True)
-    book = BookFlatSerializer(many=False)
-    spread = SpreadFlatSerializer(many=False)
-    page = PageFlatSerializer(many=False)
-    line = LineFlatSerializer(many=False)
-    character_class = serializers.PrimaryKeyRelatedField(
-        queryset=models.CharacterClass.objects.all()
-    )
-    human_character_class = serializers.PrimaryKeyRelatedField(
-        queryset=models.CharacterClass.objects.all()
-    )
-    absolute_coords = serializers.JSONField()
-
-    class Meta:
-        model = models.Character
-        fields = [
-            "url",
-            "id",
-            "label",
-            "created_by_run",
-            "book",
-            "spread",
-            "page",
-            "line",
-            "sequence",
-            "image",
-            "x_min",
-            "x_max",
-            "character_class",
-            "class_probability",
-            "human_character_class",
-            "absolute_coords",
-        ]
-
-    def get_image(self, obj):
-        return {
-            "web_url": reverse(
-                "character-file", args=[obj.id], request=self.context.get("request")
-            )
-        }
-
-
-class CharacterListSerializer(serializers.HyperlinkedModelSerializer):
-    image = serializers.SerializerMethodField(read_only=True)
-    character_class = serializers.PrimaryKeyRelatedField(
-        queryset=models.CharacterClass.objects.all()
-    )
-    human_character_class = serializers.PrimaryKeyRelatedField(
-        queryset=models.CharacterClass.objects.all()
-    )
-
-    class Meta:
-        model = models.Character
-        fields = [
-            "url",
-            "id",
-            "label",
-            "created_by_run",
-            "sequence",
-            "x_min",
-            "x_max",
-            "character_class",
-            "class_probability",
-            "image",
-            "human_character_class",
-        ]
-
-    def get_image(self, obj):
-        return {
-            "web_url": reverse(
-                "character-file", args=[obj.id], request=self.context.get("request")
-            )
-        }
-
-
-class CharacterCreateSerializer(serializers.ModelSerializer):
-    character_class = serializers.PrimaryKeyRelatedField(
-        queryset=models.CharacterClass.objects.all()
-    )
-
-    class Meta:
-        model = models.Character
-        extra_kwargs = {"data": {"write_only": True}}
-        fields = [
-            "url",
-            "id",
-            "label",
-            "created_by_run",
-            "line",
-            "sequence",
-            "x_min",
-            "x_max",
-            "character_class",
-            "class_probability",
-            "data",
-        ]
-
-
-class CharacterAnnotateSerializer(serializers.Serializer):
-    characters = serializers.PrimaryKeyRelatedField(
-        queryset=models.Character.objects.defer("data").all(), many=True
-    )
-    human_character_class = serializers.PrimaryKeyRelatedField(
-        queryset=models.CharacterClass.objects.all(), many=False, allow_null=True
-    )
-
-
-class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
+class LineDetailSerializer(serializers.ModelSerializer):
     image = ImageSerializer(many=False)
-    characters = serializers.HyperlinkedRelatedField(
-        many=True,
-        view_name="character-file",
-        read_only=True,
-        help_text="All Character instances ever produced from this line, under any run.",
-    )
-    most_recent_characters = serializers.HyperlinkedRelatedField(
-        many=True,
-        view_name="character-file",
-        read_only=True,
-        help_text="Characters processed for this line during the most recent character run processed for this book.",
-    )
-    linegroups = serializers.HyperlinkedRelatedField(
-        many=True,
-        view_name="linegroup-detail",
-        read_only=True,
-        help_text="All LineGroup instances ever produced containing this Line, under any run.",
-    )
-    most_recent_linegroups = serializers.HyperlinkedRelatedField(
-        many=True,
-        view_name="linegroup-detail",
-        read_only=True,
-        help_text="LineGroups processed containing this line during the most recent line group run processed for this book.",
-    )
 
     class Meta:
         model = models.Line
@@ -437,14 +180,10 @@ class LineDetailSerializer(serializers.HyperlinkedModelSerializer):
             "image",
             "y_min",
             "y_max",
-            "most_recent_characters",
-            "characters",
-            "most_recent_linegroups",
-            "linegroups",
         ]
 
 
-class LineListSerializer(serializers.HyperlinkedModelSerializer):
+class LineListSerializer(serializers.ModelSerializer):
     image = ImageSerializer(many=False)
 
     class Meta:
@@ -479,7 +218,7 @@ class LineCreateSerializer(serializers.ModelSerializer):
         ]
 
 
-class PageListSerializer(serializers.HyperlinkedModelSerializer):
+class PageListSerializer(serializers.ModelSerializer):
     image = ImageSerializer()
 
     class Meta:
@@ -498,8 +237,8 @@ class PageListSerializer(serializers.HyperlinkedModelSerializer):
         ]
 
 
-class PageDetailSerializer(serializers.HyperlinkedModelSerializer):
-    created_by_run = PageRunListSerializer(many=False)
+class PageDetailSerializer(serializers.ModelSerializer):
+    created_by_run = PageRunSerializer(many=False)
     lines = serializers.HyperlinkedRelatedField(
         many=True,
         view_name="line-detail",
@@ -508,7 +247,7 @@ class PageDetailSerializer(serializers.HyperlinkedModelSerializer):
     )
     most_recent_lines = LineFlatSerializer(many=True)
     image = ImageSerializer(many=False)
-    book = BookFlatSerializer(many=False)
+    book = BookListSerializer(many=False)
     spread = SpreadFlatSerializer(many=False)
 
     class Meta:
@@ -545,7 +284,7 @@ class PageCreateSerializer(serializers.ModelSerializer):
         ]
 
 
-class SpreadListSerializer(serializers.HyperlinkedModelSerializer):
+class SpreadListSerializer(serializers.ModelSerializer):
     image = ImageSerializer()
 
     class Meta:
@@ -553,8 +292,9 @@ class SpreadListSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["url", "id", "label", "book", "sequence", "image"]
 
 
-class SpreadDetailSerializer(serializers.HyperlinkedModelSerializer):
+class SpreadDetailSerializer(serializers.ModelSerializer):
     image = ImageSerializer(many=False)
+    book = BookListSerializer(many=False)
     pages = serializers.HyperlinkedRelatedField(
         many=True,
         view_name="page-detail",
@@ -587,67 +327,16 @@ class SpreadCreateSeralizer(serializers.ModelSerializer):
         fields = ["url", "id", "book", "sequence", "image"]
 
 
-class BookListSerializer(serializers.HyperlinkedModelSerializer):
-    cover_spread = SpreadFlatSerializer(many=False)
-    n_spreads = serializers.IntegerField()
-
-    class Meta:
-        model = models.Book
-        fields = [
-            "url",
-            "id",
-            "eebo",
-            "vid",
-            "label",
-            "pp_publisher",
-            "pq_publisher",
-            "pq_title",
-            "pq_url",
-            "pq_author",
-            "date_early",
-            "date_late",
-            "pdf",
-            "n_spreads",
-            "cover_spread",
-        ]
-
-
-class BookCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Book
-        fields = [
-            "url",
-            "id",
-            "eebo",
-            "label",
-            "vid",
-            "pq_publisher",
-            "pq_title",
-            "pq_author",
-            "pq_url",
-            "pp_publisher",
-            "date_early",
-            "date_late",
-            "pdf",
-        ]
-
-
-class BookRunsSerializer(serializers.Serializer):
-    page = PageRunDetailSerializer(many=False)
-    line = LineRunDetailSerializer(many=False)
-    linegroup = LineGroupRunDetailSerializer(many=False)
-    character = CharacterRunDetailSerializer(many=False)
-
-
 class BookAllRunsSerializer(serializers.Serializer):
-    pages = PageRunListSerializer(many=True)
-    lines = LineRunListSerializer(many=True)
-    linegroups = LineGroupRunListSerializer(many=True)
-    characters = CharacterRunListSerializer(many=True)
+    pages = PageRunSerializer(many=True)
+    lines = LineRunSerializer(many=True)
+    linegroups = LineGroupRunSerializer(many=True)
+    characters = CharacterRunSerializer(many=True)
 
 
-class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
+class BookDetailSerializer(serializers.ModelSerializer):
     spreads = SpreadListSerializer(many=True)
+    cover_spread = SpreadListSerializer(many=False)
     all_runs = BookAllRunsSerializer()
 
     class Meta:
@@ -668,16 +357,17 @@ class BookDetailSerializer(serializers.HyperlinkedModelSerializer):
             "pdf",
             "spreads",
             "all_runs",
+            "cover_spread"
         ]
 
 
-class LineGroupListSerializer(serializers.HyperlinkedModelSerializer):
+class LineGroupListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LineGroup
         fields = ["url", "id", "label", "page", "created_by_run", "lines"]
 
 
-class LineGroupDetailSerializer(serializers.HyperlinkedModelSerializer):
+class LineGroupDetailSerializer(serializers.ModelSerializer):
     lines = LineListSerializer(many=True)
 
     class Meta:
@@ -691,7 +381,7 @@ class LineGroupCreateSerializer(serializers.ModelSerializer):
         fields = ["url", "id", "label", "page", "created_by_run", "lines"]
 
 
-class CharacterGroupingListSerializer(serializers.HyperlinkedModelSerializer):
+class CharacterGroupingListSerializer(serializers.ModelSerializer):
     created_by = serializers.SlugRelatedField(slug_field="username", read_only=True)
 
     class Meta:
@@ -699,7 +389,7 @@ class CharacterGroupingListSerializer(serializers.HyperlinkedModelSerializer):
         fields = ["url", "id", "label", "notes", "created_by", "date_created"]
 
 
-class CharacterGroupingDetailSerializer(serializers.HyperlinkedModelSerializer):
+class CharacterGroupingDetailSerializer(serializers.ModelSerializer):
     created_by = serializers.SlugRelatedField(slug_field="username", read_only=True)
     characters = CharacterFlatSerializer(many=True)
 
@@ -745,4 +435,121 @@ class CharacterGroupingCharacterListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CharacterGrouping
         fields = ["characters"]
+
+
+class CharacterDetailSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField(read_only=True)
+    book = BookListSerializer(many=False)
+    spread = SpreadFlatSerializer(many=False)
+    page = PageFlatSerializer(many=False)
+    line = LineFlatSerializer(many=False)
+    character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
+    human_character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
+    absolute_coords = serializers.JSONField()
+
+    class Meta:
+        model = models.Character
+        fields = [
+            "url",
+            "id",
+            "label",
+            "created_by_run",
+            "book",
+            "spread",
+            "page",
+            "line",
+            "sequence",
+            "image",
+            "x_min",
+            "x_max",
+            "character_class",
+            "class_probability",
+            "human_character_class",
+            "absolute_coords",
+        ]
+
+    def get_image(self, obj):
+        return {
+            "web_url": reverse(
+                "character-file", args=[obj.id], request=self.context.get("request")
+            )
+        }
+
+
+class CharacterListSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField(read_only=True)
+    character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
+    human_character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
+
+    class Meta:
+        model = models.Character
+        fields = [
+            "url",
+            "id",
+            "label",
+            "created_by_run",
+            "sequence",
+            "x_min",
+            "x_max",
+            "character_class",
+            "class_probability",
+            "image",
+            "human_character_class",
+        ]
+
+    def get_image(self, obj):
+        return {
+            "web_url": reverse(
+                "character-file", args=[obj.id], request=self.context.get("request")
+            )
+        }
+
+
+class CharacterCreateSerializer(serializers.ModelSerializer):
+    character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
+    image = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = models.Character
+        extra_kwargs = {"data": {"write_only": True}}
+        fields = [
+            "url",
+            "id",
+            "label",
+            "created_by_run",
+            "line",
+            "sequence",
+            "x_min",
+            "x_max",
+            "character_class",
+            "class_probability",
+            "data",
+            "image"
+        ]
+
+    def get_image(self, obj):
+        return {
+            "web_url": reverse(
+                "character-file", args=[obj.id], request=self.context.get("request")
+            )
+        }
+
+
+class CharacterAnnotateSerializer(serializers.Serializer):
+    characters = serializers.PrimaryKeyRelatedField(
+        queryset=models.Character.objects.defer("data").all(), many=True
+    )
+    human_character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all(), many=False, allow_null=True
+    )
 

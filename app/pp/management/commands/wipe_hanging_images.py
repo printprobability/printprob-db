@@ -10,4 +10,4 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         models.Image.objects.exclude(spreads__isnull=False).exclude(
             pages__isnull=False
-        ).exclude(lines__isnull=False).exclude(characters__isnull=False).delete()
+        ).exclude(lines__isnull=False).delete()
