@@ -42,6 +42,37 @@
                 >
                   <b-form-input id="author-input" v-model="author_search" placeholder="milton" />
                 </b-form-group>
+                <b-form-group
+                  id="pq_year_group"
+                  label-for="pq_year_input"
+                  label="Year"
+                  description="Get books produced within this year range"
+                >
+                  <vue-slider
+                    id="pq_year_input"
+                    v-model="pq_year_range"
+                    tooltip="always"
+                    tooltip-placement="bottom"
+                    :enable-cross="false"
+                    :min="min_year"
+                    :max="max_year"
+                  />
+                </b-form-group>
+                <b-form-group
+                  id="tx_year_group"
+                  label-for="tx_year_input"
+                  label="Texas A&M Year"
+                  description="Get books produced within this year range"
+                >
+                  <vue-slider
+                    v-model="tx_year_range"
+                    tooltip="always"
+                    tooltip-placement="bottom"
+                    :enable-cross="false"
+                    :min="min_year"
+                    :max="max_year"
+                  />
+                </b-form-group>
               </b-col>
             </b-form-row>
           </b-col>
@@ -68,7 +99,7 @@
                 <b-form-group
                   id="date-range-group"
                   label="Books published between"
-                  description="Only books whose dates are wholly within the specified range"
+                  description="Only books whose dates overlap the specified range"
                 >
                   <b-form inline>
                     <b-form-input
@@ -97,6 +128,10 @@
       :author="author_search"
       :year_early="year_early"
       :year_late="year_late"
+      :pq_year_min="pq_year_range[0]"
+      :pq_year_max="pq_year_range[1]"
+      :tx_year_min="tx_year_range[0]"
+      :tx_year_max="tx_year_range[1]"
       :has_images="has_images"
       :pp_publisher="pp_publisher_search"
       :page="page"
@@ -107,18 +142,25 @@
 
 <script>
 import BookResults from "./BookResults";
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/default.css";
 
 export default {
   name: "BookList",
   components: {
-    BookResults
+    BookResults,
+    VueSlider
   },
   data() {
     return {
+      min_year: 1500,
+      max_year: 1800,
       publisher_search: "",
       title_search: "",
       author_search: "",
       pp_publisher_search: "",
+      pq_year_range: [1500, 1800],
+      tx_year_range: [1500, 1800],
       year_early: null,
       year_late: null,
       has_images: false,
@@ -132,8 +174,12 @@ export default {
         pq_title: this.title_search,
         pq_author: this.author_search,
         pp_publisher: this.pp_publisher_search,
-        year_early: this.year_early,
-        year_late: this.year_late,
+        pq_year_min: this.pq_year_range[0],
+        pq_year_max: this.pq_year_range[1],
+        tx_year_min: this.tx_year_range[0],
+        tx_year_max: this.tx_year_range[1],
+        year_late_max: this.year_early,
+        year_early_min: this.year_late,
         has_images: this.has_images,
         page: this.page
       };
@@ -156,3 +202,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.vue-slider {
+  margin: 0em 1em 2em 1em;
+}
+</style>

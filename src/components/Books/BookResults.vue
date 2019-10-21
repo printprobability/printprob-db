@@ -36,6 +36,8 @@
               </small>
               <p>Author: {{ book.pq_author }}</p>
               <p>Publisher: {{ book.pq_publisher }}</p>
+              <p>EEBO date: {{ book.pq_year_early }}-{{ book.pq_year_late }}</p>
+              <p>TX A&M date: {{ book.tx_year_early }}-{{ book.tx_year_late }}</p>
             </b-col>
             <b-col cols sm="6">
               <p class="bg-light p-2">P&P</p>
@@ -60,6 +62,10 @@ export default {
     publisher: String,
     title: String,
     author: String,
+    pq_year_min: Number,
+    pq_year_max: Number,
+    tx_year_min: Number,
+    tx_year_max: Number,
     year_early: String,
     year_late: String,
     has_images: Boolean,
@@ -96,8 +102,12 @@ export default {
           pq_publisher: this.publisher,
           pq_title: this.title,
           pq_author: this.author,
-          year_early: this.year_early,
-          year_late: this.year_late,
+          pq_year_early_min: this.pq_year_min,
+          pq_year_late_max: this.pq_year_max,
+          tx_year_early_min: this.tx_year_min,
+          tx_year_late_max: this.tx_year_max,
+          year_early_min: this.year_early,
+          year_late_max: this.year_late,
           images: this.has_images,
           pp_publisher: this.pp_publisher
         }
@@ -129,6 +139,22 @@ export default {
       this.debounced_get_books();
     },
     author: function() {
+      this.progress_spinner = true;
+      this.debounced_get_books();
+    },
+    pq_year_min: function() {
+      this.progress_spinner = true;
+      this.debounced_get_books();
+    },
+    pq_year_max: function() {
+      this.progress_spinner = true;
+      this.debounced_get_books();
+    },
+    tx_year_min: function() {
+      this.progress_spinner = true;
+      this.debounced_get_books();
+    },
+    tx_year_max: function() {
       this.progress_spinner = true;
       this.debounced_get_books();
     },
