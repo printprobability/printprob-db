@@ -65,8 +65,15 @@ class BookFilter(filters.FilterSet):
         label="Has images?",
         help_text="Has been processed on Bridges?",
     )
-    year_early = filters.DateFilter(method="after_early", label="Started after date")
-    year_late = filters.DateFilter(method="before_late", label="Finished before date")
+    pq_year_verbatim = filters.CharFilter(
+        help_text="Search verbatim date strings from EEBO", lookup_expr="icontains"
+    )
+    pq_year_early = filters.RangeFilter(label="PQ start year")
+    pq_year_late = filters.RangeFilter(label="PQ end year")
+    tx_year_early = filters.RangeFilter(label="TX start year")
+    tx_year_late = filters.RangeFilter(label="TX end year")
+    year_early = filters.RangeFilter(label="PP start date")
+    year_late = filters.RangeFilter(label="PP end date")
     order = filters.OrderingFilter(
         fields=(
             ("pq_title", "Title"),

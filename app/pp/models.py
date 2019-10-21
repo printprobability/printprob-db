@@ -93,6 +93,24 @@ class Book(uuidModel):
         help_text="Author (as cataloged by EEBO)",
         editable=False,
     )
+    pq_year_verbatim = models.CharField(
+        max_length=2000,
+        blank=True,
+        help_text="Date string from EEBO, may contain non-numeric values",
+        editable=False,
+    )
+    pq_year_early = models.PositiveIntegerField(
+        db_index=True, null=True, help_text="Proquest early year", editable=False
+    )
+    pq_year_late = models.PositiveIntegerField(
+        db_index=True, null=True, help_text="Proquest late year", editable=False
+    )
+    tx_year_early = models.PositiveIntegerField(
+        db_index=True, null=True, help_text="Texas A&M early year", editable=False
+    )
+    tx_year_late = models.PositiveIntegerField(
+        db_index=True, null=True, help_text="Texas A&M late year", editable=False
+    )
     pq_url = models.URLField(
         max_length=1000, blank=True, help_text="ProQuest URL", editable=False
     )

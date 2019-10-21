@@ -4,6 +4,7 @@ from django.db import transaction
 from django.contrib.auth.models import User
 from . import models
 
+
 class CharacterClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CharacterClass
@@ -88,6 +89,11 @@ class BookListSerializer(serializers.ModelSerializer):
             "pq_title",
             "pq_url",
             "pq_author",
+            "pq_year_verbatim",
+            "pq_year_early",
+            "pq_year_late",
+            "tx_year_early",
+            "tx_year_late",
             "date_early",
             "date_late",
             "pdf",
@@ -352,12 +358,17 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "pq_title",
             "pq_author",
             "pq_url",
+            "pq_year_verbatim",
+            "pq_year_early",
+            "pq_year_late",
+            "tx_year_early",
+            "tx_year_late",
             "date_early",
             "date_late",
             "pdf",
             "spreads",
             "all_runs",
-            "cover_spread"
+            "cover_spread",
         ]
 
 
@@ -534,7 +545,7 @@ class CharacterCreateSerializer(serializers.ModelSerializer):
             "character_class",
             "class_probability",
             "data",
-            "image"
+            "image",
         ]
 
     def get_image(self, obj):
