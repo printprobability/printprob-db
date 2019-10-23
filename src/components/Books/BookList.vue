@@ -122,39 +122,41 @@
         </b-row>
       </div>
     </div>
-    <b-row align-h="between">
-      <div class="paginator">
-        <p v-show="pagination_needed">Displaying {{ results_length }} out of {{ count }} books</p>
-        <b-pagination
-          hide-goto-end-buttons
-          v-show="pagination_needed"
-          v-model="page"
-          :total-rows="count"
-          :per-page="$APIConstants.REST_PAGE_SIZE"
-          aria-controls="book-results"
-        />
-      </div>
-      <b-form-group id="sort-group" label-for="sort-select" label="Sort">
-        <BookSort v-model="order" />
-      </b-form-group>
-    </b-row>
-    <BookResults
-      :publisher="publisher_search"
-      :title="title_search"
-      :author="author_search"
-      :year_early="year_early"
-      :year_late="year_late"
-      :pq_year_min="pq_year_range[0]"
-      :pq_year_max="pq_year_range[1]"
-      :tx_year_min="tx_year_range[0]"
-      :tx_year_max="tx_year_range[1]"
-      :has_images="has_images"
-      :pp_publisher="pp_publisher_search"
-      :page="page"
-      :order="order"
-      @count-update="count=$event"
-      @books-update="results_length=$event"
-    />
+    <b-container fluid>
+      <b-row align-h="between">
+        <div class="paginator">
+          <p>Displaying books {{ page_range[0] }} to {{ page_range[1] }} out of {{ count }} total</p>
+          <b-pagination
+            hide-goto-end-buttons
+            v-show="pagination_needed"
+            v-model="page"
+            :total-rows="count"
+            :per-page="$APIConstants.REST_PAGE_SIZE"
+            aria-controls="book-results"
+          />
+        </div>
+        <b-form-group id="sort-group" label-for="sort-select" label="Sort">
+          <BookSort v-model="order" />
+        </b-form-group>
+      </b-row>
+      <BookResults
+        :publisher="publisher_search"
+        :title="title_search"
+        :author="author_search"
+        :year_early="year_early"
+        :year_late="year_late"
+        :pq_year_min="pq_year_range[0]"
+        :pq_year_max="pq_year_range[1]"
+        :tx_year_min="tx_year_range[0]"
+        :tx_year_max="tx_year_range[1]"
+        :has_images="has_images"
+        :pp_publisher="pp_publisher_search"
+        :page="page"
+        :order="order"
+        @count-update="count=$event"
+        @books-update="results_length=$event"
+      />
+    </b-container>
   </div>
 </template>
 
@@ -208,8 +210,12 @@ export default {
         order: this.order
       };
     },
-    pagination_needed: function() {
-      return this.count > this.$APIConstants.REST_PAGE_SIZE;
+    page_range: function() {
+      var base = 0;
+      if (this.page > 1) {
+        base = (this.page - 1) * 25;
+      }
+      return [base + 1, this.results_length + base];
     }
   },
   created() {
