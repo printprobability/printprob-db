@@ -146,7 +146,7 @@ export default {
           book: this.book,
           created_by_run: this.character_run,
           agreement: this.char_agreement,
-          order: this.order,
+          ordering: this.order,
           cursor: this.cursor
         }
       }).then(

@@ -126,6 +126,7 @@ export default {
     view_params() {
       return {
         book: this.book,
+        order: this.order,
         character_run: this.character_run,
         character_class: this.character_class,
         char_agreement: this.char_agreement
@@ -198,6 +199,7 @@ export default {
   },
   created() {
     this.book = this.$route.query.book;
+    this.order = this.$route.query.order;
     this.character_run = this.$route.query.character_run;
     this.character_class = this.$route.query.character_class;
     this.char_agreement = this.$route.query.char_agreement;
