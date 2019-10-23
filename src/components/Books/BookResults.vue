@@ -1,22 +1,6 @@
 <template>
   <div class="book-images my-2 container-fluid">
     <Spinner v-if="progress_spinner" />
-    <b-row align-h="between">
-      <div class="paginator">
-        <p v-show="pagination_needed">Displaying {{ books.length }} out of {{ count }} books</p>
-        <b-pagination
-          hide-goto-end-buttons
-          v-show="pagination_needed"
-          v-model="page"
-          :total-rows="count"
-          :per-page="$APIConstants.REST_PAGE_SIZE"
-          aria-controls="book-results"
-        />
-      </div>
-      <b-form-group id="sort-group" label-for="sort-select" label="Sort">
-        <b-form-select id="sort-select" v-model="order" :options="sort_options" />
-      </b-form-group>
-    </b-row>
     <b-list-group>
       <b-list-group-item v-for="book in books" :key="book.id">
         <b-media>
@@ -89,33 +73,12 @@ export default {
   },
   data() {
     return {
-      books: [],
-      count: null,
       progress_spinner: false
     };
   },
-  computed: {
-    pagination_needed: function() {
-      return this.count > this.$APIConstants.REST_PAGE_SIZE;
-    },
-    rest_offset: function() {
-      return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
-    },
-    sort_options() {
-      return [
-        { text: "Title A-Z", value: "pq_title" },
-        { text: "Title Z-A", value: "-pq_title" },
-        { text: "Author A-Z", value: "pq_author" },
-        { text: "Author Z-A", value: "-pq_author" },
-        { text: "Publisher A-Z", value: "pq_publisher" },
-        { text: "Publisher Z-A", value: "-pq_publisher" },
-        { text: "Oldest first", value: "date_early" },
-        { text: "Recent first", value: "date_early" }
-      ];
-    }
-  },
-  methods: {
-    get_books: function() {
+  asyncComputed: {
+    results() {
+      this.progress_spinner = true;
       return HTTP.get("/books/", {
         params: {
           limit: 25,
@@ -135,83 +98,45 @@ export default {
         }
       }).then(
         response => {
-          this.books = response.data.results;
-          this.count = response.data.count;
           this.progress_spinner = false;
+          return response.data;
         },
         error => {
+          this.progress_spinner = false;
           console.log(error);
         }
       );
+    }
+  },
+  computed: {
+    books() {
+      if (!!this.results) {
+        return this.results.results;
+      }
+      return [];
     },
-    debounced_get_books: _.debounce(function() {
-      this.get_books();
-    }, 750),
+    count() {
+      if (!!this.results) {
+        return this.results.count;
+      }
+      return 0;
+    },
+    rest_offset: function() {
+      return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
+    }
+  },
+  methods: {
     truncate: function(input, length) {
       return input.length > length ? `${input.substring(0, length)}...` : input;
     }
   },
   watch: {
-    publisher: function() {
-      this.progress_spinner = true;
-      this.debounced_get_books();
+    count() {
+      this.$emit("count-update", this.count);
     },
-    title: function() {
-      this.progress_spinner = true;
-      this.debounced_get_books();
-    },
-    author: function() {
-      this.progress_spinner = true;
-      this.debounced_get_books();
-    },
-    pq_year_min: function() {
-      this.progress_spinner = true;
-      this.debounced_get_books();
-    },
-    pq_year_max: function() {
-      this.progress_spinner = true;
-      this.debounced_get_books();
-    },
-    tx_year_min: function() {
-      this.progress_spinner = true;
-      this.debounced_get_books();
-    },
-    tx_year_max: function() {
-      this.progress_spinner = true;
-      this.debounced_get_books();
-    },
-    year_early: function() {
-      this.progress_spinner = true;
-      this.debounced_get_books();
-    },
-    year_late: function() {
-      this.progress_spinner = true;
-      this.debounced_get_books();
-    },
-    has_images: function() {
-      this.progress_spinner = true;
-      this.get_books();
-    },
-    pp_publisher: function() {
-      this.progress_spinner = true;
-      this.debounced_get_books();
-    },
-    rest_offset: function() {
-      this.progress_spinner = true;
-      this.get_books();
-    },
-    page() {
-      this.$emit("update_page", this.page);
-    },
-    order() {
-      this.progress_spinner = true;
-      this.get_books();
-      this.$emit("update_order", this.order);
+    books() {
+      this.$emit("books-update", this.books.length);
     }
-  },
-  created() {
-    this.progress_spinner = true;
-    this.get_books();
   }
 };
 </script>

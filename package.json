@@ -16,6 +16,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "vue": "^2.6.10",
+    "vue-async-computed": "^3.7.0",
     "vue-konva": "^2.0.11",
     "vue-router": "^3.1.3",
     "vue-slider-component": "^3.0.41"

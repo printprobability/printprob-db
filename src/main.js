@@ -6,10 +6,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueRouter from 'vue-router'
 import VueKonva from 'vue-konva'
+import AsyncComputed from 'vue-async-computed'
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(VueKonva)
+Vue.use(AsyncComputed)
 
 Vue.config.productionTip = false
 import Home from "./components/Home"
