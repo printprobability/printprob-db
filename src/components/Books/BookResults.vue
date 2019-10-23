@@ -80,7 +80,7 @@ export default {
       this.progress_spinner = true;
       return HTTP.get("/books/", {
         params: {
-          limit: 25,
+          limit: this.$APIConstants.BOOK_PAGE_SIZE,
           offset: this.rest_offset,
           pq_publisher: this.publisher,
           pq_title: this.title,

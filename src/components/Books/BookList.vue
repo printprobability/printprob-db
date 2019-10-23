@@ -213,7 +213,7 @@ export default {
     page_range: function() {
       var base = 0;
       if (this.page > 1) {
-        base = (this.page - 1) * 25;
+        base = (this.page - 1) * this.$APIConstants.BOOK_PAGE_SIZE;
       }
       return [base + 1, this.results_length + base];
     }

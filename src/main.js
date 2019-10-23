@@ -28,6 +28,7 @@ axios.defaults.withCredentials = true;
 
 Vue.prototype.$APIConstants = {
   REST_PAGE_SIZE: 100,
+  BOOK_PAGE_SIZE: 25,
   API_LOGIN: "/api/auth/login/?next=/",
   API_LOGOUT: "/api/auth/logout/?next=/",
   PP_ENDPOINT: process.env.VUE_APP_PP_ENDPOINT
