@@ -135,6 +135,7 @@
             aria-controls="book-results"
           />
         </div>
+        <b-spinner v-show="fetch_state=='getting'" />
         <b-form-group id="sort-group" label-for="sort-select" label="Sort">
           <BookSort v-model="order" />
         </b-form-group>
@@ -155,6 +156,7 @@
         :order="order"
         @count-update="count=$event"
         @books-update="results_length=$event"
+        @state="fetch_state=$event"
       />
     </b-container>
   </div>
@@ -189,7 +191,8 @@ export default {
       page: 1,
       order: "pq_title",
       count: 0,
-      results_length: 0
+      results_length: 0,
+      fetch_state: "waiting"
     };
   },
   computed: {
