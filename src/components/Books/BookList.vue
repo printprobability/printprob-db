@@ -135,7 +135,9 @@
       :has_images="has_images"
       :pp_publisher="pp_publisher_search"
       :page="page"
+      :order="order"
       @update_page="page=$event"
+      @update_order="order=$event"
     />
   </div>
 </template>
@@ -164,7 +166,8 @@ export default {
       year_early: null,
       year_late: null,
       has_images: false,
-      page: 1
+      page: 1,
+      order: "pq_title"
     };
   },
   computed: {
@@ -181,7 +184,8 @@ export default {
         year_late_max: this.year_early,
         year_early_min: this.year_late,
         has_images: this.has_images,
-        page: this.page
+        page: this.page,
+        order: this.order
       };
     }
   },

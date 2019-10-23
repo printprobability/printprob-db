@@ -1,18 +1,23 @@
 <template>
-  <div class="book-images my-2">
+  <div class="book-images my-2 container-fluid">
     <Spinner v-if="progress_spinner" />
-    <div class="paginator">
-      <p v-show="pagination_needed">Displaying {{ books.length }} out of {{ count }} books</p>
-      <b-pagination
-        hide-goto-end-buttons
-        v-show="pagination_needed"
-        v-model="page"
-        :total-rows="count"
-        :per-page="$APIConstants.REST_PAGE_SIZE"
-        aria-controls="book-results"
-      />
-    </div>
-    <b-list-group class="container">
+    <b-row align-h="between">
+      <div class="paginator">
+        <p v-show="pagination_needed">Displaying {{ books.length }} out of {{ count }} books</p>
+        <b-pagination
+          hide-goto-end-buttons
+          v-show="pagination_needed"
+          v-model="page"
+          :total-rows="count"
+          :per-page="$APIConstants.REST_PAGE_SIZE"
+          aria-controls="book-results"
+        />
+      </div>
+      <b-form-group id="sort-group" label-for="sort-select" label="Sort">
+        <b-form-select id="sort-select" v-model="order" :options="sort_options" />
+      </b-form-group>
+    </b-row>
+    <b-list-group>
       <b-list-group-item v-for="book in books" :key="book.id">
         <b-media>
           <template v-slot:aside>
@@ -70,6 +75,10 @@ export default {
     year_late: String,
     has_images: Boolean,
     pp_publisher: String,
+    order: {
+      type: String,
+      default: "pq_title"
+    },
     page: {
       type: Number,
       default: 1
@@ -91,6 +100,18 @@ export default {
     },
     rest_offset: function() {
       return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
+    },
+    sort_options() {
+      return [
+        { text: "Title A-Z", value: "pq_title" },
+        { text: "Title Z-A", value: "-pq_title" },
+        { text: "Author A-Z", value: "pq_author" },
+        { text: "Author Z-A", value: "-pq_author" },
+        { text: "Publisher A-Z", value: "pq_publisher" },
+        { text: "Publisher Z-A", value: "-pq_publisher" },
+        { text: "Oldest first", value: "date_early" },
+        { text: "Recent first", value: "date_early" }
+      ];
     }
   },
   methods: {
@@ -109,7 +130,8 @@ export default {
           year_early_min: this.year_early,
           year_late_max: this.year_late,
           images: this.has_images,
-          pp_publisher: this.pp_publisher
+          pp_publisher: this.pp_publisher,
+          ordering: this.order
         }
       }).then(
         response => {
@@ -180,6 +202,11 @@ export default {
     },
     page() {
       this.$emit("update_page", this.page);
+    },
+    order() {
+      this.progress_spinner = true;
+      this.get_books();
+      this.$emit("update_order", this.order);
     }
   },
   created() {
