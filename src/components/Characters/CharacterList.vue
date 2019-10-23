@@ -197,6 +197,11 @@ export default {
   watch: {
     results() {
       this.$emit("input", this.results.results);
+    },
+    book() {
+      if (!this.book) {
+        this.$emit("character_run_input", null);
+      }
     }
   }
 };
