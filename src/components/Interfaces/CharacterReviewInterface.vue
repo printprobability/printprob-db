@@ -122,6 +122,14 @@ export default {
     },
     commit_title() {
       return "Will commit the current changes to the database.";
+    },
+    view_params() {
+      return {
+        book: this.book,
+        character_run: this.character_run,
+        character_class: this.character_class,
+        char_agreement: this.char_agreement
+      };
     }
   },
   methods: {
@@ -191,6 +199,11 @@ export default {
   created() {
     this.book = this.$route.query.book;
     this.character_run = this.$route.query.character_run;
+    this.character_class = this.$route.query.character_class;
+    this.char_agreement = this.$route.query.char_agreement;
+  },
+  updated() {
+    this.$router.push({ name: "CharacterReviewView", query: this.view_params });
   }
 };
 </script>
