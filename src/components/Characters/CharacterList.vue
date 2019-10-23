@@ -39,7 +39,7 @@
       <div class="card-header">
         <Spinner v-if="progress_spinner" />
         <div class="paginator" v-if="value.length>0">
-          <CursorButtons :prev="prev" :next="next" @cursor="page_cursor($event)" />
+          <CursorButtons :prev="prev" :next="next" @cursor="cursor=$event" />
         </div>
         <div show v-else>No matching characters</div>
       </div>
@@ -134,35 +134,11 @@ export default {
     return {
       total_char_count: 0,
       progress_spinner: false,
-      next: null,
-      prev: null,
       cursor: null
     };
   },
-  computed: {
-    pagination_needed: function() {
-      return this.total_char_count > this.$APIConstants.REST_PAGE_SIZE;
-    },
-    rest_offset: function() {
-      return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
-    }
-  },
-  methods: {
-    cursor_param(url) {
-      if (!!url) {
-        const cursor_match = url.match(/cursor=([^&]+)/);
-        if (!!cursor_match) {
-          return decodeURIComponent(cursor_match[1]);
-        }
-      } else {
-        return null;
-      }
-    },
-    page_cursor(cursor) {
-      this.cursor = cursor;
-      this.get_characters();
-    },
-    get_characters() {
+  asyncComputed: {
+    results() {
       this.progress_spinner = true;
       return HTTP.get("/characters/", {
         params: {
@@ -175,44 +151,53 @@ export default {
         }
       }).then(
         response => {
-          this.$emit("input", response.data.results);
-          this.cursor = null;
-          this.prev = this.cursor_param(response.data.previous);
-          this.next = this.cursor_param(response.data.next);
           this.progress_spinner = false;
+          return response.data;
         },
         error => {
-          console.log(error);
           this.progress_spinner = false;
+          console.log(error);
         }
       );
     }
   },
-  watch: {
-    character_class() {
-      this.get_characters();
+  computed: {
+    prev() {
+      if (!!this.results) {
+        return this.cursor_param(this.results.previous);
+      }
+      return null;
     },
-    book() {
-      this.get_characters();
+    next() {
+      if (!!this.results) {
+        return this.cursor_param(this.results.next);
+      }
+      return null;
     },
-    character_run() {
-      this.get_characters();
+    pagination_needed: function() {
+      return this.total_char_count > this.$APIConstants.REST_PAGE_SIZE;
     },
-    char_agreement() {
-      this.get_characters();
-    },
-    order() {
-      this.get_characters();
-    },
-    rest_offset() {
-      this.get_characters();
+    rest_offset: function() {
+      return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
     }
   },
-  mounted() {
-    this.get_characters();
+  methods: {
+    cursor_param(url) {
+      // Extracts the cursor parameter from the next/previous links returned by DRF
+      if (!!url) {
+        const cursor_match = url.match(/cursor=([^&]+)/);
+        if (!!cursor_match) {
+          return decodeURIComponent(cursor_match[1]);
+        }
+      } else {
+        return null;
+      }
+    }
+  },
+  watch: {
+    results() {
+      this.$emit("input", this.results.results);
+    }
   }
 };
 </script>
-
-<style>
-</style>
