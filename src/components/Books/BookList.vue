@@ -135,7 +135,7 @@
         />
       </div>
       <b-form-group id="sort-group" label-for="sort-select" label="Sort">
-        <b-form-select id="sort-select" v-model="order" :options="sort_options" />
+        <BookSort v-model="order" />
       </b-form-group>
     </b-row>
     <BookResults
@@ -160,6 +160,7 @@
 
 <script>
 import BookResults from "./BookResults";
+import BookSort from "../Menus/BookSort";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/default.css";
 
@@ -167,6 +168,7 @@ export default {
   name: "BookList",
   components: {
     BookResults,
+    BookSort,
     VueSlider
   },
   data() {
@@ -208,18 +210,6 @@ export default {
     },
     pagination_needed: function() {
       return this.count > this.$APIConstants.REST_PAGE_SIZE;
-    },
-    sort_options() {
-      return [
-        { text: "Title A-Z", value: "pq_title" },
-        { text: "Title Z-A", value: "-pq_title" },
-        { text: "Author A-Z", value: "pq_author" },
-        { text: "Author Z-A", value: "-pq_author" },
-        { text: "Publisher A-Z", value: "pq_publisher" },
-        { text: "Publisher Z-A", value: "-pq_publisher" },
-        { text: "Oldest first", value: "date_early" },
-        { text: "Recent first", value: "date_early" }
-      ];
     }
   },
   created() {
@@ -229,7 +219,7 @@ export default {
     this.title = this.$route.query.pq_title;
     this.author = this.$route.query.pq_author;
     this.pp_publisher = this.$route.query.pp_publisher;
-    this.has_images = Boolean(this.$route.query.has_images);
+    this.has_images = this.$route.query.has_images == "true";
     this.year_early = this.$route.query.date_early;
     this.year_late = this.$route.query.date_late;
     this.page = Number(pn);
