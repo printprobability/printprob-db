@@ -74,13 +74,6 @@ class BookFilter(filters.FilterSet):
     tx_year_late = filters.RangeFilter(label="TX end year")
     year_early = filters.RangeFilter(label="PP start date")
     year_late = filters.RangeFilter(label="PP end date")
-    order = filters.OrderingFilter(
-        fields=(
-            ("pq_title", "Title"),
-            ("pq_author", "Author"),
-            ("date_early", "Published after"),
-        )
-    )
 
     def has_images(self, queryset, name, value):
         page_run = models.PageRun.objects.filter(book=OuterRef("pk"))
@@ -124,6 +117,7 @@ class BookViewSet(CRUDViewSet):
         .all()
     )
     filterset_class = BookFilter
+    ordering_fields = ["pq_title", "pq_author", "pq_publisher", "date_early"]
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -366,7 +360,6 @@ class CharacterFilter(filters.FilterSet):
         method="class_agreement",
         label="Machine/human class agreement",
     )
-    order = filters.OrderingFilter(fields=(("class_probability", "class_probability"),))
 
     def class_agreement(self, queryset, name, value):
         if value == "unknown":
@@ -395,11 +388,20 @@ class CharacterViewSet(viewsets.ModelViewSet):
             "character_class",
             "human_character_class",
         )
+        .annotate(
+            rundate=F("created_by_run__date_started"),
+            lineseq=F("line__sequence"),
+            pageseq=F("line__page__side"),
+            spreadseq=F("line__page__spread__sequence"),
+            bookseq=F("line__page__spread__book__id"),
+        )
         .defer("data")
         .all()
     )
+    ordering_fields = ["class_probability"]
+    ordering = ["rundate", "bookseq", "spreadseq", "pageseq", "lineseq", "sequence"]
     filterset_class = CharacterFilter
-    pagination_class = characterPagination
+    pagination_class = pagination.CursorPagination
 
     def get_serializer_class(self):
         if self.action == "retrieve":
