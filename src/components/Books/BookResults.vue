@@ -43,7 +43,6 @@
 <script>
 import Spinner from "../Interfaces/Spinner";
 import { HTTP } from "../../main";
-import _ from "lodash";
 
 export default {
   name: "BookResults",
