@@ -13,7 +13,7 @@
           </div>
         </template>
         <router-link :to="{name: 'BookDetailView', params: {id: book.id}}">
-          <h5>{{ truncate(book.pq_title, 80) }}</h5>
+          <h5>{{ truncate(book.pq_title, 140) }}</h5>
         </router-link>
         <b-row class="mt-3">
           <b-col cols sm="6" class="border-right">

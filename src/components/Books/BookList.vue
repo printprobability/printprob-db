@@ -125,10 +125,9 @@
     <b-container fluid>
       <b-row align-h="between">
         <div class="paginator">
-          <p>Displaying books {{ page_range[0] }} to {{ page_range[1] }} out of {{ count }} total</p>
+          <p>Displaying books {{ page_range[0].toLocaleString() }} to {{ page_range[1].toLocaleString() }} out of {{ count.toLocaleString() }} total</p>
           <b-pagination
             hide-goto-end-buttons
-            v-show="pagination_needed"
             v-model="page"
             :total-rows="count"
             :per-page="$APIConstants.REST_PAGE_SIZE"
