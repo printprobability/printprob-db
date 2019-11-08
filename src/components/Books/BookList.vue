@@ -9,6 +9,19 @@
             <b-form-row>
               <b-col col md="6">
                 <b-form-group
+                  id="eebo-group"
+                  label="EEBO id"
+                  label-for="eebo-input"
+                  description="EEBO number"
+                >
+                  <b-form-input
+                    id="eebo-input"
+                    v-model="eebo_search"
+                    placeholder="99896497"
+                    type="number"
+                  />
+                </b-form-group>
+                <b-form-group
                   id="publisher-group"
                   label="Publisher"
                   label-for="publisher-input"
@@ -16,7 +29,7 @@
                 >
                   <b-form-input
                     id="publisher-input"
-                    v-model="publisher_search"
+                    v-model="raw_publisher_search"
                     placeholder="overton"
                   />
                 </b-form-group>
@@ -28,7 +41,7 @@
                 >
                   <b-form-input
                     id="title-input"
-                    v-model="title_search"
+                    v-model="raw_title_search"
                     placeholder="nine arguments"
                   />
                 </b-form-group>
@@ -40,7 +53,7 @@
                   label="Author"
                   description="Search by partial author (case insensitive)"
                 >
-                  <b-form-input id="author-input" v-model="author_search" placeholder="milton" />
+                  <b-form-input id="author-input" v-model="raw_author_search" placeholder="milton" />
                 </b-form-group>
                 <b-form-group
                   id="pq_year_group"
@@ -140,6 +153,7 @@
         </b-form-group>
       </b-row>
       <BookResults
+        :eebo="eebo_search"
         :publisher="publisher_search"
         :title="title_search"
         :author="author_search"
@@ -166,6 +180,7 @@ import BookResults from "./BookResults";
 import BookSort from "../Menus/BookSort";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/default.css";
+import _ from "lodash";
 
 export default {
   name: "BookList",
@@ -178,10 +193,11 @@ export default {
     return {
       min_year: 1500,
       max_year: 1800,
-      publisher_search: "",
-      title_search: "",
-      author_search: "",
-      pp_publisher_search: "",
+      eebo_search: null,
+      raw_publisher_search: "",
+      raw_title_search: "",
+      raw_author_search: "",
+      raw_pp_publisher_search: "",
       pq_year_range: [1500, 1800],
       tx_year_range: [1500, 1800],
       year_early: null,
@@ -195,8 +211,21 @@ export default {
     };
   },
   computed: {
+    publisher_search: _.debounce(function() {
+      return this.raw_publisher_search;
+    }, 750),
+    title_search: _.debounce(function() {
+      return this.raw_title_search;
+    }, 750),
+    author_search: _.debounce(function() {
+      return this.raw_author_search;
+    }, 750),
+    pp_publisher_search: _.debounce(function() {
+      return this.raw_pp_publisher_search;
+    }, 750),
     view_params() {
       return {
+        eebo: this.eebo,
         pq_publisher: this.publisher_search,
         pq_title: this.title_search,
         pq_author: this.author_search,
@@ -223,10 +252,11 @@ export default {
   created() {
     var pn = !!this.$route.query.page ? Number(this.$route.query.page) : 1;
 
-    this.publisher_search = this.$route.query.pq_publisher;
-    this.title = this.$route.query.pq_title;
-    this.author = this.$route.query.pq_author;
-    this.pp_publisher = this.$route.query.pp_publisher;
+    this.eebo_search = this.$route.query.eebo;
+    this.raw_publisher_search = this.$route.query.pq_publisher;
+    this.raw_title = this.$route.query.pq_title;
+    this.raw_author = this.$route.query.pq_author;
+    this.raw_pp_publisher = this.$route.query.pp_publisher;
     this.has_images = this.$route.query.has_images == "true";
     this.year_early = this.$route.query.date_early;
     this.year_late = this.$route.query.date_late;

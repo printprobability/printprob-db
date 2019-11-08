@@ -44,6 +44,7 @@ export default {
   name: "BookResults",
   props: {
     publisher: String,
+    eebo: Number,
     title: String,
     author: String,
     pq_year_min: Number,
@@ -75,6 +76,7 @@ export default {
         params: {
           limit: this.$APIConstants.BOOK_PAGE_SIZE,
           offset: this.rest_offset,
+          eebo: this.eebo,
           pq_publisher: this.publisher,
           pq_title: this.title,
           pq_author: this.author,
