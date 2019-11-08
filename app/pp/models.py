@@ -401,6 +401,8 @@ class Character(uuidModel):
         help_text="Which pipeline run created this object instance",
         related_name="characters",
     )
+    exposure = models.IntegerField(default=0)
+    offset = models.IntegerField(default=0)
 
     class Meta:
         unique_together = (("created_by_run", "line", "sequence"),)

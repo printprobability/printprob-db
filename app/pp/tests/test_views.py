@@ -821,6 +821,8 @@ class CharacterViewTest(TestCase):
             "class_probability",
             "label",
             "image",
+            "exposure",
+            "offset",
         ]:
             self.assertIn(k, res.data["results"][0])
         self.assertIn("web_url", res.data["results"][0]["image"])
@@ -842,6 +844,8 @@ class CharacterViewTest(TestCase):
             "class_probability",
             "label",
             "image",
+            "exposure",
+            "offset",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
@@ -885,6 +889,8 @@ class CharacterViewTest(TestCase):
             "class_probability",
             "label",
             "image",
+            "exposure",
+            "offset",
         ]:
             self.assertIn(k, res.data)
 

@@ -62,6 +62,10 @@ class CharacterFlatSerializer(serializers.ModelSerializer):
             "image",
             "character_class",
             "human_character_class",
+            "x_min",
+            "x_max",
+            "exposure",
+            "offset",
         ]
 
     def get_image(self, obj):
@@ -480,6 +484,8 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
             "character_class",
             "class_probability",
             "human_character_class",
+            "exposure",
+            "offset",
             "absolute_coords",
         ]
 
@@ -514,6 +520,8 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "class_probability",
             "image",
             "human_character_class",
+            "exposure",
+            "offset",
         ]
 
     def get_image(self, obj):
@@ -546,6 +554,8 @@ class CharacterCreateSerializer(serializers.ModelSerializer):
             "class_probability",
             "data",
             "image",
+            "exposure",
+            "offset",
         ]
 
     def get_image(self, obj):
