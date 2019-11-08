@@ -249,12 +249,12 @@ class Page(ImagedModel):
         choices=SPREAD_SIDE,
         help_text="Side of the spread this has been segmented to",
     )
-    x_min = models.PositiveIntegerField(
-        help_text="Starting x-axis location of the page on the original spread image"
-    )
-    x_max = models.PositiveIntegerField(
-        help_text="Ending x-axis location of the page on the original spread image"
-    )
+    x = models.FloatField()
+    y = models.FloatField()
+    w = models.FloatField()
+    h = models.FloatField()
+    rot1 = models.FloatField()
+    rot2 = models.FloatField()
     created_by_run = models.ForeignKey(
         PageRun,
         on_delete=models.CASCADE,
@@ -414,18 +414,18 @@ class Character(uuidModel):
     def page(self):
         return self.line.page
 
-    def absolute_coords(self):
-        bbox = {}
-        xmin = self.line.page.x_min + self.x_min
-        xmax = self.line.page.x_min + self.x_max
-        ymin = self.line.y_min
-        ymax = self.line.y_max
-        return [
-            {"x": xmin, "y": ymin},
-            {"x": xmax, "y": ymin},
-            {"x": xmax, "y": ymax},
-            {"x": xmin, "y": ymax},
-        ]
+    # def absolute_coords(self):
+    #     bbox = {}
+    #     xmin = self.line.page.x_min + self.x_min
+    #     xmax = self.line.page.x_min + self.x_max
+    #     ymin = self.line.y_min
+    #     ymax = self.line.y_max
+    #     return [
+    #         {"x": xmin, "y": ymin},
+    #         {"x": xmax, "y": ymin},
+    #         {"x": xmax, "y": ymax},
+    #         {"x": xmin, "y": ymax},
+    #     ]
 
 
 # User-based models

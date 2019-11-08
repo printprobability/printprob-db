@@ -43,17 +43,14 @@ class Command(BaseCommand):
 
         def quickimage():
             return models.Image.objects.create(
-                jpg=ff.file_path(depth=3, extension="jpg"),
-                tif=ff.file_path(depth=3, extension="tif"),
-                jpg_md5=uuid4(),
-                tif_md5=uuid4(),
+                tif=ff.file_path(depth=3, extension="tif"), tif_md5=uuid4()
             )
 
         books = models.Book.objects.all()
 
         print("Generating spreads")
         for book in tqdm(books):
-            for i in range(0, random.randrange(4, 30)):
+            for i in range(0, 3):
                 models.Spread.objects.create(book=book, sequence=i, image=quickimage())
 
         print("Generating pages")
@@ -71,8 +68,12 @@ class Command(BaseCommand):
                         created_by_run=page_run,
                         side=s,
                         image=quickimage(),
-                        x_min=random.randrange(0, 500),
-                        x_max=random.randrange(0, 500),
+                        x=random.randrange(0, 500),
+                        y=random.randrange(0, 500),
+                        w=random.randrange(0, 500),
+                        h=random.randrange(0, 500),
+                        rot1=random.randrange(0, 500),
+                        rot2=random.randrange(0, 500),
                     )
 
         print("Generating lines")
@@ -87,7 +88,7 @@ class Command(BaseCommand):
             for page in tqdm(
                 models.Page.objects.filter(spread__book=book).all(), leave=False
             ):
-                for i in range(0, 35):
+                for i in range(0, 3):
                     models.Line.objects.create(
                         page=page,
                         created_by_run=line_run,
@@ -116,7 +117,7 @@ class Command(BaseCommand):
             for page in tqdm(
                 models.Page.objects.filter(spread__book=book).all(), leave=False
             ):
-                for i in range(0, 10):
+                for i in range(0, 1):
                     lg = models.LineGroup.objects.create(
                         page=page, created_by_run=linegroup_run
                     )
@@ -151,7 +152,7 @@ class Command(BaseCommand):
             book_lines = models.Line.objects.filter(page__spread__book=book).all()
 
             for line in tqdm(book_lines, leave=False):
-                for i in range(0, 60):
+                for i in range(0, 3):
                     randclass = all_classes[random.randrange(0, 52)]
                     models.Character.objects.create(
                         line=line,
@@ -169,3 +170,4 @@ class Command(BaseCommand):
                 tqdm(pool.map(gen_chars, books), total=books.count())
 
         gen_all_chars(books)
+

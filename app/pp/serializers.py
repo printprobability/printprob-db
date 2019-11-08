@@ -241,8 +241,12 @@ class PageListSerializer(serializers.ModelSerializer):
             "spread",
             "spread_sequence",
             "side",
-            "x_min",
-            "x_max",
+            "x",
+            "y",
+            "w",
+            "h",
+            "rot1",
+            "rot2",
             "image",
         ]
 
@@ -270,8 +274,12 @@ class PageDetailSerializer(serializers.ModelSerializer):
             "book",
             "spread",
             "side",
-            "x_min",
-            "x_max",
+            "x",
+            "y",
+            "w",
+            "h",
+            "rot1",
+            "rot2",
             "image",
             "most_recent_lines",
             "lines",
@@ -288,8 +296,12 @@ class PageCreateSerializer(serializers.ModelSerializer):
             "created_by_run",
             "spread",
             "side",
-            "x_min",
-            "x_max",
+            "x",
+            "y",
+            "w",
+            "h",
+            "rot1",
+            "rot2",
             "image",
         ]
 
@@ -464,7 +476,7 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
     human_character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
-    absolute_coords = serializers.JSONField()
+    # absolute_coords = serializers.JSONField()
 
     class Meta:
         model = models.Character
@@ -486,7 +498,7 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
             "human_character_class",
             "exposure",
             "offset",
-            "absolute_coords",
+            # "absolute_coords",
         ]
 
     def get_image(self, obj):
