@@ -186,24 +186,18 @@ class Task(uuidModel):
 
 
 class Image(uuidModel):
-    jpg = models.CharField(
-        max_length=2000,
-        help_text="relative file path to root directory containing all images",
-        unique=True,
-    )
     tif = models.CharField(
         max_length=2000,
         help_text="relative file path to root directory containing all images",
         unique=True,
     )
-    jpg_md5 = models.UUIDField(help_text="md5 hash of the jpg file (as hex digest)")
     tif_md5 = models.UUIDField(help_text="md5 hash of the tif file (as hex digest)")
 
     def labeller(self):
-        return self.jpg
+        return self.tif
 
     def web_url(self):
-        return f"{settings.IMAGE_BASEURL}{self.jpg}"
+        return f"{settings.IMAGE_BASEURL}{self.tif}"
 
 
 class ImagedModel(uuidModel):

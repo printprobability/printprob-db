@@ -196,7 +196,7 @@ class ImageViewSet(CRUDViewSet):
     Returns a list of images, with references to thier file versions and a URL for the preferred web version of the image.
 
     create:
-    Create a new image record by specifying both the jpg and tif paths.
+    Create a new image record by specifying the tif path.
     """
 
     queryset = models.Image.objects.all()
@@ -503,7 +503,7 @@ class CharacterGroupingViewSet(CRUDViewSet):
                 [{"error": "This character group has no characters to download"}],
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        filenames = obj.characters.all().values_list("image__jpg", flat=True)
+        filenames = obj.characters.all().values_list("image__tif", flat=True)
 
         zip_file = zipfile.ZipFile(response, "w")
         for filename in filenames:

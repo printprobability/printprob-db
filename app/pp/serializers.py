@@ -16,7 +16,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Image
-        fields = ["id", "url", "web_url", "jpg", "tif", "jpg_md5", "tif_md5"]
+        fields = ["id", "url", "web_url", "tif", "tif_md5"]
 
 
 class SpreadFlatSerializer(serializers.ModelSerializer):

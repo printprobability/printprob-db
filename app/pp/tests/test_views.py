@@ -418,7 +418,7 @@ class BookViewTest(TestCase):
             "label",
         ]:
             self.assertIn(k, res.data["results"][0])
-        self.assertIn("jpg", res.data["results"][0]["cover_spread"]["image"])
+        self.assertIn("tif", res.data["results"][0]["cover_spread"]["image"])
 
     @as_auth()
     def test_get_detail(self):
@@ -935,14 +935,14 @@ class ImageViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]:
+        for k in ["url", "id", "tif", "tif_md5", "web_url"]:
             self.assertIn(k, res.data["results"][0])
 
     @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        for k in ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5", "web_url"]:
+        for k in ["url", "id", "tif", "tif_md5", "web_url"]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
 
@@ -958,14 +958,12 @@ class ImageViewTest(TestCase):
         res = self.client.post(
             self.ENDPOINT,
             data={
-                "jpg": "/foo/bar.jpg",
                 "tif": "/foo/bat.tiff",
-                "jpg_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
                 "tif_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
             },
         )
         self.assertEqual(res.status_code, 201)
-        for k in ["url", "id", "jpg", "tif", "jpg_md5", "tif_md5"]:
+        for k in ["url", "id", "tif", "tif_md5"]:
             self.assertIn(k, res.data)
 
     def test_noaccess(self):
