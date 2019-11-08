@@ -68,9 +68,6 @@ class PageRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
             "component_count",
@@ -85,9 +82,6 @@ class PageRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
             "component_count",
@@ -109,9 +103,6 @@ class PageRunTestCase(TestCase):
             self.ENDPOINT,
             data={
                 "book": book,
-                "params": "foo",
-                "script_path": "bar",
-                "script_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
             },
         )
         self.assertEqual(res.status_code, 201)
@@ -119,9 +110,6 @@ class PageRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
         ]:
@@ -151,9 +139,6 @@ class LineRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
             "component_count",
@@ -168,9 +153,6 @@ class LineRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
             "component_count",
@@ -192,9 +174,6 @@ class LineRunTestCase(TestCase):
             self.ENDPOINT,
             data={
                 "book": book,
-                "params": "foo",
-                "script_path": "bar",
-                "script_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
             },
         )
         self.assertEqual(res.status_code, 201)
@@ -202,9 +181,6 @@ class LineRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
         ]:
@@ -234,9 +210,6 @@ class LineGroupRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
         ]:
@@ -250,9 +223,6 @@ class LineGroupRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
         ]:
@@ -273,9 +243,6 @@ class LineGroupRunTestCase(TestCase):
             self.ENDPOINT,
             data={
                 "book": book,
-                "params": "foo",
-                "script_path": "bar",
-                "script_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
             },
         )
         self.assertEqual(res.status_code, 201)
@@ -283,9 +250,6 @@ class LineGroupRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
         ]:
@@ -315,9 +279,6 @@ class CharacterRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
             "component_count",
@@ -332,9 +293,6 @@ class CharacterRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
             "component_count",
@@ -356,9 +314,6 @@ class CharacterRunTestCase(TestCase):
             self.ENDPOINT,
             data={
                 "book": book,
-                "params": "foo",
-                "script_path": "bar",
-                "script_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
             },
         )
         self.assertEqual(res.status_code, 201)
@@ -366,9 +321,6 @@ class CharacterRunTestCase(TestCase):
             "url",
             "id",
             "book",
-            "params",
-            "script_path",
-            "script_md5",
             "date_started",
             "label",
         ]:

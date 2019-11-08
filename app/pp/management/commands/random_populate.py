@@ -55,12 +55,7 @@ class Command(BaseCommand):
 
         print("Generating pages")
         for book in tqdm(books):
-            page_run = models.PageRun.objects.create(
-                book=book,
-                params=ff.license_plate(),
-                script_path=ff.file_path(depth=3, extension="py"),
-                script_md5=uuid4(),
-            )
+            page_run = models.PageRun.objects.create(book=book)
             for spread in book.spreads.all():
                 for s in ["l", "r"]:
                     models.Page.objects.create(
@@ -79,12 +74,7 @@ class Command(BaseCommand):
         print("Generating lines")
 
         def gen_lines(book):
-            line_run = models.LineRun.objects.create(
-                book=book,
-                params=ff.license_plate(),
-                script_path=ff.file_path(depth=3, extension="py"),
-                script_md5=uuid4(),
-            )
+            line_run = models.LineRun.objects.create(book=book)
             for page in tqdm(
                 models.Page.objects.filter(spread__book=book).all(), leave=False
             ):
@@ -108,12 +98,7 @@ class Command(BaseCommand):
         print("Generating linegroups")
 
         def gen_linegroups(book):
-            linegroup_run = models.LineGroupRun.objects.create(
-                book=book,
-                params=ff.license_plate(),
-                script_path=ff.file_path(depth=3, extension="py"),
-                script_md5=uuid4(),
-            )
+            linegroup_run = models.LineGroupRun.objects.create(book=book)
             for page in tqdm(
                 models.Page.objects.filter(spread__book=book).all(), leave=False
             ):
@@ -143,12 +128,7 @@ class Command(BaseCommand):
         print("Generating characters")
 
         def gen_chars(book):
-            character_run = models.CharacterRun.objects.create(
-                book=book,
-                params=ff.license_plate(),
-                script_path=ff.file_path(depth=3, extension="py"),
-                script_md5=uuid4(),
-            )
+            character_run = models.CharacterRun.objects.create(book=book)
             book_lines = models.Line.objects.filter(page__spread__book=book).all()
 
             for line in tqdm(book_lines, leave=False):

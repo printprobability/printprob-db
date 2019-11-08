@@ -26,10 +26,6 @@ class Run(uuidModel):
     book = models.ForeignKey(
         "Book", on_delete=models.CASCADE, related_name="%(class)ss"
     )
-    script_path = models.CharField(
-        max_length=2000, help_text="Filepath of the script governing this run"
-    )
-    script_md5 = models.UUIDField(help_text="md5 hash of the script (as hex digest)")
     date_started = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -41,29 +37,21 @@ class Run(uuidModel):
 
 
 class PageRun(Run):
-    params = models.CharField(max_length=1000)
-
     def component_count(self):
         return self.pages.count()
 
 
 class LineRun(Run):
-    params = models.CharField(max_length=1000)
-
     def component_count(self):
         return self.lines.count()
 
 
 class LineGroupRun(Run):
-    params = models.CharField(max_length=1000)
-
     def component_count(self):
         return self.linegroups.count()
 
 
 class CharacterRun(Run):
-    params = models.CharField(max_length=1000)
-
     def component_count(self):
         return self.characters.count()
 

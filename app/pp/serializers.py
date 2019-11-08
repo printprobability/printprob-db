@@ -109,68 +109,28 @@ class BookListSerializer(serializers.ModelSerializer):
 class PageRunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.PageRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-            "component_count",
-        ]
+        fields = ["url", "id", "label", "book", "date_started", "component_count"]
         read_only_fields = ["component_count", "label", "date_started", "id"]
 
 
 class LineRunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LineRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-            "component_count",
-        ]
+        fields = ["url", "id", "label", "book", "date_started", "component_count"]
         read_only_fields = ["component_count", "label", "date_started", "id"]
 
 
 class LineGroupRunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LineGroupRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-            "component_count",
-        ]
+        fields = ["url", "id", "label", "book", "date_started", "component_count"]
         read_only_fields = ["component_count", "label", "date_started", "id"]
 
 
 class CharacterRunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CharacterRun
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "params",
-            "script_path",
-            "script_md5",
-            "date_started",
-            "component_count",
-        ]
+        fields = ["url", "id", "label", "book", "date_started", "component_count"]
         read_only_fields = ["component_count", "label", "date_started", "id"]
 
 
