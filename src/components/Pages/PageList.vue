@@ -1,30 +1,41 @@
 <template>
   <div class="container-fluid">
-    <h2>Pages from run {{ page_run.date_started }}</h2>
     <div class="d-flex flex-wrap">
-      <PageImage
-        v-for="page in page_run.pages"
-        :key="page.id"
-        :page="page"
-        :header="page_header(page)"
-      />
+      <PageImage v-for="page in pages" :key="page.id" :page="page" :header="page_header(page)" />
     </div>
   </div>
 </template>
 
 <script>
 import PageImage from "./PageImage";
+import { HTTP } from "../../main";
 export default {
   name: "PageList",
   components: {
     PageImage
   },
   props: {
-    page_run: Object
+    page_run_id: String
   },
   methods: {
     page_header: function(page) {
       return page.spread_sequence + "-" + page.side;
+    }
+  },
+  asyncComputed: {
+    pages() {
+      return HTTP.get("/pages/", {
+        params: {
+          created_by_run: this.page_run_id
+        }
+      }).then(
+        response => {
+          return response.data.results;
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   }
 };

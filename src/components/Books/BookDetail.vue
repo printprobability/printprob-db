@@ -94,7 +94,7 @@
       </div>
     </div>
     <SpreadList v-if="detail_show=='spreads'" :spreads="book.spreads" />
-    <PageList v-if="detail_show=='pages'" :page_run="selected_run" />
+    <PageList v-if="detail_show=='pages'" :page_run_id="selected_run_id" />
     <LineList
       v-if="detail_show=='lines'"
       :line_run_id="selected_run_id"
@@ -163,11 +163,12 @@ export default {
         });
       } else if (run_type == "lines") {
         this.detail_show = run_type;
-        this.selected_run_id = payload.id;
+        this.selected_run_id = run_id;
       } else {
         return HTTP.get("/runs/" + run_type + "/" + run_id + "/").then(
           response => {
             this.selected_run = response.data;
+            this.selected_run_id = run_id;
             this.detail_show = run_type;
           },
           error => {
