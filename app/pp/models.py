@@ -177,7 +177,6 @@ class Image(uuidModel):
     tif = models.CharField(
         max_length=2000,
         help_text="relative file path to root directory containing all images",
-        unique=True,
     )
     tif_md5 = models.UUIDField(help_text="md5 hash of the tif file (as hex digest)")
 
