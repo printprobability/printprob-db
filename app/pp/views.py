@@ -11,7 +11,6 @@ from rest_framework import (
     generics,
     status,
     mixins,
-    pagination,
     parsers,
     exceptions,
 )
@@ -25,6 +24,7 @@ from rest_framework import permissions
 from django_filters import rest_framework as filters
 from . import models, serializers
 from base64 import b64encode
+from drf_tweaks.pagination import NoCountsLimitOffsetPagination
 
 
 class CRUDViewSet(viewsets.ModelViewSet):
@@ -374,10 +374,6 @@ class CharacterFilter(filters.FilterSet):
             return queryset
 
 
-class characterPagination(pagination.CursorPagination):
-    ordering = "-class_probability"
-
-
 class CharacterViewSet(viewsets.ModelViewSet):
     queryset = (
         models.Character.objects.select_related(
@@ -401,7 +397,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
     ordering_fields = ["class_probability"]
     ordering = ["rundate", "bookseq", "spreadseq", "pageseq", "lineseq", "sequence"]
     filterset_class = CharacterFilter
-    pagination_class = pagination.CursorPagination
+    pagination_class = NoCountsLimitOffsetPagination
 
     def get_serializer_class(self):
         if self.action == "retrieve":
