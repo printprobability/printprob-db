@@ -29,6 +29,17 @@
                     type="number"
                   />
                 </b-form-group>
+                <b-form-group id="tcp-group" label="tcp" label-for="tcp-input" description="tcp">
+                  <b-form-input id="tcp-input" v-model="tcp_search" placeholder="A27900" />
+                </b-form-group>
+                <b-form-group
+                  id="estc-group"
+                  label="estc"
+                  label-for="estc-input"
+                  description="estc"
+                >
+                  <b-form-input id="estc-input" v-model="estc_search" placeholder="R23698" />
+                </b-form-group>
                 <b-form-group
                   id="publisher-group"
                   label="Publisher"
@@ -163,6 +174,8 @@
       <BookResults
         :eebo="eebo_search"
         :vid="vid_search"
+        :tcp="tcp_search"
+        :estc="estc_search"
         :publisher="publisher_search"
         :title="title_search"
         :author="author_search"
@@ -204,6 +217,8 @@ export default {
       max_year: 1800,
       eebo_search: null,
       vid_search: null,
+      tcp_search: null,
+      estc_search: null,
       raw_publisher_search: "",
       publisher_search: "",
       raw_title_search: "",
