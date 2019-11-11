@@ -17,6 +17,7 @@ Vue.config.productionTip = false
 import Home from "./components/Home"
 import BookList from "./components/Books/BookList";
 import BookDetail from "./components/Books/BookDetail";
+import BookCreate from "./components/Books/BookCreate";
 import CharacterGroupingInterface from "./components/Interfaces/CharacterGroupingInterface";
 import CharacterReviewInterface from "./components/Interfaces/CharacterReviewInterface";
 import SpreadDetail from "./components/Spreads/SpreadDetail";
@@ -44,6 +45,9 @@ const routes = [
   { path: "/books", name: "BookListView", component: BookList },
   {
     path: "/books/:id", name: "BookDetailView", component: BookDetail, props: (route) => ({ id: route.params.id })
+  },
+  {
+    path: "/create/book", name: "BookCreateView", component: BookCreate
   },
   {
     path: "/spreads/:id", name: "SpreadDetailView", component: SpreadDetail, props: (route) => ({ id: route.params.id })
