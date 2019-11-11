@@ -401,18 +401,18 @@ class Character(uuidModel):
     def page(self):
         return self.line.page
 
-    # def absolute_coords(self):
-    #     bbox = {}
-    #     xmin = self.line.page.x_min + self.x_min
-    #     xmax = self.line.page.x_min + self.x_max
-    #     ymin = self.line.y_min
-    #     ymax = self.line.y_max
-    #     return [
-    #         {"x": xmin, "y": ymin},
-    #         {"x": xmax, "y": ymin},
-    #         {"x": xmax, "y": ymax},
-    #         {"x": xmin, "y": ymax},
-    #     ]
+    def absolute_coords(self):
+        bbox = {}
+        xmin = self.line.page.x + self.x_min
+        xmax = self.line.page.x + self.x_max
+        ymin = self.line.page.y + self.line.y_min
+        ymax = self.line.page.y + self.line.y_max
+        return [
+            {"x": xmin, "y": ymin},
+            {"x": xmax, "y": ymin},
+            {"x": xmax, "y": ymax},
+            {"x": xmin, "y": ymax},
+        ]
 
 
 # User-based models

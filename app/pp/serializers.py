@@ -436,7 +436,7 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
     human_character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
-    # absolute_coords = serializers.JSONField()
+    absolute_coords = serializers.JSONField()
 
     class Meta:
         model = models.Character
@@ -458,7 +458,7 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
             "human_character_class",
             "exposure",
             "offset",
-            # "absolute_coords",
+            "absolute_coords",
         ]
 
     def get_image(self, obj):
