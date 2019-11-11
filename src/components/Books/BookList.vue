@@ -21,6 +21,14 @@
                     type="number"
                   />
                 </b-form-group>
+                <b-form-group id="vid-group" label="VID" label-for="vid-input" description="VID">
+                  <b-form-input
+                    id="vid-input"
+                    v-model="vid_search"
+                    placeholder="184449"
+                    type="number"
+                  />
+                </b-form-group>
                 <b-form-group
                   id="publisher-group"
                   label="Publisher"
@@ -154,6 +162,7 @@
       </b-row>
       <BookResults
         :eebo="eebo_search"
+        :vid="vid_search"
         :publisher="publisher_search"
         :title="title_search"
         :author="author_search"
@@ -194,6 +203,7 @@ export default {
       min_year: 1500,
       max_year: 1800,
       eebo_search: null,
+      vid_search: null,
       raw_publisher_search: "",
       publisher_search: "",
       raw_title_search: "",

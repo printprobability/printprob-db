@@ -25,6 +25,14 @@
             <p>Publisher: {{ book.pq_publisher }}</p>
             <p>EEBO date: {{ book.pq_year_early }}-{{ book.pq_year_late }}</p>
             <p>TX A&M date: {{ book.tx_year_early }}-{{ book.tx_year_late }}</p>
+            <p>
+              EEBO ID:
+              <code>{{ book.eebo }}</code>
+            </p>
+            <p>
+              VID:
+              <code>{{ book.vid }}</code>
+            </p>
           </b-col>
           <b-col cols sm="6">
             <p class="bg-light p-2">P&P</p>
@@ -45,6 +53,7 @@ export default {
   props: {
     publisher: String,
     eebo: Number,
+    vid: Number,
     title: String,
     author: String,
     pq_year_min: Number,
@@ -77,6 +86,7 @@ export default {
           limit: this.$APIConstants.BOOK_PAGE_SIZE,
           offset: this.rest_offset,
           eebo: this.eebo,
+          vid: this.vid,
           pq_publisher: this.publisher,
           pq_title: this.title,
           pq_author: this.author,
