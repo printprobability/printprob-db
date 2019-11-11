@@ -195,9 +195,13 @@ export default {
       max_year: 1800,
       eebo_search: null,
       raw_publisher_search: "",
+      publisher_search: "",
       raw_title_search: "",
+      title_search: "",
       raw_author_search: "",
+      author_search: "",
       raw_pp_publisher_search: "",
+      pp_publisher_search: "",
       pq_year_range: [1500, 1800],
       tx_year_range: [1500, 1800],
       year_early: null,
@@ -211,18 +215,6 @@ export default {
     };
   },
   computed: {
-    publisher_search: _.debounce(function() {
-      return this.raw_publisher_search;
-    }, 750),
-    title_search: _.debounce(function() {
-      return this.raw_title_search;
-    }, 750),
-    author_search: _.debounce(function() {
-      return this.raw_author_search;
-    }, 750),
-    pp_publisher_search: _.debounce(function() {
-      return this.raw_pp_publisher_search;
-    }, 750),
     view_params() {
       return {
         eebo: this.eebo,
@@ -264,6 +256,20 @@ export default {
   },
   updated() {
     this.$router.push({ name: "BookListView", query: this.view_params });
+  },
+  watch: {
+    raw_publisher_search: _.debounce(function() {
+      this.publisher_search = this.raw_publisher_search;
+    }, 750),
+    raw_title_search: _.debounce(function() {
+      this.title_search = this.raw_title_search;
+    }, 750),
+    raw_author_search: _.debounce(function() {
+      this.author_search = this.raw_author_search;
+    }, 750),
+    raw_pp_publisher_search: _.debounce(function() {
+      this.pp_publisher_search = this.raw_pp_publisher_search;
+    }, 750)
   }
 };
 </script>
