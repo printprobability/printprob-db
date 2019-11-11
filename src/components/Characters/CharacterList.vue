@@ -39,7 +39,24 @@
       <div class="card-header">
         <Spinner v-if="progress_spinner" />
         <div class="paginator" v-if="value.length>0">
-          <CursorButtons :prev="prev" :next="next" @cursor="cursor=$event" />
+          <p>
+            Characters {{1 + (page - 1) * $APIConstants.REST_PAGE_SIZE }} to {{ (page - 1) * $APIConstants.REST_PAGE_SIZE + value.length }}
+            <span
+              v-if="this.results.next"
+              v-b-tooltip.hover
+              title="Arbitrarily counting characters is a very expensive operation, so we only estimate here..."
+            >(out of many)</span>
+          </p>
+          <b-pagination
+            hide-goto-end-buttons
+            v-show="pagination_needed"
+            :value="page"
+            @input="$emit('page_input', $event)"
+            :per-page="$APIConstants.REST_PAGE_SIZE"
+            :total-rows="mock_rows"
+            aria-controls="character-results"
+            limit="3"
+          />
         </div>
         <div show v-else>No matching characters</div>
       </div>
@@ -66,7 +83,6 @@ import CharacterAgreementRadio from "../Menus/CharacterAgreementRadio";
 import CharacterRunSelect from "../Menus/CharacterRunSelect";
 import CharacterImage from "./CharacterImage";
 import Spinner from "../Interfaces/Spinner";
-import CursorButtons from "../Menus/CursorButtons";
 import { HTTP } from "../../main";
 
 export default {
@@ -127,12 +143,10 @@ export default {
     BookAutocomplete,
     CharacterAgreementRadio,
     CharacterImage,
-    Spinner,
-    CursorButtons
+    Spinner
   },
   data() {
     return {
-      total_char_count: 0,
       progress_spinner: false,
       cursor: null
     };
@@ -142,6 +156,8 @@ export default {
       this.progress_spinner = true;
       return HTTP.get("/characters/", {
         params: {
+          limit: this.$APIConstants.REST_PAGE_SIZE,
+          offset: this.rest_offset,
           character_class: this.character_class,
           book: this.book,
           created_by_run: this.character_run,
@@ -162,36 +178,18 @@ export default {
     }
   },
   computed: {
-    prev() {
-      if (!!this.results) {
-        return this.cursor_param(this.results.previous);
-      }
-      return null;
-    },
-    next() {
-      if (!!this.results) {
-        return this.cursor_param(this.results.next);
-      }
-      return null;
-    },
-    pagination_needed: function() {
-      return this.total_char_count > this.$APIConstants.REST_PAGE_SIZE;
-    },
     rest_offset: function() {
       return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
-    }
-  },
-  methods: {
-    cursor_param(url) {
-      // Extracts the cursor parameter from the next/previous links returned by DRF
-      if (!!url) {
-        const cursor_match = url.match(/cursor=([^&]+)/);
-        if (!!cursor_match) {
-          return decodeURIComponent(cursor_match[1]);
-        }
-      } else {
-        return null;
+    },
+    pagination_needed: function() {
+      return !!this.results.next || !!this.results.previous;
+    },
+    mock_rows: function() {
+      var baseline = this.rest_offset + this.value.length;
+      if (!!this.results.next) {
+        baseline += this.$APIConstants.REST_PAGE_SIZE;
       }
+      return baseline;
     }
   },
   watch: {
