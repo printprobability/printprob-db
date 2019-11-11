@@ -64,28 +64,14 @@ class PageRunTestCase(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-            "component_count",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label", "component_count"]:
             self.assertIn(k, res.data["results"][0])
 
     @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-            "component_count",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label", "component_count"]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
 
@@ -99,20 +85,9 @@ class PageRunTestCase(TestCase):
     @as_auth()
     def test_post(self):
         book = models.Book.objects.first().pk
-        res = self.client.post(
-            self.ENDPOINT,
-            data={
-                "book": book,
-            },
-        )
+        res = self.client.post(self.ENDPOINT, data={"book": book})
         self.assertEqual(res.status_code, 201)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label"]:
             self.assertIn(k, res.data)
 
     def test_noaccess(self):
@@ -135,28 +110,14 @@ class LineRunTestCase(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-            "component_count",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label", "component_count"]:
             self.assertIn(k, res.data["results"][0])
 
     @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-            "component_count",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label", "component_count"]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
 
@@ -170,20 +131,9 @@ class LineRunTestCase(TestCase):
     @as_auth()
     def test_post(self):
         book = models.Book.objects.first().pk
-        res = self.client.post(
-            self.ENDPOINT,
-            data={
-                "book": book,
-            },
-        )
+        res = self.client.post(self.ENDPOINT, data={"book": book})
         self.assertEqual(res.status_code, 201)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label"]:
             self.assertIn(k, res.data)
 
     def test_noaccess(self):
@@ -206,26 +156,14 @@ class LineGroupRunTestCase(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label"]:
             self.assertIn(k, res.data["results"][0])
 
     @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label"]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
 
@@ -239,20 +177,9 @@ class LineGroupRunTestCase(TestCase):
     @as_auth()
     def test_post(self):
         book = models.Book.objects.first().pk
-        res = self.client.post(
-            self.ENDPOINT,
-            data={
-                "book": book,
-            },
-        )
+        res = self.client.post(self.ENDPOINT, data={"book": book})
         self.assertEqual(res.status_code, 201)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label"]:
             self.assertIn(k, res.data)
 
     def test_noaccess(self):
@@ -275,28 +202,14 @@ class CharacterRunTestCase(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-            "component_count",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label", "component_count"]:
             self.assertIn(k, res.data["results"][0])
 
     @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-            "component_count",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label", "component_count"]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
 
@@ -310,20 +223,9 @@ class CharacterRunTestCase(TestCase):
     @as_auth()
     def test_post(self):
         book = models.Book.objects.first().pk
-        res = self.client.post(
-            self.ENDPOINT,
-            data={
-                "book": book,
-            },
-        )
+        res = self.client.post(self.ENDPOINT, data={"book": book})
         self.assertEqual(res.status_code, 201)
-        for k in [
-            "url",
-            "id",
-            "book",
-            "date_started",
-            "label",
-        ]:
+        for k in ["url", "id", "book", "date_started", "label"]:
             self.assertIn(k, res.data)
 
     def test_noaccess(self):
@@ -352,6 +254,8 @@ class BookViewTest(TestCase):
             "id",
             "eebo",
             "vid",
+            "tcp",
+            "estc",
             "pp_publisher",
             "pq_publisher",
             "pq_title",
@@ -381,6 +285,8 @@ class BookViewTest(TestCase):
             "id",
             "eebo",
             "vid",
+            "tcp",
+            "estc",
             "pp_publisher",
             "pq_publisher",
             "pq_title",
@@ -416,7 +322,13 @@ class BookViewTest(TestCase):
     def test_post(self):
         res = self.client.post(
             self.ENDPOINT,
-            data={"eebo": 101, "vid": 202, "pq_title": "foobar", "pdf": "foobar"},
+            data={
+                "eebo": 101,
+                "vid": 202,
+                "estc": "A876",
+                "pq_title": "foobar",
+                "pdf": "foobar",
+            },
         )
         self.assertEqual(res.status_code, 201)
         for k in ["url", "eebo", "vid", "pq_title", "pdf"]:

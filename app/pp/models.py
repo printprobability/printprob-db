@@ -63,6 +63,16 @@ class Book(uuidModel):
     vid = models.PositiveIntegerField(
         db_index=True, null=True, help_text="Proquest ID number", editable=False
     )
+    tcp = models.CharField(
+        db_index=True, blank=True, help_text="TCP ID", editable=False, max_length=50
+    )
+    estc = models.CharField(
+        db_index=True,
+        blank=True,
+        help_text="English Short Title Catalogue Number",
+        editable=False,
+        max_length=50,
+    )
     pq_title = models.CharField(
         max_length=2000,
         db_index=True,
