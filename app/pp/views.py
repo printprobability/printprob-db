@@ -45,6 +45,8 @@ class CRUDViewSet(viewsets.ModelViewSet):
 class BookFilter(filters.FilterSet):
     eebo = filters.NumberFilter(help_text="Numeric EEBO ID")
     vid = filters.NumberFilter(help_text="Numeric VID")
+    tcp = filters.CharFilter(help_text="TCP")
+    estc = filters.CharFilter(help_text="ESTC")
     pq_title = filters.CharFilter(
         help_text="books with titles containing this string (case insensitive)",
         lookup_expr="icontains",
