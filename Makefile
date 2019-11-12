@@ -26,6 +26,12 @@ wipe: blank
 	docker-compose exec postgres psql -U app -d postgres -c 'CREATE DATABASE pp;'
 	$(MAKE) restart
 	docker-compose exec web python manage.py migrate
+dbonly:
+	docker-compose exec postgres -U app pg_dump pp > ../bkp/dbonly.sql
+restoredbonly: blank
+	docker-compose up -d postgres
+	docker-compose exec -T postgres psql -U app -d postgres -c 'CREATE DATABASE pp;'
+	docker-compose exec -T postgres psql -U app pp < ../bkp/dbonly.sql
 backup:
 	docker-compose exec -T postgres pg_dumpall -U app > ../bkp/bkp.sql
 	cd ../bkp && git commit -am 'incremental commit'
