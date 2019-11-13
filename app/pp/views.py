@@ -23,8 +23,9 @@ from django.contrib.auth.models import User
 from rest_framework import permissions
 from django_filters import rest_framework as filters
 from . import models, serializers
-from base64 import b64encode
+from base64 import b64encode, b64decode
 from drf_tweaks.pagination import NoCountsLimitOffsetPagination
+from tempfile import TemporaryDirectory
 
 
 class CRUDViewSet(viewsets.ModelViewSet):
@@ -501,13 +502,24 @@ class CharacterGroupingViewSet(CRUDViewSet):
                 [{"error": "This character group has no characters to download"}],
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        filenames = obj.characters.all().values_list("image__tif", flat=True)
+        binaries = obj.characters.all().values(
+            "line__page__spread__book__vid",
+            "line__page__spread__sequence",
+            "line__page__side",
+            "line__sequence",
+            "sequence",
+            "character_class",
+            "data",
+        )
 
         zip_file = zipfile.ZipFile(response, "w")
-        for filename in filenames:
-            fdir, fname = os.path.split(filename)
-            zip_file.write(f"{settings.REAL_IMAGE_BASEDIR}/{filename}", fname)
-        zip_file.close()
+        with TemporaryDirectory() as scratch_dir:
+            for img_bin in binaries:
+                filename = f"{img_bin['line__page__spread__book__vid']}_{img_bin['line__page__spread__sequence']}-page{img_bin['line__page__side']}_line{img_bin['line__sequence']}_char{img_bin['sequence']}_{img_bin['character_class']}.tif"
+                # Decode and write bytes to file
+                open(f"{scratch_dir}/{filename}", "wb").write(img_bin["data"])
+                zip_file.write(f"{scratch_dir}/{filename}", filename)
+            zip_file.close()
         response["Content-Disposition"] = f"attachment; filename={zip_file_name}"
 
         return response
