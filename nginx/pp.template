@@ -26,6 +26,10 @@ server {
         proxy_read_timeout 90;
     }
 
+    location /iiif/ {
+        proxy_pass http://iiif:8080/;
+    }
+
     location / {
         alias /vol/vue/;
         try_files $uri $uri/ /index.html;

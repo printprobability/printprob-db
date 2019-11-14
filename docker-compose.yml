@@ -45,10 +45,22 @@ services:
     env_file: .env
     links:
       - "web:web"
+      - "iiif:iiif"
     depends_on:
       - start_dependencies
       - web
     command: sh -c "envsubst '$$ALLOWED_HOSTS $$CERT_PATH $$KEY_PATH $$PP_NGINX_LISTEN $$PP_NGINX_SERVER_NAME' < /etc/nginx/conf.d/pp.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+
+  iiif:
+    image: mdlincoln/go-iiif-vips
+    restart: always
+    volumes:
+      - ./iiif:/etc/iiif-server
+      - ${REAL_IMAGE_DIR}:/usr/local/images
+    expose:
+      - 8080
+    command: "/bin/iiif-server -host 0.0.0.0 -port 8080 -config-source file:///etc/iiif-server -config-name config.json"
+
 
 volumes:
   pp:
