@@ -55,8 +55,8 @@ services:
     image: mdlincoln/go-iiif-vips
     restart: always
     volumes:
-      - ./iiif:/etc/iiif-server
-      - ${REAL_IMAGE_DIR}:/usr/local/images
+      - ./iiif:/etc/iiif-server:z
+      - ${REAL_IMAGE_DIR}:/usr/local/images:z
     expose:
       - 8080
     command: "/bin/iiif-server -host 0.0.0.0 -port 8080 -config-source file:///etc/iiif-server -config-name config.json"
