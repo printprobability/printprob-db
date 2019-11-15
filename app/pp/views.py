@@ -409,14 +409,6 @@ class CharacterViewSet(viewsets.ModelViewSet):
             return serializers.CharacterListSerializer
         return serializers.CharacterCreateSerializer
 
-    @action(detail=True, methods=["get"])
-    def file(self, request, pk=None):
-        obj = self.get_object()
-        response = HttpResponse(bytes(obj.data), content_type="image/tiff")
-        response["Content-Transfer-Encoding"] = "base64"
-        response["Content-Disposition"] = f"inline; filename={obj.id}.tiff"
-        return response
-
     @action(detail=False, methods=["post"])
     @transaction.atomic
     def annotate(self, request):

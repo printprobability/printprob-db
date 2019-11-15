@@ -4,6 +4,7 @@ from collections import namedtuple
 import uuid
 from datetime import date
 from django.conf import settings
+import math
 
 
 class uuidModel(models.Model):
@@ -193,12 +194,38 @@ class Image(uuidModel):
     def labeller(self):
         return self.tif
 
-    def web_url(self):
+    @property
+    def iiif_base(self):
         return f"{settings.IMAGE_BASEURL}{self.tif}"
+
+    @property
+    def web_url(self):
+        return f"{self.iiif_base}/full/full/0/default.jpg"
+
+    @property
+    def thumbnail(self):
+        return f"{self.iiif_base}/full/500,/0/default.jpg"
+
+
+class CroppedModel(uuidModel):
+    @property
+    def region_string(self):
+        ac = self.absolute_coords
+        return f"{ac['x']},{ac['y']},{ac['w']},{ac['h']}"
+
+    @property
+    def web_url(self):
+        return f"{self.root_object.iiif_base}/{self.region_string}/full/0/default.jpg"
+
+    @property
+    def web_url(self):
+        return f"{self.root_object.iiif_base}/{self.region_string}/500,/0/default.jpg"
+
+    class Meta:
+        abstract = True
 
 
 class ImagedModel(uuidModel):
-
     image = models.ForeignKey(
         Image, on_delete=models.CASCADE, related_name="%(class)ss"
     )
@@ -279,7 +306,7 @@ class Page(ImagedModel):
         return self.spread.book
 
 
-class Line(ImagedModel):
+class Line(CroppedModel):
     """
     The definition of a line may change between runs in this model, since it depends on splitting page spreads, therefore it is a subclass of an Attempt.
     """
@@ -324,7 +351,24 @@ class Line(ImagedModel):
             lines=self, created_by_run=self.page.spread.book.linegroupruns.first()
         ).distinct()
 
-    def line_height(self):
+    @property
+    def root_object(self):
+        return self.page
+
+    @property
+    def absolute_coords(self):
+        x = 0
+        y = self.y_min
+        w = 9999
+        h = self.height
+        return {"x": x, "y": y, "w": w, "h": h}
+
+    @property
+    def region_string(self):
+        return
+
+    @property
+    def height(self):
         return self.y_max - self.y_min
 
     def page_side(self):
@@ -359,12 +403,11 @@ class CharacterClass(models.Model):
         return str(self)
 
 
-class Character(uuidModel):
+class Character(CroppedModel):
     """
     The definition of a character may change between runs in this model, since it depends on line segmentation, therefore it is a subclass of an Attempt.
     """
 
-    data = models.BinaryField(editable=True)
     line = models.ForeignKey(Line, on_delete=models.CASCADE, related_name="characters")
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of characters on the line"
@@ -411,18 +454,22 @@ class Character(uuidModel):
     def page(self):
         return self.line.page
 
+    @property
+    def width(self):
+        return self.x_max - self.x_min
+
+    @property
     def absolute_coords(self):
-        bbox = {}
-        xmin = self.line.page.x + self.x_min
-        xmax = self.line.page.x + self.x_max
-        ymin = self.line.page.y + self.line.y_min
-        ymax = self.line.page.y + self.line.y_max
-        return [
-            {"x": xmin, "y": ymin},
-            {"x": xmax, "y": ymin},
-            {"x": xmax, "y": ymax},
-            {"x": xmin, "y": ymax},
-        ]
+        multiplier = self.line.line_height / 30
+        x = math.floor(self.x_min * multiplier)
+        y = self.line.y_min
+        w = math.floor(self.width * multiplier)
+        h = self.line.line_height
+        return {"x": x, "y": y, "w": w, "h": h}
+
+    @property
+    def root_object(self):
+        return self.line.page
 
 
 # User-based models

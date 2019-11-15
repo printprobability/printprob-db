@@ -16,7 +16,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Image
-        fields = ["id", "url", "web_url", "tif", "tif_md5"]
+        fields = ["id", "url", "iiif_base", "web_url", "thumbnail", "tif_md5"]
 
 
 class SpreadFlatSerializer(serializers.ModelSerializer):
@@ -44,7 +44,7 @@ class LineFlatSerializer(serializers.ModelSerializer):
 
 
 class CharacterFlatSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField(read_only=True)
+    image = ImageSerializer()
     character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
@@ -67,13 +67,6 @@ class CharacterFlatSerializer(serializers.ModelSerializer):
             "exposure",
             "offset",
         ]
-
-    def get_image(self, obj):
-        return {
-            "web_url": reverse(
-                "character-file", args=[obj.id], request=self.context.get("request")
-            )
-        }
 
 
 class BookListSerializer(serializers.ModelSerializer):
@@ -157,6 +150,7 @@ class LineDetailSerializer(serializers.ModelSerializer):
 
 class LineListSerializer(serializers.ModelSerializer):
     image = ImageSerializer(many=False)
+    line_image_url = serializers.URLField(read_only=True)
 
     class Meta:
         model = models.Line
@@ -171,6 +165,7 @@ class LineListSerializer(serializers.ModelSerializer):
             "y_min",
             "y_max",
             "image",
+            "line_image_url",
         ]
 
 
@@ -441,6 +436,7 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
         queryset=models.CharacterClass.objects.all()
     )
     absolute_coords = serializers.JSONField()
+    character_image_url = serializers.URLField(read_only=True)
 
     class Meta:
         model = models.Character
@@ -463,6 +459,7 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
             "exposure",
             "offset",
             "absolute_coords",
+            "character_image_url",
         ]
 
     def get_image(self, obj):
@@ -481,6 +478,7 @@ class CharacterListSerializer(serializers.ModelSerializer):
     human_character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
+    character_image_url = serializers.URLField(read_only=True)
 
     class Meta:
         model = models.Character
@@ -498,6 +496,7 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "human_character_class",
             "exposure",
             "offset",
+            "character_image_url",
         ]
 
     def get_image(self, obj):

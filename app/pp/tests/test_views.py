@@ -757,7 +757,6 @@ class CharacterViewTest(TestCase):
                 "line": line,
                 "created_by_run": run,
                 "sequence": 100,
-                "data": b64encode(b"somebytes"),
                 "x_min": 0,
                 "x_max": 0,
                 "character_class": char_class,
@@ -779,6 +778,7 @@ class CharacterViewTest(TestCase):
             "image",
             "exposure",
             "offset",
+            "image"
         ]:
             self.assertIn(k, res.data)
 
@@ -928,12 +928,12 @@ class CharacterGroupingViewTest(TestCase):
         cls.OBJ1 = models.CharacterGrouping.objects.first()
         cls.STR1 = str(cls.OBJ1.pk)
         cls.CHARS_1 = (
-            models.Character.objects.defer("data")
+            models.Character.objects
             .all()[1:5]
             .values_list("id", flat=True)
         )
         cls.CHARS_2 = (
-            models.Character.objects.defer("data")
+            models.Character.objects
             .all()[6:8]
             .values_list("id", flat=True)
         )
