@@ -274,7 +274,7 @@ class BookViewTest(TestCase):
             "label",
         ]:
             self.assertIn(k, res.data["results"][0])
-        self.assertIn("tif", res.data["results"][0]["cover_spread"]["image"])
+        self.assertIn("web_url", res.data["results"][0]["cover_spread"]["image"])
 
     @as_auth()
     def test_get_detail(self):
@@ -591,7 +591,6 @@ class LineViewTest(TestCase):
     @as_auth()
     def test_post(self):
         page = models.Page.objects.first().pk
-        image = models.Image.objects.first().pk
         run = models.LineRun.objects.first().pk
         res = self.client.post(
             self.ENDPOINT,
@@ -599,7 +598,6 @@ class LineViewTest(TestCase):
                 "page": page,
                 "created_by_run": run,
                 "sequence": 100,
-                "image": image,
                 "y_min": 0,
                 "y_max": 0,
             },
@@ -778,14 +776,9 @@ class CharacterViewTest(TestCase):
             "image",
             "exposure",
             "offset",
-            "image"
+            "image",
         ]:
             self.assertIn(k, res.data)
-
-    @as_auth()
-    def test_file(self):
-        res = self.client.get(f"{self.ENDPOINT}{self.STR1}/file/")
-        self.assertEqual(res.status_code, 200)
 
     @as_auth()
     def test_annotate(self):
@@ -820,14 +813,14 @@ class ImageViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in ["url", "id", "tif", "tif_md5", "web_url"]:
+        for k in ["url", "id", "tif_md5", "web_url"]:
             self.assertIn(k, res.data["results"][0])
 
     @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        for k in ["url", "id", "tif", "tif_md5", "web_url"]:
+        for k in ["url", "id", "tif_md5", "web_url"]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
 
@@ -848,7 +841,7 @@ class ImageViewTest(TestCase):
             },
         )
         self.assertEqual(res.status_code, 201)
-        for k in ["url", "id", "tif", "tif_md5"]:
+        for k in ["url", "id", "web_url", "tif_md5"]:
             self.assertIn(k, res.data)
 
     def test_noaccess(self):
@@ -927,16 +920,8 @@ class CharacterGroupingViewTest(TestCase):
         ).count()
         cls.OBJ1 = models.CharacterGrouping.objects.first()
         cls.STR1 = str(cls.OBJ1.pk)
-        cls.CHARS_1 = (
-            models.Character.objects
-            .all()[1:5]
-            .values_list("id", flat=True)
-        )
-        cls.CHARS_2 = (
-            models.Character.objects
-            .all()[6:8]
-            .values_list("id", flat=True)
-        )
+        cls.CHARS_1 = models.Character.objects.all()[1:5].values_list("id", flat=True)
+        cls.CHARS_2 = models.Character.objects.all()[6:8].values_list("id", flat=True)
         cls.CHARS_ORIG = cls.OBJ1.characters.all().values_list("id", flat=True)
 
     @as_auth()

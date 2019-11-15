@@ -394,7 +394,6 @@ class CharacterViewSet(viewsets.ModelViewSet):
             spreadseq=F("line__page__spread__sequence"),
             bookseq=F("line__page__spread__book__id"),
         )
-        .defer("data")
         .all()
     )
     ordering_fields = ["class_probability"]
@@ -500,8 +499,7 @@ class CharacterGroupingViewSet(CRUDViewSet):
             "line__page__side",
             "line__sequence",
             "sequence",
-            "character_class",
-            "data",
+            "character_class"
         )
 
         zip_file = zipfile.ZipFile(response, "w")

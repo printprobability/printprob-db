@@ -215,11 +215,15 @@ class CroppedModel(uuidModel):
 
     @property
     def web_url(self):
-        return f"{self.root_object.iiif_base}/{self.region_string}/full/0/default.jpg"
+        return f"{self.root_object.image.iiif_base}/{self.region_string}/full/0/default.jpg"
 
     @property
-    def web_url(self):
-        return f"{self.root_object.iiif_base}/{self.region_string}/500,/0/default.jpg"
+    def thumbnail(self):
+        return f"{self.root_object.image.iiif_base}/{self.region_string}/500,/0/default.jpg"
+
+    @property
+    def image(self):
+        return {"web_url": self.web_url, "thumbnail": self.thumbnail}
 
     class Meta:
         abstract = True
@@ -364,10 +368,6 @@ class Line(CroppedModel):
         return {"x": x, "y": y, "w": w, "h": h}
 
     @property
-    def region_string(self):
-        return
-
-    @property
     def height(self):
         return self.y_max - self.y_min
 
@@ -460,11 +460,11 @@ class Character(CroppedModel):
 
     @property
     def absolute_coords(self):
-        multiplier = self.line.line_height / 30
+        multiplier = self.line.height / 30
         x = math.floor(self.x_min * multiplier)
         y = self.line.y_min
         w = math.floor(self.width * multiplier)
-        h = self.line.line_height
+        h = self.line.height
         return {"x": x, "y": y, "w": w, "h": h}
 
     @property
