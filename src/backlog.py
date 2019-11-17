@@ -5,10 +5,14 @@ import os
 import hashlib
 from base64 import b64encode
 from logging import warning
+import optparse
+from tqdm import tqdm
+from concurrent.futures import ThreadPoolExecutor
 
 ROOT = "/Users/mlincoln/Development/printprobability/pp-images/"
 
 CHARTYPE_DICT = {
+    "!": "exclamation",
     " ": "space",
     ",": "comma",
     ".": "period",
@@ -39,32 +43,32 @@ CHARTYPE_DICT = {
     "8": "8",
     "9": "9",
     "ſ": "long_s",
-    "a": "A_lc",
-    "b": "B_lc",
-    "c": "C_lc",
-    "d": "D_lc",
-    "e": "E_lc",
-    "f": "F_lc",
-    "g": "G_lc",
-    "h": "H_lc",
-    "i": "I_lc",
-    "j": "J_lc",
-    "k": "K_lc",
-    "l": "L_lc",
-    "m": "M_lc",
-    "n": "N_lc",
-    "o": "O_lc",
-    "p": "P_lc",
-    "q": "Q_lc",
-    "r": "R_lc",
-    "s": "S_lc",
-    "t": "T_lc",
-    "u": "U_lc",
-    "v": "V_lc",
-    "w": "W_lc",
-    "x": "X_lc",
-    "y": "Y_lc",
-    "z": "Z_lc",
+    "a": "a_lc",
+    "b": "b_lc",
+    "c": "c_lc",
+    "d": "d_lc",
+    "e": "e_lc",
+    "f": "f_lc",
+    "g": "g_lc",
+    "h": "h_lc",
+    "i": "i_lc",
+    "j": "j_lc",
+    "k": "k_lc",
+    "l": "l_lc",
+    "m": "m_lc",
+    "n": "n_lc",
+    "o": "o_lc",
+    "p": "p_lc",
+    "q": "q_lc",
+    "r": "r_lc",
+    "s": "s_lc",
+    "t": "t_lc",
+    "u": "u_lc",
+    "v": "v_lc",
+    "w": "w_lc",
+    "x": "x_lc",
+    "y": "y_lc",
+    "z": "z_lc",
     "A": "A_uc",
     "B": "B_uc",
     "C": "C_uc",
@@ -127,7 +131,7 @@ class Book:
         self.endpoint = endpoint
         self.id = requests.get(
             self.endpoint.endpoint + "books/",
-            params={"eebo": self.eebo},
+            params={"vid": self.vid},
             headers=self.endpoint.auth_header,
         ).json()["results"][0]["id"]
         self.spreads = []
@@ -142,12 +146,16 @@ class Book:
         self.gen_lines()
 
     @property
-    def eebo(self):
-        return int(re.match("^[A-Za-z]+_(\d+)_", self.bookstring).groups()[0])
+    def vid(self):
+        return int(re.match("^[A-Za-z]+_\d+_(\d+)_", self.bookstring).groups()[0])
 
     @property
     def book_directory(self):
         return f"{ROOT}mpwillia/line_extractions/complete/{self.bookstring}/"
+
+    @property
+    def spread_directory(self):
+        return f"{self.book_directory}book/"
 
     @property
     def book_pdf(self):
@@ -174,23 +182,12 @@ class Book:
         return f"{ROOT}srijhwan/broken_type_new/char_images3/{self.bookstring}/"
 
     def gen_spreads(self):
-        existing_spreads = requests.get(
-            self.endpoint.endpoint + "spreads/",
-            params={"book": self.id},
-            headers=self.endpoint.auth_header,
-        ).json()["results"]
         spread_files = [
-            self.page_directory + f
-            for f in os.listdir(self.page_directory)
+            self.spread_directory + f
+            for f in os.listdir(self.spread_directory)
             if re.search(r".+\d{3}\.tif", f)
         ]
-        if len(existing_spreads) > 0:
-            self.spreads = [
-                Spread(book=self, id=sid["id"], filepath=sid["image"]["tif"])
-                for sid in existing_spreads
-            ]
-        else:
-            self.spreads = [Spread(book=self, filepath=f) for f in spread_files]
+        self.spreads = [Spread(book=self, filepath=f) for f in spread_files]
 
     def gen_pages(self):
         page_log = open(self.page_log, "r").read().split("\n")
@@ -199,14 +196,20 @@ class Book:
                 continue
             log_items = pl.split(",")
             # print(log_items)
-            page_image_path = self.page_directory + log_items[1].replace("./", "")
+            page_image_path = self.page_directory + log_items[1].replace(
+                "./", ""
+            ).replace(".tif", "r.tif")
             # print(f"Page image path: {page_image_path}")
             spread_index = int(re.match(r"^.+-(\d{3})_", page_image_path).groups()[0])
+            try:
+                spread = [s for s in self.spreads if s.sequence == spread_index][0]
+            except:
+                raise Exception(f"Spread {spread_index} not found.")
             # print(self.spreads[spread_index - 1])
             self.pages.append(
                 Page(
                     pagerun=self.page_run,
-                    spread=self.spreads[spread_index - 1],
+                    spread=spread,
                     filepath=page_image_path,
                     x=float(log_items[2]),
                     y=float(log_items[3]),
@@ -219,18 +222,35 @@ class Book:
 
     def gen_lines(self):
         line_stats = glob(self.line_directory + "*.tif.csv")
-        for l in line_stats:
+        for l in tqdm(line_stats, desc="Loading pages"):
             l_text = open(l, "r").read()
-            for r in l_text.split("\n"):
+            if re.match(r".+page(\d)r", l).groups()[0] == "1":
+                page_side = "l"
+            else:
+                page_side = "r"
+            spread_sequence = int(re.match(r".+-(\d{3})_page", l).groups()[0])
+            for r in tqdm(l_text.split("\n"), desc="Lines", leave=False):
                 if r == "":
                     continue
                 l_row = r.split(",")
+
+                matches = [
+                    p
+                    for p in self.pages
+                    if p.side == page_side and p.spread.sequence == spread_sequence
+                ]
+                if len(matches) == 1:
+                    page = matches[0]
+                else:
+                    raise Exception(
+                        f"{self.extraction_filepath} should exist but doesn't"
+                    )
                 new_line = Line(
                     line_run=self.line_run,
+                    page=page,
                     character_run=self.character_run,
                     y1=l_row[0],
                     y2=l_row[1],
-                    image_filepath=self.line_directory + l_row[2].replace("./", ""),
                     extraction_filepath=self.extractions_dir
                     + l_row[2]
                     .replace("./", "")
@@ -243,7 +263,7 @@ class Image:
     def __init__(self, endpoint, filepath):
         self.endpoint = endpoint
         self.filepath = filepath
-        # print(f"Image: {self.filepath}")
+        # print(self.relative_filepath)
         res = requests.post(
             self.endpoint.endpoint + "images/",
             data={"tif": self.relative_filepath, "tif_md5": self.md5},
@@ -265,12 +285,10 @@ class Image:
 
 
 class Spread:
-    def __init__(self, book, filepath, id=None):
+    def __init__(self, book, filepath):
         self.book = book
         self.filepath = filepath
-        if id is not None:
-            self.id = id
-            return None
+        # print(self.filepath)
         self.image = Image(endpoint=self.book.endpoint, filepath=self.filepath)
         # print(f"Image {self.image.id} created")
         self.id = requests.post(
@@ -375,25 +393,19 @@ class Val:
 
 
 class Line:
-    def __init__(
-        self, line_run, character_run, y1, y2, image_filepath, extraction_filepath
-    ):
+    def __init__(self, page, line_run, character_run, y1, y2, extraction_filepath):
         self.line_run = line_run
         self.endpoint = self.line_run.book.endpoint
-        self.image_filepath = image_filepath
         self.extraction_filepath = extraction_filepath
+        # print(self.extraction_filepath)
         self.y1 = y1
         self.y2 = y2
-        self.page = self.match_page
-        if self.page is None:
-            return None
-        self.image = Image(self.endpoint, self.image_filepath).id
+        self.page = page
         res = requests.post(
             self.endpoint.endpoint + "lines/",
             data={
                 "created_by_run": self.line_run.id,
                 "page": self.page.id,
-                "image": self.image,
                 "sequence": self.sequence,
                 "y_min": self.y1,
                 "y_max": self.y2,
@@ -405,14 +417,6 @@ class Line:
         except:
             raise Exception(res.text)
         # print(f"Line {self.id} created")
-
-        char_glob = (
-            self.line_run.book.char_images_dir
-            + "*/"
-            + f"{self.line_run.book.bookstring}-{self.page.spread.sequence:03}_page{self.page.side_number}rline{self.sequence}_*.tif"
-        )
-        # print(char_glob)
-        char_image_paths = glob(char_glob, recursive=True)
         linepath = open(self.extraction_filepath, "r").read()
         # print(self.extraction_filepath)
         # print(char_image_paths)
@@ -422,50 +426,34 @@ class Line:
             if len(lt) > 0:
                 self.characters.append(
                     Character(
-                        character_run=character_run,
-                        line=self,
-                        chartext=lt,
-                        sequence=i,
-                        char_image_paths=char_image_paths,
+                        character_run=character_run, line=self, chartext=lt, sequence=i
                     )
                 )
 
     @property
     def spread_sequence(self):
-        return int(re.match(r".+-(\d{3})_", self.image_filepath).groups()[0])
+        return
 
     @property
     def page_side(self):
-        if re.match(r".+page(\d)", self.image_filepath).groups()[0] == "1":
+        if re.match(r".+page(\d)r", self.extraction_filepath).groups()[0] == "1":
             page_side = "l"
         else:
             page_side = "r"
         return page_side
 
     @property
-    def match_page(self):
-        matches = [
-            p
-            for p in self.line_run.book.pages
-            if p.side == self.page_side and p.spread.sequence == self.spread_sequence
-        ]
-        if len(matches) == 1:
-            return matches[0]
-        else:
-            warning(f"{self.image_filepath} should exist but doesn't")
-            return None
-
-    @property
     def sequence(self):
-        return int(re.match(r".+line(\d{1,2})\.tif", self.image_filepath).groups()[0])
+        return int(
+            re.match(r".+line(\d{1,2})\.txt", self.extraction_filepath).groups()[0]
+        )
 
 
 class Character:
-    def __init__(self, character_run, line, chartext, sequence, char_image_paths):
+    def __init__(self, character_run, line, chartext, sequence):
         self.line = line
         self.character_run = character_run
         self.endpoint = self.character_run.book.endpoint
-        self.char_image_paths = char_image_paths
         self.sequence = sequence
         self.chartext = chartext
         # print(self.image_filepath)
@@ -478,21 +466,19 @@ class Character:
         self.begin = int(Val(raw_text[4]).value)
         self.end = int(Val(raw_text[5]).value)
         try:
-            self.data = b64encode(open(self.image_filepath, "rb").read())
+            payload = {
+                "created_by_run": self.character_run.id,
+                "line": self.line.id,
+                "sequence": self.sequence,
+                "x_min": self.begin,
+                "x_max": self.end,
+                "offset": self.offset,
+                "exposure": self.exposure,
+                "character_class": CHARTYPE_DICT[self.chartype],
+                "class_probability": self.log_prob,
+            }
         except:
-            return
-        payload = {
-            "created_by_run": self.character_run.id,
-            "data": self.data,
-            "line": self.line.id,
-            "sequence": self.sequence,
-            "x_min": self.begin,
-            "x_max": self.end,
-            "offset": self.offset,
-            "exposure": self.exposure,
-            "character_class": CHARTYPE_DICT[self.chartype],
-            "class_probability": self.log_prob,
-        }
+            return None
         res = requests.post(
             self.endpoint.endpoint + "characters/",
             data=payload,
@@ -524,9 +510,22 @@ class Character:
             raise Exception
 
 
-local_db = Endpoint(
-    endpoint="http://localhost/api/", token="373f5a24e62a8327971cce64dc5458dbfcfbd1d9"
-)
-anon1 = Book(
-    endpoint=local_db, bookstring="anon_9053941_42343_65height_treatiseofexecution"
-)
+def main():
+    # Options and arguments
+    p = optparse.OptionParser(
+        description="Load book images into database",
+        usage="usage: %prog [options] bookstring (-h for help)",
+    )
+
+    (opt, sources) = p.parse_args()
+
+    local_db = Endpoint(
+        endpoint="http://localhost/api/",
+        token="373f5a24e62a8327971cce64dc5458dbfcfbd1d9",
+    )
+
+    res = Book(endpoint=local_db, bookstring=sources[0])
+
+
+if __name__ == "__main__":
+    main()

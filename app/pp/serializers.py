@@ -16,7 +16,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Image
-        fields = ["id", "url", "iiif_base", "web_url", "thumbnail", "tif_md5"]
+        fields = ["id", "url", "tif", "iiif_base", "web_url", "thumbnail", "tif_md5"]
 
 
 class CroppedImageSerializer(serializers.Serializer):
