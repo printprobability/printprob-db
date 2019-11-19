@@ -7,9 +7,6 @@ from base64 import b64encode
 from logging import warning
 import optparse
 from tqdm import tqdm
-from concurrent.futures import ThreadPoolExecutor
-
-ROOT = "/Users/mlincoln/Development/printprobability/pp-images/"
 
 CHARTYPE_DICT = {
     "!": "exclamation",
@@ -99,9 +96,10 @@ CHARTYPE_DICT = {
 
 
 class Endpoint:
-    def __init__(self, endpoint, token):
+    def __init__(self, endpoint, token, root):
         self.endpoint = endpoint
         self.token = token
+        self.root = root
         res = requests.get(endpoint + "books/", headers=self.auth_header)
         if res.status_code != 200:
             raise Exception("Endpoint/token not allowed")
@@ -129,11 +127,17 @@ class Book:
     def __init__(self, endpoint, bookstring):
         self.bookstring = bookstring
         self.endpoint = endpoint
-        self.id = requests.get(
+        res = requests.get(
             self.endpoint.endpoint + "books/",
             params={"vid": self.vid},
             headers=self.endpoint.auth_header,
-        ).json()["results"][0]["id"]
+        )
+        try:
+            self.id = res.json()["results"][0]["id"]
+        except:
+            raise Exception(
+                f"No book with VID {self.vid} found. Full error: {res.text}"
+            )
         self.spreads = []
         self.page_run = PageRun(self)
         self.pages = []
@@ -145,13 +149,20 @@ class Book:
         self.gen_pages()
         self.gen_lines()
 
+    def validate_data(self):
+        # Line results must exist
+
+        # Character results must exist
+
     @property
     def vid(self):
         return int(re.match("^[A-Za-z]+_\d+_(\d+)_", self.bookstring).groups()[0])
 
     @property
     def book_directory(self):
-        return f"{ROOT}mpwillia/line_extractions/complete/{self.bookstring}/"
+        return (
+            f"{self.endpoint.root}mpwillia/line_extractions/complete/{self.bookstring}/"
+        )
 
     @property
     def spread_directory(self):
@@ -175,16 +186,16 @@ class Book:
 
     @property
     def extractions_dir(self):
-        return f"{ROOT}srijhwan/broken_type_new/output_{self.bookstring}/extractions/"
+        return f"{self.endpoint.root}srijhwan/broken_type_new/output_{self.bookstring}/extractions/"
 
     @property
     def char_images_dir(self):
-        return f"{ROOT}srijhwan/broken_type_new/char_images3/{self.bookstring}/"
+        return f"{self.endpoint.root}srijhwan/broken_type_new/char_images3/{self.bookstring}/"
 
     def gen_spreads(self):
         spread_files = [
-            self.spread_directory + f
-            for f in os.listdir(self.spread_directory)
+            self.page_directory + f
+            for f in os.listdir(self.page_directory)
             if re.search(r".+\d{3}\.tif", f)
         ]
         self.spreads = [Spread(book=self, filepath=f) for f in spread_files]
@@ -281,7 +292,7 @@ class Image:
 
     @property
     def relative_filepath(self):
-        return "/" + self.filepath.replace(ROOT, "")
+        return "/" + self.filepath.replace(self.endpoint.root, "")
 
 
 class Spread:
@@ -291,11 +302,15 @@ class Spread:
         # print(self.filepath)
         self.image = Image(endpoint=self.book.endpoint, filepath=self.filepath)
         # print(f"Image {self.image.id} created")
-        self.id = requests.post(
+        res = requests.post(
             self.book.endpoint.endpoint + "spreads/",
             data={"book": book.id, "sequence": self.sequence, "image": self.image.id},
             headers=self.book.endpoint.auth_header,
-        ).json()["id"]
+        )
+        try:
+            self.id = res.json()["id"]
+        except:
+            raise Exception(res.text)
         # print(f"Spread {self.id} created")
 
     @property
@@ -417,7 +432,10 @@ class Line:
         except:
             raise Exception(res.text)
         # print(f"Line {self.id} created")
-        linepath = open(self.extraction_filepath, "r").read()
+        try:
+            linepath = open(self.extraction_filepath, "r").read()
+        except:
+            warning(f"{self.extraction_filepath} doesn't exist. Skipping line)
         # print(self.extraction_filepath)
         # print(char_image_paths)
         # print(linepath)
@@ -517,12 +535,21 @@ def main():
         usage="usage: %prog [options] bookstring (-h for help)",
     )
 
+    p.add_option("--endpoint", "-e", default=None, action="store", help="API Endpoint")
+
+    p.add_option("--token", "-t", default=None, action="store", help="API token")
+
+    p.add_option(
+        "--root",
+        "-r",
+        default=None,
+        action="store",
+        help="Root directory of Ocular input/output files (e.g. Bridges workgroup directory)",
+    )
+
     (opt, sources) = p.parse_args()
 
-    local_db = Endpoint(
-        endpoint="http://localhost/api/",
-        token="373f5a24e62a8327971cce64dc5458dbfcfbd1d9",
-    )
+    local_db = Endpoint(endpoint=opt.endpoint, token=opt.token, root=opt.root)
 
     res = Book(endpoint=local_db, bookstring=sources[0])
 
