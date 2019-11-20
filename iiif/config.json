@@ -28,8 +28,8 @@
     },
     "cache": {
       "name": "Memory",
-      "ttl": 300,
-      "limit": 100
+      "ttl": 8000,
+      "limit": 500
     }
   },
   "derivatives": {
