@@ -1,9 +1,11 @@
 <template>
-  <img
-    :src="line.image.thumbnail"
-    class="line-image my-3 mx-auto"
-    @click="$emit('line_clicked', line)"
-  />
+  <a :href="line.image.web_url">
+    <img
+      :src="line.image.thumbnail"
+      class="line-image my-3 mx-auto"
+      @click="$emit('line_clicked', line)"
+    />
+  </a>
 </template>
 
 <script>
