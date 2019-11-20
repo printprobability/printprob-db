@@ -17,7 +17,9 @@
       <p>Machine: {{ character.character_class }} ({{ (character.class_probability * 100).toFixed(2) }}%)</p>
       <p>Human: {{ character.human_character_class }}</p>
       <p>
-        <img :src="character.image.buffer" />
+        <router-link :to="character_link">
+          <img class="buffer_preview" :src="character.image.buffer" />
+        </router-link>
       </p>
       <router-link :to="character_link">See character in context</router-link>
     </b-popover>
@@ -76,5 +78,9 @@ img.marked_bad {
 
 img.marked_good {
   filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(70deg);
+}
+
+img.buffer_preview {
+  border: 1px solid black;
 }
 </style>
