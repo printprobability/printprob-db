@@ -149,11 +149,6 @@ class Book:
         self.gen_pages()
         self.gen_lines()
 
-    def validate_data(self):
-        # Line results must exist
-
-        # Character results must exist
-
     @property
     def vid(self):
         return int(re.match("^[A-Za-z]+_\d+_(\d+)_", self.bookstring).groups()[0])
@@ -235,11 +230,13 @@ class Book:
         line_stats = glob(self.line_directory + "*.tif.csv")
         for l in tqdm(line_stats, desc="Loading pages"):
             l_text = open(l, "r").read()
-            if re.match(r".+page(\d)r", l).groups()[0] == "1":
+            page_match_digit = re.match(r".+page(\d)r", l).groups()[0]
+            if page_match_digit == "1":
                 page_side = "l"
             else:
                 page_side = "r"
-            spread_sequence = int(re.match(r".+-(\d{3})_page", l).groups()[0])
+            spread_sequence_string = re.match(r".+-(\d{3})_page", l).groups()[0]
+            spread_sequence = int(spread_sequence_string)
             for r in tqdm(l_text.split("\n"), desc="Lines", leave=False):
                 if r == "":
                     continue
@@ -254,19 +251,27 @@ class Book:
                     page = matches[0]
                 else:
                     raise Exception(
-                        f"{self.extraction_filepath} should exist but doesn't"
+                        f"{page_side} and {spread_sequence} should exist but doesn't"
                     )
+                sequence = int(re.match(r".+line(\d{1,2})", l_row[2]).groups()[0])
+                try:
+                    extraction_filepath = glob(
+                        self.extractions_dir
+                        + f"*{spread_sequence_string}_page{page_match_digit}r.png_line{sequence}.txt"
+                    )[0]
+                except:
+                    warning(
+                        f"No {spread_sequence_string}_page{page_match_digit}r.png_line{sequence}.txt in extractions directory"
+                    )
+                    continue
                 new_line = Line(
                     line_run=self.line_run,
                     page=page,
                     character_run=self.character_run,
+                    sequence=sequence,
                     y1=l_row[0],
                     y2=l_row[1],
-                    extraction_filepath=self.extractions_dir
-                    + l_row[2]
-                    .replace("./", "")
-                    .replace("_line", ".png_line")
-                    .replace("tif", "txt"),
+                    extraction_filepath=extraction_filepath,
                 )
 
 
@@ -408,10 +413,13 @@ class Val:
 
 
 class Line:
-    def __init__(self, page, line_run, character_run, y1, y2, extraction_filepath):
+    def __init__(
+        self, page, line_run, sequence, character_run, y1, y2, extraction_filepath
+    ):
         self.line_run = line_run
         self.endpoint = self.line_run.book.endpoint
         self.extraction_filepath = extraction_filepath
+        self.sequence = sequence
         # print(self.extraction_filepath)
         self.y1 = y1
         self.y2 = y2
@@ -435,7 +443,7 @@ class Line:
         try:
             linepath = open(self.extraction_filepath, "r").read()
         except:
-            warning(f"{self.extraction_filepath} doesn't exist. Skipping line)
+            warning(f"{self.extraction_filepath} doesn't exist. Skipping line")
         # print(self.extraction_filepath)
         # print(char_image_paths)
         # print(linepath)
@@ -459,12 +467,6 @@ class Line:
         else:
             page_side = "r"
         return page_side
-
-    @property
-    def sequence(self):
-        return int(
-            re.match(r".+line(\d{1,2})\.txt", self.extraction_filepath).groups()[0]
-        )
 
 
 class Character:
