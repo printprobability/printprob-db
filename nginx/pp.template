@@ -1,7 +1,9 @@
 server {
-    listen 80
+    listen 80;
     return 301 https://$host$request_uri;
+}
 
+server {
     ${PP_NGINX_LISTEN}
     ${PP_NGINX_SERVER_NAME}
     ssl_certificate ${CERT_PATH};
