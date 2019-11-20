@@ -1,7 +1,7 @@
 <template>
   <div class="container-flex" v-if="!!character">
     <h3>Character {{ character.label }}</h3>
-    <AnnotatedImage :image_url="character.spread.image.web_url" :points="annotation" />
+    <AnnotatedImage :id="this.character.id" :image_info_url="image_info_url" />
   </div>
 </template>
 
@@ -25,6 +25,9 @@ export default {
   computed: {
     annotation() {
       return this.character.absolute_coords;
+    },
+    image_info_url() {
+      return this.character.page.image.iiif_base + "/info.json";
     }
   },
   methods: {
@@ -44,7 +47,3 @@ export default {
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>

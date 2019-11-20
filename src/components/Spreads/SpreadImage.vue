@@ -5,7 +5,7 @@
       <template v-else>{{ header }}</template>
     </div>
     <div class="card-body">
-      <img class="spread-image" :src="spread.image.web_url" />
+      <img class="spread-image" :src="spread.image.thumbnail" />
     </div>
     <div v-if="footer" class="card-footer">{{ footer }}</div>
   </div>

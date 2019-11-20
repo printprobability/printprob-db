@@ -7,7 +7,7 @@
             <img
               v-if="!!book.cover_spread"
               class="cover-image"
-              :src="book.cover_spread.image.web_url"
+              :src="book.cover_spread.image.thumbnail"
             />
             <small v-else>Not run yet</small>
           </div>

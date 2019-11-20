@@ -145,21 +145,21 @@ export default {
       }
     }
   },
+  asyncComputed: {
+    selected_cg() {
+      return HTTP.get("/character_groupings/" + this.cg_id + "/").then(
+        response => {
+          return response.data;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  },
   methods: {
     display_date: function(date) {
       return moment(new Date(date)).format("MM-DD-YY, h:mm a");
-    },
-    get_cg: function(pk) {
-      if (!!pk) {
-        return HTTP.get("/character_groupings/" + pk + "/").then(
-          response => {
-            this.selected_cg = response.data;
-          },
-          error => {
-            console.log(error);
-          }
-        );
-      }
     },
     register_character: function(char_id) {
       if (!!this.cg_id) {
@@ -247,11 +247,6 @@ export default {
     },
     refresh_cg_menu: function() {
       this.cg_menu_key += 1;
-    }
-  },
-  watch: {
-    cg_id: function(id) {
-      this.get_cg(id);
     }
   }
 };
