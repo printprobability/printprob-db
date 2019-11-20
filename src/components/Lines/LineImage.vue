@@ -1,6 +1,6 @@
 <template>
   <img
-    :src="line.image.web_url"
+    :src="line.image.thumbnail"
     class="line-image my-3 mx-auto"
     @click="$emit('line_clicked', line)"
   />
