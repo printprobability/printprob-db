@@ -9,7 +9,8 @@ export default {
   name: "AnnotatedImage",
   props: {
     id: String,
-    image_info_url: String
+    image_info_url: String,
+    overlay: Object
   },
   data() {
     return {};
@@ -20,8 +21,21 @@ export default {
         id: this.id,
         prefixUrl: "/osd/",
         tileSources: this.image_info_url,
-        maxZoomLevel: 3
+        maxZoomLevel: 3,
+        overlays: this.overlays
       };
+    },
+    overlays() {
+      return [
+        {
+          id: "overlay" + this.id,
+          px: this.overlay.x,
+          py: this.overlay.y,
+          width: this.overlay.w,
+          height: this.overlay.h,
+          className: "overlay"
+        }
+      ];
     }
   },
   mounted() {
@@ -33,9 +47,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .osd {
-  height: 1000px;
+  height: 750px;
   width: 100%;
+}
+
+.overlay {
+  outline: red 5px solid;
 }
 </style>

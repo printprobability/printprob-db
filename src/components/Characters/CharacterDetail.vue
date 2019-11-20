@@ -1,7 +1,7 @@
 <template>
   <div class="container-flex" v-if="!!character">
     <h3>Character {{ character.label }}</h3>
-    <AnnotatedImage :id="this.character.id" :image_info_url="image_info_url" />
+    <AnnotatedImage :id="this.character.id" :image_info_url="image_info_url" :overlay="annotation" />
   </div>
 </template>
 
