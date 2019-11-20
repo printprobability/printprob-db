@@ -214,6 +214,12 @@ class CroppedModel(uuidModel):
         return f"{ac['x']},{ac['y']},{ac['w']},{ac['h']}"
 
     @property
+    def buffer(self):
+        ac = self.absolute_coords
+        buffer = 50
+        return f"{self.root_object.image.iiif_base}/{ac['x'] - buffer},{ac['y'] - buffer},{ac['w'] + (2 * buffer)},{ac['h'] + (2 * buffer)}/150,/0/default.jpg"
+
+    @property
     def web_url(self):
         return f"{self.root_object.image.iiif_base}/{self.region_string}/full/0/default.jpg"
 
@@ -223,7 +229,11 @@ class CroppedModel(uuidModel):
 
     @property
     def image(self):
-        return {"web_url": self.web_url, "thumbnail": self.thumbnail}
+        return {
+            "web_url": self.web_url,
+            "thumbnail": self.thumbnail,
+            "buffer": self.buffer,
+        }
 
     class Meta:
         abstract = True
