@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <b-container fluid class="p-0 d-flex flex-column parent">
     <b-navbar toggleable="lg" type="dark" variant="secondary">
       <b-navbar-brand to="/">Print & Probability</b-navbar-brand>
 
@@ -36,7 +36,7 @@
         <b-nav-item href="https://github.com/cmu-lib/pp-vue">GitHub</b-nav-item>
       </b-navbar-nav>
     </nav>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -64,4 +64,7 @@ export default {
 </script>
 
 <style>
+.parent {
+  min-height: 100vh;
+}
 </style>
