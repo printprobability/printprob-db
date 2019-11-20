@@ -127,6 +127,14 @@ class BookViewSet(CRUDViewSet):
             return serializers.BookDetailSerializer
         return serializers.BookListSerializer
 
+    @action(detail=True, methods=["delete"])
+    def reset(self, request, pk=None):
+        obj = self.get_object()
+        res = obj.spreads.all().delete()
+            return Response(res)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class SpreadFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
