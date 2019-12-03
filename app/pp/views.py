@@ -16,7 +16,6 @@ from rest_framework import (
 )
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from django.shortcuts import get_object_or_404
 from django.db import transaction
 from django.db.models import Count, F, Q, Exists, OuterRef
 from django.contrib.auth.models import User
@@ -131,9 +130,7 @@ class BookViewSet(CRUDViewSet):
     def reset(self, request, pk=None):
         obj = self.get_object()
         res = obj.spreads.all().delete()
-            return Response(res)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(res)
 
 
 class SpreadFilter(filters.FilterSet):
@@ -507,7 +504,7 @@ class CharacterGroupingViewSet(CRUDViewSet):
             "line__page__side",
             "line__sequence",
             "sequence",
-            "character_class"
+            "character_class",
         )
 
         zip_file = zipfile.ZipFile(response, "w")
