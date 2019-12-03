@@ -86,7 +86,15 @@
                 bordered
                 head-variant="light"
                 @row-clicked="select_run"
-              />
+              >
+                <template v-slot:cell(erase)="data">
+                  <b-button
+                    variant="danger"
+                    size="sm"
+                    @click="run_delete(runtype, data.item.id)"
+                  >Delete</b-button>
+                </template>
+              </b-table>
               <p v-else>No runs for this segmentation type yet.</p>
             </b-list-group-item>
           </b-list-group>
@@ -123,13 +131,24 @@ export default {
   data() {
     return {
       book: null,
-      display_fields: ["date_started", "count"],
+      display_fields: ["date_started", "count", "erase"],
       detail_show: null,
       selected_run: null,
       selected_run_id: null
     };
   },
   methods: {
+    run_delete: function(runtype, id) {
+      console.log(runtype + " " + id);
+      HTTP.delete("/runs/" + runtype + "/" + id + "/").then(
+        results => {
+          this.get_book(this.id);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    },
     get_book: function(id) {
       return HTTP.get("/books/" + id + "/").then(
         response => {
