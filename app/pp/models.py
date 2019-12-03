@@ -217,7 +217,7 @@ class CroppedModel(uuidModel):
     def buffer(self):
         ac = self.absolute_coords
         buffer = 50
-        return f"{self.root_object.image.iiif_base}/{ac['x'] - buffer},{ac['y'] - buffer},{ac['w'] + (2 * buffer)},{ac['h'] + (2 * buffer)}/150,/0/default.jpg"
+        return f"{self.root_object.image.iiif_base}/{max(ac['x'] - buffer, 0)},{max(ac['y'] - buffer, 0)},{ac['w'] + (2 * buffer)},{ac['h'] + (2 * buffer)}/150,/0/default.jpg"
 
     @property
     def web_url(self):
@@ -472,7 +472,7 @@ class Character(CroppedModel):
     def absolute_coords(self):
         multiplier = self.line.height / 30
         x = math.floor(self.x_min * multiplier)
-        y = math.floor(self.line.y_min - self.offset * multiplier)
+        y = max(math.floor(self.line.y_min - self.offset * multiplier), 0)
         w = math.floor(self.width * multiplier)
         h = self.line.height
         return {"x": x, "y": y, "w": w, "h": h}
