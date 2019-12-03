@@ -6,10 +6,12 @@
     label="Source book"
     description="Begin typing for suggestions"
     placeholder="an answer to nine"
-    display_field="label"
+    display_field="pq_title"
     n_choices="10"
     return_field="id"
+    prefix_field="vid"
     @input="$emit('input', $event)"
+    :additional_params="{characters: true}"
   />
 </template>
 

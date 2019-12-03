@@ -5,8 +5,9 @@
       :value="value"
       :serializer="serializer"
       :placeholder="placeholder"
-      @hit="selected = $event"
+      @hit="selected=$event"
       @input="search_text=$event"
+      :maxMatches="Number(n_choices)"
     />
   </b-form-group>
 </template>
@@ -45,6 +46,10 @@ export default {
       type: String,
       default: "10"
     },
+    prefix_field: {
+      type: String,
+      default: null
+    },
     return_field: String,
     additional_params: Object
   },
@@ -59,9 +64,18 @@ export default {
     get_results: _.debounce(function(query) {
       var payload = { params: { limit: this.n_choices } };
       payload.params[this.query_field] = query;
+      for (var attrname in this.additional_params) {
+        payload.params[attrname] = this.additional_params[attrname];
+      }
       HTTP.get(this.endpoint, payload).then(
         results => {
-          this.results = results.data.results;
+          if (results.data.count > 0) {
+            this.results = results.data.results;
+          } else {
+            var empty_result = {};
+            empty_result[this.display_field] = "No results";
+            this.results.push();
+          }
         },
         error => {
           console.log(error);
@@ -69,7 +83,22 @@ export default {
       );
     }, 500),
     serializer: function(x) {
-      return x[this.display_field];
+      if (!!this.prefix_field) {
+        return (
+          this.prefix_field +
+          " " +
+          x[this.prefix_field] +
+          ": " +
+          x[this.display_field]
+        );
+      } else {
+        return x[this.display_field];
+      }
+    },
+    clear() {
+      this.results = [];
+      this.search_text = "";
+      this.selected = null;
     }
   },
   watch: {
@@ -77,7 +106,9 @@ export default {
       this.get_results(txt);
     },
     selected() {
-      this.$emit("input", this.selected[this.return_field]);
+      if (!!this.selected) {
+        this.$emit("input", this.selected[this.return_field]);
+      }
     }
   }
 };

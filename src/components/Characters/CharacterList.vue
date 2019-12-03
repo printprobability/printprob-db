@@ -10,16 +10,13 @@
               @input="$emit('character_class_input', $event)"
             />
           </div>
-          <div class="col-4">
-            <BookAutocomplete :value="book" @input="$emit('book_input', $event)" />
-          </div>
-          <div class="col-4">
-            <CharacterRunSelect
-              v-if="!!book"
-              :value="character_run"
-              @input="$emit('character_run_input', $event)"
-              :book="book"
-            />
+          <div class="col-8">
+            <p v-if="!!book">
+              <b-button @click="clear_book" variant="danger" size="sm">x</b-button>
+              <strong>Book:</strong>
+              {{ book_title }}
+            </p>
+            <BookAutocomplete v-else :value="book" @input="$emit('book_input', $event)" />
           </div>
         </div>
         <b-row>
@@ -80,7 +77,6 @@ import CharacterClassSelect from "../Menus/CharacterClassSelect";
 import CharacterOrderingSelect from "../Menus/CharacterOrderingSelect";
 import BookAutocomplete from "../Menus/BookAutocomplete";
 import CharacterAgreementRadio from "../Menus/CharacterAgreementRadio";
-import CharacterRunSelect from "../Menus/CharacterRunSelect";
 import CharacterImage from "./CharacterImage";
 import Spinner from "../Interfaces/Spinner";
 import { HTTP } from "../../main";
@@ -126,10 +122,6 @@ export default {
       default: "all",
       type: String
     },
-    character_run: {
-      default: null,
-      type: String
-    },
     value: {
       // Here is where the characters themselves live
       type: Array,
@@ -139,7 +131,6 @@ export default {
   components: {
     CharacterClassSelect,
     CharacterOrderingSelect,
-    CharacterRunSelect,
     BookAutocomplete,
     CharacterAgreementRadio,
     CharacterImage,
@@ -160,7 +151,6 @@ export default {
           offset: this.rest_offset,
           character_class: this.character_class,
           book: this.book,
-          created_by_run: this.character_run,
           agreement: this.char_agreement,
           ordering: this.order,
           cursor: this.cursor
@@ -175,6 +165,18 @@ export default {
           console.log(error);
         }
       );
+    },
+    book_title() {
+      if (!!this.book) {
+        return HTTP.get("/books/" + this.book + "/").then(
+          results => {
+            return results.data.label;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
     }
   },
   computed: {
@@ -192,14 +194,14 @@ export default {
       return baseline;
     }
   },
+  methods: {
+    clear_book() {
+      this.$emit("book_input", null);
+    }
+  },
   watch: {
     results() {
       this.$emit("input", this.results.results);
-    },
-    book() {
-      if (!this.book) {
-        this.$emit("character_run_input", null);
-      }
     }
   }
 };

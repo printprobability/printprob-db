@@ -25,37 +25,31 @@ export default {
       default: null
     },
     book: {
-      type: Number,
+      type: String,
       default: null
     }
   },
   data() {
-    return {
-      character_runs: []
-    };
+    return {};
   },
-  methods: {
-    get_character_runs: function() {
+  asyncComputed: {
+    character_runs() {
       return HTTP.get("/runs/characters/", {
         params: { book: this.book }
       }).then(
         response => {
-          this.character_runs = response.data.results.map(x => {
+          return response.data.results.map(x => {
             return {
               text: x.date_started,
               value: x.id
             };
           });
-          this.$emit("input", this.character_runs[0].value);
         },
         error => {
           console.log(error);
         }
       );
     }
-  },
-  created() {
-    this.get_character_runs();
   }
 };
 </script>
