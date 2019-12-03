@@ -6,6 +6,7 @@
       class="character-image m-1"
       @click="$emit('char_clicked', character.id)"
       :class="{ highligted: highlight, marked_good: good, marked_bad: bad }"
+      @mouseover="$emit('hover', $event)"
     />
     <b-popover
       :target="character.id"
@@ -14,26 +15,27 @@
       placement="top"
       :delay="pop_delay"
     >
-      <p>Machine: {{ character.character_class }} ({{ (character.class_probability * 100).toFixed(2) }}%)</p>
-      <p>Human: {{ character.human_character_class }}</p>
-      <p>
-        <router-link :to="character_link">
-          <img class="buffer_preview" :src="character.image.buffer" />
-        </router-link>
-      </p>
-      <router-link :to="character_link">See character in context</router-link>
+      <CharacterCard :character="character" />
     </b-popover>
   </div>
 </template>
 
 <script>
+import CharacterCard from "./CharacterCard";
 export default {
   name: "CharacterImage",
+  components: {
+    CharacterCard
+  },
   props: {
     character: Object,
     highlight: Boolean,
     bad: Boolean,
-    good: Boolean
+    good: Boolean,
+    popover: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
