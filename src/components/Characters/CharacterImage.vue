@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      pop_delay: { show: 750, hide: 500 }
+      pop_delay: { show: 1000, hide: 200 }
     };
   },
   computed: {
