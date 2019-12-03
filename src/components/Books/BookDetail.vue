@@ -91,8 +91,15 @@
                   <b-button
                     variant="danger"
                     size="sm"
-                    @click="run_delete(runtype, data.item.id)"
+                    v-b-modal="'delete-modal' + data.item.id"
                   >Delete</b-button>
+                  <b-modal
+                    :id="'delete-modal' + data.item.id"
+                    :title="'Delete this ' + runtype + ' run?'"
+                    ok-variant="danger"
+                    ok-title="Delete"
+                    @ok="run_delete(runtype, data.item.id)"
+                  >This will wipe all data from the run, as well as any descendant book components. It cannot be undone.</b-modal>
                 </template>
               </b-table>
               <p v-else>No runs for this segmentation type yet.</p>
