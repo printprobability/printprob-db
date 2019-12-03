@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.1.0",
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",
@@ -17,8 +17,9 @@
     "openseadragon": "^2.4.1",
     "vue": "^2.6.10",
     "vue-async-computed": "^3.7.0",
+    "vue-bootstrap-typeahead": "^0.2.6",
     "vue-router": "^3.1.3",
-    "vue-slider-component": "^3.0.43"
+    "vue-slider-component": "^3.0.44"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.1",
