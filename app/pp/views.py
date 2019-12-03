@@ -67,6 +67,11 @@ class BookFilter(filters.FilterSet):
         label="Has images?",
         help_text="Has been processed on Bridges?",
     )
+    characters = filters.BooleanFilter(
+        method="has_characters",
+        label="Has characters?",
+        help_text="Has had Character extractions processed",
+    )
     pq_year_verbatim = filters.CharFilter(
         help_text="Search verbatim date strings from EEBO", lookup_expr="icontains"
     )
@@ -78,18 +83,42 @@ class BookFilter(filters.FilterSet):
     year_late = filters.RangeFilter(label="PP end date")
 
     def has_images(self, queryset, name, value):
-        page_run = models.PageRun.objects.filter(book=OuterRef("pk"))
-        line_run = models.LineRun.objects.filter(book=OuterRef("pk"))
-        character_run = models.CharacterRun.objects.filter(book=OuterRef("pk"))
+        spreads = models.Spread.objects.filter(book=OuterRef("pk"), image__isnull=False)
+        pages = models.Page.objects.filter(
+            spread__book=OuterRef("pk"), image__isnull=False
+        )
+        lines = models.Line.objects.filter(created_by_run__book=OuterRef("pk"))
+        characters = models.Character.objects.filter(
+            created_by_run__book=OuterRef("pk")
+        )
 
         if value:
             return (
                 queryset.annotate(
-                    has_pages=Exists(page_run),
-                    has_lines=Exists(line_run),
-                    has_characters=Exists(character_run),
+                    has_spreads=Exists(spreads),
+                    has_pages=Exists(pages),
+                    has_lines=Exists(lines),
+                    has_characters=Exists(characters),
                 )
-                .filter(Q(has_pages=True) | Q(has_lines=True) | Q(has_characters=True))
+                .filter(
+                    Q(has_spreads=True)
+                    | Q(has_pages=True)
+                    | Q(has_lines=True)
+                    | Q(has_characters=True)
+                )
+                .all()
+            )
+        return queryset
+
+    def has_characters(self, queryset, name, value):
+        characters = models.Character.objects.filter(
+            created_by_run__book=OuterRef("pk")
+        )
+
+        if value:
+            return (
+                queryset.annotate(has_characters=Exists(characters))
+                .filter(Q(has_characters=True))
                 .all()
             )
         return queryset
