@@ -1,0 +1,6911 @@
+[
+{
+  "model": "pp.pagerun",
+  "pk": "20f9a4ac-17d3-4b6d-80c7-2388617891bb",
+  "fields": {
+    "label": "20f9a4ac-17d3-4b6d-80c7-2388617891bb - None",
+    "book": "4d4b67c8-70a7-431c-9fe2-abaef50217cd",
+    "date_started": "2019-11-08T19:38:36.070Z"
+  }
+},
+{
+  "model": "pp.pagerun",
+  "pk": "27b3f412-3852-4403-af97-266d362b94e7",
+  "fields": {
+    "label": "27b3f412-3852-4403-af97-266d362b94e7 - None",
+    "book": "c7b6dda5-e5b4-40ad-b872-d283d88c5af0",
+    "date_started": "2019-11-08T19:38:36.097Z"
+  }
+},
+{
+  "model": "pp.pagerun",
+  "pk": "74d20811-eb49-4cd4-8420-d8e54b59b050",
+  "fields": {
+    "label": "74d20811-eb49-4cd4-8420-d8e54b59b050 - None",
+    "book": "367bf8f2-937d-46e9-a48e-8c2ca7a1af98",
+    "date_started": "2019-11-08T19:38:36.051Z"
+  }
+},
+{
+  "model": "pp.pagerun",
+  "pk": "d14c2c41-68c7-4701-888b-e41db16f9d92",
+  "fields": {
+    "label": "d14c2c41-68c7-4701-888b-e41db16f9d92 - None",
+    "book": "883a0028-7224-4dce-ba0d-b9889315f7d7",
+    "date_started": "2019-11-08T19:38:36.085Z"
+  }
+},
+{
+  "model": "pp.linerun",
+  "pk": "0c821b81-9076-4de9-a518-878662b95ef9",
+  "fields": {
+    "label": "0c821b81-9076-4de9-a518-878662b95ef9 - None",
+    "book": "367bf8f2-937d-46e9-a48e-8c2ca7a1af98",
+    "date_started": "2019-11-08T19:38:36.115Z"
+  }
+},
+{
+  "model": "pp.linerun",
+  "pk": "2ac0869b-5a5d-4674-bb95-800838acd4b7",
+  "fields": {
+    "label": "2ac0869b-5a5d-4674-bb95-800838acd4b7 - None",
+    "book": "883a0028-7224-4dce-ba0d-b9889315f7d7",
+    "date_started": "2019-11-08T19:38:36.121Z"
+  }
+},
+{
+  "model": "pp.linerun",
+  "pk": "42cb354e-2327-43c6-b6e9-b3a478488f32",
+  "fields": {
+    "label": "42cb354e-2327-43c6-b6e9-b3a478488f32 - None",
+    "book": "4d4b67c8-70a7-431c-9fe2-abaef50217cd",
+    "date_started": "2019-11-08T19:38:36.117Z"
+  }
+},
+{
+  "model": "pp.linerun",
+  "pk": "ecb30b96-2c87-4cf2-bd3a-135e92971b46",
+  "fields": {
+    "label": "ecb30b96-2c87-4cf2-bd3a-135e92971b46 - None",
+    "book": "c7b6dda5-e5b4-40ad-b872-d283d88c5af0",
+    "date_started": "2019-11-08T19:38:36.121Z"
+  }
+},
+{
+  "model": "pp.linegrouprun",
+  "pk": "0723943e-1c27-4183-b239-1565277d86f7",
+  "fields": {
+    "label": "0723943e-1c27-4183-b239-1565277d86f7 - None",
+    "book": "883a0028-7224-4dce-ba0d-b9889315f7d7",
+    "date_started": "2019-11-08T19:38:36.235Z"
+  }
+},
+{
+  "model": "pp.linegrouprun",
+  "pk": "09a39048-9898-47d4-bdd0-3ce23fbbd00d",
+  "fields": {
+    "label": "09a39048-9898-47d4-bdd0-3ce23fbbd00d - None",
+    "book": "4d4b67c8-70a7-431c-9fe2-abaef50217cd",
+    "date_started": "2019-11-08T19:38:36.234Z"
+  }
+},
+{
+  "model": "pp.linegrouprun",
+  "pk": "16ba3cec-0cf3-4bcd-b543-049982461c51",
+  "fields": {
+    "label": "16ba3cec-0cf3-4bcd-b543-049982461c51 - None",
+    "book": "367bf8f2-937d-46e9-a48e-8c2ca7a1af98",
+    "date_started": "2019-11-08T19:38:36.233Z"
+  }
+},
+{
+  "model": "pp.linegrouprun",
+  "pk": "cff42aab-abd1-40a7-acf6-505fed522ccb",
+  "fields": {
+    "label": "cff42aab-abd1-40a7-acf6-505fed522ccb - None",
+    "book": "c7b6dda5-e5b4-40ad-b872-d283d88c5af0",
+    "date_started": "2019-11-08T19:38:36.242Z"
+  }
+},
+{
+  "model": "pp.characterrun",
+  "pk": "06e75087-c42f-494e-afbe-58d178d296f8",
+  "fields": {
+    "label": "06e75087-c42f-494e-afbe-58d178d296f8 - None",
+    "book": "c7b6dda5-e5b4-40ad-b872-d283d88c5af0",
+    "date_started": "2019-11-08T19:38:36.420Z"
+  }
+},
+{
+  "model": "pp.characterrun",
+  "pk": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+  "fields": {
+    "label": "2936e490-f669-4f45-8afd-6f70f46e9dc0 - None",
+    "book": "367bf8f2-937d-46e9-a48e-8c2ca7a1af98",
+    "date_started": "2019-11-08T19:38:36.416Z"
+  }
+},
+{
+  "model": "pp.characterrun",
+  "pk": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+  "fields": {
+    "label": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a - None",
+    "book": "4d4b67c8-70a7-431c-9fe2-abaef50217cd",
+    "date_started": "2019-11-08T19:38:36.416Z"
+  }
+},
+{
+  "model": "pp.characterrun",
+  "pk": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+  "fields": {
+    "label": "e4dde0c0-72ab-44e0-aa44-666d19e800f5 - None",
+    "book": "883a0028-7224-4dce-ba0d-b9889315f7d7",
+    "date_started": "2019-11-08T19:38:36.418Z"
+  }
+},
+{
+  "model": "pp.book",
+  "pk": "367bf8f2-937d-46e9-a48e-8c2ca7a1af98",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau...",
+    "eebo": 40199,
+    "vid": 24668,
+    "tcp": "",
+    "estc": "",
+    "pq_title": "Collection eat social wear cause usually conference tax major carry suffer eat article total call say road agency relate detail his stay about that yeah less husband remember method ball alone heart successful.",
+    "pq_publisher": "Reduce challenge down knowledge sometimes majority city sense system stuff international herself computer benefit cell employee enjoy black middle.",
+    "pq_author": "Work suffer whom quality natural democratic staff admit gun.",
+    "pq_year_verbatim": "",
+    "pq_year_early": null,
+    "pq_year_late": null,
+    "tx_year_early": null,
+    "tx_year_late": null,
+    "pq_url": "/morning/but/protect/program.pdf",
+    "pp_publisher": "",
+    "pdf": "",
+    "date_early": "2018-01-27",
+    "date_late": "1988-05-24"
+  }
+},
+{
+  "model": "pp.book",
+  "pk": "4d4b67c8-70a7-431c-9fe2-abaef50217cd",
+  "fields": {
+    "label": "(60468) New most build detail we week ...",
+    "eebo": 66307,
+    "vid": 60468,
+    "tcp": "",
+    "estc": "",
+    "pq_title": "New most build detail we week too with experience director collection side might degree anything show newspaper indeed challenge office evening affect Democrat push approach bed as partner team successful allow father decision themselves that reason yourself.",
+    "pq_publisher": "Image would six increase choice smile building story force middle.",
+    "pq_author": "Memory star want everyone bad traditional all teacher rather order.",
+    "pq_year_verbatim": "",
+    "pq_year_early": null,
+    "pq_year_late": null,
+    "tx_year_early": null,
+    "tx_year_late": null,
+    "pq_url": "/decade/into/herself/truth.pdf",
+    "pp_publisher": "",
+    "pdf": "",
+    "date_early": "2014-06-01",
+    "date_late": "2013-11-19"
+  }
+},
+{
+  "model": "pp.book",
+  "pk": "883a0028-7224-4dce-ba0d-b9889315f7d7",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ...",
+    "eebo": 406043,
+    "vid": 122028,
+    "tcp": "",
+    "estc": "",
+    "pq_title": "Order no notice skin oil born true evidence tough should office bring hair federal feeling explain if animal nor say write know PM.",
+    "pq_publisher": "Recently foreign grow little memory soon young require word identify good.",
+    "pq_author": "Give walk citizen hit in stay Democrat practice term oil.",
+    "pq_year_verbatim": "",
+    "pq_year_early": null,
+    "pq_year_late": null,
+    "tx_year_early": null,
+    "tx_year_late": null,
+    "pq_url": "/will/candidate/future/environment.pdf",
+    "pp_publisher": "",
+    "pdf": "",
+    "date_early": "2013-07-22",
+    "date_late": "2011-01-19"
+  }
+},
+{
+  "model": "pp.book",
+  "pk": "c7b6dda5-e5b4-40ad-b872-d283d88c5af0",
+  "fields": {
+    "label": "(273837) Police these rich stage throug...",
+    "eebo": 107896,
+    "vid": 273837,
+    "tcp": "",
+    "estc": "",
+    "pq_title": "Police these rich stage throughout more particularly use century mouth nearly build story series north gun today hour.",
+    "pq_publisher": "Quite brother quality note allow attention skin little at word loss score pressure get six heart check put none yard.",
+    "pq_author": "Product kitchen cup population deal require middle school president newspaper.",
+    "pq_year_verbatim": "",
+    "pq_year_early": null,
+    "pq_year_late": null,
+    "tx_year_early": null,
+    "tx_year_late": null,
+    "pq_url": "/interesting/for/culture/leg.pdf",
+    "pp_publisher": "",
+    "pdf": "",
+    "date_early": "1982-03-06",
+    "date_late": "2001-12-19"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "02a83d12-b3f7-4e52-8909-0021b786f087",
+  "fields": {
+    "label": "/food/discover/pressure/break.tif",
+    "tif": "/food/discover/pressure/break.tif",
+    "tif_md5": "63911380-fc85-4219-80e6-0b59e35dd16c"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "03522512-652a-4ec6-a432-fec8e8ee8677",
+  "fields": {
+    "label": "/friend/perhaps/election/surface.tif",
+    "tif": "/friend/perhaps/election/surface.tif",
+    "tif_md5": "617ba0cc-89d7-42fa-beeb-54b35e5132d2"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "051a0265-a819-49fa-8d51-ed253ccee479",
+  "fields": {
+    "label": "/more/even/right/design.tif",
+    "tif": "/more/even/right/design.tif",
+    "tif_md5": "21cbc3a9-0024-4ae4-a377-116b9868e6bc"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "057eab72-268b-4547-b2f3-cc89640629fc",
+  "fields": {
+    "label": "/look/pattern/result/current.tif",
+    "tif": "/look/pattern/result/current.tif",
+    "tif_md5": "67bef0f3-b472-416e-bf7f-cc7f56662b53"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "06558a6f-ecb6-4c21-a358-9a74a04ad474",
+  "fields": {
+    "label": "/example/plan/identify/fact.tif",
+    "tif": "/example/plan/identify/fact.tif",
+    "tif_md5": "1fe18930-e9ff-42c1-a16a-98f947c9a25a"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "06c1a2a5-e8e2-4608-8934-7e3348ac9346",
+  "fields": {
+    "label": "/realize/cut/make/occur.tif",
+    "tif": "/realize/cut/make/occur.tif",
+    "tif_md5": "1e82cc7e-98b1-44be-85b7-a960691476d8"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "07ec6c4f-fb4f-4f1f-8961-1fabfce09d1f",
+  "fields": {
+    "label": "/likely/say/hair/per.tif",
+    "tif": "/likely/say/hair/per.tif",
+    "tif_md5": "9bc8fa2f-b0d1-48cd-8a2a-58545e05978c"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "09328332-e9be-4be3-9582-af092c6a8de9",
+  "fields": {
+    "label": "/garden/down/production/instead.tif",
+    "tif": "/garden/down/production/instead.tif",
+    "tif_md5": "952ee9ff-9c28-46d6-8c4d-ccfb9f475bfc"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "09ad8531-918c-46ac-bc7e-f4fc2242ff9e",
+  "fields": {
+    "label": "/call/scene/defense/such.tif",
+    "tif": "/call/scene/defense/such.tif",
+    "tif_md5": "2e155cbc-230c-4d42-a48f-dd4ca9e1b4f9"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "0af9270b-aa0d-4a2a-8be9-2bfb90de486d",
+  "fields": {
+    "label": "/scene/know/big/keep.tif",
+    "tif": "/scene/know/big/keep.tif",
+    "tif_md5": "3e331910-270f-4264-a17c-df7872798315"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "0b4773f8-a5c5-4cad-97e1-91f8598b0b3f",
+  "fields": {
+    "label": "/son/want/place/church.tif",
+    "tif": "/son/want/place/church.tif",
+    "tif_md5": "95a3ce4f-7a56-4eea-ba52-c81750bd357e"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "0c728fe1-04be-4490-89ce-877f4db22ef4",
+  "fields": {
+    "label": "/including/quite/under/amount.tif",
+    "tif": "/including/quite/under/amount.tif",
+    "tif_md5": "97b6bbec-7fbe-4eaa-acb4-9dae752609cb"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "0cdabbf3-8623-4e02-97d3-4d19d24337a6",
+  "fields": {
+    "label": "/life/as/keep/bed.tif",
+    "tif": "/life/as/keep/bed.tif",
+    "tif_md5": "e739d25a-c5f6-4213-b2f9-515b6d1a0eee"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "0e43566f-d96a-4215-bcb6-0fba9db8417d",
+  "fields": {
+    "label": "/ago/those/door/grow.tif",
+    "tif": "/ago/those/door/grow.tif",
+    "tif_md5": "a4b56b98-88c0-4118-8bcd-c8af606a5539"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "12667726-e1ee-42ba-b03c-e06fedfa2576",
+  "fields": {
+    "label": "/employee/know/another/site.tif",
+    "tif": "/employee/know/another/site.tif",
+    "tif_md5": "5bc6476d-274d-48af-a46e-d84b0bcd359c"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "145fee73-f17b-48ec-9cef-13f0ca7631e1",
+  "fields": {
+    "label": "/shoulder/mission/speech/leg.tif",
+    "tif": "/shoulder/mission/speech/leg.tif",
+    "tif_md5": "9789299c-ed10-4e70-9f7d-6b24a56fed79"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "1531e75c-388a-4691-8065-c380f4448a95",
+  "fields": {
+    "label": "/partner/film/always/upon.tif",
+    "tif": "/partner/film/always/upon.tif",
+    "tif_md5": "fdefc187-7065-4bab-ac32-5cd7e552a2cd"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "15a6a840-9b83-4932-bdce-6a438f089989",
+  "fields": {
+    "label": "/identify/sign/nothing/evidence.tif",
+    "tif": "/identify/sign/nothing/evidence.tif",
+    "tif_md5": "ef2732e6-29de-46ab-9c4b-e5ff5ce5c5b2"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "1670f53b-e75c-4925-8918-61f238e91454",
+  "fields": {
+    "label": "/water/not/most/eight.tif",
+    "tif": "/water/not/most/eight.tif",
+    "tif_md5": "167cdcef-1f73-48e2-a2a0-d9685fa17249"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "18fdf86b-5ada-46f4-b0fd-c5ecc40a37dd",
+  "fields": {
+    "label": "/ok/among/pick/special.tif",
+    "tif": "/ok/among/pick/special.tif",
+    "tif_md5": "162ba97c-cf5c-431f-b9cc-ad9e5571f4e4"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "1f29bdc6-a8ea-470a-b9bb-5090843f4b04",
+  "fields": {
+    "label": "/medical/member/meet/realize.tif",
+    "tif": "/medical/member/meet/realize.tif",
+    "tif_md5": "0e02c727-9f07-467a-829e-48fb99c31a19"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "2081b1d7-c754-426c-926a-42878ac3c8eb",
+  "fields": {
+    "label": "/mention/goal/modern/chance.tif",
+    "tif": "/mention/goal/modern/chance.tif",
+    "tif_md5": "ce3a09d9-38f9-4d87-806d-11247625f2d6"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "25eaa279-e158-44f9-aa8f-c613e0cd191c",
+  "fields": {
+    "label": "/face/box/where/world.tif",
+    "tif": "/face/box/where/world.tif",
+    "tif_md5": "91c46355-b488-473b-9b78-4833eaeb6001"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "2ae0ea03-6b2a-4567-86d4-980224b0555a",
+  "fields": {
+    "label": "/technology/various/agreement/view.tif",
+    "tif": "/technology/various/agreement/view.tif",
+    "tif_md5": "ebf7a7fe-9df3-4ceb-a038-b22b25f3575a"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "2d7fdabc-961c-4446-9090-349ccb055a29",
+  "fields": {
+    "label": "/interest/matter/trip/sell.tif",
+    "tif": "/interest/matter/trip/sell.tif",
+    "tif_md5": "3c00a58d-37ff-404e-b07c-d827fde4742d"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "2fb7120e-f12b-49be-9a11-d75b340e531e",
+  "fields": {
+    "label": "foo",
+    "tif": "foo",
+    "tif_md5": "054bdf32-ecdd-49b1-8776-d6c47deeb2be"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "332386f1-19d4-4f11-8e3d-ba7a2b574cac",
+  "fields": {
+    "label": "/leader/tell/story/agree.tif",
+    "tif": "/leader/tell/story/agree.tif",
+    "tif_md5": "b61088cf-04bc-45d3-bc54-a4b4f39380b3"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "36495b4b-bc92-484b-ab7f-0afb7f27cba0",
+  "fields": {
+    "label": "/quite/wind/whose/real.tif",
+    "tif": "/quite/wind/whose/real.tif",
+    "tif_md5": "ba168bf1-b19e-4238-a2f1-66f0a0fd6aa3"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "375ca084-3e42-4b7e-b1ac-cdefde58edfe",
+  "fields": {
+    "label": "/single/five/forget/field.tif",
+    "tif": "/single/five/forget/field.tif",
+    "tif_md5": "b41b0f47-9533-4398-a9f8-a4f9f3aa3871"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "38c6ef4d-3ef5-4e60-9a0a-25858d426061",
+  "fields": {
+    "label": "/whether/treat/catch/ever.tif",
+    "tif": "/whether/treat/catch/ever.tif",
+    "tif_md5": "4604aa5b-b721-4435-87bd-3fde376d6d1b"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "39d8a95f-5023-4f00-ae74-9b0d7e44ad26",
+  "fields": {
+    "label": "/back/adult/few/style.tif",
+    "tif": "/back/adult/few/style.tif",
+    "tif_md5": "57518c7a-55ad-40c7-887e-82147b4a6b42"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "3d95580b-1b2a-4c36-b9f6-ec2c8cd30461",
+  "fields": {
+    "label": "/color/here/herself/win.tif",
+    "tif": "/color/here/herself/win.tif",
+    "tif_md5": "e9eff19e-3c70-4b81-99a7-d13db27a347c"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "3f6f2b2f-a2c8-4aea-97ea-20cb80db8746",
+  "fields": {
+    "label": "/song/her/could/picture.tif",
+    "tif": "/song/her/could/picture.tif",
+    "tif_md5": "de7ef943-ca1c-4170-b5eb-03974ddae7ba"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "42a7ccc8-2132-4e02-a559-60a81ba79daa",
+  "fields": {
+    "label": "/door/board/control/edge.tif",
+    "tif": "/door/board/control/edge.tif",
+    "tif_md5": "8b5876a1-f145-454e-af16-22411da418ef"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "43658ccf-036b-4b98-a7c3-52d25aa9c6e0",
+  "fields": {
+    "label": "/near/the/audience/clear.tif",
+    "tif": "/near/the/audience/clear.tif",
+    "tif_md5": "08dc463d-30f9-42db-9719-11461e2caa15"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "44fd4376-ef13-4f94-9342-5fdff510fea8",
+  "fields": {
+    "label": "/experience/situation/collection/strategy.tif",
+    "tif": "/experience/situation/collection/strategy.tif",
+    "tif_md5": "81bee066-5248-4e43-951f-1212d4c549ed"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "46c1fa24-d07c-4ab1-baa4-3f7792b43362",
+  "fields": {
+    "label": "/exactly/good/line/hope.tif",
+    "tif": "/exactly/good/line/hope.tif",
+    "tif_md5": "57a66d3e-160b-4103-a35e-9fe4a4efc5a7"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "4f7beb7e-457c-446d-b1cc-ce2ca1eb4c82",
+  "fields": {
+    "label": "/soldier/return/about/section.tif",
+    "tif": "/soldier/return/about/section.tif",
+    "tif_md5": "c620d6e0-a644-429e-8a99-ff3aac3ef741"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "5a31e2bd-60e3-4a21-a2e9-80c3c5423af7",
+  "fields": {
+    "label": "/position/successful/energy/radio.tif",
+    "tif": "/position/successful/energy/radio.tif",
+    "tif_md5": "6897646f-7680-4c43-b8d3-46ba865d055e"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "5ad5dfdf-e446-40f6-98fc-a9be7a8c06cd",
+  "fields": {
+    "label": "/group/pretty/able/current.tif",
+    "tif": "/group/pretty/able/current.tif",
+    "tif_md5": "5057e3b2-fdb5-4efb-9c27-0ad7aa9c5b5e"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "5ed6d9cb-2661-473a-976e-66a5924e8484",
+  "fields": {
+    "label": "/nothing/research/marriage/physical.tif",
+    "tif": "/nothing/research/marriage/physical.tif",
+    "tif_md5": "9fc6bd15-521c-4d75-a371-4ab57d39ad0f"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "6029bd54-9f0c-4574-a622-0efc4c32d71f",
+  "fields": {
+    "label": "/dog/collection/everything/draw.tif",
+    "tif": "/dog/collection/everything/draw.tif",
+    "tif_md5": "a1a4d832-96a6-4c4a-a0d8-deefadabf7d3"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "65020a80-84fe-420d-8e91-819188581621",
+  "fields": {
+    "label": "/federal/large/easy/fear.tif",
+    "tif": "/federal/large/easy/fear.tif",
+    "tif_md5": "8f1bbb46-eb42-475c-af4b-edfd081f5643"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "66891594-6da6-4a09-9558-a7eb915900d0",
+  "fields": {
+    "label": "/author/production/pass/require.tif",
+    "tif": "/author/production/pass/require.tif",
+    "tif_md5": "93a52d6e-78a9-44c0-982e-3c09a03b10ba"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "693491a7-7574-4fc6-b72c-494bd8bdad19",
+  "fields": {
+    "label": "/onto/high/us/make.tif",
+    "tif": "/onto/high/us/make.tif",
+    "tif_md5": "9da4a8ce-1c98-45f6-965e-662da9c6df8a"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "6e0a385b-2872-4d9f-8f3b-893f8eb9326f",
+  "fields": {
+    "label": "/suggest/interest/resource/level.tif",
+    "tif": "/suggest/interest/resource/level.tif",
+    "tif_md5": "886d8fd1-cc75-44e6-9dbd-d958ed1cec3f"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "6f81bead-c939-4388-aecf-497d9a2f4eca",
+  "fields": {
+    "label": "/quite/interest/eat/author.tif",
+    "tif": "/quite/interest/eat/author.tif",
+    "tif_md5": "176d89de-1455-49d7-b9c3-faf269c4e049"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "6fe4ed3c-b620-49ef-8147-926857257ed9",
+  "fields": {
+    "label": "/than/appear/ok/water.tif",
+    "tif": "/than/appear/ok/water.tif",
+    "tif_md5": "a888d3e9-6719-4bc0-a318-2de0dcf8830f"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "719c83d9-a680-4327-bfd8-f2f335d897f8",
+  "fields": {
+    "label": "/chair/today/and/growth.tif",
+    "tif": "/chair/today/and/growth.tif",
+    "tif_md5": "52001334-0085-44fb-927a-6a22d3fc1201"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "71a2fce4-d6a8-4a4c-a462-0f0b72b9d19d",
+  "fields": {
+    "label": "/today/evening/mother/according.tif",
+    "tif": "/today/evening/mother/according.tif",
+    "tif_md5": "dc867962-0554-4c15-820c-aa31096e8404"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "735671bb-f858-41a0-9b48-1dcf73ee1e6a",
+  "fields": {
+    "label": "/knowledge/themselves/present/trial.tif",
+    "tif": "/knowledge/themselves/present/trial.tif",
+    "tif_md5": "9fee3968-54d0-4364-8feb-c7978ae7c9bb"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "7887b7e3-6c02-499e-8c75-6a195e71a7cb",
+  "fields": {
+    "label": "/single/region/hit/break.tif",
+    "tif": "/single/region/hit/break.tif",
+    "tif_md5": "4d5afa04-244c-420d-bef8-5f6695eed64e"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "829dedce-8926-43c7-8462-2259ec99fa8e",
+  "fields": {
+    "label": "/arm/natural/improve/drug.tif",
+    "tif": "/arm/natural/improve/drug.tif",
+    "tif_md5": "fb73b966-0869-4382-80a0-6b86e261edee"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "83e142a9-146c-44bb-b068-06d5cd205d9b",
+  "fields": {
+    "label": "/back/nature/mother/agreement.tif",
+    "tif": "/back/nature/mother/agreement.tif",
+    "tif_md5": "b88b57e2-4eab-40da-90cf-40c777ef608e"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "8430daa8-4f9e-4c89-8788-6aef914047b4",
+  "fields": {
+    "label": "/radio/receive/establish/finish.tif",
+    "tif": "/radio/receive/establish/finish.tif",
+    "tif_md5": "9591fbb2-dd5e-4363-8660-5e4fac5f7d5e"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "88c6aea4-6695-4d1d-8ddb-6521231529f4",
+  "fields": {
+    "label": "/pick/environment/gas/usually.tif",
+    "tif": "/pick/environment/gas/usually.tif",
+    "tif_md5": "095cef8b-4bd3-4c4d-a8f3-e81bce664627"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "88daf4a0-b4d8-42bb-96be-2aa689db7144",
+  "fields": {
+    "label": "/traditional/keep/rate/difference.tif",
+    "tif": "/traditional/keep/rate/difference.tif",
+    "tif_md5": "bf244537-23fe-43c1-8a4f-49f5d2b6b86a"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "89731db8-9203-47f8-9d71-4d681b6d0370",
+  "fields": {
+    "label": "/business/car/alone/art.tif",
+    "tif": "/business/car/alone/art.tif",
+    "tif_md5": "99ef0c3b-b8c9-487f-a8c0-58d17003c60c"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "8f28d7f6-38c6-4f1d-a857-7394d1d2213f",
+  "fields": {
+    "label": "/read/dog/lead/inside.tif",
+    "tif": "/read/dog/lead/inside.tif",
+    "tif_md5": "eec23c97-a30e-4e62-837d-f22792fdadb4"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "9091b0b6-89e5-4366-bc90-b309474c0e64",
+  "fields": {
+    "label": "/certain/until/morning/subject.tif",
+    "tif": "/certain/until/morning/subject.tif",
+    "tif_md5": "8e3c199b-0370-42d2-b43f-bcb52c97b249"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "9207f6c9-2d7e-49ee-9577-62a278f7b70d",
+  "fields": {
+    "label": "/unit/need/reveal/do.tif",
+    "tif": "/unit/need/reveal/do.tif",
+    "tif_md5": "5d0aad36-4268-47fd-a71f-d155ca186af2"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "94922e43-6da9-4250-b533-2f60151bb4c5",
+  "fields": {
+    "label": "/growth/design/offer/production.tif",
+    "tif": "/growth/design/offer/production.tif",
+    "tif_md5": "282e33d8-5f27-4508-9d6a-b5071c12c865"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "94d6c2a9-88e9-421d-850b-710f3c96cbba",
+  "fields": {
+    "label": "/official/hear/company/treatment.tif",
+    "tif": "/official/hear/company/treatment.tif",
+    "tif_md5": "a2060960-3cfb-45a0-bb7f-902f000c8550"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "9531b84f-a130-45e3-9069-79027cc131d9",
+  "fields": {
+    "label": "/difference/evidence/on/on.tif",
+    "tif": "/difference/evidence/on/on.tif",
+    "tif_md5": "5f21f7f0-58c0-452f-877e-d93bae5d19e7"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "97281f24-a3f2-481a-9518-d80dc789a611",
+  "fields": {
+    "label": "/national/if/dream/ok.tif",
+    "tif": "/national/if/dream/ok.tif",
+    "tif_md5": "51e32829-3022-4138-8b69-795e82dcabf0"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "9849b287-2f45-4a40-af33-e8d01d40f0d5",
+  "fields": {
+    "label": "/place/fact/civil/staff.tif",
+    "tif": "/place/fact/civil/staff.tif",
+    "tif_md5": "690699c6-d2dc-4989-8c15-6ab780a85766"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "a32ccbe1-8c25-49fa-9451-b1978196da59",
+  "fields": {
+    "label": "/worry/buy/us/participant.tif",
+    "tif": "/worry/buy/us/participant.tif",
+    "tif_md5": "fa21c8d6-4fce-49ab-a324-cf7c1d70b4af"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "a6c14179-686c-4662-8285-ebc3421e044b",
+  "fields": {
+    "label": "/network/main/support/fight.tif",
+    "tif": "/network/main/support/fight.tif",
+    "tif_md5": "1b2cc2ad-d1f5-47b3-bce2-34f2ebd4e34c"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "a7492751-a09f-4334-bea6-f0c45546f5bf",
+  "fields": {
+    "label": "/draw/last/toward/important.tif",
+    "tif": "/draw/last/toward/important.tif",
+    "tif_md5": "3f170944-8b25-43ec-8dd0-25ea6ea87130"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "a7bd451a-b987-47c3-b473-c7313ee421ee",
+  "fields": {
+    "label": "/its/share/size/career.tif",
+    "tif": "/its/share/size/career.tif",
+    "tif_md5": "31cb5151-2e12-4f42-90d0-d95c875266b3"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "aa9a4ff1-3def-42fc-94d5-9bfa45f6109c",
+  "fields": {
+    "label": "/wife/open/that/the.tif",
+    "tif": "/wife/open/that/the.tif",
+    "tif_md5": "39286d20-12b2-480e-929a-7b2be549f76f"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "aaee3917-0f18-48a5-afd5-d53c330d371a",
+  "fields": {
+    "label": "/bank/will/available/pull.tif",
+    "tif": "/bank/will/available/pull.tif",
+    "tif_md5": "ca03b0b4-d7df-4dca-8faf-d20e17bbbfba"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "ac2a2eae-c5dd-4ee3-8edb-c304d23460da",
+  "fields": {
+    "label": "/official/nation/edge/course.tif",
+    "tif": "/official/nation/edge/course.tif",
+    "tif_md5": "f99e2abf-52d7-415c-b4f6-a19e8acea67b"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "afd0d226-fdd8-4e05-9c3e-8a3b038fa789",
+  "fields": {
+    "label": "/mission/Republican/hour/anything.tif",
+    "tif": "/mission/Republican/hour/anything.tif",
+    "tif_md5": "31ee7a4e-371f-4e97-a2be-60acda838d68"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "b3009534-0f68-440b-a051-fa0b6a78ec86",
+  "fields": {
+    "label": "/baby/keep/piece/actually.tif",
+    "tif": "/baby/keep/piece/actually.tif",
+    "tif_md5": "da3f37eb-6bfc-468b-9617-99e2fa845b80"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "b3c9f761-e7aa-414c-898b-c70a033d7dd1",
+  "fields": {
+    "label": "/week/baby/happen/draw.tif",
+    "tif": "/week/baby/happen/draw.tif",
+    "tif_md5": "58cbb7f0-f6e0-4475-9245-a5bfbd238e90"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "b3d1922c-f5c4-457e-a897-8c34b3d12816",
+  "fields": {
+    "label": "/chance/know/American/exist.tif",
+    "tif": "/chance/know/American/exist.tif",
+    "tif_md5": "c6bab022-14a3-4893-a853-976b35f2e09a"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "b6a7dbac-41c9-4e5d-8a74-efcc6752a3e5",
+  "fields": {
+    "label": "/others/one/structure/he.tif",
+    "tif": "/others/one/structure/he.tif",
+    "tif_md5": "749597b7-74cf-48bf-849d-1667784c1569"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "b79aed32-1b51-4867-9e79-28d0532ef8b4",
+  "fields": {
+    "label": "/son/last/cup/safe.tif",
+    "tif": "/son/last/cup/safe.tif",
+    "tif_md5": "1dc9c26c-5995-4316-abb6-a0f4460f7e3a"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "b8445f4b-c9bf-47fa-a9b9-89bd22be0246",
+  "fields": {
+    "label": "/smile/organization/ten/agent.tif",
+    "tif": "/smile/organization/ten/agent.tif",
+    "tif_md5": "84da7776-fb72-48c0-aa8c-f78f950b86d1"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "b876d251-4bf4-4e3c-865c-fb72d19e909d",
+  "fields": {
+    "label": "/out/mission/paper/focus.tif",
+    "tif": "/out/mission/paper/focus.tif",
+    "tif_md5": "825ed93f-4f66-4ce1-88ca-57128a3f7bab"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "b9798d07-60ce-4a52-8621-e294643ca1a7",
+  "fields": {
+    "label": "/career/morning/stuff/try.tif",
+    "tif": "/career/morning/stuff/try.tif",
+    "tif_md5": "1b3feb83-c398-40f7-8936-bbafd21e5cd6"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "bdd1825c-a7c0-4c42-8ed1-8b5825404d7f",
+  "fields": {
+    "label": "/live/director/former/true.tif",
+    "tif": "/live/director/former/true.tif",
+    "tif_md5": "eced8ae9-d119-42f8-9014-16c5102ef7ba"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "bebe8890-8651-4f53-9bad-7e4175676daf",
+  "fields": {
+    "label": "/result/teacher/campaign/bad.tif",
+    "tif": "/result/teacher/campaign/bad.tif",
+    "tif_md5": "b91489e1-9004-4340-b3a1-b00b0e7bc4d6"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "bfd86963-d2e1-4d42-a677-e2e5cb01108b",
+  "fields": {
+    "label": "/call/begin/democratic/occur.tif",
+    "tif": "/call/begin/democratic/occur.tif",
+    "tif_md5": "4de34a45-53d9-499a-ba38-8ea8112c0e7d"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "c3769867-ef7a-49b7-8e6d-7dababba3a2d",
+  "fields": {
+    "label": "/easy/a/economic/partner.tif",
+    "tif": "/easy/a/economic/partner.tif",
+    "tif_md5": "e865130a-1458-4ce4-aadd-bf51f13c1f22"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "c4146cb1-708e-4e5e-8b01-4ec34025dcfc",
+  "fields": {
+    "label": "/thought/position/ok/own.tif",
+    "tif": "/thought/position/ok/own.tif",
+    "tif_md5": "8924736e-f3c9-46bf-90ff-ca614d8b41c3"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "c556589a-5003-4bb7-8041-869c7e36fb3c",
+  "fields": {
+    "label": "/control/meeting/black/food.tif",
+    "tif": "/control/meeting/black/food.tif",
+    "tif_md5": "b1bcfafc-2680-4080-9b14-68e673a5471a"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "c5d4d1c5-37d1-4748-9bdd-3cdf6dec7aea",
+  "fields": {
+    "label": "/bag/behavior/until/court.tif",
+    "tif": "/bag/behavior/until/court.tif",
+    "tif_md5": "4c4b4679-af0b-44a3-b7ed-02ebe5a23329"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "c6b45529-a010-485e-9383-ab976f2b4bba",
+  "fields": {
+    "label": "/product/close/require/compare.tif",
+    "tif": "/product/close/require/compare.tif",
+    "tif_md5": "a2fd8ff5-bd3d-46bd-926b-953aef706424"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "c7b65e40-16d6-481f-a4e0-217563dac4b0",
+  "fields": {
+    "label": "/choice/face/understand/oil.tif",
+    "tif": "/choice/face/understand/oil.tif",
+    "tif_md5": "276556e0-d20f-4634-bf20-6e3b39a89d9b"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "c869128f-a8fb-409c-937f-809158eee4a5",
+  "fields": {
+    "label": "/agreement/lead/share/six.tif",
+    "tif": "/agreement/lead/share/six.tif",
+    "tif_md5": "3fc8c62a-76e0-4b80-bdf7-8e4c0eadf969"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "ca10a71c-ef79-4431-bc74-41bb891056bd",
+  "fields": {
+    "label": "/director/what/third/produce.tif",
+    "tif": "/director/what/third/produce.tif",
+    "tif_md5": "63e08458-29bb-427a-9d25-42d0a214e361"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "cb4afeb9-4394-440c-8816-aec7c3ad0c44",
+  "fields": {
+    "label": "/himself/deal/save/of.tif",
+    "tif": "/himself/deal/save/of.tif",
+    "tif_md5": "4380586a-ad55-4980-b87f-d0c0ad84d611"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "ceb79cba-f6ac-4219-8d24-4415d02e87ac",
+  "fields": {
+    "label": "/bed/better/fill/sing.tif",
+    "tif": "/bed/better/fill/sing.tif",
+    "tif_md5": "f4446efb-fcd2-4c4d-8f88-8971cdcb12e5"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "d1e746e8-9bcd-4b95-a7ac-8b164a36f4e4",
+  "fields": {
+    "label": "/out/ask/decision/region.tif",
+    "tif": "/out/ask/decision/region.tif",
+    "tif_md5": "0b428d73-73e4-4aba-a393-0dd582de4a74"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "d33d84fe-a8c8-445c-bffa-39fae3f442f8",
+  "fields": {
+    "label": "/town/authority/service/onto.tif",
+    "tif": "/town/authority/service/onto.tif",
+    "tif_md5": "eb60905b-5c6a-46b0-b24b-c6e42622e89f"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "d7ea7a48-b0a9-4099-aace-904ede92e17c",
+  "fields": {
+    "label": "/would/history/doctor/alone.tif",
+    "tif": "/would/history/doctor/alone.tif",
+    "tif_md5": "232e7cc5-329b-42b5-b74d-eff6fa27e877"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "d9753949-e981-4aee-9b9b-7c46d7729506",
+  "fields": {
+    "label": "/create/buy/upon/church.tif",
+    "tif": "/create/buy/upon/church.tif",
+    "tif_md5": "7d9d5d13-06da-45dd-ac6e-dd2e8a3ec69f"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "e31e1001-9b15-44a3-9641-128f13285c8f",
+  "fields": {
+    "label": "/respond/movie/I/surface.tif",
+    "tif": "/respond/movie/I/surface.tif",
+    "tif_md5": "c0abb773-f4bf-4fe4-aa54-3a8c264f4e9a"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "eddc4aaa-1fd9-4a1e-a69f-c1c1083415f5",
+  "fields": {
+    "label": "/bill/not/former/offer.tif",
+    "tif": "/bill/not/former/offer.tif",
+    "tif_md5": "b7ef7330-de74-4e3d-896d-1832bf3f8e58"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "f04b043a-95e8-42ef-9b3b-d4288e1405ad",
+  "fields": {
+    "label": "/listen/perform/majority/practice.tif",
+    "tif": "/listen/perform/majority/practice.tif",
+    "tif_md5": "6ef224bd-9d93-461f-99fe-a91aeb05e6a9"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "f193b495-a1cc-4bff-9493-9a5dd671121a",
+  "fields": {
+    "label": "/than/back/large/consider.tif",
+    "tif": "/than/back/large/consider.tif",
+    "tif_md5": "90294dc4-5233-4055-bedb-c672de1f969e"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "f24361db-f663-4f25-885a-a20b98eb4f11",
+  "fields": {
+    "label": "/child/start/common/professor.tif",
+    "tif": "/child/start/common/professor.tif",
+    "tif_md5": "d857ab7a-553f-4663-885e-8309deb3b08a"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "f569c3f3-bf7a-4d41-930e-46cf0a52109d",
+  "fields": {
+    "label": "/break/box/return/work.tif",
+    "tif": "/break/box/return/work.tif",
+    "tif_md5": "d6dc34be-26c2-4ea5-aa1b-54f27ef72437"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "f9c2665a-e2f0-441d-bd4c-751ca806d93d",
+  "fields": {
+    "label": "/billion/cause/throughout/respond.tif",
+    "tif": "/billion/cause/throughout/respond.tif",
+    "tif_md5": "271df965-ab95-49e2-b613-aaa115d08c0c"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "fb5d42e1-e0e8-42b8-94b8-0abdc364d0f3",
+  "fields": {
+    "label": "/throughout/lawyer/ever/situation.tif",
+    "tif": "/throughout/lawyer/ever/situation.tif",
+    "tif_md5": "2b49e44d-ad04-4850-a1dd-ad34fdfcb797"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "fba893a3-044c-4654-bbea-56e596d1151b",
+  "fields": {
+    "label": "/successful/talk/high/daughter.tif",
+    "tif": "/successful/talk/high/daughter.tif",
+    "tif_md5": "7db1e614-cbad-4b25-8852-03ce9d4b805e"
+  }
+},
+{
+  "model": "pp.image",
+  "pk": "ff68d8dd-a214-4914-ba13-ef9c50764fc2",
+  "fields": {
+    "label": "/wish/bank/side/not.tif",
+    "tif": "/wish/bank/side/not.tif",
+    "tif_md5": "a5cd50eb-09a5-4fb8-a139-30620f1170ed"
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "068a4127-aca0-43cf-a95d-986d08cfb8c4",
+  "fields": {
+    "label": "(60468) New most build detail we week ... spread 0",
+    "image": "f9c2665a-e2f0-441d-bd4c-751ca806d93d",
+    "book": "4d4b67c8-70a7-431c-9fe2-abaef50217cd",
+    "sequence": 0
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "28b4debd-0103-4218-b4be-ae1e5d76c82d",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... spread 1",
+    "image": "38c6ef4d-3ef5-4e60-9a0a-25858d426061",
+    "book": "883a0028-7224-4dce-ba0d-b9889315f7d7",
+    "sequence": 1
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "2c975d98-9786-4b94-bbb9-160993657f3d",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... spread 0",
+    "image": "1531e75c-388a-4691-8065-c380f4448a95",
+    "book": "367bf8f2-937d-46e9-a48e-8c2ca7a1af98",
+    "sequence": 0
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "31bb70ec-7756-4a30-800f-8e69d956b1d1",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... spread 1",
+    "image": "f193b495-a1cc-4bff-9493-9a5dd671121a",
+    "book": "c7b6dda5-e5b4-40ad-b872-d283d88c5af0",
+    "sequence": 1
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "374b07d9-dd79-4a92-b542-da8a8f301d0b",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... spread 2",
+    "image": "7887b7e3-6c02-499e-8c75-6a195e71a7cb",
+    "book": "367bf8f2-937d-46e9-a48e-8c2ca7a1af98",
+    "sequence": 2
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "76c050af-38e1-4d90-ab48-0906736a7d5c",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... spread 2",
+    "image": "3d95580b-1b2a-4c36-b9f6-ec2c8cd30461",
+    "book": "883a0028-7224-4dce-ba0d-b9889315f7d7",
+    "sequence": 2
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "a596396d-64d9-4652-9d15-aedd2f3e8ece",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... spread 2",
+    "image": "6029bd54-9f0c-4574-a622-0efc4c32d71f",
+    "book": "c7b6dda5-e5b4-40ad-b872-d283d88c5af0",
+    "sequence": 2
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "a996685e-5d9b-4f70-bbdf-74f2ce2c748e",
+  "fields": {
+    "label": "(60468) New most build detail we week ... spread 2",
+    "image": "2d7fdabc-961c-4446-9090-349ccb055a29",
+    "book": "4d4b67c8-70a7-431c-9fe2-abaef50217cd",
+    "sequence": 2
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "ae0bb3e8-edc0-48c0-9df6-7ae77e345de4",
+  "fields": {
+    "label": "(60468) New most build detail we week ... spread 1",
+    "image": "94d6c2a9-88e9-421d-850b-710f3c96cbba",
+    "book": "4d4b67c8-70a7-431c-9fe2-abaef50217cd",
+    "sequence": 1
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "be2269d5-f88f-4e5e-91f0-fdfec52fcf97",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... spread 0",
+    "image": "719c83d9-a680-4327-bfd8-f2f335d897f8",
+    "book": "883a0028-7224-4dce-ba0d-b9889315f7d7",
+    "sequence": 0
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "d30eb555-5b19-41de-af96-8c1afbf82d14",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... spread 1",
+    "image": "b6a7dbac-41c9-4e5d-8a74-efcc6752a3e5",
+    "book": "367bf8f2-937d-46e9-a48e-8c2ca7a1af98",
+    "sequence": 1
+  }
+},
+{
+  "model": "pp.spread",
+  "pk": "f8e93ff2-a46e-4587-8296-9433aa837aec",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... spread 0",
+    "image": "0e43566f-d96a-4215-bcb6-0fba9db8417d",
+    "book": "c7b6dda5-e5b4-40ad-b872-d283d88c5af0",
+    "sequence": 0
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "0a6da1e8-7d73-419f-8edc-367af9560e13",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r",
+    "image": "b3009534-0f68-440b-a051-fa0b6a78ec86",
+    "spread": "068a4127-aca0-43cf-a95d-986d08cfb8c4",
+    "side": "r",
+    "x": 21.0,
+    "y": 458.0,
+    "w": 1.0,
+    "h": 257.0,
+    "rot1": 441.0,
+    "rot2": 349.0,
+    "created_by_run": "20f9a4ac-17d3-4b6d-80c7-2388617891bb"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "1bd244dc-ed08-4f81-a29d-886301054693",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r",
+    "image": "02a83d12-b3f7-4e52-8909-0021b786f087",
+    "spread": "a596396d-64d9-4652-9d15-aedd2f3e8ece",
+    "side": "r",
+    "x": 291.0,
+    "y": 391.0,
+    "w": 346.0,
+    "h": 404.0,
+    "rot1": 27.0,
+    "rot2": 409.0,
+    "created_by_run": "27b3f412-3852-4403-af97-266d362b94e7"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "1d98f0c6-cc30-4385-b72f-4e61fb2525ef",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r",
+    "image": "5ad5dfdf-e446-40f6-98fc-a9be7a8c06cd",
+    "spread": "d30eb555-5b19-41de-af96-8c1afbf82d14",
+    "side": "r",
+    "x": 379.0,
+    "y": 14.0,
+    "w": 151.0,
+    "h": 498.0,
+    "rot1": 181.0,
+    "rot2": 80.0,
+    "created_by_run": "74d20811-eb49-4cd4-8420-d8e54b59b050"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "27769c74-9e66-4e14-85fc-f749b59b2dbf",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l",
+    "image": "83e142a9-146c-44bb-b068-06d5cd205d9b",
+    "spread": "76c050af-38e1-4d90-ab48-0906736a7d5c",
+    "side": "l",
+    "x": 8.0,
+    "y": 5.0,
+    "w": 364.0,
+    "h": 303.0,
+    "rot1": 456.0,
+    "rot2": 54.0,
+    "created_by_run": "d14c2c41-68c7-4701-888b-e41db16f9d92"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "2a9167c0-88f1-48b5-82b7-4f07915408e9",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r",
+    "image": "89731db8-9203-47f8-9d71-4d681b6d0370",
+    "spread": "374b07d9-dd79-4a92-b542-da8a8f301d0b",
+    "side": "r",
+    "x": 296.0,
+    "y": 346.0,
+    "w": 8.0,
+    "h": 361.0,
+    "rot1": 116.0,
+    "rot2": 216.0,
+    "created_by_run": "74d20811-eb49-4cd4-8420-d8e54b59b050"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "440dc6c8-41c2-49ef-bc8b-0dcae048127c",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r",
+    "image": "c5d4d1c5-37d1-4748-9bdd-3cdf6dec7aea",
+    "spread": "2c975d98-9786-4b94-bbb9-160993657f3d",
+    "side": "r",
+    "x": 29.0,
+    "y": 466.0,
+    "w": 238.0,
+    "h": 65.0,
+    "rot1": 14.0,
+    "rot2": 208.0,
+    "created_by_run": "74d20811-eb49-4cd4-8420-d8e54b59b050"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "51cf01ca-bf6f-42d5-9caf-db2b939f045a",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l",
+    "image": "bdd1825c-a7c0-4c42-8ed1-8b5825404d7f",
+    "spread": "be2269d5-f88f-4e5e-91f0-fdfec52fcf97",
+    "side": "l",
+    "x": 434.0,
+    "y": 207.0,
+    "w": 74.0,
+    "h": 212.0,
+    "rot1": 349.0,
+    "rot2": 78.0,
+    "created_by_run": "d14c2c41-68c7-4701-888b-e41db16f9d92"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "543d86fd-73c5-4fd8-8836-4253539350e4",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l",
+    "image": "b9798d07-60ce-4a52-8621-e294643ca1a7",
+    "spread": "d30eb555-5b19-41de-af96-8c1afbf82d14",
+    "side": "l",
+    "x": 484.0,
+    "y": 315.0,
+    "w": 47.0,
+    "h": 68.0,
+    "rot1": 371.0,
+    "rot2": 309.0,
+    "created_by_run": "74d20811-eb49-4cd4-8420-d8e54b59b050"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "5f720946-2046-44cf-b350-97cad61c0ad0",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l",
+    "image": "eddc4aaa-1fd9-4a1e-a69f-c1c1083415f5",
+    "spread": "a596396d-64d9-4652-9d15-aedd2f3e8ece",
+    "side": "l",
+    "x": 111.0,
+    "y": 386.0,
+    "w": 205.0,
+    "h": 124.0,
+    "rot1": 281.0,
+    "rot2": 164.0,
+    "created_by_run": "27b3f412-3852-4403-af97-266d362b94e7"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "703bafc8-6690-471b-96a1-108bca4a53ed",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l",
+    "image": "06558a6f-ecb6-4c21-a358-9a74a04ad474",
+    "spread": "31bb70ec-7756-4a30-800f-8e69d956b1d1",
+    "side": "l",
+    "x": 302.0,
+    "y": 403.0,
+    "w": 264.0,
+    "h": 198.0,
+    "rot1": 196.0,
+    "rot2": 207.0,
+    "created_by_run": "27b3f412-3852-4403-af97-266d362b94e7"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "866b096b-55af-48a5-a8b6-bbb021d11de5",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l",
+    "image": "3f6f2b2f-a2c8-4aea-97ea-20cb80db8746",
+    "spread": "a996685e-5d9b-4f70-bbdf-74f2ce2c748e",
+    "side": "l",
+    "x": 224.0,
+    "y": 166.0,
+    "w": 131.0,
+    "h": 392.0,
+    "rot1": 496.0,
+    "rot2": 163.0,
+    "created_by_run": "20f9a4ac-17d3-4b6d-80c7-2388617891bb"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "86a37dc9-6766-4c16-b6cd-77ec1c0d4985",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r",
+    "image": "88daf4a0-b4d8-42bb-96be-2aa689db7144",
+    "spread": "ae0bb3e8-edc0-48c0-9df6-7ae77e345de4",
+    "side": "r",
+    "x": 234.0,
+    "y": 178.0,
+    "w": 272.0,
+    "h": 179.0,
+    "rot1": 269.0,
+    "rot2": 196.0,
+    "created_by_run": "20f9a4ac-17d3-4b6d-80c7-2388617891bb"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "892ac1b0-f527-4034-8b6b-058576ab48f2",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l",
+    "image": "d1e746e8-9bcd-4b95-a7ac-8b164a36f4e4",
+    "spread": "28b4debd-0103-4218-b4be-ae1e5d76c82d",
+    "side": "l",
+    "x": 457.0,
+    "y": 279.0,
+    "w": 208.0,
+    "h": 402.0,
+    "rot1": 49.0,
+    "rot2": 350.0,
+    "created_by_run": "d14c2c41-68c7-4701-888b-e41db16f9d92"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "94d594a9-0463-4212-a499-4ed094a472c7",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l",
+    "image": "f04b043a-95e8-42ef-9b3b-d4288e1405ad",
+    "spread": "068a4127-aca0-43cf-a95d-986d08cfb8c4",
+    "side": "l",
+    "x": 223.0,
+    "y": 276.0,
+    "w": 282.0,
+    "h": 406.0,
+    "rot1": 109.0,
+    "rot2": 187.0,
+    "created_by_run": "20f9a4ac-17d3-4b6d-80c7-2388617891bb"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "94e6005d-c921-454e-9835-c40d3ddfb334",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l",
+    "image": "66891594-6da6-4a09-9558-a7eb915900d0",
+    "spread": "374b07d9-dd79-4a92-b542-da8a8f301d0b",
+    "side": "l",
+    "x": 79.0,
+    "y": 363.0,
+    "w": 249.0,
+    "h": 143.0,
+    "rot1": 11.0,
+    "rot2": 185.0,
+    "created_by_run": "74d20811-eb49-4cd4-8420-d8e54b59b050"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "b5c65bcc-6256-4e56-80a6-081b59900c89",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l",
+    "image": "ceb79cba-f6ac-4219-8d24-4415d02e87ac",
+    "spread": "f8e93ff2-a46e-4587-8296-9433aa837aec",
+    "side": "l",
+    "x": 405.0,
+    "y": 371.0,
+    "w": 207.0,
+    "h": 272.0,
+    "rot1": 276.0,
+    "rot2": 187.0,
+    "created_by_run": "27b3f412-3852-4403-af97-266d362b94e7"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "b839faa3-0e9a-46a8-bf7d-a8e40331661c",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r",
+    "image": "06c1a2a5-e8e2-4608-8934-7e3348ac9346",
+    "spread": "76c050af-38e1-4d90-ab48-0906736a7d5c",
+    "side": "r",
+    "x": 330.0,
+    "y": 194.0,
+    "w": 150.0,
+    "h": 42.0,
+    "rot1": 84.0,
+    "rot2": 175.0,
+    "created_by_run": "d14c2c41-68c7-4701-888b-e41db16f9d92"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "ba0d32bf-1a34-4349-bf35-e080b02206e1",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l",
+    "image": "ca10a71c-ef79-4431-bc74-41bb891056bd",
+    "spread": "2c975d98-9786-4b94-bbb9-160993657f3d",
+    "side": "l",
+    "x": 68.0,
+    "y": 419.0,
+    "w": 161.0,
+    "h": 32.0,
+    "rot1": 407.0,
+    "rot2": 446.0,
+    "created_by_run": "74d20811-eb49-4cd4-8420-d8e54b59b050"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "c331b5c0-6d06-4d04-a33e-65c047f42767",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l",
+    "image": "65020a80-84fe-420d-8e91-819188581621",
+    "spread": "ae0bb3e8-edc0-48c0-9df6-7ae77e345de4",
+    "side": "l",
+    "x": 252.0,
+    "y": 393.0,
+    "w": 120.0,
+    "h": 488.0,
+    "rot1": 431.0,
+    "rot2": 141.0,
+    "created_by_run": "20f9a4ac-17d3-4b6d-80c7-2388617891bb"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "d4a38109-64ec-4205-ab32-f72470a00c83",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r",
+    "image": "46c1fa24-d07c-4ab1-baa4-3f7792b43362",
+    "spread": "be2269d5-f88f-4e5e-91f0-fdfec52fcf97",
+    "side": "r",
+    "x": 20.0,
+    "y": 495.0,
+    "w": 428.0,
+    "h": 140.0,
+    "rot1": 222.0,
+    "rot2": 64.0,
+    "created_by_run": "d14c2c41-68c7-4701-888b-e41db16f9d92"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "eae31dde-a663-4dcf-82cb-f1bb391d90dd",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r",
+    "image": "aaee3917-0f18-48a5-afd5-d53c330d371a",
+    "spread": "31bb70ec-7756-4a30-800f-8e69d956b1d1",
+    "side": "r",
+    "x": 82.0,
+    "y": 409.0,
+    "w": 400.0,
+    "h": 360.0,
+    "rot1": 164.0,
+    "rot2": 21.0,
+    "created_by_run": "27b3f412-3852-4403-af97-266d362b94e7"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "eb1de540-7df3-4888-9730-76bc9c736932",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r",
+    "image": "88c6aea4-6695-4d1d-8ddb-6521231529f4",
+    "spread": "f8e93ff2-a46e-4587-8296-9433aa837aec",
+    "side": "r",
+    "x": 337.0,
+    "y": 385.0,
+    "w": 300.0,
+    "h": 100.0,
+    "rot1": 264.0,
+    "rot2": 67.0,
+    "created_by_run": "27b3f412-3852-4403-af97-266d362b94e7"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "eb209343-cc08-4d24-b3a6-1879d5b992b1",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r",
+    "image": "8430daa8-4f9e-4c89-8788-6aef914047b4",
+    "spread": "a996685e-5d9b-4f70-bbdf-74f2ce2c748e",
+    "side": "r",
+    "x": 251.0,
+    "y": 258.0,
+    "w": 205.0,
+    "h": 400.0,
+    "rot1": 270.0,
+    "rot2": 50.0,
+    "created_by_run": "20f9a4ac-17d3-4b6d-80c7-2388617891bb"
+  }
+},
+{
+  "model": "pp.page",
+  "pk": "f0b12fc6-f2f7-469a-a923-419bdf0480e2",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r",
+    "image": "fba893a3-044c-4654-bbea-56e596d1151b",
+    "spread": "28b4debd-0103-4218-b4be-ae1e5d76c82d",
+    "side": "r",
+    "x": 57.0,
+    "y": 155.0,
+    "w": 261.0,
+    "h": 64.0,
+    "rot1": 363.0,
+    "rot2": 496.0,
+    "created_by_run": "d14c2c41-68c7-4701-888b-e41db16f9d92"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "03b7d45e-b92f-4f5f-948a-7574c442f92a",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 1",
+    "page": "2a9167c0-88f1-48b5-82b7-4f07915408e9",
+    "sequence": 1,
+    "y_min": 278,
+    "y_max": 6,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "0724e42d-5736-4fe0-a60b-4b925b687d85",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 0",
+    "page": "440dc6c8-41c2-49ef-bc8b-0dcae048127c",
+    "sequence": 0,
+    "y_min": 89,
+    "y_max": 45,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "084e33dd-f3c4-43cd-ae51-74596ef4dc65",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 1",
+    "page": "5f720946-2046-44cf-b350-97cad61c0ad0",
+    "sequence": 1,
+    "y_min": 314,
+    "y_max": 448,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "0bc0af3f-4c65-46d1-a0a2-5b803b067cc6",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 1",
+    "page": "892ac1b0-f527-4034-8b6b-058576ab48f2",
+    "sequence": 1,
+    "y_min": 196,
+    "y_max": 304,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "0cdf960f-5ac8-45c5-b1ec-5314171f4a3f",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 2",
+    "page": "51cf01ca-bf6f-42d5-9caf-db2b939f045a",
+    "sequence": 2,
+    "y_min": 56,
+    "y_max": 319,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "10b01efb-820e-42e1-8f00-6329d1cb5de9",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 0",
+    "page": "543d86fd-73c5-4fd8-8836-4253539350e4",
+    "sequence": 0,
+    "y_min": 490,
+    "y_max": 60,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "131fa715-a04c-4dcd-b416-d6f0b3ef54ae",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 2",
+    "page": "703bafc8-6690-471b-96a1-108bca4a53ed",
+    "sequence": 2,
+    "y_min": 102,
+    "y_max": 152,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "1685aff3-459a-4480-8382-4a24cc1c9043",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 1",
+    "page": "1d98f0c6-cc30-4385-b72f-4e61fb2525ef",
+    "sequence": 1,
+    "y_min": 298,
+    "y_max": 240,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "18043dff-8009-428f-822d-520442afd313",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 2",
+    "page": "eb1de540-7df3-4888-9730-76bc9c736932",
+    "sequence": 2,
+    "y_min": 391,
+    "y_max": 258,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "1a420e40-c737-4728-b84c-96b60b3051c6",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 1",
+    "page": "f0b12fc6-f2f7-469a-a923-419bdf0480e2",
+    "sequence": 1,
+    "y_min": 475,
+    "y_max": 107,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "1ed89adc-3a52-4827-a85a-8e06b003e634",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 1",
+    "page": "eb1de540-7df3-4888-9730-76bc9c736932",
+    "sequence": 1,
+    "y_min": 368,
+    "y_max": 65,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "204afd10-ee89-40f3-a55d-e0f260e4e3f1",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 1",
+    "page": "b839faa3-0e9a-46a8-bf7d-a8e40331661c",
+    "sequence": 1,
+    "y_min": 399,
+    "y_max": 18,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "2222caac-b9db-4ae0-b71f-3a0e77bed70f",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 0",
+    "page": "0a6da1e8-7d73-419f-8edc-367af9560e13",
+    "sequence": 0,
+    "y_min": 198,
+    "y_max": 420,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "2449c4c2-0991-4c2e-9ec4-5186ac75164a",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 0",
+    "page": "b839faa3-0e9a-46a8-bf7d-a8e40331661c",
+    "sequence": 0,
+    "y_min": 110,
+    "y_max": 39,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "25288960-627a-4542-9e30-1b8b5d9ebd4f",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 2",
+    "page": "5f720946-2046-44cf-b350-97cad61c0ad0",
+    "sequence": 2,
+    "y_min": 4,
+    "y_max": 76,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "28e67ebb-195e-47f2-956e-da5599f14c6c",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 0",
+    "page": "c331b5c0-6d06-4d04-a33e-65c047f42767",
+    "sequence": 0,
+    "y_min": 295,
+    "y_max": 174,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "2eeed54c-290a-45ac-8afc-0d9b2fc66bbd",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 2",
+    "page": "f0b12fc6-f2f7-469a-a923-419bdf0480e2",
+    "sequence": 2,
+    "y_min": 45,
+    "y_max": 343,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "2efd0a17-e850-4b8e-892d-fe8a0c966b0b",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 0",
+    "page": "892ac1b0-f527-4034-8b6b-058576ab48f2",
+    "sequence": 0,
+    "y_min": 393,
+    "y_max": 370,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "30454456-b4ef-47ca-8b38-653c6cc57e08",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 0",
+    "page": "86a37dc9-6766-4c16-b6cd-77ec1c0d4985",
+    "sequence": 0,
+    "y_min": 212,
+    "y_max": 336,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "30a71be8-2d84-43d0-b91f-98f3f905c729",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 1",
+    "page": "1bd244dc-ed08-4f81-a29d-886301054693",
+    "sequence": 1,
+    "y_min": 0,
+    "y_max": 316,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "31c07d87-dd46-41fd-bac1-7d15f253a8b2",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 2",
+    "page": "94d594a9-0463-4212-a499-4ed094a472c7",
+    "sequence": 2,
+    "y_min": 377,
+    "y_max": 229,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "329684cf-3c27-4226-8285-315a64004e7b",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 1",
+    "page": "86a37dc9-6766-4c16-b6cd-77ec1c0d4985",
+    "sequence": 1,
+    "y_min": 59,
+    "y_max": 459,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "3660a3fa-63b3-4cb0-88eb-cd24a8837533",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 0",
+    "page": "5f720946-2046-44cf-b350-97cad61c0ad0",
+    "sequence": 0,
+    "y_min": 77,
+    "y_max": 445,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "372bef40-2aba-46c7-bcb0-2d77a2c5df34",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 0",
+    "page": "703bafc8-6690-471b-96a1-108bca4a53ed",
+    "sequence": 0,
+    "y_min": 425,
+    "y_max": 155,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "37749687-2aa2-4a7f-a642-a15b90d2facb",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 2",
+    "page": "86a37dc9-6766-4c16-b6cd-77ec1c0d4985",
+    "sequence": 2,
+    "y_min": 293,
+    "y_max": 366,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "3c2144ed-35bf-42ab-87c3-15b5d94c6d95",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 2",
+    "page": "d4a38109-64ec-4205-ab32-f72470a00c83",
+    "sequence": 2,
+    "y_min": 152,
+    "y_max": 396,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "3eb632f5-f3d9-413a-a53c-d19621e166f7",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 2",
+    "page": "866b096b-55af-48a5-a8b6-bbb021d11de5",
+    "sequence": 2,
+    "y_min": 72,
+    "y_max": 177,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "3f8ea81f-2a75-470f-976a-4cb090cf21a8",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 1",
+    "page": "b5c65bcc-6256-4e56-80a6-081b59900c89",
+    "sequence": 1,
+    "y_min": 93,
+    "y_max": 409,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "41b811e9-727d-4cd4-b35f-86bbee4e60ba",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 2",
+    "page": "94e6005d-c921-454e-9835-c40d3ddfb334",
+    "sequence": 2,
+    "y_min": 410,
+    "y_max": 318,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "45cfb4cd-55a7-40f9-af18-baa8639635e3",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 0",
+    "page": "1d98f0c6-cc30-4385-b72f-4e61fb2525ef",
+    "sequence": 0,
+    "y_min": 184,
+    "y_max": 88,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "491ca756-ac04-44ea-87f1-8b6e8337bb76",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 1",
+    "page": "ba0d32bf-1a34-4349-bf35-e080b02206e1",
+    "sequence": 1,
+    "y_min": 266,
+    "y_max": 454,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "56e11a3c-5d42-4d12-8fff-43e08d057504",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 1",
+    "page": "eb209343-cc08-4d24-b3a6-1879d5b992b1",
+    "sequence": 1,
+    "y_min": 466,
+    "y_max": 381,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "58e1fcaa-a520-4b1b-9686-725937e7f0d3",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 2",
+    "page": "ba0d32bf-1a34-4349-bf35-e080b02206e1",
+    "sequence": 2,
+    "y_min": 27,
+    "y_max": 423,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "58f76ea2-503b-4c04-9fa2-c0015d22c0bf",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 0",
+    "page": "2a9167c0-88f1-48b5-82b7-4f07915408e9",
+    "sequence": 0,
+    "y_min": 225,
+    "y_max": 461,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "5b19d6a8-8b13-40ce-8ace-1592165b73e9",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 0",
+    "page": "27769c74-9e66-4e14-85fc-f749b59b2dbf",
+    "sequence": 0,
+    "y_min": 231,
+    "y_max": 117,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "5b416e9f-d205-474f-82d6-833ccd0de9b6",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 2",
+    "page": "eb209343-cc08-4d24-b3a6-1879d5b992b1",
+    "sequence": 2,
+    "y_min": 167,
+    "y_max": 450,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "5bd3df06-ae7b-4142-920f-976c5ffeac21",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 1",
+    "page": "c331b5c0-6d06-4d04-a33e-65c047f42767",
+    "sequence": 1,
+    "y_min": 442,
+    "y_max": 45,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "69d8ffd0-bb01-4d72-807e-15086583be31",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 1",
+    "page": "27769c74-9e66-4e14-85fc-f749b59b2dbf",
+    "sequence": 1,
+    "y_min": 122,
+    "y_max": 423,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "6a14147b-0d31-4756-82cd-11d6398a830c",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 0",
+    "page": "94e6005d-c921-454e-9835-c40d3ddfb334",
+    "sequence": 0,
+    "y_min": 103,
+    "y_max": 381,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "711dbfc6-83f7-44df-a42d-2ee649bacc50",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 0",
+    "page": "b5c65bcc-6256-4e56-80a6-081b59900c89",
+    "sequence": 0,
+    "y_min": 320,
+    "y_max": 365,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "7432dbbc-a537-4ff1-bb08-f1567d410296",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 0",
+    "page": "ba0d32bf-1a34-4349-bf35-e080b02206e1",
+    "sequence": 0,
+    "y_min": 192,
+    "y_max": 93,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "784e613b-d77f-41f1-ba3a-930a2ffaeaa2",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 0",
+    "page": "f0b12fc6-f2f7-469a-a923-419bdf0480e2",
+    "sequence": 0,
+    "y_min": 207,
+    "y_max": 235,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "844188a4-99af-4aa7-9d14-bd230c18f678",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 2",
+    "page": "b839faa3-0e9a-46a8-bf7d-a8e40331661c",
+    "sequence": 2,
+    "y_min": 176,
+    "y_max": 428,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "85dbaa64-2439-4eab-8a84-d40350fa9cdd",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 0",
+    "page": "866b096b-55af-48a5-a8b6-bbb021d11de5",
+    "sequence": 0,
+    "y_min": 373,
+    "y_max": 314,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "8c0e2eb4-5710-4472-b6cc-ef6c6bf8b0a6",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 2",
+    "page": "2a9167c0-88f1-48b5-82b7-4f07915408e9",
+    "sequence": 2,
+    "y_min": 248,
+    "y_max": 129,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "8d3cd416-a35a-4ba3-b7dc-1a1d9dc11eb4",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 0",
+    "page": "51cf01ca-bf6f-42d5-9caf-db2b939f045a",
+    "sequence": 0,
+    "y_min": 44,
+    "y_max": 316,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "9904238a-a76e-498b-9c09-6a0298a087ae",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 0",
+    "page": "eb1de540-7df3-4888-9730-76bc9c736932",
+    "sequence": 0,
+    "y_min": 122,
+    "y_max": 365,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "9929be68-2d15-4adc-b132-a11531584c72",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 2",
+    "page": "1d98f0c6-cc30-4385-b72f-4e61fb2525ef",
+    "sequence": 2,
+    "y_min": 6,
+    "y_max": 162,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "99681d8f-df50-475d-b502-1d7dce704aac",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 2",
+    "page": "0a6da1e8-7d73-419f-8edc-367af9560e13",
+    "sequence": 2,
+    "y_min": 125,
+    "y_max": 207,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "9afd53e6-7441-4c9b-98f6-348907426e3a",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 2",
+    "page": "1bd244dc-ed08-4f81-a29d-886301054693",
+    "sequence": 2,
+    "y_min": 109,
+    "y_max": 197,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "a45978f3-7996-4e86-a95d-fe289a097a89",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 2",
+    "page": "27769c74-9e66-4e14-85fc-f749b59b2dbf",
+    "sequence": 2,
+    "y_min": 313,
+    "y_max": 491,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "b7b516c2-db45-492c-9953-0d99f43d55bb",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 2",
+    "page": "543d86fd-73c5-4fd8-8836-4253539350e4",
+    "sequence": 2,
+    "y_min": 291,
+    "y_max": 176,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "b9d66929-11bb-4cb6-9849-5408e7d48977",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 1",
+    "page": "703bafc8-6690-471b-96a1-108bca4a53ed",
+    "sequence": 1,
+    "y_min": 285,
+    "y_max": 357,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "bae106ab-4a1a-47a0-83bd-45e0d9910b14",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 1",
+    "page": "eae31dde-a663-4dcf-82cb-f1bb391d90dd",
+    "sequence": 1,
+    "y_min": 98,
+    "y_max": 414,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "bbd3166d-f2c6-43f9-a9ba-aa11d8e0ece5",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 2",
+    "page": "c331b5c0-6d06-4d04-a33e-65c047f42767",
+    "sequence": 2,
+    "y_min": 78,
+    "y_max": 253,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "bc850f70-c12a-4567-9ac6-76de938b591c",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 1",
+    "page": "94d594a9-0463-4212-a499-4ed094a472c7",
+    "sequence": 1,
+    "y_min": 162,
+    "y_max": 175,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "ce914baa-ced8-4f28-8d9f-ff580d174889",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 2",
+    "page": "440dc6c8-41c2-49ef-bc8b-0dcae048127c",
+    "sequence": 2,
+    "y_min": 290,
+    "y_max": 66,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "d42f9a00-3e53-45ad-a0a5-127651c832f6",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 1",
+    "page": "94e6005d-c921-454e-9835-c40d3ddfb334",
+    "sequence": 1,
+    "y_min": 463,
+    "y_max": 186,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "d788b2f7-350a-4968-9a60-2a8d4ec143c1",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 0",
+    "page": "d4a38109-64ec-4205-ab32-f72470a00c83",
+    "sequence": 0,
+    "y_min": 146,
+    "y_max": 243,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "d86d7c87-4c4c-4f3c-9795-bbb75856cb5b",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 1",
+    "page": "440dc6c8-41c2-49ef-bc8b-0dcae048127c",
+    "sequence": 1,
+    "y_min": 140,
+    "y_max": 194,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "d90526ce-b2f2-4602-b253-90545b30cd85",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 2",
+    "page": "b5c65bcc-6256-4e56-80a6-081b59900c89",
+    "sequence": 2,
+    "y_min": 133,
+    "y_max": 244,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "d92dda20-bf24-4328-b0aa-bbc3415a93de",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 0",
+    "page": "94d594a9-0463-4212-a499-4ed094a472c7",
+    "sequence": 0,
+    "y_min": 262,
+    "y_max": 342,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "d94ba561-211a-4e1a-9414-698c535de08b",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 1",
+    "page": "51cf01ca-bf6f-42d5-9caf-db2b939f045a",
+    "sequence": 1,
+    "y_min": 442,
+    "y_max": 283,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "e19c486f-fa33-4365-b9d6-9d7202d4ff80",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 0",
+    "page": "eb209343-cc08-4d24-b3a6-1879d5b992b1",
+    "sequence": 0,
+    "y_min": 442,
+    "y_max": 371,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "e2ab5c1d-3924-48c5-a367-38ed9ca25457",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 0",
+    "page": "eae31dde-a663-4dcf-82cb-f1bb391d90dd",
+    "sequence": 0,
+    "y_min": 216,
+    "y_max": 359,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "e8d909bb-6a69-40e3-b06e-e10e6a1efcf3",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 1",
+    "page": "0a6da1e8-7d73-419f-8edc-367af9560e13",
+    "sequence": 1,
+    "y_min": 289,
+    "y_max": 73,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "e8f70240-49d4-4677-871c-96af393251be",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 2",
+    "page": "892ac1b0-f527-4034-8b6b-058576ab48f2",
+    "sequence": 2,
+    "y_min": 96,
+    "y_max": 303,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "e9e20ba9-bf7c-41fa-8afd-7b36ec390836",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 2",
+    "page": "eae31dde-a663-4dcf-82cb-f1bb391d90dd",
+    "sequence": 2,
+    "y_min": 80,
+    "y_max": 305,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "f088a54f-c5e7-4961-a603-693990cc467d",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 1",
+    "page": "d4a38109-64ec-4205-ab32-f72470a00c83",
+    "sequence": 1,
+    "y_min": 238,
+    "y_max": 51,
+    "created_by_run": "2ac0869b-5a5d-4674-bb95-800838acd4b7"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "f1fe1bfe-353f-4b2c-842c-92bb889fb756",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 1",
+    "page": "543d86fd-73c5-4fd8-8836-4253539350e4",
+    "sequence": 1,
+    "y_min": 4,
+    "y_max": 41,
+    "created_by_run": "0c821b81-9076-4de9-a518-878662b95ef9"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "f94d17ab-7dc0-4cb6-8671-fdb492e4cdb4",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 0",
+    "page": "1bd244dc-ed08-4f81-a29d-886301054693",
+    "sequence": 0,
+    "y_min": 165,
+    "y_max": 73,
+    "created_by_run": "ecb30b96-2c87-4cf2-bd3a-135e92971b46"
+  }
+},
+{
+  "model": "pp.line",
+  "pk": "fd12d5e6-11e9-4bb8-8b69-af76bc83cc49",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 1",
+    "page": "866b096b-55af-48a5-a8b6-bbb021d11de5",
+    "sequence": 1,
+    "y_min": 144,
+    "y_max": 163,
+    "created_by_run": "42cb354e-2327-43c6-b6e9-b3a478488f32"
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "002d4604-87ce-499f-9d51-1461703d7131",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r grouping",
+    "page": "d4a38109-64ec-4205-ab32-f72470a00c83",
+    "created_by_run": "0723943e-1c27-4183-b239-1565277d86f7",
+    "lines": [
+      "f088a54f-c5e7-4961-a603-693990cc467d"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "21f01f5f-5132-4b76-beb6-fd0abfc82afc",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l grouping",
+    "page": "94d594a9-0463-4212-a499-4ed094a472c7",
+    "created_by_run": "09a39048-9898-47d4-bdd0-3ce23fbbd00d",
+    "lines": [
+      "bc850f70-c12a-4567-9ac6-76de938b591c"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "22259370-79a8-4ac6-b368-08a47ba989e8",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r grouping",
+    "page": "2a9167c0-88f1-48b5-82b7-4f07915408e9",
+    "created_by_run": "16ba3cec-0cf3-4bcd-b543-049982461c51",
+    "lines": [
+      "8c0e2eb4-5710-4472-b6cc-ef6c6bf8b0a6"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "25953389-f2e9-4c3b-b06d-1564a0744235",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r grouping",
+    "page": "eb1de540-7df3-4888-9730-76bc9c736932",
+    "created_by_run": "cff42aab-abd1-40a7-acf6-505fed522ccb",
+    "lines": [
+      "18043dff-8009-428f-822d-520442afd313"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "381dc49b-e6c4-4ee0-9cd5-df88703bd7b0",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l grouping",
+    "page": "543d86fd-73c5-4fd8-8836-4253539350e4",
+    "created_by_run": "16ba3cec-0cf3-4bcd-b543-049982461c51",
+    "lines": [
+      "f1fe1bfe-353f-4b2c-842c-92bb889fb756"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "391de570-1e5f-40c0-af70-257ad8d9f031",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r grouping",
+    "page": "1bd244dc-ed08-4f81-a29d-886301054693",
+    "created_by_run": "cff42aab-abd1-40a7-acf6-505fed522ccb",
+    "lines": [
+      "f94d17ab-7dc0-4cb6-8671-fdb492e4cdb4"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "3ca2e77a-21a4-4a9d-b708-a6b12cb798b8",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r grouping",
+    "page": "440dc6c8-41c2-49ef-bc8b-0dcae048127c",
+    "created_by_run": "16ba3cec-0cf3-4bcd-b543-049982461c51",
+    "lines": [
+      "d86d7c87-4c4c-4f3c-9795-bbb75856cb5b"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "4bc01c21-f52d-4833-a4bd-ed024eb0d50a",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l grouping",
+    "page": "866b096b-55af-48a5-a8b6-bbb021d11de5",
+    "created_by_run": "09a39048-9898-47d4-bdd0-3ce23fbbd00d",
+    "lines": [
+      "3eb632f5-f3d9-413a-a53c-d19621e166f7"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "4e28748b-2391-4dc5-ae22-a5363d3bb95e",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l grouping",
+    "page": "ba0d32bf-1a34-4349-bf35-e080b02206e1",
+    "created_by_run": "16ba3cec-0cf3-4bcd-b543-049982461c51",
+    "lines": [
+      "7432dbbc-a537-4ff1-bb08-f1567d410296"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "5617da56-a4b8-48d6-bf28-d4190e3e5655",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r grouping",
+    "page": "eae31dde-a663-4dcf-82cb-f1bb391d90dd",
+    "created_by_run": "cff42aab-abd1-40a7-acf6-505fed522ccb",
+    "lines": [
+      "bae106ab-4a1a-47a0-83bd-45e0d9910b14"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "56f771ad-071d-4bf5-ad44-d167e69ee4fd",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r grouping",
+    "page": "0a6da1e8-7d73-419f-8edc-367af9560e13",
+    "created_by_run": "09a39048-9898-47d4-bdd0-3ce23fbbd00d",
+    "lines": [
+      "99681d8f-df50-475d-b502-1d7dce704aac"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "5f09b7e0-8f74-4de9-a503-88068193d530",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l grouping",
+    "page": "5f720946-2046-44cf-b350-97cad61c0ad0",
+    "created_by_run": "cff42aab-abd1-40a7-acf6-505fed522ccb",
+    "lines": [
+      "084e33dd-f3c4-43cd-ae51-74596ef4dc65"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "638d9b9d-d83e-40ef-a60b-b28ceb3cbb6b",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l grouping",
+    "page": "51cf01ca-bf6f-42d5-9caf-db2b939f045a",
+    "created_by_run": "0723943e-1c27-4183-b239-1565277d86f7",
+    "lines": [
+      "0cdf960f-5ac8-45c5-b1ec-5314171f4a3f"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "6d878dc2-ce26-4f3a-9642-d8644e9d4c8a",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l grouping",
+    "page": "892ac1b0-f527-4034-8b6b-058576ab48f2",
+    "created_by_run": "0723943e-1c27-4183-b239-1565277d86f7",
+    "lines": [
+      "e8f70240-49d4-4677-871c-96af393251be"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "70b1bb36-a2e8-45ee-8649-f7e750a66f67",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r grouping",
+    "page": "86a37dc9-6766-4c16-b6cd-77ec1c0d4985",
+    "created_by_run": "09a39048-9898-47d4-bdd0-3ce23fbbd00d",
+    "lines": [
+      "30454456-b4ef-47ca-8b38-653c6cc57e08"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "7766be03-55d6-4d7d-a7b4-026d6798348f",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l grouping",
+    "page": "27769c74-9e66-4e14-85fc-f749b59b2dbf",
+    "created_by_run": "0723943e-1c27-4183-b239-1565277d86f7",
+    "lines": [
+      "a45978f3-7996-4e86-a95d-fe289a097a89"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "7ab27a4e-2f8e-419b-8a9b-e575276dd8d0",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r grouping",
+    "page": "1d98f0c6-cc30-4385-b72f-4e61fb2525ef",
+    "created_by_run": "16ba3cec-0cf3-4bcd-b543-049982461c51",
+    "lines": [
+      "45cfb4cd-55a7-40f9-af18-baa8639635e3"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "95a5b88a-6722-43cb-97ba-5b85924788e6",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l grouping",
+    "page": "94e6005d-c921-454e-9835-c40d3ddfb334",
+    "created_by_run": "16ba3cec-0cf3-4bcd-b543-049982461c51",
+    "lines": [
+      "d42f9a00-3e53-45ad-a0a5-127651c832f6"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "9b2c80b0-eee2-4f87-9eb4-03da0f4221e7",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l grouping",
+    "page": "b5c65bcc-6256-4e56-80a6-081b59900c89",
+    "created_by_run": "cff42aab-abd1-40a7-acf6-505fed522ccb",
+    "lines": [
+      "711dbfc6-83f7-44df-a42d-2ee649bacc50"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "b9b9af40-0175-460d-9829-36bb71e1147d",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l grouping",
+    "page": "c331b5c0-6d06-4d04-a33e-65c047f42767",
+    "created_by_run": "09a39048-9898-47d4-bdd0-3ce23fbbd00d",
+    "lines": [
+      "5bd3df06-ae7b-4142-920f-976c5ffeac21"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "c218d47b-8ec8-4475-b57a-033685706a0b",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r grouping",
+    "page": "b839faa3-0e9a-46a8-bf7d-a8e40331661c",
+    "created_by_run": "0723943e-1c27-4183-b239-1565277d86f7",
+    "lines": [
+      "2449c4c2-0991-4c2e-9ec4-5186ac75164a"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "cf905d12-853e-40bf-90a6-43bc8c7f9e45",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r grouping",
+    "page": "eb209343-cc08-4d24-b3a6-1879d5b992b1",
+    "created_by_run": "09a39048-9898-47d4-bdd0-3ce23fbbd00d",
+    "lines": [
+      "e19c486f-fa33-4365-b9d6-9d7202d4ff80"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "db068ca9-edb2-47a4-bbde-8ed924919440",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r grouping",
+    "page": "f0b12fc6-f2f7-469a-a923-419bdf0480e2",
+    "created_by_run": "0723943e-1c27-4183-b239-1565277d86f7",
+    "lines": [
+      "784e613b-d77f-41f1-ba3a-930a2ffaeaa2"
+    ]
+  }
+},
+{
+  "model": "pp.linegroup",
+  "pk": "f3db1bba-72e4-4445-893c-5947b3b1783e",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l grouping",
+    "page": "703bafc8-6690-471b-96a1-108bca4a53ed",
+    "created_by_run": "cff42aab-abd1-40a7-acf6-505fed522ccb",
+    "lines": [
+      "131fa715-a04c-4dcd-b416-d6f0b3ef54ae"
+    ]
+  }
+},
+{
+  "model": "pp.characterclass",
+  "pk": "a",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "A",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "b",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "B",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "c",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "C",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "d",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "D",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "e",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "E",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "f",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "F",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "g",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "G",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "h",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "H",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "i",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "I",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "j",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "J",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "k",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "K",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "l",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "L",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "m",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "M",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "n",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "N",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "o",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "O",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "p",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "P",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "q",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "Q",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "r",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "R",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "s",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "S",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "t",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "T",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "u",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "U",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "v",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "V",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "w",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "W",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "x",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "X",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "y",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "Y",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "z",
+  "fields": {}
+},
+{
+  "model": "pp.characterclass",
+  "pk": "Z",
+  "fields": {}
+},
+{
+  "model": "pp.character",
+  "pk": "0059be2b-52ca-474f-be70-c0422437e3a2",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 2 c. 1",
+    "line": "58e1fcaa-a520-4b1b-9686-725937e7f0d3",
+    "sequence": 1,
+    "x_min": 227,
+    "x_max": 52,
+    "character_class": "S",
+    "human_character_class": null,
+    "class_probability": 0.019991005223612746,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "00ce2aa5-87fa-43cb-a078-c1d8b725dc58",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 0 c. 1",
+    "line": "e2ab5c1d-3924-48c5-a367-38ed9ca25457",
+    "sequence": 1,
+    "x_min": 85,
+    "x_max": 39,
+    "character_class": "V",
+    "human_character_class": null,
+    "class_probability": 0.2122617723609297,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "0196091d-59e5-44dc-a907-5ab6ab1c0883",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 1 c. 1",
+    "line": "d94ba561-211a-4e1a-9414-698c535de08b",
+    "sequence": 1,
+    "x_min": 67,
+    "x_max": 397,
+    "character_class": "V",
+    "human_character_class": null,
+    "class_probability": 0.48669699473214656,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "0256b8d9-4e16-435b-bbfa-da88515a7268",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 0 c. 1",
+    "line": "2efd0a17-e850-4b8e-892d-fe8a0c966b0b",
+    "sequence": 1,
+    "x_min": 105,
+    "x_max": 160,
+    "character_class": "s",
+    "human_character_class": null,
+    "class_probability": 0.7449511249682138,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "03b364cf-4581-497e-8369-cb86e955e1a6",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 0 c. 0",
+    "line": "8d3cd416-a35a-4ba3-b7dc-1a1d9dc11eb4",
+    "sequence": 0,
+    "x_min": 415,
+    "x_max": 150,
+    "character_class": "k",
+    "human_character_class": null,
+    "class_probability": 0.6509345757462668,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "0403801a-a134-4b80-a16d-2e9e4f93edda",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 1 c. 1",
+    "line": "329684cf-3c27-4226-8285-315a64004e7b",
+    "sequence": 1,
+    "x_min": 233,
+    "x_max": 371,
+    "character_class": "X",
+    "human_character_class": null,
+    "class_probability": 0.7648096482065083,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "08a4e123-3651-4794-af08-9088d058408d",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 2 c. 1",
+    "line": "a45978f3-7996-4e86-a95d-fe289a097a89",
+    "sequence": 1,
+    "x_min": 396,
+    "x_max": 2,
+    "character_class": "E",
+    "human_character_class": null,
+    "class_probability": 0.8672547559950664,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "08c236b4-7e01-4744-93fb-af38ce723c3b",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 2 c. 0",
+    "line": "d90526ce-b2f2-4602-b253-90545b30cd85",
+    "sequence": 0,
+    "x_min": 322,
+    "x_max": 401,
+    "character_class": "O",
+    "human_character_class": null,
+    "class_probability": 0.5261322409813427,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "08f1e54f-801c-4122-8b35-05fa1d69f393",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 0 c. 2",
+    "line": "e19c486f-fa33-4365-b9d6-9d7202d4ff80",
+    "sequence": 2,
+    "x_min": 97,
+    "x_max": 76,
+    "character_class": "m",
+    "human_character_class": null,
+    "class_probability": 0.9825761371527967,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "097f6674-518f-4d0f-ad7c-87975de46f02",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 1 c. 1",
+    "line": "f088a54f-c5e7-4961-a603-693990cc467d",
+    "sequence": 1,
+    "x_min": 345,
+    "x_max": 177,
+    "character_class": "y",
+    "human_character_class": null,
+    "class_probability": 0.1210190066364375,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "09b191e4-59b1-44e4-8b4d-fba32ec1b5c6",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 2 c. 0",
+    "line": "37749687-2aa2-4a7f-a642-a15b90d2facb",
+    "sequence": 0,
+    "x_min": 275,
+    "x_max": 200,
+    "character_class": "k",
+    "human_character_class": null,
+    "class_probability": 0.10640318134394011,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "09d02aa1-3247-4651-9ace-6df521a907b5",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 2 c. 0",
+    "line": "41b811e9-727d-4cd4-b35f-86bbee4e60ba",
+    "sequence": 0,
+    "x_min": 264,
+    "x_max": 243,
+    "character_class": "l",
+    "human_character_class": null,
+    "class_probability": 0.08064489626573179,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "0b1f25f9-e2d0-484a-ab52-7301fdbc76c8",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 2 c. 1",
+    "line": "8c0e2eb4-5710-4472-b6cc-ef6c6bf8b0a6",
+    "sequence": 1,
+    "x_min": 287,
+    "x_max": 172,
+    "character_class": "E",
+    "human_character_class": null,
+    "class_probability": 0.03945806088182946,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "0b6b2515-57df-4d35-9e19-5a208a7038de",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 0 c. 0",
+    "line": "85dbaa64-2439-4eab-8a84-d40350fa9cdd",
+    "sequence": 0,
+    "x_min": 497,
+    "x_max": 471,
+    "character_class": "M",
+    "human_character_class": null,
+    "class_probability": 0.28185124916806525,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "0cd80790-e832-4572-b4bb-3b58d539d2e4",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 2 c. 1",
+    "line": "2eeed54c-290a-45ac-8afc-0d9b2fc66bbd",
+    "sequence": 1,
+    "x_min": 343,
+    "x_max": 387,
+    "character_class": "Y",
+    "human_character_class": null,
+    "class_probability": 0.39423780490897997,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "0d8b8e18-2fc7-415c-91c2-3251d7407fc9",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 0 c. 0",
+    "line": "6a14147b-0d31-4756-82cd-11d6398a830c",
+    "sequence": 0,
+    "x_min": 337,
+    "x_max": 346,
+    "character_class": "W",
+    "human_character_class": null,
+    "class_probability": 0.5446124340171389,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "0db24e8f-2896-4006-b804-838b4f11f416",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 0 c. 0",
+    "line": "30454456-b4ef-47ca-8b38-653c6cc57e08",
+    "sequence": 0,
+    "x_min": 326,
+    "x_max": 398,
+    "character_class": "C",
+    "human_character_class": null,
+    "class_probability": 0.20863364716100885,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "0e367f91-3f73-4b48-ab5c-62cb5e556acd",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 0 c. 2",
+    "line": "d788b2f7-350a-4968-9a60-2a8d4ec143c1",
+    "sequence": 2,
+    "x_min": 31,
+    "x_max": 302,
+    "character_class": "p",
+    "human_character_class": null,
+    "class_probability": 0.8454393692861182,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "0f8f4f48-5472-49f0-8034-fa878c6f195f",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 2 c. 0",
+    "line": "a45978f3-7996-4e86-a95d-fe289a097a89",
+    "sequence": 0,
+    "x_min": 318,
+    "x_max": 153,
+    "character_class": "J",
+    "human_character_class": null,
+    "class_probability": 0.13250674075468993,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "0fecb807-b36b-4693-b82d-d3ed965ed5ca",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 0 c. 1",
+    "line": "45cfb4cd-55a7-40f9-af18-baa8639635e3",
+    "sequence": 1,
+    "x_min": 253,
+    "x_max": 228,
+    "character_class": "n",
+    "human_character_class": null,
+    "class_probability": 0.5613975825690665,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "1353df12-3aa8-4082-9cec-8adb3df91f92",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 0 c. 2",
+    "line": "58f76ea2-503b-4c04-9fa2-c0015d22c0bf",
+    "sequence": 2,
+    "x_min": 452,
+    "x_max": 481,
+    "character_class": "i",
+    "human_character_class": null,
+    "class_probability": 0.24491324300848616,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "155a0a02-7f17-46fe-b006-6e76f79ea91b",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 2 c. 2",
+    "line": "131fa715-a04c-4dcd-b416-d6f0b3ef54ae",
+    "sequence": 2,
+    "x_min": 22,
+    "x_max": 127,
+    "character_class": "u",
+    "human_character_class": null,
+    "class_probability": 0.42144550329142516,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "1694d2bf-47bf-4ae5-898a-1d8c94243ba2",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 1 c. 0",
+    "line": "e8d909bb-6a69-40e3-b06e-e10e6a1efcf3",
+    "sequence": 0,
+    "x_min": 98,
+    "x_max": 440,
+    "character_class": "h",
+    "human_character_class": null,
+    "class_probability": 0.810394026154953,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "1960d614-6dd6-4a4d-bbe2-5207e9995a20",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 1 c. 0",
+    "line": "69d8ffd0-bb01-4d72-807e-15086583be31",
+    "sequence": 0,
+    "x_min": 331,
+    "x_max": 418,
+    "character_class": "O",
+    "human_character_class": null,
+    "class_probability": 0.46730025407947506,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "1b277020-0bc7-4228-9020-fe5eb8742dcb",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 1 c. 2",
+    "line": "56e11a3c-5d42-4d12-8fff-43e08d057504",
+    "sequence": 2,
+    "x_min": 36,
+    "x_max": 313,
+    "character_class": "v",
+    "human_character_class": null,
+    "class_probability": 0.4733047676981791,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "1cc4a14d-528e-46c2-84d0-7fe91c3efd81",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 1 c. 0",
+    "line": "f1fe1bfe-353f-4b2c-842c-92bb889fb756",
+    "sequence": 0,
+    "x_min": 201,
+    "x_max": 448,
+    "character_class": "n",
+    "human_character_class": null,
+    "class_probability": 0.3313048246385075,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "1d0b5984-1e9e-472d-a4c6-13b18ce12ff9",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 2 c. 0",
+    "line": "b7b516c2-db45-492c-9953-0d99f43d55bb",
+    "sequence": 0,
+    "x_min": 187,
+    "x_max": 365,
+    "character_class": "k",
+    "human_character_class": null,
+    "class_probability": 0.9213023038505548,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "2084d56a-548f-45a6-8e20-36217eae2a5c",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 2 c. 0",
+    "line": "bbd3166d-f2c6-43f9-a9ba-aa11d8e0ece5",
+    "sequence": 0,
+    "x_min": 308,
+    "x_max": 270,
+    "character_class": "r",
+    "human_character_class": null,
+    "class_probability": 0.8299877273037363,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "22de8d47-f025-44cb-bd86-2f334f43f785",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 0 c. 1",
+    "line": "2222caac-b9db-4ae0-b71f-3a0e77bed70f",
+    "sequence": 1,
+    "x_min": 43,
+    "x_max": 454,
+    "character_class": "r",
+    "human_character_class": null,
+    "class_probability": 0.7076374061461876,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "2508cc7e-0035-416b-b552-8f32df22903e",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 2 c. 2",
+    "line": "8c0e2eb4-5710-4472-b6cc-ef6c6bf8b0a6",
+    "sequence": 2,
+    "x_min": 351,
+    "x_max": 438,
+    "character_class": "l",
+    "human_character_class": null,
+    "class_probability": 0.30543144463872696,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "25171e5c-dad2-45c6-bc0d-f58ef569b655",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 1 c. 0",
+    "line": "56e11a3c-5d42-4d12-8fff-43e08d057504",
+    "sequence": 0,
+    "x_min": 144,
+    "x_max": 311,
+    "character_class": "j",
+    "human_character_class": null,
+    "class_probability": 0.09030837700504746,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "255abd1d-3a53-482a-b5d8-add6299209c2",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 1 c. 2",
+    "line": "1a420e40-c737-4728-b84c-96b60b3051c6",
+    "sequence": 2,
+    "x_min": 330,
+    "x_max": 106,
+    "character_class": "I",
+    "human_character_class": null,
+    "class_probability": 0.9655358038851238,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "26a5658b-eeaf-46c8-8923-3ce569b81ebd",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 2 c. 0",
+    "line": "9afd53e6-7441-4c9b-98f6-348907426e3a",
+    "sequence": 0,
+    "x_min": 39,
+    "x_max": 72,
+    "character_class": "N",
+    "human_character_class": null,
+    "class_probability": 0.646315565847581,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "26faa4b9-7ea4-4f90-bca4-03cb2bd08d82",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 1 c. 2",
+    "line": "1685aff3-459a-4480-8382-4a24cc1c9043",
+    "sequence": 2,
+    "x_min": 224,
+    "x_max": 57,
+    "character_class": "Q",
+    "human_character_class": null,
+    "class_probability": 0.015296608538283962,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "27b3bd66-2f6c-4803-b4b7-a95b20bfd6b1",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 1 c. 2",
+    "line": "30a71be8-2d84-43d0-b91f-98f3f905c729",
+    "sequence": 2,
+    "x_min": 62,
+    "x_max": 224,
+    "character_class": "n",
+    "human_character_class": null,
+    "class_probability": 0.7508300568621651,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "285a73ce-2b2e-46f7-a26a-90d89260eba7",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 0 c. 1",
+    "line": "d788b2f7-350a-4968-9a60-2a8d4ec143c1",
+    "sequence": 1,
+    "x_min": 471,
+    "x_max": 132,
+    "character_class": "m",
+    "human_character_class": null,
+    "class_probability": 0.4048908028269669,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "2a56781a-96c9-4ccc-823c-253cb5f81306",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 0 c. 1",
+    "line": "9904238a-a76e-498b-9c09-6a0298a087ae",
+    "sequence": 1,
+    "x_min": 154,
+    "x_max": 115,
+    "character_class": "T",
+    "human_character_class": null,
+    "class_probability": 0.3878168781709799,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "2ad66005-5048-4e3e-92f1-6acd60887db4",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 2 c. 2",
+    "line": "3eb632f5-f3d9-413a-a53c-d19621e166f7",
+    "sequence": 2,
+    "x_min": 234,
+    "x_max": 256,
+    "character_class": "S",
+    "human_character_class": null,
+    "class_probability": 0.9397809259744135,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "2df96ed4-b91e-4c06-a09b-2527fa961618",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 1 c. 2",
+    "line": "03b7d45e-b92f-4f5f-948a-7574c442f92a",
+    "sequence": 2,
+    "x_min": 491,
+    "x_max": 314,
+    "character_class": "o",
+    "human_character_class": null,
+    "class_probability": 0.5300028061683283,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "2e4e94b4-f395-41fd-b298-66aa6974b5ab",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 1 c. 1",
+    "line": "d86d7c87-4c4c-4f3c-9795-bbb75856cb5b",
+    "sequence": 1,
+    "x_min": 98,
+    "x_max": 263,
+    "character_class": "B",
+    "human_character_class": null,
+    "class_probability": 0.35060396429318985,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "2f7f73a8-f3ec-4958-9e7a-38c97636d570",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 1 c. 0",
+    "line": "bc850f70-c12a-4567-9ac6-76de938b591c",
+    "sequence": 0,
+    "x_min": 291,
+    "x_max": 406,
+    "character_class": "B",
+    "human_character_class": null,
+    "class_probability": 0.003634230689553597,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "3071f72c-9329-4b35-87aa-70b42baf7305",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 2 c. 2",
+    "line": "18043dff-8009-428f-822d-520442afd313",
+    "sequence": 2,
+    "x_min": 129,
+    "x_max": 245,
+    "character_class": "x",
+    "human_character_class": null,
+    "class_probability": 0.9866115895797614,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "322c67af-f311-4ffd-bf8e-274b30858142",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 1 c. 1",
+    "line": "bae106ab-4a1a-47a0-83bd-45e0d9910b14",
+    "sequence": 1,
+    "x_min": 161,
+    "x_max": 296,
+    "character_class": "T",
+    "human_character_class": null,
+    "class_probability": 0.4883825666000041,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "3251b34f-ddf0-4250-820d-7dfb897a7406",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 2 c. 0",
+    "line": "31c07d87-dd46-41fd-bac1-7d15f253a8b2",
+    "sequence": 0,
+    "x_min": 68,
+    "x_max": 69,
+    "character_class": "S",
+    "human_character_class": null,
+    "class_probability": 0.6098917293408497,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "337eeb69-3106-46eb-b914-26ebe56352b8",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 2 c. 1",
+    "line": "e9e20ba9-bf7c-41fa-8afd-7b36ec390836",
+    "sequence": 1,
+    "x_min": 227,
+    "x_max": 178,
+    "character_class": "V",
+    "human_character_class": null,
+    "class_probability": 0.5066937055173866,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "347077f9-0c98-416f-878c-a6df7b97edda",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 1 c. 0",
+    "line": "329684cf-3c27-4226-8285-315a64004e7b",
+    "sequence": 0,
+    "x_min": 210,
+    "x_max": 173,
+    "character_class": "n",
+    "human_character_class": null,
+    "class_probability": 0.020340126626166022,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "35cc5a25-246d-4405-a1d2-12bc22631e20",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 2 c. 1",
+    "line": "5b416e9f-d205-474f-82d6-833ccd0de9b6",
+    "sequence": 1,
+    "x_min": 69,
+    "x_max": 252,
+    "character_class": "x",
+    "human_character_class": null,
+    "class_probability": 0.5071380229435049,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "39a01248-284d-425c-a0f8-76f41d0984be",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 2 c. 0",
+    "line": "2eeed54c-290a-45ac-8afc-0d9b2fc66bbd",
+    "sequence": 0,
+    "x_min": 23,
+    "x_max": 56,
+    "character_class": "Z",
+    "human_character_class": null,
+    "class_probability": 0.049736081394303966,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "39b96fda-55ed-4a15-84f4-30bca1101eaf",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 1 c. 2",
+    "line": "329684cf-3c27-4226-8285-315a64004e7b",
+    "sequence": 2,
+    "x_min": 360,
+    "x_max": 425,
+    "character_class": "y",
+    "human_character_class": null,
+    "class_probability": 0.6609685638413367,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "3ab9cf0c-5dab-4b93-bcff-a6a67c269f2c",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 1 c. 0",
+    "line": "fd12d5e6-11e9-4bb8-8b69-af76bc83cc49",
+    "sequence": 0,
+    "x_min": 109,
+    "x_max": 228,
+    "character_class": "v",
+    "human_character_class": null,
+    "class_probability": 0.5098471673548476,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "3b144ec3-2ea3-45eb-8977-93e129763206",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 0 c. 1",
+    "line": "8d3cd416-a35a-4ba3-b7dc-1a1d9dc11eb4",
+    "sequence": 1,
+    "x_min": 430,
+    "x_max": 97,
+    "character_class": "p",
+    "human_character_class": null,
+    "class_probability": 0.5804102563472464,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "3c5aa83c-30bc-47b3-8f11-29fd816e5a08",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 0 c. 2",
+    "line": "2efd0a17-e850-4b8e-892d-fe8a0c966b0b",
+    "sequence": 2,
+    "x_min": 439,
+    "x_max": 227,
+    "character_class": "t",
+    "human_character_class": null,
+    "class_probability": 0.5074053498303466,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "3d9f07f0-c612-414f-a53a-73e8dc266761",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 2 c. 2",
+    "line": "37749687-2aa2-4a7f-a642-a15b90d2facb",
+    "sequence": 2,
+    "x_min": 123,
+    "x_max": 420,
+    "character_class": "n",
+    "human_character_class": null,
+    "class_probability": 0.7195937019137846,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "3f0fb2a0-7a14-4b37-ba4f-0bb1c2aedf8c",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 1 c. 2",
+    "line": "084e33dd-f3c4-43cd-ae51-74596ef4dc65",
+    "sequence": 2,
+    "x_min": 360,
+    "x_max": 318,
+    "character_class": "b",
+    "human_character_class": null,
+    "class_probability": 0.9154783042481315,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "402adc02-2691-4e81-9fcf-3c9ba9e58d95",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 0 c. 2",
+    "line": "85dbaa64-2439-4eab-8a84-d40350fa9cdd",
+    "sequence": 2,
+    "x_min": 378,
+    "x_max": 37,
+    "character_class": "w",
+    "human_character_class": null,
+    "class_probability": 0.0700287026922859,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "40a79c1e-6d0b-4c98-8f7d-b9a63e16353b",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 2 c. 1",
+    "line": "e8f70240-49d4-4677-871c-96af393251be",
+    "sequence": 1,
+    "x_min": 68,
+    "x_max": 61,
+    "character_class": "H",
+    "human_character_class": null,
+    "class_probability": 0.8368217518300407,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "41111beb-4fe7-4c08-8ea3-5bee2839fa95",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 1 c. 0",
+    "line": "491ca756-ac04-44ea-87f1-8b6e8337bb76",
+    "sequence": 0,
+    "x_min": 260,
+    "x_max": 254,
+    "character_class": "T",
+    "human_character_class": null,
+    "class_probability": 0.04942292157719219,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "4220471b-5bda-4c31-b841-03a1bb8a5fdf",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 1 c. 0",
+    "line": "30a71be8-2d84-43d0-b91f-98f3f905c729",
+    "sequence": 0,
+    "x_min": 410,
+    "x_max": 401,
+    "character_class": "R",
+    "human_character_class": null,
+    "class_probability": 0.5215592993813326,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "4276f4c5-ebb1-4eec-8f64-d46d866c1268",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 0 c. 1",
+    "line": "10b01efb-820e-42e1-8f00-6329d1cb5de9",
+    "sequence": 1,
+    "x_min": 97,
+    "x_max": 237,
+    "character_class": "y",
+    "human_character_class": null,
+    "class_probability": 0.8702124268896532,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "460cdd1b-3d5e-4f2c-b87b-c8825349416a",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 0 c. 1",
+    "line": "0724e42d-5736-4fe0-a60b-4b925b687d85",
+    "sequence": 1,
+    "x_min": 419,
+    "x_max": 131,
+    "character_class": "s",
+    "human_character_class": null,
+    "class_probability": 0.04086185627850636,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "4624738e-2699-45e7-9ac2-2a3b02cc93a7",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 2 c. 2",
+    "line": "e8f70240-49d4-4677-871c-96af393251be",
+    "sequence": 2,
+    "x_min": 275,
+    "x_max": 412,
+    "character_class": "U",
+    "human_character_class": null,
+    "class_probability": 0.27920907746039303,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "468bfe1d-aeb3-4e5f-bfc2-4b4c712e83ef",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 2 c. 2",
+    "line": "bbd3166d-f2c6-43f9-a9ba-aa11d8e0ece5",
+    "sequence": 2,
+    "x_min": 391,
+    "x_max": 144,
+    "character_class": "q",
+    "human_character_class": null,
+    "class_probability": 0.26879905233674717,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "46a014e1-9499-4aa6-a996-fdcaacddaabb",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 2 c. 0",
+    "line": "3eb632f5-f3d9-413a-a53c-d19621e166f7",
+    "sequence": 0,
+    "x_min": 80,
+    "x_max": 104,
+    "character_class": "W",
+    "human_character_class": null,
+    "class_probability": 0.514153899295781,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "4718a01a-36c1-4d1b-b221-7ae256d61621",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 1 c. 1",
+    "line": "1ed89adc-3a52-4827-a85a-8e06b003e634",
+    "sequence": 1,
+    "x_min": 468,
+    "x_max": 379,
+    "character_class": "R",
+    "human_character_class": null,
+    "class_probability": 0.525240242547167,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "47501de1-655b-4745-a06d-23c33167da7a",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 2 c. 0",
+    "line": "ce914baa-ced8-4f28-8d9f-ff580d174889",
+    "sequence": 0,
+    "x_min": 220,
+    "x_max": 385,
+    "character_class": "G",
+    "human_character_class": null,
+    "class_probability": 0.4665670523358493,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "479a6e90-19f8-49fd-beca-25597e40bdbb",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 0 c. 2",
+    "line": "30454456-b4ef-47ca-8b38-653c6cc57e08",
+    "sequence": 2,
+    "x_min": 477,
+    "x_max": 146,
+    "character_class": "I",
+    "human_character_class": null,
+    "class_probability": 0.07220929129892062,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "48fbb070-d84d-4bcb-9200-67474a9f6207",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 1 c. 2",
+    "line": "d42f9a00-3e53-45ad-a0a5-127651c832f6",
+    "sequence": 2,
+    "x_min": 116,
+    "x_max": 6,
+    "character_class": "F",
+    "human_character_class": null,
+    "class_probability": 0.3812752215225329,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "498ebafc-31eb-4246-8b4b-e094ec49f7f7",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 2 c. 2",
+    "line": "0cdf960f-5ac8-45c5-b1ec-5314171f4a3f",
+    "sequence": 2,
+    "x_min": 80,
+    "x_max": 125,
+    "character_class": "D",
+    "human_character_class": null,
+    "class_probability": 0.3090531129343628,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "49a9a285-91e2-4143-8e98-884a378ea98c",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 2 c. 1",
+    "line": "37749687-2aa2-4a7f-a642-a15b90d2facb",
+    "sequence": 1,
+    "x_min": 320,
+    "x_max": 355,
+    "character_class": "b",
+    "human_character_class": null,
+    "class_probability": 0.6682581091526715,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "4a0c39d6-7ff9-49ee-bd75-2b8bed093265",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 2 c. 1",
+    "line": "ce914baa-ced8-4f28-8d9f-ff580d174889",
+    "sequence": 1,
+    "x_min": 371,
+    "x_max": 287,
+    "character_class": "i",
+    "human_character_class": null,
+    "class_probability": 0.23004939428104265,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "4b64b417-6238-48ab-8787-4c681293120c",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 2 c. 0",
+    "line": "0cdf960f-5ac8-45c5-b1ec-5314171f4a3f",
+    "sequence": 0,
+    "x_min": 131,
+    "x_max": 364,
+    "character_class": "n",
+    "human_character_class": null,
+    "class_probability": 0.8886387789983756,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "4bc99da8-0349-4924-817a-a998b6046c73",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 1 c. 0",
+    "line": "f088a54f-c5e7-4961-a603-693990cc467d",
+    "sequence": 0,
+    "x_min": 125,
+    "x_max": 194,
+    "character_class": "Y",
+    "human_character_class": null,
+    "class_probability": 0.5301190576297671,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "4c169ac3-a8d3-48a9-b9a8-4e9e5940dd1f",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 0 c. 1",
+    "line": "2449c4c2-0991-4c2e-9ec4-5186ac75164a",
+    "sequence": 1,
+    "x_min": 164,
+    "x_max": 262,
+    "character_class": "T",
+    "human_character_class": null,
+    "class_probability": 0.6759321071205431,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "50bf8728-bc00-4d7a-815c-efa94193dd4d",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 0 c. 1",
+    "line": "85dbaa64-2439-4eab-8a84-d40350fa9cdd",
+    "sequence": 1,
+    "x_min": 385,
+    "x_max": 227,
+    "character_class": "l",
+    "human_character_class": null,
+    "class_probability": 0.7561895393102634,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "5120b783-f158-4573-8dcb-936c6873b936",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 2 c. 1",
+    "line": "99681d8f-df50-475d-b502-1d7dce704aac",
+    "sequence": 1,
+    "x_min": 431,
+    "x_max": 494,
+    "character_class": "g",
+    "human_character_class": null,
+    "class_probability": 0.876498536957807,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "519ac639-18fb-4086-b8be-eee3b95350d1",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 1 c. 0",
+    "line": "5bd3df06-ae7b-4142-920f-976c5ffeac21",
+    "sequence": 0,
+    "x_min": 100,
+    "x_max": 426,
+    "character_class": "H",
+    "human_character_class": null,
+    "class_probability": 0.16817755359122344,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "54accd38-e000-42ef-ae9f-620236051fca",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 1 c. 1",
+    "line": "fd12d5e6-11e9-4bb8-8b69-af76bc83cc49",
+    "sequence": 1,
+    "x_min": 380,
+    "x_max": 132,
+    "character_class": "i",
+    "human_character_class": null,
+    "class_probability": 0.22367564477856428,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "569f48de-7dbc-4188-b0b5-e10a1b625a9e",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 2 c. 2",
+    "line": "99681d8f-df50-475d-b502-1d7dce704aac",
+    "sequence": 2,
+    "x_min": 404,
+    "x_max": 161,
+    "character_class": "d",
+    "human_character_class": null,
+    "class_probability": 0.6954412894737152,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "576edf95-4a2e-414b-aceb-022513ff9a1d",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 2 c. 1",
+    "line": "844188a4-99af-4aa7-9d14-bd230c18f678",
+    "sequence": 1,
+    "x_min": 12,
+    "x_max": 491,
+    "character_class": "H",
+    "human_character_class": null,
+    "class_probability": 0.889103513249701,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "5865089f-3877-4e30-acaf-6d0556a921eb",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 0 c. 0",
+    "line": "2449c4c2-0991-4c2e-9ec4-5186ac75164a",
+    "sequence": 0,
+    "x_min": 258,
+    "x_max": 204,
+    "character_class": "r",
+    "human_character_class": null,
+    "class_probability": 0.7334711556317671,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "5910cad3-607b-4d57-9d2f-45ac540c2814",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 1 c. 1",
+    "line": "1685aff3-459a-4480-8382-4a24cc1c9043",
+    "sequence": 1,
+    "x_min": 381,
+    "x_max": 283,
+    "character_class": "J",
+    "human_character_class": null,
+    "class_probability": 0.6575761716639229,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "5bffa1f5-6e42-4e49-b091-3cb64ab3a1bb",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 2 c. 2",
+    "line": "9afd53e6-7441-4c9b-98f6-348907426e3a",
+    "sequence": 2,
+    "x_min": 57,
+    "x_max": 367,
+    "character_class": "b",
+    "human_character_class": null,
+    "class_probability": 0.20622676794113237,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "5d78b4cf-2064-40e9-960c-6679fcf238e3",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 0 c. 0",
+    "line": "372bef40-2aba-46c7-bcb0-2d77a2c5df34",
+    "sequence": 0,
+    "x_min": 94,
+    "x_max": 298,
+    "character_class": "d",
+    "human_character_class": null,
+    "class_probability": 0.15199858353114726,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "5ffe8b07-7137-48af-a326-512c1ad75f06",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 0 c. 2",
+    "line": "45cfb4cd-55a7-40f9-af18-baa8639635e3",
+    "sequence": 2,
+    "x_min": 246,
+    "x_max": 376,
+    "character_class": "z",
+    "human_character_class": null,
+    "class_probability": 0.8591086859819235,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "600f0554-ea9e-4632-ae2a-cd11f9d6c44c",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 2 c. 1",
+    "line": "bbd3166d-f2c6-43f9-a9ba-aa11d8e0ece5",
+    "sequence": 1,
+    "x_min": 199,
+    "x_max": 148,
+    "character_class": "n",
+    "human_character_class": null,
+    "class_probability": 0.8138772768119823,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "61313fd1-22ee-4fe7-99dc-7328b2843c89",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 0 c. 2",
+    "line": "8d3cd416-a35a-4ba3-b7dc-1a1d9dc11eb4",
+    "sequence": 2,
+    "x_min": 246,
+    "x_max": 499,
+    "character_class": "n",
+    "human_character_class": null,
+    "class_probability": 0.6019192113131127,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "626113d9-86cc-4158-9915-f3845f98822b",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 2 c. 0",
+    "line": "99681d8f-df50-475d-b502-1d7dce704aac",
+    "sequence": 0,
+    "x_min": 45,
+    "x_max": 235,
+    "character_class": "C",
+    "human_character_class": null,
+    "class_probability": 0.09376689258410897,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "64d341ab-55b1-4b73-9bc0-164c1a939923",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 0 c. 2",
+    "line": "d92dda20-bf24-4328-b0aa-bbc3415a93de",
+    "sequence": 2,
+    "x_min": 330,
+    "x_max": 80,
+    "character_class": "X",
+    "human_character_class": null,
+    "class_probability": 0.1905969294460924,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "64eb7964-8144-4fa5-8fec-a72defe45403",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 0 c. 0",
+    "line": "f94d17ab-7dc0-4cb6-8671-fdb492e4cdb4",
+    "sequence": 0,
+    "x_min": 323,
+    "x_max": 262,
+    "character_class": "V",
+    "human_character_class": null,
+    "class_probability": 0.14189184934203003,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "65d1f953-9a8e-4bbe-b398-5cd78228a673",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 1 c. 1",
+    "line": "5bd3df06-ae7b-4142-920f-976c5ffeac21",
+    "sequence": 1,
+    "x_min": 136,
+    "x_max": 125,
+    "character_class": "g",
+    "human_character_class": null,
+    "class_probability": 0.8096652186987704,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6623e1d5-824a-4023-9ba5-ea334610ee79",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 2 c. 1",
+    "line": "18043dff-8009-428f-822d-520442afd313",
+    "sequence": 1,
+    "x_min": 475,
+    "x_max": 474,
+    "character_class": "G",
+    "human_character_class": null,
+    "class_probability": 0.5964303759620909,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "66cf2ed0-556c-4321-b56a-42e65c147257",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 2 c. 1",
+    "line": "25288960-627a-4542-9e30-1b8b5d9ebd4f",
+    "sequence": 1,
+    "x_min": 208,
+    "x_max": 474,
+    "character_class": "E",
+    "human_character_class": null,
+    "class_probability": 0.7640413360927739,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "66ebf0b1-9c03-45bf-a850-46b637ccf6a3",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 0 c. 0",
+    "line": "d92dda20-bf24-4328-b0aa-bbc3415a93de",
+    "sequence": 0,
+    "x_min": 42,
+    "x_max": 65,
+    "character_class": "N",
+    "human_character_class": null,
+    "class_probability": 0.6052935110237259,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "676fc89d-cd91-4cec-9d82-b6dfe2bcfe5a",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 0 c. 2",
+    "line": "3660a3fa-63b3-4cb0-88eb-cd24a8837533",
+    "sequence": 2,
+    "x_min": 146,
+    "x_max": 361,
+    "character_class": "L",
+    "human_character_class": null,
+    "class_probability": 0.5532109052054053,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "68165491-b726-4569-83c2-04c088a52354",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 1 c. 1",
+    "line": "e8d909bb-6a69-40e3-b06e-e10e6a1efcf3",
+    "sequence": 1,
+    "x_min": 339,
+    "x_max": 181,
+    "character_class": "x",
+    "human_character_class": null,
+    "class_probability": 0.5850876098892592,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "68bc1955-5fae-41d5-9a4a-de05ecab9049",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 1 c. 1",
+    "line": "bc850f70-c12a-4567-9ac6-76de938b591c",
+    "sequence": 1,
+    "x_min": 3,
+    "x_max": 289,
+    "character_class": "z",
+    "human_character_class": null,
+    "class_probability": 0.8587970761165373,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6937dcc7-4a7a-4ef4-8cb4-eaca9bc370be",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 1 c. 1",
+    "line": "03b7d45e-b92f-4f5f-948a-7574c442f92a",
+    "sequence": 1,
+    "x_min": 66,
+    "x_max": 316,
+    "character_class": "s",
+    "human_character_class": null,
+    "class_probability": 0.5461006023952333,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6984533c-1d26-48ad-bd58-1e79d41cf03c",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 1 c. 2",
+    "line": "f088a54f-c5e7-4961-a603-693990cc467d",
+    "sequence": 2,
+    "x_min": 176,
+    "x_max": 359,
+    "character_class": "k",
+    "human_character_class": null,
+    "class_probability": 0.014724663880826605,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6a17d11c-7c3c-4b1d-bd57-9150498cc83a",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 1 c. 0",
+    "line": "b9d66929-11bb-4cb6-9849-5408e7d48977",
+    "sequence": 0,
+    "x_min": 468,
+    "x_max": 288,
+    "character_class": "E",
+    "human_character_class": null,
+    "class_probability": 0.6613369545531869,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6b6e36b0-eab1-4553-91a2-f16671336c1a",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 2 c. 1",
+    "line": "3c2144ed-35bf-42ab-87c3-15b5d94c6d95",
+    "sequence": 1,
+    "x_min": 349,
+    "x_max": 468,
+    "character_class": "j",
+    "human_character_class": null,
+    "class_probability": 0.22167533523475969,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6baa5aab-3efa-421c-9566-8ee3826c7156",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 1 c. 0",
+    "line": "d94ba561-211a-4e1a-9414-698c535de08b",
+    "sequence": 0,
+    "x_min": 330,
+    "x_max": 386,
+    "character_class": "L",
+    "human_character_class": null,
+    "class_probability": 0.23313694037910582,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6cb1ff2f-6c10-47b0-af77-058656f3e043",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 1 c. 0",
+    "line": "1ed89adc-3a52-4827-a85a-8e06b003e634",
+    "sequence": 0,
+    "x_min": 162,
+    "x_max": 309,
+    "character_class": "U",
+    "human_character_class": null,
+    "class_probability": 0.07101528911176591,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6d196d0a-b2b9-4037-8b0e-f81d30d3d8c3",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 1 c. 1",
+    "line": "0bc0af3f-4c65-46d1-a0a2-5b803b067cc6",
+    "sequence": 1,
+    "x_min": 218,
+    "x_max": 453,
+    "character_class": "T",
+    "human_character_class": null,
+    "class_probability": 0.8668300606314713,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6e800bb5-2517-4c84-b5b0-1daaa3d73426",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 1 c. 2",
+    "line": "69d8ffd0-bb01-4d72-807e-15086583be31",
+    "sequence": 2,
+    "x_min": 371,
+    "x_max": 443,
+    "character_class": "g",
+    "human_character_class": null,
+    "class_probability": 0.6718826091423146,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6ed08a07-a83a-4301-8fd8-a43eb1da2f5d",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 1 c. 1",
+    "line": "204afd10-ee89-40f3-a55d-e0f260e4e3f1",
+    "sequence": 1,
+    "x_min": 327,
+    "x_max": 454,
+    "character_class": "a",
+    "human_character_class": null,
+    "class_probability": 0.08935674589198594,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "6ffb20f8-018c-496f-902d-dbfe7211bd58",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 1 c. 2",
+    "line": "d86d7c87-4c4c-4f3c-9795-bbb75856cb5b",
+    "sequence": 2,
+    "x_min": 157,
+    "x_max": 145,
+    "character_class": "T",
+    "human_character_class": null,
+    "class_probability": 0.3907610135283818,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "7045a026-5f4b-4f40-ab02-a17ca49aecf6",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 0 c. 0",
+    "line": "784e613b-d77f-41f1-ba3a-930a2ffaeaa2",
+    "sequence": 0,
+    "x_min": 79,
+    "x_max": 403,
+    "character_class": "F",
+    "human_character_class": null,
+    "class_probability": 0.8707437128603572,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "744b4c8c-fdeb-4cca-91dd-dde55b49ad08",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 0 c. 0",
+    "line": "9904238a-a76e-498b-9c09-6a0298a087ae",
+    "sequence": 0,
+    "x_min": 1,
+    "x_max": 463,
+    "character_class": "H",
+    "human_character_class": null,
+    "class_probability": 0.4617113035129351,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "7539e47f-6061-46dd-9394-c454498a850d",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 2 c. 2",
+    "line": "25288960-627a-4542-9e30-1b8b5d9ebd4f",
+    "sequence": 2,
+    "x_min": 353,
+    "x_max": 187,
+    "character_class": "q",
+    "human_character_class": null,
+    "class_probability": 0.006231607110627424,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "76eaa524-4b5c-418d-9b37-d3b70d9098dc",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 1 c. 1",
+    "line": "1a420e40-c737-4728-b84c-96b60b3051c6",
+    "sequence": 1,
+    "x_min": 15,
+    "x_max": 191,
+    "character_class": "b",
+    "human_character_class": null,
+    "class_probability": 0.7669474935404035,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "781f442d-0998-4850-8443-11d093bdfa1b",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 2 c. 0",
+    "line": "8c0e2eb4-5710-4472-b6cc-ef6c6bf8b0a6",
+    "sequence": 0,
+    "x_min": 72,
+    "x_max": 158,
+    "character_class": "e",
+    "human_character_class": null,
+    "class_probability": 0.4350854166546779,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "78b8a97c-4fbf-4239-9b7b-6605b5539a07",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 0 c. 2",
+    "line": "6a14147b-0d31-4756-82cd-11d6398a830c",
+    "sequence": 2,
+    "x_min": 34,
+    "x_max": 313,
+    "character_class": "I",
+    "human_character_class": null,
+    "class_probability": 0.9985419740567287,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "78bd0bc4-efbd-45cd-a32c-549a0fd60765",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 0 c. 1",
+    "line": "e19c486f-fa33-4365-b9d6-9d7202d4ff80",
+    "sequence": 1,
+    "x_min": 460,
+    "x_max": 117,
+    "character_class": "U",
+    "human_character_class": null,
+    "class_probability": 0.07473738578397049,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "790758cf-7adc-4d72-a11b-cb24a39ba5a5",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 1 c. 2",
+    "line": "bae106ab-4a1a-47a0-83bd-45e0d9910b14",
+    "sequence": 2,
+    "x_min": 20,
+    "x_max": 260,
+    "character_class": "O",
+    "human_character_class": null,
+    "class_probability": 0.8635555911783747,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "7a28387a-cb7e-4fc4-8a41-73d82f13cff1",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 1 c. 1",
+    "line": "f1fe1bfe-353f-4b2c-842c-92bb889fb756",
+    "sequence": 1,
+    "x_min": 463,
+    "x_max": 211,
+    "character_class": "z",
+    "human_character_class": null,
+    "class_probability": 0.01779367872746529,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "7aabcea1-53fa-4ef2-9001-963d6ca19327",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 0 c. 1",
+    "line": "5b19d6a8-8b13-40ce-8ace-1592165b73e9",
+    "sequence": 1,
+    "x_min": 346,
+    "x_max": 144,
+    "character_class": "H",
+    "human_character_class": null,
+    "class_probability": 0.9640446668365898,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "7ab4a6de-7316-4055-b607-8d63a49eb00f",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 2 c. 2",
+    "line": "5b416e9f-d205-474f-82d6-833ccd0de9b6",
+    "sequence": 2,
+    "x_min": 270,
+    "x_max": 444,
+    "character_class": "I",
+    "human_character_class": null,
+    "class_probability": 0.9794987794168262,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "7c15290f-461a-476d-b6fb-88c9f37c9006",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 2 c. 0",
+    "line": "18043dff-8009-428f-822d-520442afd313",
+    "sequence": 0,
+    "x_min": 109,
+    "x_max": 256,
+    "character_class": "A",
+    "human_character_class": null,
+    "class_probability": 0.3042806372494177,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "7c4b7a7e-7f68-466d-89f5-c9222eb23ddf",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 0 c. 1",
+    "line": "28e67ebb-195e-47f2-956e-da5599f14c6c",
+    "sequence": 1,
+    "x_min": 163,
+    "x_max": 322,
+    "character_class": "p",
+    "human_character_class": null,
+    "class_probability": 0.6464944195111515,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "7cde2c82-a922-4471-bf47-61e0810503d6",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 0 c. 0",
+    "line": "e19c486f-fa33-4365-b9d6-9d7202d4ff80",
+    "sequence": 0,
+    "x_min": 168,
+    "x_max": 149,
+    "character_class": "a",
+    "human_character_class": null,
+    "class_probability": 0.4304343006020107,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "7d5af784-16f3-4c42-a595-5b441094853d",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 2 c. 1",
+    "line": "9929be68-2d15-4adc-b132-a11531584c72",
+    "sequence": 1,
+    "x_min": 366,
+    "x_max": 439,
+    "character_class": "q",
+    "human_character_class": null,
+    "class_probability": 0.9153653500460995,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "7fd63952-cff2-4a5c-9059-d67ff4bbee27",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 0 c. 1",
+    "line": "3660a3fa-63b3-4cb0-88eb-cd24a8837533",
+    "sequence": 1,
+    "x_min": 336,
+    "x_max": 320,
+    "character_class": "t",
+    "human_character_class": null,
+    "class_probability": 0.7093461109664769,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "800d7fe8-39a0-493e-b24b-71c566f4661d",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 0 c. 1",
+    "line": "711dbfc6-83f7-44df-a42d-2ee649bacc50",
+    "sequence": 1,
+    "x_min": 80,
+    "x_max": 444,
+    "character_class": "b",
+    "human_character_class": null,
+    "class_probability": 0.7898905933037424,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "85e30922-7c4e-4cbd-b876-02f62141e74d",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 1 c. 1",
+    "line": "3f8ea81f-2a75-470f-976a-4cb090cf21a8",
+    "sequence": 1,
+    "x_min": 208,
+    "x_max": 436,
+    "character_class": "x",
+    "human_character_class": null,
+    "class_probability": 0.46781610878063506,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "8664c278-da6c-4741-afe0-410c441728ed",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 0 c. 0",
+    "line": "d788b2f7-350a-4968-9a60-2a8d4ec143c1",
+    "sequence": 0,
+    "x_min": 362,
+    "x_max": 112,
+    "character_class": "n",
+    "human_character_class": null,
+    "class_probability": 0.20560830621041015,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "890ed306-b08f-45d5-b754-b0eaec8f4572",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 1 c. 0",
+    "line": "204afd10-ee89-40f3-a55d-e0f260e4e3f1",
+    "sequence": 0,
+    "x_min": 188,
+    "x_max": 133,
+    "character_class": "v",
+    "human_character_class": null,
+    "class_probability": 0.6359832875286047,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "8977a7bc-45a9-45bf-ac5b-bb89f3041297",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 0 c. 0",
+    "line": "3660a3fa-63b3-4cb0-88eb-cd24a8837533",
+    "sequence": 0,
+    "x_min": 171,
+    "x_max": 378,
+    "character_class": "O",
+    "human_character_class": null,
+    "class_probability": 0.41035292192830886,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "8a91cb23-5af0-4dd3-abb0-c37561ac9071",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 0 c. 0",
+    "line": "e2ab5c1d-3924-48c5-a367-38ed9ca25457",
+    "sequence": 0,
+    "x_min": 278,
+    "x_max": 454,
+    "character_class": "Q",
+    "human_character_class": null,
+    "class_probability": 0.6845095653534647,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "8ab82e02-0e30-406a-9c35-d9dd1e23d1c3",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 0 c. 1",
+    "line": "f94d17ab-7dc0-4cb6-8671-fdb492e4cdb4",
+    "sequence": 1,
+    "x_min": 418,
+    "x_max": 259,
+    "character_class": "z",
+    "human_character_class": null,
+    "class_probability": 0.6384691025996934,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "8c02a49d-6b38-409e-9a55-5a56be7951a6",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 0 c. 1",
+    "line": "372bef40-2aba-46c7-bcb0-2d77a2c5df34",
+    "sequence": 1,
+    "x_min": 277,
+    "x_max": 369,
+    "character_class": "l",
+    "human_character_class": null,
+    "class_probability": 0.3631282527057814,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "8d681146-a57a-431c-b8f4-5babf0039520",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 0 c. 1",
+    "line": "784e613b-d77f-41f1-ba3a-930a2ffaeaa2",
+    "sequence": 1,
+    "x_min": 460,
+    "x_max": 251,
+    "character_class": "S",
+    "human_character_class": null,
+    "class_probability": 0.3009205417738984,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "9136ed04-82c8-41bd-a17a-44ee5c4a9e14",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 0 c. 0",
+    "line": "45cfb4cd-55a7-40f9-af18-baa8639635e3",
+    "sequence": 0,
+    "x_min": 248,
+    "x_max": 404,
+    "character_class": "D",
+    "human_character_class": null,
+    "class_probability": 0.6257158455248527,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "928b0be9-2989-4aa0-9bcd-7554065be740",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 2 c. 2",
+    "line": "58e1fcaa-a520-4b1b-9686-725937e7f0d3",
+    "sequence": 2,
+    "x_min": 7,
+    "x_max": 63,
+    "character_class": "a",
+    "human_character_class": null,
+    "class_probability": 0.9983992720464707,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "92f1fef1-f41a-42e5-a3bd-00f10479c4d5",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 0 c. 0",
+    "line": "711dbfc6-83f7-44df-a42d-2ee649bacc50",
+    "sequence": 0,
+    "x_min": 67,
+    "x_max": 228,
+    "character_class": "V",
+    "human_character_class": null,
+    "class_probability": 0.17171343239132975,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "93df5340-1bcb-4e0e-ba1a-155be40f71b2",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 2 c. 1",
+    "line": "b7b516c2-db45-492c-9953-0d99f43d55bb",
+    "sequence": 1,
+    "x_min": 391,
+    "x_max": 187,
+    "character_class": "f",
+    "human_character_class": null,
+    "class_probability": 0.7872992050889431,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "941056b7-5818-452e-b9b7-46b22535c9f8",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 1 c. 1",
+    "line": "b9d66929-11bb-4cb6-9849-5408e7d48977",
+    "sequence": 1,
+    "x_min": 425,
+    "x_max": 136,
+    "character_class": "y",
+    "human_character_class": null,
+    "class_probability": 0.43676929377408547,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "95466634-99da-4d0f-9dcc-423d16ab4a35",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 2 c. 1",
+    "line": "31c07d87-dd46-41fd-bac1-7d15f253a8b2",
+    "sequence": 1,
+    "x_min": 240,
+    "x_max": 94,
+    "character_class": "i",
+    "human_character_class": null,
+    "class_probability": 0.32611881871771264,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "9679269e-b21d-4470-b43a-a9292a98fe5b",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 2 c. 0",
+    "line": "9929be68-2d15-4adc-b132-a11531584c72",
+    "sequence": 0,
+    "x_min": 113,
+    "x_max": 424,
+    "character_class": "V",
+    "human_character_class": null,
+    "class_probability": 0.7976592765844169,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "9ab70e9d-0a1b-47c9-8d45-132a90329ad9",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 2 c. 2",
+    "line": "31c07d87-dd46-41fd-bac1-7d15f253a8b2",
+    "sequence": 2,
+    "x_min": 426,
+    "x_max": 183,
+    "character_class": "L",
+    "human_character_class": null,
+    "class_probability": 0.8293635597998922,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "9b1d6fd2-0bc1-448b-8c76-bd409ec5538c",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 1 c. 0",
+    "line": "d42f9a00-3e53-45ad-a0a5-127651c832f6",
+    "sequence": 0,
+    "x_min": 220,
+    "x_max": 309,
+    "character_class": "B",
+    "human_character_class": null,
+    "class_probability": 0.023075496493464187,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "9bb0001d-b933-446c-9b17-f0f5751b441f",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 0 c. 2",
+    "line": "784e613b-d77f-41f1-ba3a-930a2ffaeaa2",
+    "sequence": 2,
+    "x_min": 247,
+    "x_max": 308,
+    "character_class": "U",
+    "human_character_class": null,
+    "class_probability": 0.2734641566607853,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "9bf02774-9edb-45f2-937c-8365ff0fe12c",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 1 c. 2",
+    "line": "1ed89adc-3a52-4827-a85a-8e06b003e634",
+    "sequence": 2,
+    "x_min": 68,
+    "x_max": 312,
+    "character_class": "R",
+    "human_character_class": null,
+    "class_probability": 0.6328669095346914,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "9df67c0b-1a99-4075-98fe-a41dc9c50b4b",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 1 c. 1",
+    "line": "084e33dd-f3c4-43cd-ae51-74596ef4dc65",
+    "sequence": 1,
+    "x_min": 410,
+    "x_max": 139,
+    "character_class": "e",
+    "human_character_class": null,
+    "class_probability": 0.11708608671268517,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "9e9f6368-0937-4729-864b-d6936ac73996",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 2 c. 2",
+    "line": "3c2144ed-35bf-42ab-87c3-15b5d94c6d95",
+    "sequence": 2,
+    "x_min": 112,
+    "x_max": 419,
+    "character_class": "b",
+    "human_character_class": null,
+    "class_probability": 0.12438820600666423,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "9ef87e21-0000-4c2a-8932-c445950c9edf",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-r l. 0 c. 1",
+    "line": "30454456-b4ef-47ca-8b38-653c6cc57e08",
+    "sequence": 1,
+    "x_min": 70,
+    "x_max": 42,
+    "character_class": "Z",
+    "human_character_class": null,
+    "class_probability": 0.9925644431172131,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "9fb284ec-eede-4f62-9f84-baccce725e7c",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 0 c. 2",
+    "line": "e2ab5c1d-3924-48c5-a367-38ed9ca25457",
+    "sequence": 2,
+    "x_min": 433,
+    "x_max": 261,
+    "character_class": "j",
+    "human_character_class": null,
+    "class_probability": 0.8525143254245098,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "a2cb143f-8a7b-481b-b2b5-667b6fcaccc5",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 0 c. 2",
+    "line": "7432dbbc-a537-4ff1-bb08-f1567d410296",
+    "sequence": 2,
+    "x_min": 73,
+    "x_max": 120,
+    "character_class": "S",
+    "human_character_class": null,
+    "class_probability": 0.14616258308080932,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "a2d0551d-0c09-44e4-94e3-109ae88a6982",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 1 c. 1",
+    "line": "69d8ffd0-bb01-4d72-807e-15086583be31",
+    "sequence": 1,
+    "x_min": 89,
+    "x_max": 114,
+    "character_class": "T",
+    "human_character_class": null,
+    "class_probability": 0.9499706424060771,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "a45bdb0a-1da3-4f21-9e91-608e89970b46",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 0 c. 1",
+    "line": "7432dbbc-a537-4ff1-bb08-f1567d410296",
+    "sequence": 1,
+    "x_min": 289,
+    "x_max": 14,
+    "character_class": "y",
+    "human_character_class": null,
+    "class_probability": 0.9132193082326927,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "a5cfca5f-81bc-4d37-8106-88035a9ade10",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 1 c. 2",
+    "line": "e8d909bb-6a69-40e3-b06e-e10e6a1efcf3",
+    "sequence": 2,
+    "x_min": 494,
+    "x_max": 446,
+    "character_class": "J",
+    "human_character_class": null,
+    "class_probability": 0.36570548420415816,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "aa63b32f-41f9-4bcd-8148-fd09861a2b1c",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 2 c. 1",
+    "line": "131fa715-a04c-4dcd-b416-d6f0b3ef54ae",
+    "sequence": 1,
+    "x_min": 293,
+    "x_max": 263,
+    "character_class": "y",
+    "human_character_class": null,
+    "class_probability": 0.8481630075420153,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "aae49b7b-e2f9-46b5-8797-472f53655b07",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 1 c. 0",
+    "line": "03b7d45e-b92f-4f5f-948a-7574c442f92a",
+    "sequence": 0,
+    "x_min": 425,
+    "x_max": 282,
+    "character_class": "c",
+    "human_character_class": null,
+    "class_probability": 0.2745062305870556,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "ac241ec5-a332-499a-a12f-4b5e72dc4331",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 0 c. 2",
+    "line": "5b19d6a8-8b13-40ce-8ace-1592165b73e9",
+    "sequence": 2,
+    "x_min": 118,
+    "x_max": 396,
+    "character_class": "Y",
+    "human_character_class": null,
+    "class_probability": 0.7842235905340121,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "ace5d247-ab43-4449-b336-74af71ce2625",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 1 c. 0",
+    "line": "3f8ea81f-2a75-470f-976a-4cb090cf21a8",
+    "sequence": 0,
+    "x_min": 138,
+    "x_max": 447,
+    "character_class": "U",
+    "human_character_class": null,
+    "class_probability": 0.30612500687544386,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "acf14a60-6e8e-4f9d-98da-5d167382c707",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 1 c. 2",
+    "line": "fd12d5e6-11e9-4bb8-8b69-af76bc83cc49",
+    "sequence": 2,
+    "x_min": 373,
+    "x_max": 45,
+    "character_class": "r",
+    "human_character_class": null,
+    "class_probability": 0.26792497800248527,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "b0cee52f-9b5b-4ade-a2e8-1f04a5b93a2e",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 2 c. 2",
+    "line": "844188a4-99af-4aa7-9d14-bd230c18f678",
+    "sequence": 2,
+    "x_min": 448,
+    "x_max": 147,
+    "character_class": "A",
+    "human_character_class": null,
+    "class_probability": 0.24323002978656272,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "b509da41-5887-4317-9b9a-785b4ee1b110",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 1 c. 2",
+    "line": "bc850f70-c12a-4567-9ac6-76de938b591c",
+    "sequence": 2,
+    "x_min": 142,
+    "x_max": 54,
+    "character_class": "v",
+    "human_character_class": null,
+    "class_probability": 0.5774221274467958,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "b6084601-2c6f-48d4-9216-06f19b2eceb1",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 2 c. 0",
+    "line": "5b416e9f-d205-474f-82d6-833ccd0de9b6",
+    "sequence": 0,
+    "x_min": 72,
+    "x_max": 325,
+    "character_class": "r",
+    "human_character_class": null,
+    "class_probability": 0.5454242475613278,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "bccbd3f9-8f9e-48b4-81c7-744e36e93625",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 1 c. 0",
+    "line": "084e33dd-f3c4-43cd-ae51-74596ef4dc65",
+    "sequence": 0,
+    "x_min": 149,
+    "x_max": 3,
+    "character_class": "a",
+    "human_character_class": null,
+    "class_probability": 0.433432664222519,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "bce3f539-36f1-4211-b2bf-710e609df929",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 0 c. 2",
+    "line": "28e67ebb-195e-47f2-956e-da5599f14c6c",
+    "sequence": 2,
+    "x_min": 1,
+    "x_max": 26,
+    "character_class": "W",
+    "human_character_class": null,
+    "class_probability": 0.48724861521214013,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "be585b6f-643b-4b53-a88a-79f612811aea",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 1 c. 2",
+    "line": "204afd10-ee89-40f3-a55d-e0f260e4e3f1",
+    "sequence": 2,
+    "x_min": 3,
+    "x_max": 45,
+    "character_class": "P",
+    "human_character_class": null,
+    "class_probability": 0.8944755146469346,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "bf39b817-24e7-4e38-ad53-313ce89c98e1",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 1 c. 2",
+    "line": "d94ba561-211a-4e1a-9414-698c535de08b",
+    "sequence": 2,
+    "x_min": 152,
+    "x_max": 122,
+    "character_class": "b",
+    "human_character_class": null,
+    "class_probability": 0.6662910870685951,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c0569204-cb72-452e-9263-08dac672f7a8",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 2 c. 2",
+    "line": "2eeed54c-290a-45ac-8afc-0d9b2fc66bbd",
+    "sequence": 2,
+    "x_min": 68,
+    "x_max": 138,
+    "character_class": "p",
+    "human_character_class": null,
+    "class_probability": 0.1800985533017081,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c07c1791-b3d0-4e8d-b47f-507808f6ba59",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 0 c. 2",
+    "line": "f94d17ab-7dc0-4cb6-8671-fdb492e4cdb4",
+    "sequence": 2,
+    "x_min": 86,
+    "x_max": 141,
+    "character_class": "R",
+    "human_character_class": null,
+    "class_probability": 0.936023844030179,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c1be2544-11c2-4333-a123-12e21ada19ee",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 2 c. 2",
+    "line": "9929be68-2d15-4adc-b132-a11531584c72",
+    "sequence": 2,
+    "x_min": 437,
+    "x_max": 276,
+    "character_class": "N",
+    "human_character_class": null,
+    "class_probability": 0.14652805189239393,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c23a13cb-776d-46d4-9806-174baae21d05",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-l l. 2 c. 0",
+    "line": "25288960-627a-4542-9e30-1b8b5d9ebd4f",
+    "sequence": 0,
+    "x_min": 476,
+    "x_max": 428,
+    "character_class": "T",
+    "human_character_class": null,
+    "class_probability": 0.477703994795339,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c2833caa-8332-4dc1-8fcd-68552c3b68b3",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 1 c. 1",
+    "line": "491ca756-ac04-44ea-87f1-8b6e8337bb76",
+    "sequence": 1,
+    "x_min": 224,
+    "x_max": 364,
+    "character_class": "A",
+    "human_character_class": null,
+    "class_probability": 0.9047134261963174,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c2a333c1-71da-4bbe-87ee-4459c43904ce",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 1 c. 0",
+    "line": "0bc0af3f-4c65-46d1-a0a2-5b803b067cc6",
+    "sequence": 0,
+    "x_min": 108,
+    "x_max": 274,
+    "character_class": "M",
+    "human_character_class": null,
+    "class_probability": 0.297222259522822,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c5717c12-6818-4195-b6d9-f6497db6b62e",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 0 c. 2",
+    "line": "711dbfc6-83f7-44df-a42d-2ee649bacc50",
+    "sequence": 2,
+    "x_min": 497,
+    "x_max": 138,
+    "character_class": "W",
+    "human_character_class": null,
+    "class_probability": 0.3983994593766379,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c6de4967-d655-46e3-a35c-76d1ee25aa63",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 0 c. 0",
+    "line": "10b01efb-820e-42e1-8f00-6329d1cb5de9",
+    "sequence": 0,
+    "x_min": 303,
+    "x_max": 395,
+    "character_class": "w",
+    "human_character_class": null,
+    "class_probability": 0.1498839642327816,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c7823c13-750e-49c2-9e0f-640334c0f8f0",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 2 c. 2",
+    "line": "d90526ce-b2f2-4602-b253-90545b30cd85",
+    "sequence": 2,
+    "x_min": 14,
+    "x_max": 322,
+    "character_class": "a",
+    "human_character_class": null,
+    "class_probability": 0.23786979022065713,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c7a284ea-29df-4231-b364-9faa3899a07c",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 2 c. 1",
+    "line": "41b811e9-727d-4cd4-b35f-86bbee4e60ba",
+    "sequence": 1,
+    "x_min": 42,
+    "x_max": 408,
+    "character_class": "O",
+    "human_character_class": null,
+    "class_probability": 0.38196767089369843,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "c8e5fe97-fa29-4ab4-a8f0-6e9a0bd8f846",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 1 c. 0",
+    "line": "d86d7c87-4c4c-4f3c-9795-bbb75856cb5b",
+    "sequence": 0,
+    "x_min": 322,
+    "x_max": 177,
+    "character_class": "R",
+    "human_character_class": null,
+    "class_probability": 0.22132514837374873,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "ca690fc5-23ca-444c-8d77-874ad5f67d59",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 2 c. 0",
+    "line": "e9e20ba9-bf7c-41fa-8afd-7b36ec390836",
+    "sequence": 0,
+    "x_min": 157,
+    "x_max": 138,
+    "character_class": "z",
+    "human_character_class": null,
+    "class_probability": 0.5237203083612786,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "cc0c1f76-43f1-412e-8eb2-fb081623143a",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-r l. 2 c. 0",
+    "line": "3c2144ed-35bf-42ab-87c3-15b5d94c6d95",
+    "sequence": 0,
+    "x_min": 78,
+    "x_max": 391,
+    "character_class": "f",
+    "human_character_class": null,
+    "class_probability": 0.5779286199310243,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "cd4c8e94-74dc-46c4-be12-2c4d5ccf7daa",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 2 c. 2",
+    "line": "41b811e9-727d-4cd4-b35f-86bbee4e60ba",
+    "sequence": 2,
+    "x_min": 258,
+    "x_max": 183,
+    "character_class": "l",
+    "human_character_class": null,
+    "class_probability": 0.5217334860094621,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "cd9e7d9b-d7e9-4cf6-92eb-a062ebb45313",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 2 c. 2",
+    "line": "b7b516c2-db45-492c-9953-0d99f43d55bb",
+    "sequence": 2,
+    "x_min": 292,
+    "x_max": 284,
+    "character_class": "q",
+    "human_character_class": null,
+    "class_probability": 0.7011400672025807,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "cfebd56a-4d22-419a-87af-1c6f6eb581ca",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-r l. 1 c. 0",
+    "line": "1a420e40-c737-4728-b84c-96b60b3051c6",
+    "sequence": 0,
+    "x_min": 484,
+    "x_max": 224,
+    "character_class": "t",
+    "human_character_class": null,
+    "class_probability": 0.4644231065577581,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "d030b308-71af-4547-a954-ec0ea7f1f4a5",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 2 c. 2",
+    "line": "a45978f3-7996-4e86-a95d-fe289a097a89",
+    "sequence": 2,
+    "x_min": 488,
+    "x_max": 31,
+    "character_class": "v",
+    "human_character_class": null,
+    "class_probability": 0.10784688501414741,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "d117e8a8-122d-479e-92da-d238bf6eea87",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 0 c. 0",
+    "line": "28e67ebb-195e-47f2-956e-da5599f14c6c",
+    "sequence": 0,
+    "x_min": 142,
+    "x_max": 185,
+    "character_class": "T",
+    "human_character_class": null,
+    "class_probability": 0.29463420318136235,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "d339dfb4-bccd-491e-b2e7-5897d6b0b6bc",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-r l. 0 c. 2",
+    "line": "9904238a-a76e-498b-9c09-6a0298a087ae",
+    "sequence": 2,
+    "x_min": 440,
+    "x_max": 188,
+    "character_class": "j",
+    "human_character_class": null,
+    "class_probability": 0.24714119522975675,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "d67a5c0b-3842-46e0-ace3-1aaa94f4be44",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 1 c. 2",
+    "line": "3f8ea81f-2a75-470f-976a-4cb090cf21a8",
+    "sequence": 2,
+    "x_min": 493,
+    "x_max": 296,
+    "character_class": "h",
+    "human_character_class": null,
+    "class_probability": 0.05261643193889465,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "d72747fc-017d-4b77-98fb-0578c5099341",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 2 c. 0",
+    "line": "131fa715-a04c-4dcd-b416-d6f0b3ef54ae",
+    "sequence": 0,
+    "x_min": 307,
+    "x_max": 60,
+    "character_class": "p",
+    "human_character_class": null,
+    "class_probability": 0.4928275119467179,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "d84cdd3b-dd33-4b6e-96b5-3d06027b8322",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 2 c. 1",
+    "line": "9afd53e6-7441-4c9b-98f6-348907426e3a",
+    "sequence": 1,
+    "x_min": 178,
+    "x_max": 376,
+    "character_class": "E",
+    "human_character_class": null,
+    "class_probability": 0.7551142117153771,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "d8bff975-ea79-470a-bba3-97c469b1e231",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 2 c. 0",
+    "line": "e8f70240-49d4-4677-871c-96af393251be",
+    "sequence": 0,
+    "x_min": 89,
+    "x_max": 336,
+    "character_class": "O",
+    "human_character_class": null,
+    "class_probability": 0.7482860468343803,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "d9542d80-4133-4a2a-bafb-6d956da57eb8",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 0 c. 2",
+    "line": "10b01efb-820e-42e1-8f00-6329d1cb5de9",
+    "sequence": 2,
+    "x_min": 478,
+    "x_max": 43,
+    "character_class": "i",
+    "human_character_class": null,
+    "class_probability": 0.09289478377507854,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "da165725-f9d6-4470-a809-ed60ad9c4f33",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 1 c. 2",
+    "line": "0bc0af3f-4c65-46d1-a0a2-5b803b067cc6",
+    "sequence": 2,
+    "x_min": 470,
+    "x_max": 143,
+    "character_class": "k",
+    "human_character_class": null,
+    "class_probability": 0.8937578488091364,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "dadc2ace-f47c-49d2-9b1b-45f3e6da7c5f",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 1 c. 2",
+    "line": "491ca756-ac04-44ea-87f1-8b6e8337bb76",
+    "sequence": 2,
+    "x_min": 407,
+    "x_max": 43,
+    "character_class": "d",
+    "human_character_class": null,
+    "class_probability": 0.558432189384329,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "e03cd8e4-aaeb-4601-bdc1-328c933244a9",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-r l. 1 c. 1",
+    "line": "56e11a3c-5d42-4d12-8fff-43e08d057504",
+    "sequence": 1,
+    "x_min": 138,
+    "x_max": 44,
+    "character_class": "L",
+    "human_character_class": null,
+    "class_probability": 0.3689713893349269,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "e0ebfe37-b201-40ce-b1f9-310a80fb9ccb",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 1 c. 1",
+    "line": "d42f9a00-3e53-45ad-a0a5-127651c832f6",
+    "sequence": 1,
+    "x_min": 375,
+    "x_max": 306,
+    "character_class": "G",
+    "human_character_class": null,
+    "class_probability": 0.2188375175922841,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "e49b1eec-17c4-4306-aca1-6cacd9711fd2",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 0 c. 0",
+    "line": "58f76ea2-503b-4c04-9fa2-c0015d22c0bf",
+    "sequence": 0,
+    "x_min": 444,
+    "x_max": 217,
+    "character_class": "n",
+    "human_character_class": null,
+    "class_probability": 0.05348466516051664,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "e4a1ae5b-9520-416a-8cfe-af380e82d945",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 2-r l. 1 c. 1",
+    "line": "30a71be8-2d84-43d0-b91f-98f3f905c729",
+    "sequence": 1,
+    "x_min": 355,
+    "x_max": 80,
+    "character_class": "W",
+    "human_character_class": null,
+    "class_probability": 0.33911619500681667,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "e4c4d962-64b5-4e6b-9806-4a7d2e4806d5",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 2-l l. 2 c. 1",
+    "line": "3eb632f5-f3d9-413a-a53c-d19621e166f7",
+    "sequence": 1,
+    "x_min": 205,
+    "x_max": 405,
+    "character_class": "a",
+    "human_character_class": null,
+    "class_probability": 0.6403220010213502,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "e50fb252-457e-48e2-9541-eaa4370f0e2f",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 1-l l. 1 c. 2",
+    "line": "5bd3df06-ae7b-4142-920f-976c5ffeac21",
+    "sequence": 2,
+    "x_min": 370,
+    "x_max": 250,
+    "character_class": "i",
+    "human_character_class": null,
+    "class_probability": 0.14513820199087046,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "e649848e-6167-4d38-9623-8ef5f1c565d6",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-l l. 0 c. 1",
+    "line": "d92dda20-bf24-4328-b0aa-bbc3415a93de",
+    "sequence": 1,
+    "x_min": 301,
+    "x_max": 14,
+    "character_class": "K",
+    "human_character_class": null,
+    "class_probability": 0.32883466879572687,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "e7edcdf6-037d-4680-83b7-ccde2f2f8ce3",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 0-l l. 2 c. 1",
+    "line": "0cdf960f-5ac8-45c5-b1ec-5314171f4a3f",
+    "sequence": 1,
+    "x_min": 25,
+    "x_max": 7,
+    "character_class": "k",
+    "human_character_class": null,
+    "class_probability": 0.49708557160561573,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "e805ea7a-d5f8-4a77-9e24-50e6ad774466",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 1 c. 0",
+    "line": "bae106ab-4a1a-47a0-83bd-45e0d9910b14",
+    "sequence": 0,
+    "x_min": 53,
+    "x_max": 246,
+    "character_class": "D",
+    "human_character_class": null,
+    "class_probability": 0.36089076595435776,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "e8f43047-4711-4db0-8917-41c840e836d4",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 2 c. 2",
+    "line": "ce914baa-ced8-4f28-8d9f-ff580d174889",
+    "sequence": 2,
+    "x_min": 186,
+    "x_max": 296,
+    "character_class": "f",
+    "human_character_class": null,
+    "class_probability": 0.41329648675667985,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "e95d09ca-117d-4d3d-a416-12dcef562e6d",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 0-l l. 2 c. 1",
+    "line": "d90526ce-b2f2-4602-b253-90545b30cd85",
+    "sequence": 1,
+    "x_min": 14,
+    "x_max": 90,
+    "character_class": "u",
+    "human_character_class": null,
+    "class_probability": 0.5218814807752313,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "ec03e720-6a6f-445c-b3e6-ffe168a905b1",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-l l. 0 c. 1",
+    "line": "6a14147b-0d31-4756-82cd-11d6398a830c",
+    "sequence": 1,
+    "x_min": 293,
+    "x_max": 334,
+    "character_class": "d",
+    "human_character_class": null,
+    "class_probability": 0.9804860533772444,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "ecbf5228-7934-4316-a23a-5c94d318596f",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 1 c. 2",
+    "line": "b9d66929-11bb-4cb6-9849-5408e7d48977",
+    "sequence": 2,
+    "x_min": 368,
+    "x_max": 428,
+    "character_class": "L",
+    "human_character_class": null,
+    "class_probability": 0.978955253377084,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "ed14020c-dec9-4395-83e7-d400ba167788",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 2 c. 0",
+    "line": "844188a4-99af-4aa7-9d14-bd230c18f678",
+    "sequence": 0,
+    "x_min": 488,
+    "x_max": 471,
+    "character_class": "X",
+    "human_character_class": null,
+    "class_probability": 0.5298528173396428,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "edb3c3ac-b0e1-4eaa-8141-c4370e9c0540",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 2 c. 0",
+    "line": "58e1fcaa-a520-4b1b-9686-725937e7f0d3",
+    "sequence": 0,
+    "x_min": 53,
+    "x_max": 24,
+    "character_class": "C",
+    "human_character_class": null,
+    "class_probability": 0.6638293815220727,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "edd11c0b-df59-440c-a4d3-abc6578dab22",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 0 c. 0",
+    "line": "0724e42d-5736-4fe0-a60b-4b925b687d85",
+    "sequence": 0,
+    "x_min": 86,
+    "x_max": 68,
+    "character_class": "h",
+    "human_character_class": null,
+    "class_probability": 0.9139728854019304,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "ee5248c7-f6b8-4722-ad1a-81309d0dd4e5",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-r l. 1 c. 0",
+    "line": "1685aff3-459a-4480-8382-4a24cc1c9043",
+    "sequence": 0,
+    "x_min": 416,
+    "x_max": 324,
+    "character_class": "a",
+    "human_character_class": null,
+    "class_probability": 0.6777305121939093,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "ef977b33-ac09-4e88-a608-e088ded257f1",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-l l. 0 c. 0",
+    "line": "7432dbbc-a537-4ff1-bb08-f1567d410296",
+    "sequence": 0,
+    "x_min": 410,
+    "x_max": 139,
+    "character_class": "e",
+    "human_character_class": null,
+    "class_probability": 0.48899787967792674,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "f22880e4-d510-4a01-80bd-7a2963d7c671",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 0 c. 0",
+    "line": "2222caac-b9db-4ae0-b71f-3a0e77bed70f",
+    "sequence": 0,
+    "x_min": 405,
+    "x_max": 114,
+    "character_class": "y",
+    "human_character_class": null,
+    "class_probability": 0.9140568073231374,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "f2cbd324-29f6-4393-8bad-2740c104cce5",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-l l. 0 c. 2",
+    "line": "372bef40-2aba-46c7-bcb0-2d77a2c5df34",
+    "sequence": 2,
+    "x_min": 434,
+    "x_max": 55,
+    "character_class": "L",
+    "human_character_class": null,
+    "class_probability": 0.9943255770580361,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "f4191073-d3a7-4a4d-95d0-65e12fc25274",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-l l. 0 c. 0",
+    "line": "5b19d6a8-8b13-40ce-8ace-1592165b73e9",
+    "sequence": 0,
+    "x_min": 303,
+    "x_max": 186,
+    "character_class": "q",
+    "human_character_class": null,
+    "class_probability": 0.48393194533854356,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "f4d8394b-6732-4f89-abf6-6b1e7ab0b65b",
+  "fields": {
+    "label": "(273837) Police these rich stage throug... p. 1-r l. 2 c. 2",
+    "line": "e9e20ba9-bf7c-41fa-8afd-7b36ec390836",
+    "sequence": 2,
+    "x_min": 431,
+    "x_max": 327,
+    "character_class": "W",
+    "human_character_class": null,
+    "class_probability": 0.335730512798759,
+    "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "f85011a7-2df6-4d5d-92e0-6e9563bcf372",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 2-r l. 0 c. 1",
+    "line": "58f76ea2-503b-4c04-9fa2-c0015d22c0bf",
+    "sequence": 1,
+    "x_min": 401,
+    "x_max": 388,
+    "character_class": "r",
+    "human_character_class": null,
+    "class_probability": 0.8756915566286253,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "f954245c-397a-4a58-ab87-abf62b27c826",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 2-r l. 0 c. 2",
+    "line": "2449c4c2-0991-4c2e-9ec4-5186ac75164a",
+    "sequence": 2,
+    "x_min": 269,
+    "x_max": 319,
+    "character_class": "F",
+    "human_character_class": null,
+    "class_probability": 0.1835459698794668,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "fb31aafd-f70d-477e-b5fb-99824af58db6",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 0-r l. 0 c. 2",
+    "line": "0724e42d-5736-4fe0-a60b-4b925b687d85",
+    "sequence": 2,
+    "x_min": 378,
+    "x_max": 156,
+    "character_class": "Q",
+    "human_character_class": null,
+    "class_probability": 0.015173443011429755,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "fd51e6ce-ad97-44ec-abeb-e41500a4c13b",
+  "fields": {
+    "label": "(60468) New most build detail we week ... p. 0-r l. 0 c. 2",
+    "line": "2222caac-b9db-4ae0-b71f-3a0e77bed70f",
+    "sequence": 2,
+    "x_min": 97,
+    "x_max": 370,
+    "character_class": "D",
+    "human_character_class": null,
+    "class_probability": 0.19150102059769436,
+    "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "ff8110da-19d6-436f-84f0-2c1b497d5d0c",
+  "fields": {
+    "label": "(24668) Collection eat social wear cau... p. 1-l l. 1 c. 2",
+    "line": "f1fe1bfe-353f-4b2c-842c-92bb889fb756",
+    "sequence": 2,
+    "x_min": 483,
+    "x_max": 388,
+    "character_class": "h",
+    "human_character_class": null,
+    "class_probability": 0.6318429566101631,
+    "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "pp.character",
+  "pk": "ffc3eb55-aa98-46c1-b38c-d2fe41503c69",
+  "fields": {
+    "label": "(122028) Order no notice skin oil born ... p. 1-l l. 0 c. 0",
+    "line": "2efd0a17-e850-4b8e-892d-fe8a0c966b0b",
+    "sequence": 0,
+    "x_min": 477,
+    "x_max": 261,
+    "character_class": "v",
+    "human_character_class": null,
+    "class_probability": 0.15732821351596105,
+    "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
+    "exposure": 0,
+    "offset": 0
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$7ZDKKtEVtq2u$ddNgD82vYVAPdpPYHOd/3SWNHPh5WlRAag/L6hcohOs=",
+    "last_login": "2019-11-08T19:47:39.614Z",
+    "is_superuser": true,
+    "username": "root",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-10-03T00:27:38.401Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "authtoken.token",
+  "pk": "373f5a24e62a8327971cce64dc5458dbfcfbd1d9",
+  "fields": {
+    "user": 1,
+    "created": "2019-10-03T00:27:45.736Z"
+  }
+},
+{
+  "model": "pp.charactergrouping",
+  "pk": "17d64dfd-285b-40b9-9c81-d8dd165fb459",
+  "fields": {
+    "created_by": 1,
+    "date_created": "2019-11-08T19:47:58.477Z",
+    "label": "A group",
+    "notes": "",
+    "characters": [
+      "800d7fe8-39a0-493e-b24b-71c566f4661d",
+      "ecbf5228-7934-4316-a23a-5c94d318596f",
+      "aa63b32f-41f9-4bcd-8148-fd09861a2b1c",
+      "c07c1791-b3d0-4e8d-b47f-507808f6ba59",
+      "d84cdd3b-dd33-4b6e-96b5-3d06027b8322",
+      "3b144ec3-2ea3-45eb-8977-93e129763206",
+      "bf39b817-24e7-4e38-ad53-313ce89c98e1",
+      "cc0c1f76-43f1-412e-8eb2-fb081623143a",
+      "0256b8d9-4e16-435b-bbfa-da88515a7268",
+      "6d196d0a-b2b9-4037-8b0e-f81d30d3d8c3",
+      "da165725-f9d6-4470-a809-ed60ad9c4f33",
+      "40a79c1e-6d0b-4c98-8f7d-b9a63e16353b",
+      "76eaa524-4b5c-418d-9b37-d3b70d9098dc",
+      "08a4e123-3651-4794-af08-9088d058408d",
+      "890ed306-b08f-45d5-b754-b0eaec8f4572",
+      "be585b6f-643b-4b53-a88a-79f612811aea",
+      "576edf95-4a2e-414b-aceb-022513ff9a1d",
+      "68bc1955-5fae-41d5-9a4a-de05ecab9049",
+      "2084d56a-548f-45a6-8e20-36217eae2a5c",
+      "50bf8728-bc00-4d7a-815c-efa94193dd4d",
+      "edd11c0b-df59-440c-a4d3-abc6578dab22",
+      "4276f4c5-ebb1-4eec-8f64-d46d866c1268",
+      "cd9e7d9b-d7e9-4cf6-92eb-a062ebb45313"
+    ]
+  }
+},
+{
+  "model": "pp.charactergrouping",
+  "pk": "826b544b-f27a-4e30-8952-5485919c9bfe",
+  "fields": {
+    "created_by": 1,
+    "date_created": "2019-11-08T19:54:33.919Z",
+    "label": "Another group",
+    "notes": "",
+    "characters": [
+      "5865089f-3877-4e30-acaf-6d0556a921eb",
+      "576edf95-4a2e-414b-aceb-022513ff9a1d",
+      "f22880e4-d510-4a01-80bd-7a2963d7c671"
+    ]
+  }
+}
+]

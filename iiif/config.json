@@ -1,0 +1,41 @@
+{
+  "level": {
+    "compliance": "2"
+  },
+  "profile": {
+    "services": {}
+  },
+  "graphics": {
+    "source": {
+      "name": "VIPS"
+    }
+  },
+  "features": {
+    "enable": {
+      "size": [
+        "max"
+      ],
+      "format": [
+        "tif",
+        "jpg"
+      ]
+    }
+  },
+  "images": {
+    "source": {
+      "name": "Blob",
+      "path": "file:///usr/local/images"
+    },
+    "cache": {
+      "name": "Memory",
+      "ttl": 8000,
+      "limit": 500
+    }
+  },
+  "derivatives": {
+    "cache": {
+      "name": "Blob",
+      "path": "file:///usr/local"
+    }
+  }
+}

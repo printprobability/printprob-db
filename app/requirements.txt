@@ -1,0 +1,17 @@
+django==2.2.7
+coverage>=4.5.4
+psycopg2-binary
+gunicorn
+tblib
+djangorestframework==3.10.3
+django-cors-headers
+Markdown
+Pygments
+django-filter
+pyyaml
+uritemplate
+faker
+drf-yasg>=1.16.1
+packaging
+tqdm
+drf-tweaks

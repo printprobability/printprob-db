@@ -1,0 +1,9 @@
+# Config for coverage.py tests
+[run]
+source =
+  pp
+omit =
+  */migrations/*
+  */fixtures/*
+  htmlcov/*
+  */tests/*
