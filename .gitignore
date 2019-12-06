@@ -1,0 +1,8 @@
+.DS_Store
+.vscode
+.env
+.src_env
+.local_src_env
+*.crt
+*.key
+bkp/

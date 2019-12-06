@@ -150,6 +150,7 @@ export default {
       HTTP.delete("/runs/" + runtype + "/" + id + "/").then(
         results => {
           this.get_book(this.id);
+          return results;
         },
         error => {
           console.log(error);
