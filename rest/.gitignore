@@ -6,7 +6,6 @@ db/
 htmlcov/
 
 images/
-nginx/
 *.sql
 *.json
 *.out
