@@ -6,3 +6,4 @@
 *.crt
 *.key
 bkp/
+default.conf

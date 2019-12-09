@@ -1,6 +1,6 @@
 server {
     listen 80;
-    return 301 https://$host$request_uri;
+    ${HTTPS_REDIRECT}
     server_name ${ALLOWED_HOSTS};
 }
 

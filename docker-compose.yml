@@ -45,7 +45,7 @@ services:
     depends_on:
       - web
       - vue
-    command: sh -c "envsubst '$$ALLOWED_HOSTS $$CERT_PATH $$KEY_PATH $$PP_NGINX_LISTEN $$PP_NGINX_SERVER_NAME' < /etc/nginx/conf.d/pp.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+    command: sh -c "envsubst '$$ALLOWED_HOSTS $$CERT_PATH $$KEY_PATH $$PP_NGINX_LISTEN $$PP_NGINX_SERVER_NAME $$HTTPS_REDIRECT' < /etc/nginx/conf.d/pp.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 
   iiif:
     image: mdlincoln/go-iiif-vips:latest
