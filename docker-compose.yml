@@ -59,7 +59,6 @@ services:
 
   vue:
     image: node
-    user: node
     working_dir: /home/node/app
     volumes:
       - ./vue:/home/node/app:z
