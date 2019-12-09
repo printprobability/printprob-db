@@ -146,15 +146,19 @@ export default {
     }
   },
   asyncComputed: {
-    selected_cg() {
-      return HTTP.get("/character_groupings/" + this.cg_id + "/").then(
-        response => {
-          return response.data;
-        },
-        error => {
-          console.log(error);
+    selected_cg: {
+      get() {
+        if (!!this.cg_id) {
+          return HTTP.get("/character_groupings/" + this.cg_id + "/").then(
+            response => {
+              return response.data;
+            },
+            error => {
+              console.log(error);
+            }
+          );
         }
-      );
+      }
     }
   },
   methods: {
@@ -169,9 +173,8 @@ export default {
           { characters: [char_id] }
         ).then(
           response => {
-            response;
-            // If it worked, update the character grouping view
-            this.get_cg(this.cg_id);
+            console.log(response);
+            this.$asyncComputed.selected_cg.update();
           },
           error => {
             console.log(error);
@@ -187,9 +190,8 @@ export default {
           { characters: [char_id] }
         ).then(
           response => {
-            response;
-            // If it worked, update the character grouping view
-            this.get_cg(this.cg_id);
+            console.log(response);
+            this.$asyncComputed.selected_cg.update();
           },
           error => {
             console.log(error);
