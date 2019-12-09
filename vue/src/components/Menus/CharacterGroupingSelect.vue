@@ -1,10 +1,11 @@
 <template>
   <b-form-select
+    v-if="!!character_groupings"
     class="my-2"
     :value="value"
     :options="character_groupings"
     @input="$emit('input', $event)"
-  ></b-form-select>
+  />
 </template>
 
 <script>
@@ -17,15 +18,13 @@ export default {
     value: String
   },
   data() {
-    return {
-      character_groupings: []
-    };
+    return {};
   },
-  methods: {
-    get_character_groupings: function() {
+  asyncComputed: {
+    character_groupings() {
       return HTTP.get("/character_groupings/").then(
         response => {
-          var cg_options = _.concat(
+          return _.concat(
             {
               text: "Select character grouping",
               value: null
@@ -34,16 +33,12 @@ export default {
               return { value: x.id, text: x.label };
             })
           );
-          this.character_groupings = cg_options;
         },
         error => {
           console.log(error);
         }
       );
     }
-  },
-  created() {
-    this.get_character_groupings();
   }
 };
 </script>
