@@ -62,7 +62,7 @@ services:
     user: node
     working_dir: /home/node/app
     volumes:
-      - ./vue:/home/node/app
+      - ./vue:/home/node/app:z
     command: "npm run build"
 
 
