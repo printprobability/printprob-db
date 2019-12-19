@@ -514,3 +514,36 @@ class CharacterGroupingViewSet(CRUDViewSet):
             return Response({"status": "characters removed"})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=["get"])
+    def download(self, request, pk=None):
+        response = HttpResponse(content_type="application/zip")
+        obj = self.get_object()
+
+        zip_file_name = f"character_group-{slugify(obj.label)}-{obj.id}.zip"
+
+        if obj.characters.count() < 1:
+            return Response(
+                [{"error": "This character group has no characters to download"}],
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        binaries = obj.characters.all().values(
+            "line__page__spread__book__vid",
+            "line__page__spread__sequence",
+            "line__page__side",
+            "line__sequence",
+            "sequence",
+            "character_class",
+        )
+
+        zip_file = zipfile.ZipFile(response, "w")
+        with TemporaryDirectory() as scratch_dir:
+            for img_bin in binaries:
+                filename = f"{img_bin['line__page__spread__book__vid']}_{img_bin['line__page__spread__sequence']}-page{img_bin['line__page__side']}_line{img_bin['line__sequence']}_char{img_bin['sequence']}_{img_bin['character_class']}.tif"
+                # Decode and write bytes to file
+                open(f"{scratch_dir}/{filename}", "wb").write(img_bin["data"])
+                zip_file.write(f"{scratch_dir}/{filename}", filename)
+            zip_file.close()
+        response["Content-Disposition"] = f"attachment; filename={zip_file_name}"
+
+        return response
