@@ -17,6 +17,10 @@
               <code>{{ book.vid }}</code>
             </p>
             <p>
+              Bridges zipfiles:
+              <code>unzip -d . {{ book.zipfile }}.zip {{ book.zipfile }}/{{ book.vid }}/*</code>
+            </p>
+            <p>
               Proquest link:
               <a :href="book.pq_url">{{ book.pq_url }}</a>
             </p>

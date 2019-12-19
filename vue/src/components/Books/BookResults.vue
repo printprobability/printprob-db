@@ -33,6 +33,12 @@
               VID:
               <code>{{ book.vid }}</code>
             </p>
+            <p>
+              Bridges zipfile:
+              <code>{{ book.zipfile }}</code>
+              <br />
+              <code>unzip -d . {{ book.zipfile }}.zip {{ book.zipfile }}/{{ book.vid }}/*</code>
+            </p>
           </b-col>
           <b-col cols sm="6">
             <p class="bg-light p-2">P&P</p>
