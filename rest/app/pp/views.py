@@ -536,9 +536,7 @@ class CharacterGroupingViewSet(CRUDViewSet):
                 filename = f"{img.label}.tif"
                 # Make requests out to the iiif endpoint and send back the files
                 # TODO stream the zip response as we request images, rather than waiting for all the images to be done first.
-                direct_url = img.full_tif.replace(
-                    settings.IMAGE_BASEURL, "http://nginx/iiif"
-                )
+                direct_url = img.full_tif
                 open(f"{scratch_dir}/{filename}", "wb").write(
                     requests.get(direct_url).content
                 )
