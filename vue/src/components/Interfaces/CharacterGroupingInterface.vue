@@ -70,11 +70,7 @@
           </div>
           <div class="card-footer d-flex justify-content-between" v-if="selected_cg">
             <small>Created by {{ selected_cg.created_by }} on {{ display_date(selected_cg.date_created) }}</small>
-            <b-button
-              variant="info"
-              size="sm"
-              :href="$APIConstants.PP_ENDPOINT + '/character_groupings/' + cg_id + '/download/'"
-            >Download ZIP</b-button>
+            <b-button variant="info" size="sm" @click="download_cg">Download ZIP</b-button>
             <b-button v-b-modal.delete-modal variant="danger" size="sm">Delete</b-button>
             <b-modal
               id="delete-modal"
@@ -100,6 +96,9 @@ import CharacterList from "../Characters/CharacterList";
 import { HTTP } from "../../main";
 import moment from "moment";
 import _ from "lodash";
+import JSZip from "jszip";
+import saveAs from "file-saver";
+import Axios from "axios";
 
 export default {
   name: "CharacterGroupingInterface",
@@ -249,6 +248,45 @@ export default {
     },
     refresh_cg_menu: function() {
       this.cg_menu_key += 1;
+    },
+    dl_char_image(url) {
+      return Axios.get(url, {
+        responseType: "arraybuffer"
+      });
+    },
+    download_cg() {
+      const filename = this.selected_cg.label + ".zip";
+      var zip = new JSZip();
+      var img = zip.folder(this.selected_cg.label);
+      // Create a list of Promises from axios for all the image URLs to be requested
+      const request_list = this.selected_cg.characters.map(x =>
+        this.dl_char_image(x.image.web_url)
+      );
+      // Pass list of promises to axios.all(), and for each one write the data to the zip object, using the image label from each of this.selected_cg.characters as the filename
+      Axios.all(request_list).then(
+        Axios.spread(
+          (...responses) => {
+            responses.map((x, i) => {
+              img.file(
+                this.selected_cg.characters[i].label + ".jpg",
+                Buffer.from(x.data, "binary")
+              );
+            });
+            // Once we've evaluated all the promises, then generate the zip blob and save it
+            zip
+              .generateAsync({
+                type: "blob"
+              })
+              .then(function(content) {
+                console.log(content);
+                saveAs(content, filename);
+              });
+          },
+          errors => {
+            console.log(errors);
+          }
+        )
+      );
     }
   }
 };
