@@ -127,6 +127,7 @@ class Book(uuidModel):
     date_late = models.DateField(
         default=date(year=1800, month=12, day=12), db_index=True
     )
+    zipfile = models.CharField(max_length=1000, blank=True, null=False)
 
     class Meta:
         ordering = ["pq_title"]
@@ -167,6 +168,10 @@ class Book(uuidModel):
 
     def n_pages(self):
         return ordered_pages.count()
+
+    @property
+    def zip_path(self):
+        return f"{self.zipfile}/{self.vid}/*.tif"
 
 
 class Task(uuidModel):
