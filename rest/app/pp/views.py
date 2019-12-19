@@ -25,6 +25,7 @@ from . import models, serializers
 from base64 import b64encode, b64decode
 from drf_tweaks.pagination import NoCountsLimitOffsetPagination
 from tempfile import TemporaryDirectory
+import requests
 
 
 class CRUDViewSet(viewsets.ModelViewSet):
@@ -527,21 +528,20 @@ class CharacterGroupingViewSet(CRUDViewSet):
                 [{"error": "This character group has no characters to download"}],
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        binaries = obj.characters.all().values(
-            "line__page__spread__book__vid",
-            "line__page__spread__sequence",
-            "line__page__side",
-            "line__sequence",
-            "sequence",
-            "character_class",
-        )
+        image_objects = obj.characters.all()
 
         zip_file = zipfile.ZipFile(response, "w")
         with TemporaryDirectory() as scratch_dir:
-            for img_bin in binaries:
-                filename = f"{img_bin['line__page__spread__book__vid']}_{img_bin['line__page__spread__sequence']}-page{img_bin['line__page__side']}_line{img_bin['line__sequence']}_char{img_bin['sequence']}_{img_bin['character_class']}.tif"
-                # Decode and write bytes to file
-                open(f"{scratch_dir}/{filename}", "wb").write(img_bin["data"])
+            for img in image_objects:
+                filename = f"{img.label}.tif"
+                # Make requests out to the iiif endpoint and send back the files
+                # TODO stream the zip response as we request images, rather than waiting for all the images to be done first.
+                direct_url = img.full_tif.replace(
+                    settings.IMAGE_BASEURL, "http://nginx/iiif"
+                )
+                open(f"{scratch_dir}/{filename}", "wb").write(
+                    requests.get(direct_url).content
+                )
                 zip_file.write(f"{scratch_dir}/{filename}", filename)
             zip_file.close()
         response["Content-Disposition"] = f"attachment; filename={zip_file_name}"

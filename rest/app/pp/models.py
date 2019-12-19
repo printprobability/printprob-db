@@ -206,6 +206,10 @@ class Image(uuidModel):
     def thumbnail(self):
         return f"{self.iiif_base}/full/500,/0/default.jpg"
 
+    @property
+    def full_tif(self):
+        return f"{self.iiif_base}/full/full/0/default.tif"
+
 
 class CroppedModel(uuidModel):
     @property
@@ -222,6 +226,10 @@ class CroppedModel(uuidModel):
     @property
     def web_url(self):
         return f"{self.root_object.image.iiif_base}/{self.region_string}/full/0/default.jpg"
+
+    @property
+    def full_tif(self):
+        return f"{self.root_object.image.iiif_base}/{self.region_string}/full/0/default.tif"
 
     @property
     def thumbnail(self):
