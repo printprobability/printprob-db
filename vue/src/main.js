@@ -21,10 +21,6 @@ import CharacterReviewInterface from "./components/Interfaces/CharacterReviewInt
 import SpreadDetail from "./components/Spreads/SpreadDetail";
 import CharacterDetail from "./components/Characters/CharacterDetail"
 
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
-axios.defaults.xsrfCookieName = "xsrfcookie";
-axios.defaults.withCredentials = true;
-
 Vue.prototype.$APIConstants = {
   REST_PAGE_SIZE: 100,
   BOOK_PAGE_SIZE: 25,
@@ -34,7 +30,10 @@ Vue.prototype.$APIConstants = {
 }
 
 export const HTTP = axios.create({
-  baseURL: process.env.VUE_APP_PP_ENDPOINT
+  baseURL: process.env.VUE_APP_PP_ENDPOINT,
+  xsrfHeaderName: "X-CSRFToken",
+  xsrfCookieName: "xsrfcookie",
+  withCredentials: true
 })
 
 
