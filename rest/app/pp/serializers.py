@@ -11,30 +11,18 @@ class CharacterClassSerializer(serializers.ModelSerializer):
         fields = ["url", "classname", "label"]
 
 
-class ImageSerializer(serializers.ModelSerializer):
-    web_url = serializers.URLField(read_only=True)
-
-    class Meta:
-        model = models.Image
-        fields = ["id", "url", "tif", "iiif_base", "web_url", "thumbnail", "tif_md5"]
-
-
 class CroppedImageSerializer(serializers.Serializer):
     web_url = serializers.URLField(read_only=True)
     thumbnail = serializers.URLField(read_only=True)
 
 
 class SpreadFlatSerializer(serializers.ModelSerializer):
-    image = ImageSerializer(many=False)
-
     class Meta:
         model = models.Spread
         fields = ["url", "id", "label", "sequence", "image"]
 
 
 class PageFlatSerializer(serializers.ModelSerializer):
-    image = ImageSerializer(many=False)
-
     class Meta:
         model = models.Page
         fields = ["url", "id", "label", "spread", "spread_sequence", "side", "image"]
@@ -186,8 +174,6 @@ class LineCreateSerializer(serializers.ModelSerializer):
 
 
 class PageListSerializer(serializers.ModelSerializer):
-    image = ImageSerializer()
-
     class Meta:
         model = models.Page
         fields = [
@@ -217,7 +203,6 @@ class PageDetailSerializer(serializers.ModelSerializer):
         help_text="All Line instances ever produced from this Page, under any run.",
     )
     most_recent_lines = LineFlatSerializer(many=True)
-    image = ImageSerializer(many=False)
     book = BookListSerializer(many=False)
     spread = SpreadFlatSerializer(many=False)
 
@@ -264,15 +249,12 @@ class PageCreateSerializer(serializers.ModelSerializer):
 
 
 class SpreadListSerializer(serializers.ModelSerializer):
-    image = ImageSerializer()
-
     class Meta:
         model = models.Spread
         fields = ["url", "id", "label", "book", "sequence", "image"]
 
 
 class SpreadDetailSerializer(serializers.ModelSerializer):
-    image = ImageSerializer(many=False)
     book = BookListSerializer(many=False)
     pages = serializers.HyperlinkedRelatedField(
         many=True,

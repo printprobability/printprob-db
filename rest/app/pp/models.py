@@ -189,15 +189,15 @@ class Task(uuidModel):
         return self.id
 
 
-class Image(uuidModel):
+class ImagedModel(uuidModel):
     tif = models.CharField(
         max_length=2000,
         help_text="relative file path to root directory containing all images",
+        blank=True,
     )
-    tif_md5 = models.UUIDField(help_text="md5 hash of the tif file (as hex digest)")
-
-    def labeller(self):
-        return self.tif
+    tif_md5 = models.UUIDField(
+        help_text="md5 hash of the tif file (as hex digest)", null=True
+    )
 
     @property
     def iiif_base(self):
@@ -214,6 +214,20 @@ class Image(uuidModel):
     @property
     def full_tif(self):
         return f"{self.iiif_base}/full/full/0/default.tif"
+
+    @property
+    def image(self):
+        return {
+            "tif": self.tif,
+            "tif_md5": self.tif_md5,
+            "iiif_base": self.iiif_base,
+            "web_url": self.web_url,
+            "thumbnail": self.thumbnail,
+            "full_tif": self.full_tif,
+        }
+
+    class Meta:
+        abstract = True
 
 
 class CroppedModel(uuidModel):
@@ -247,15 +261,6 @@ class CroppedModel(uuidModel):
             "thumbnail": self.thumbnail,
             "buffer": self.buffer,
         }
-
-    class Meta:
-        abstract = True
-
-
-class ImagedModel(uuidModel):
-    image = models.ForeignKey(
-        Image, on_delete=models.CASCADE, related_name="%(class)ss"
-    )
 
     class Meta:
         abstract = True

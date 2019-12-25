@@ -225,22 +225,6 @@ class CharacterRunViewSet(CRUDViewSet):
     serializer_class = serializers.CharacterRunSerializer
 
 
-class ImageViewSet(CRUDViewSet):
-    """
-    retrieve:
-    Returns an image descripton with lists of all file formats available for that image.
-
-    list:
-    Returns a list of images, with references to thier file versions and a URL for the preferred web version of the image.
-
-    create:
-    Create a new image record by specifying the tif path.
-    """
-
-    queryset = models.Image.objects.all()
-    serializer_class = serializers.ImageSerializer
-
-
 class PageFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
         queryset=models.Book.objects.all(),
