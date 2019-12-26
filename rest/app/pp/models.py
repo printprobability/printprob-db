@@ -240,19 +240,19 @@ class CroppedModel(uuidModel):
     def buffer(self):
         ac = self.absolute_coords
         buffer = 50
-        return f"{self.root_object.image.iiif_base}/{max(ac['x'] - buffer, 0)},{max(ac['y'] - buffer, 0)},{ac['w'] + (2 * buffer)},{ac['h'] + (2 * buffer)}/150,/0/default.jpg"
+        return f"{self.root_object.iiif_base}/{max(ac['x'] - buffer, 0)},{max(ac['y'] - buffer, 0)},{ac['w'] + (2 * buffer)},{ac['h'] + (2 * buffer)}/150,/0/default.jpg"
 
     @property
     def web_url(self):
-        return f"{self.root_object.image.iiif_base}/{self.region_string}/full/0/default.jpg"
+        return f"{self.root_object.iiif_base}/{self.region_string}/full/0/default.jpg"
 
     @property
     def full_tif(self):
-        return f"{self.root_object.image.iiif_base}/{self.region_string}/full/0/default.tif"
+        return f"{self.root_object.iiif_base}/{self.region_string}/full/0/default.tif"
 
     @property
     def thumbnail(self):
-        return f"{self.root_object.image.iiif_base}/{self.region_string}/500,/0/default.jpg"
+        return f"{self.root_object.iiif_base}/{self.region_string}/500,/0/default.jpg"
 
     @property
     def image(self):
