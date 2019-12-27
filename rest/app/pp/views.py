@@ -84,9 +84,9 @@ class BookFilter(filters.FilterSet):
     year_late = filters.RangeFilter(label="PP end date")
 
     def has_images(self, queryset, name, value):
-        spreads = models.Spread.objects.filter(book=OuterRef("pk"), image__isnull=False)
+        spreads = models.Spread.objects.filter(book=OuterRef("pk"), tif__isnull=False)
         pages = models.Page.objects.filter(
-            spread__book=OuterRef("pk"), image__isnull=False
+            spread__book=OuterRef("pk"), tif__isnull=False
         )
         lines = models.Line.objects.filter(created_by_run__book=OuterRef("pk"))
         characters = models.Character.objects.filter(
