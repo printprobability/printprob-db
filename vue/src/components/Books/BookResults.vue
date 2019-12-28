@@ -33,6 +33,7 @@
               VID:
               <code>{{ book.vid }}</code>
             </p>
+            <p>Spreads: {{ book.n_spreads }}</p>
             <p>
               Bridges zipfile:
               <code>{{ book.zipfile }}</code>
