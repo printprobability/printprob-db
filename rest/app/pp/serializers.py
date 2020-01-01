@@ -91,6 +91,8 @@ class BookListSerializer(serializers.ModelSerializer):
             "pdf",
             "n_spreads",
             "cover_spread",
+            "starred",
+            "ignored",
         ]
 
 
@@ -328,6 +330,8 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "spreads",
             "all_runs",
             "cover_spread",
+            "starred",
+            "ignored",
         ]
 
 

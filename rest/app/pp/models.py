@@ -128,6 +128,8 @@ class Book(uuidModel):
         default=date(year=1800, month=12, day=12), db_index=True
     )
     zipfile = models.CharField(max_length=1000, blank=True, null=False)
+    starred = models.BooleanField(default=False, db_index=True)
+    ignored = models.BooleanField(default=False, db_index=True)
 
     class Meta:
         ordering = ["pq_title"]

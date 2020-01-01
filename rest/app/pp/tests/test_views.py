@@ -273,7 +273,9 @@ class BookViewTest(TestCase):
             "cover_spread",
             "label",
             "zipfile",
-            "zip_path"
+            "zip_path",
+            "starred",
+            "ignored"
         ]:
             self.assertIn(k, res.data["results"][0])
         self.assertIn("web_url", res.data["results"][0]["cover_spread"]["image"])
@@ -307,7 +309,9 @@ class BookViewTest(TestCase):
             "all_runs",
             "label",
             "zipfile",
-            "zip_path"
+            "zip_path",
+            "starred",
+            "ignored"
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
