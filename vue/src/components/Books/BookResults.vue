@@ -30,6 +30,7 @@ export default {
     year_early: String,
     year_late: String,
     has_images: Boolean,
+    starred: Boolean,
     pp_publisher: String,
     order: {
       type: String,
@@ -67,6 +68,7 @@ export default {
           year_late_max: this.year_late,
           images: this.has_images,
           pp_publisher: this.pp_publisher,
+          starred: this.starred,
           ordering: this.order
         }
       }).then(

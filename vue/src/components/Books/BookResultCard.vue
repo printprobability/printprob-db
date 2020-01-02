@@ -2,10 +2,11 @@
   <b-media>
     <template v-slot:aside>
       <div class="cover-image-frame">
-        <img
+        <b-img
           v-if="!!book.cover_spread"
           class="cover-image"
-          :src="book.cover_spread.image.thumbnail"
+          :src="book.cover_spread.image.iiif_base +'/full/250,/0/default.jpg'"
+          center
         />
         <small v-else>Not run yet</small>
       </div>
@@ -13,8 +14,6 @@
     <router-link :to="{name: 'BookDetailView', params: {id: book.id}}">
       <h5>{{ truncate(book.pq_title, 140) }}</h5>
     </router-link>
-    <b-button @click="set_star(!star_status)">star: {{ star_status }}</b-button>
-    <b-button @click="set_ignore(!ignored_status)">ignored: {{ ignored_status }}</b-button>
     <b-row class="mt-3">
       <b-col cols sm="6" class="border-right">
         <p class="bg-light p-2">EEBO / ProQuest</p>
@@ -43,6 +42,7 @@
       </b-col>
       <b-col cols sm="6">
         <p class="bg-light p-2">P&P</p>
+        <b-button @click="set_star(!star_status)">star: {{ star_status }}</b-button>
         <p>Date between: {{ book.date_early }} and {{ book.date_late }}</p>
         <p>Publisher: {{ book.pp_publisher }}</p>
       </b-col>
@@ -99,3 +99,14 @@ export default {
   }
 };
 </script>
+
+<style lang="css">
+.cover-image-frame {
+  width: 250px;
+}
+
+img.cover-image {
+  max-width: 250px;
+  max-height: 250px;
+}
+</style>

@@ -82,6 +82,8 @@ class BookFilter(filters.FilterSet):
     tx_year_late = filters.RangeFilter(label="TX end year")
     year_early = filters.RangeFilter(label="PP start date")
     year_late = filters.RangeFilter(label="PP end date")
+    starred = filters.BooleanFilter(label="Has star?")
+    ignored = filters.BooleanFilter(label="Ignored?")
 
     def has_images(self, queryset, name, value):
         spreads = models.Spread.objects.filter(book=OuterRef("pk"), tif__isnull=False)
