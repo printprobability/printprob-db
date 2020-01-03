@@ -11,9 +11,14 @@
         <small v-else>Not run yet</small>
       </div>
     </template>
-    <router-link :to="{name: 'BookDetailView', params: {id: book.id}}">
-      <h5>{{ truncate(book.pq_title, 140) }}</h5>
-    </router-link>
+    <b-row align-v="center" align-h="between" class="pr-2">
+      <router-link :to="{name: 'BookDetailView', params: {id: book.id}}">
+        <h5>{{ truncate(book.pq_title, 140) }}</h5>
+      </router-link>
+      <button class="star_button" @click="set_star(!star_status)">
+        <font-awesome-icon :icon="star_icon" />
+      </button>
+    </b-row>
     <b-row class="mt-3">
       <b-col cols sm="6" class="border-right">
         <p class="bg-light p-2">EEBO / ProQuest</p>
@@ -42,7 +47,6 @@
       </b-col>
       <b-col cols sm="6">
         <p class="bg-light p-2">P&P</p>
-        <b-button @click="set_star(!star_status)">star: {{ star_status }}</b-button>
         <p>Date between: {{ book.date_early }} and {{ book.date_late }}</p>
         <p>Publisher: {{ book.pp_publisher }}</p>
       </b-col>
@@ -70,6 +74,13 @@ export default {
   computed: {
     object_url() {
       return "books/" + this.book.id + "/";
+    },
+    star_icon() {
+      if (this.star_status) {
+        return ["fas", "star"];
+      } else {
+        return ["far", "star"];
+      }
     }
   },
   methods: {
@@ -108,5 +119,13 @@ export default {
 img.cover-image {
   max-width: 250px;
   max-height: 250px;
+}
+
+button.star_button {
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 1.25rem;
+  color: goldenrod;
 }
 </style>

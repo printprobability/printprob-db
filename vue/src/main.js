@@ -6,6 +6,15 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueRouter from 'vue-router'
 import AsyncComputed from 'vue-async-computed'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(fasStar, farStar)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
