@@ -82,11 +82,13 @@ class BookFilter(filters.FilterSet):
     tx_year_late = filters.RangeFilter(label="TX end year")
     year_early = filters.RangeFilter(label="PP start date")
     year_late = filters.RangeFilter(label="PP end date")
+    starred = filters.BooleanFilter(label="Has star?")
+    ignored = filters.BooleanFilter(label="Ignored?")
 
     def has_images(self, queryset, name, value):
-        spreads = models.Spread.objects.filter(book=OuterRef("pk"), image__isnull=False)
+        spreads = models.Spread.objects.filter(book=OuterRef("pk"), tif__isnull=False)
         pages = models.Page.objects.filter(
-            spread__book=OuterRef("pk"), image__isnull=False
+            spread__book=OuterRef("pk"), tif__isnull=False
         )
         lines = models.Line.objects.filter(created_by_run__book=OuterRef("pk"))
         characters = models.Character.objects.filter(
@@ -223,22 +225,6 @@ class CharacterRunViewSet(CRUDViewSet):
     queryset = models.CharacterRun.objects.all()
     filterset_class = RunFilter
     serializer_class = serializers.CharacterRunSerializer
-
-
-class ImageViewSet(CRUDViewSet):
-    """
-    retrieve:
-    Returns an image descripton with lists of all file formats available for that image.
-
-    list:
-    Returns a list of images, with references to thier file versions and a URL for the preferred web version of the image.
-
-    create:
-    Create a new image record by specifying the tif path.
-    """
-
-    queryset = models.Image.objects.all()
-    serializer_class = serializers.ImageSerializer
 
 
 class PageFilter(filters.FilterSet):

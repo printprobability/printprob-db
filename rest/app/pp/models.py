@@ -128,6 +128,8 @@ class Book(uuidModel):
         default=date(year=1800, month=12, day=12), db_index=True
     )
     zipfile = models.CharField(max_length=1000, blank=True, null=False)
+    starred = models.BooleanField(default=False, db_index=True)
+    ignored = models.BooleanField(default=False, db_index=True)
 
     class Meta:
         ordering = ["pq_title"]
@@ -189,15 +191,15 @@ class Task(uuidModel):
         return self.id
 
 
-class Image(uuidModel):
+class ImagedModel(uuidModel):
     tif = models.CharField(
         max_length=2000,
         help_text="relative file path to root directory containing all images",
+        blank=True,
     )
-    tif_md5 = models.UUIDField(help_text="md5 hash of the tif file (as hex digest)")
-
-    def labeller(self):
-        return self.tif
+    tif_md5 = models.UUIDField(
+        help_text="md5 hash of the tif file (as hex digest)", null=True
+    )
 
     @property
     def iiif_base(self):
@@ -215,6 +217,20 @@ class Image(uuidModel):
     def full_tif(self):
         return f"{self.iiif_base}/full/full/0/default.tif"
 
+    @property
+    def image(self):
+        return {
+            "tif": self.tif,
+            "tif_md5": self.tif_md5,
+            "iiif_base": self.iiif_base,
+            "web_url": self.web_url,
+            "thumbnail": self.thumbnail,
+            "full_tif": self.full_tif,
+        }
+
+    class Meta:
+        abstract = True
+
 
 class CroppedModel(uuidModel):
     @property
@@ -226,19 +242,19 @@ class CroppedModel(uuidModel):
     def buffer(self):
         ac = self.absolute_coords
         buffer = 50
-        return f"{self.root_object.image.iiif_base}/{max(ac['x'] - buffer, 0)},{max(ac['y'] - buffer, 0)},{ac['w'] + (2 * buffer)},{ac['h'] + (2 * buffer)}/150,/0/default.jpg"
+        return f"{self.root_object.iiif_base}/{max(ac['x'] - buffer, 0)},{max(ac['y'] - buffer, 0)},{ac['w'] + (2 * buffer)},{ac['h'] + (2 * buffer)}/150,/0/default.jpg"
 
     @property
     def web_url(self):
-        return f"{self.root_object.image.iiif_base}/{self.region_string}/full/0/default.jpg"
+        return f"{self.root_object.iiif_base}/{self.region_string}/full/0/default.jpg"
 
     @property
     def full_tif(self):
-        return f"{self.root_object.image.iiif_base}/{self.region_string}/full/0/default.tif"
+        return f"{self.root_object.iiif_base}/{self.region_string}/full/0/default.tif"
 
     @property
     def thumbnail(self):
-        return f"{self.root_object.image.iiif_base}/{self.region_string}/500,/0/default.jpg"
+        return f"{self.root_object.iiif_base}/{self.region_string}/500,/0/default.jpg"
 
     @property
     def image(self):
@@ -247,15 +263,6 @@ class CroppedModel(uuidModel):
             "thumbnail": self.thumbnail,
             "buffer": self.buffer,
         }
-
-    class Meta:
-        abstract = True
-
-
-class ImagedModel(uuidModel):
-    image = models.ForeignKey(
-        Image, on_delete=models.CASCADE, related_name="%(class)ss"
-    )
 
     class Meta:
         abstract = True

@@ -126,6 +126,9 @@
                 <b-form-group id="book-image-group" label="Only show books with images">
                   <b-form-checkbox id="book-image-input" v-model="has_images" />
                 </b-form-group>
+                <b-form-group id="starred-group" label="Only show starred books">
+                  <b-form-checkbox id="starred-input" v-model="starred" />
+                </b-form-group>
               </b-col>
               <b-col col md="6">
                 <b-form-group
@@ -186,6 +189,7 @@
         :tx_year_min="tx_year_range[0]"
         :tx_year_max="tx_year_range[1]"
         :has_images="has_images"
+        :starred="starred"
         :pp_publisher="pp_publisher_search"
         :page="page"
         :order="order"
@@ -232,6 +236,7 @@ export default {
       year_early: null,
       year_late: null,
       has_images: false,
+      starred: false,
       page: 1,
       order: "pq_title",
       count: 0,

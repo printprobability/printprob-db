@@ -273,7 +273,9 @@ class BookViewTest(TestCase):
             "cover_spread",
             "label",
             "zipfile",
-            "zip_path"
+            "zip_path",
+            "starred",
+            "ignored"
         ]:
             self.assertIn(k, res.data["results"][0])
         self.assertIn("web_url", res.data["results"][0]["cover_spread"]["image"])
@@ -307,7 +309,9 @@ class BookViewTest(TestCase):
             "all_runs",
             "label",
             "zipfile",
-            "zip_path"
+            "zip_path",
+            "starred",
+            "ignored"
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
@@ -382,9 +386,8 @@ class SpreadViewTest(TestCase):
     @as_auth()
     def test_post(self):
         book = models.Book.objects.first().pk
-        image = models.Image.objects.first().pk
         res = self.client.post(
-            self.ENDPOINT, data={"book": book, "sequence": 100, "image": image}
+            self.ENDPOINT, data={"book": book, "sequence": 100, "tif": "/foo/bat.tiff", "tif_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",}
         )
         self.assertEqual(res.status_code, 201)
         for k in ["url", "id", "book", "sequence", "image"]:
@@ -464,7 +467,6 @@ class PageViewTest(TestCase):
     @as_auth()
     def test_post(self):
         spread = models.Spread.objects.first()
-        image = models.Image.objects.first().pk
         run = spread.pages.first().created_by_run.pk
         # Posting an existing page fails
         failres = self.client.post(
@@ -473,7 +475,8 @@ class PageViewTest(TestCase):
                 "spread": spread.pk,
                 "created_by_run": run,
                 "side": "l",
-                "image": image,
+                "tif": "/foo/bat.tiff",
+                "tif_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
                 "x": 0,
                 "y": 0,
                 "w": 0,
@@ -503,7 +506,8 @@ class PageViewTest(TestCase):
                 "spread": spread.pk,
                 "created_by_run": run,
                 "side": "l",
-                "image": image,
+                "tif": "/foo/bat.tiff",
+                "tif_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
                 "x": 0,
                 "y": 0,
                 "w": 0,
@@ -663,7 +667,6 @@ class LineGroupViewTest(TestCase):
     @as_auth()
     def test_post(self):
         page = models.Page.objects.first()
-        image = models.Image.objects.first().pk
         run = models.LineGroupRun.objects.first().pk
         lines = page.lines.all()[:1]
         res = self.client.post(
@@ -799,57 +802,6 @@ class CharacterViewTest(TestCase):
     def test_noaccess(self):
         noaccess(self)
 
-
-class ImageViewTest(TestCase):
-
-    fixtures = ["test.json"]
-
-    ENDPOINT = reverse("image-list")
-
-    @classmethod
-    def setUpTestData(cls):
-        cls.OBJCOUNT = models.Image.objects.count()
-        cls.OBJ1 = models.Image.objects.first().pk
-        cls.STR1 = str(cls.OBJ1)
-
-    @as_auth()
-    def test_get(self):
-        res = self.client.get(self.ENDPOINT)
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in ["url", "id", "tif_md5", "web_url"]:
-            self.assertIn(k, res.data["results"][0])
-
-    @as_auth()
-    def test_get_detail(self):
-        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
-        self.assertEqual(res.status_code, 200)
-        for k in ["url", "id", "tif_md5", "web_url"]:
-            self.assertIn(k, res.data)
-        self.assertEqual(res.data["id"], self.STR1)
-
-    @as_auth()
-    def test_delete(self):
-        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
-        self.assertEqual(res.status_code, 204)
-        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
-        self.assertEqual(delres.status_code, 404)
-
-    @as_auth()
-    def test_post(self):
-        res = self.client.post(
-            self.ENDPOINT,
-            data={
-                "tif": "/foo/bat.tiff",
-                "tif_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
-            },
-        )
-        self.assertEqual(res.status_code, 201)
-        for k in ["url", "id", "web_url", "tif_md5"]:
-            self.assertIn(k, res.data)
-
-    def test_noaccess(self):
-        noaccess(self)
 
 
 class CharacterClassViewTest(TestCase):
@@ -1058,14 +1010,3 @@ class CharacterGroupingViewTest(TestCase):
     def test_noaccess(self):
         noaccess(self)
 
-
-class WipeImagesTestCase(TestCase):
-    fixtures = ["test.json"]
-
-    @classmethod
-    def setUpTestData(cls):
-        cls.OBJCOUNT = models.Image.objects.count()
-
-    def test_wipe_hanging_images(self):
-        call_command("wipe_hanging_images")
-        self.assertLess(models.Image.objects.count(), self.OBJCOUNT)
