@@ -6,8 +6,8 @@ services:
     image: postgres:12.1
     volumes:
       - pp:/var/lib/postgresql/data:z
-    ports:
-      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    expose:
+      - ${POSTGRES_PORT}
     env_file: .env
 
   web:
