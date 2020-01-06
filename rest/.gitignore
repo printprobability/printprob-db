@@ -9,3 +9,4 @@ images/
 *.sql
 *.json
 *.out
+serialized_json/
