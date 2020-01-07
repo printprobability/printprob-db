@@ -280,7 +280,8 @@ class BookViewTest(TestCase):
             "zipfile",
             "zip_path",
             "starred",
-            "ignored"
+            "ignored",
+            "is_eebo_book"
         ]:
             self.assertIn(k, res.data["results"][0])
         self.assertIn("web_url", res.data["results"][0]["cover_spread"]["image"])
@@ -316,7 +317,8 @@ class BookViewTest(TestCase):
             "zipfile",
             "zip_path",
             "starred",
-            "ignored"
+            "ignored",
+            "is_eebo_book"
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)

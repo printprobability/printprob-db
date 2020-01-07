@@ -341,6 +341,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "cover_spread",
             "starred",
             "ignored",
+            "is_eebo_book",
         ]
 
 
