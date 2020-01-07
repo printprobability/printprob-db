@@ -1,7 +1,12 @@
 <template>
   <div class="container-fluid">
     <div class="card my-2">
-      <div class="card-header">Filter books</div>
+      <div class="card-header">
+        <b-row align-v="center" align-h="between">
+          <span class="ml-2">Filter books</span>
+          <b-button variant="success" :to="{name: 'BookCreateView'}">Create book</b-button>
+        </b-row>
+      </div>
       <div class="card-body">
         <b-row>
           <b-col col lg="6" class="border-right p-3">
