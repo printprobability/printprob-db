@@ -242,7 +242,9 @@ class BookViewTest(TestCase):
     def setUpTestData(cls):
         cls.OBJCOUNT = models.Book.objects.count()
         cls.OBJ1 = models.Book.objects.first().pk
+        cls.EEBO1 = models.Book.objects.first().eebo
         cls.STR1 = str(cls.OBJ1)
+
 
     @as_auth()
     def test_get(self):
@@ -341,6 +343,17 @@ class BookViewTest(TestCase):
         self.assertEqual(res.status_code, 201)
         for k in ["url", "eebo", "vid", "pq_title", "pdf"]:
             self.assertIn(k, res.data)
+
+    @as_auth()
+    def test_patch(self):
+        res = self.client.patch(
+            self.ENDPOINT + self.STR1 + "/",
+            data={
+                "eebo": 500,
+            },
+        )
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.data["eebo"], self.EEBO1)
 
     def test_noaccess(self):
         noaccess(self)

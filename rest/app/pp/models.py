@@ -58,20 +58,35 @@ class CharacterRun(Run):
 
 
 class Book(uuidModel):
+    # Fields that should not be editable when is_eebo_book==TRUE
+    EEBO_ONLY = [
+        "eebo",
+        "vid",
+        "tcp",
+        "estc",
+        "zipfile",
+        "zip_path",
+        "pq_title",
+        "pq_url",
+        "pq_author",
+        "pq_year_verbatim",
+        "pq_year_early",
+        "pq_year_late",
+        "tx_year_early",
+        "tx_year_late",
+    ]
+
     eebo = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="EEBO ID number", editable=False
+        db_index=True, null=True, help_text="EEBO ID number"
     )
     vid = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="Proquest ID number", editable=False
+        db_index=True, null=True, help_text="Proquest ID number"
     )
-    tcp = models.CharField(
-        db_index=True, blank=True, help_text="TCP ID", editable=False, max_length=50
-    )
+    tcp = models.CharField(db_index=True, blank=True, help_text="TCP ID", max_length=50)
     estc = models.CharField(
         db_index=True,
         blank=True,
         help_text="English Short Title Catalogue Number",
-        editable=False,
         max_length=50,
     )
     pq_title = models.CharField(
@@ -130,6 +145,7 @@ class Book(uuidModel):
     zipfile = models.CharField(max_length=1000, blank=True, null=False)
     starred = models.BooleanField(default=False, db_index=True)
     ignored = models.BooleanField(default=False, db_index=True)
+    is_eebo_book = models.BooleanField(default=False, db_index=True)
 
     class Meta:
         ordering = ["pq_title"]

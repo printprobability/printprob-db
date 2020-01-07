@@ -167,7 +167,8 @@
     "date_late": "1988-05-24",
     "zipfile": "",
     "starred": false,
-    "ignored": false
+    "ignored": false,
+    "is_eebo_book": true
   }
 },
 {
@@ -194,7 +195,8 @@
     "date_late": "2013-11-19",
     "zipfile": "",
     "starred": false,
-    "ignored": false
+    "ignored": false,
+    "is_eebo_book": true
   }
 },
 {
@@ -221,7 +223,8 @@
     "date_late": "2011-01-19",
     "zipfile": "",
     "starred": false,
-    "ignored": false
+    "ignored": false,
+    "is_eebo_book": false
   }
 },
 {
@@ -248,7 +251,8 @@
     "date_late": "2001-12-19",
     "zipfile": "",
     "starred": false,
-    "ignored": false
+    "ignored": false,
+    "is_eebo_book": false
   }
 },
 {
