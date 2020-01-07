@@ -244,6 +244,9 @@ class BookViewTest(TestCase):
         cls.OBJ1 = models.Book.objects.first().pk
         cls.EEBO1 = models.Book.objects.first().eebo
         cls.STR1 = str(cls.OBJ1)
+        cls.OBJ2 = models.Book.objects.all()[2].pk
+        cls.STR2 = str(cls.OBJ2)
+        cls.EEBO2 = models.Book.objects.all()[2].eebo
 
 
     @as_auth()
@@ -346,6 +349,7 @@ class BookViewTest(TestCase):
 
     @as_auth()
     def test_patch(self):
+        # Not able to PATCH the eebo ID of an EEBO book
         res = self.client.patch(
             self.ENDPOINT + self.STR1 + "/",
             data={
@@ -354,6 +358,16 @@ class BookViewTest(TestCase):
         )
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["eebo"], self.EEBO1)
+
+        # Able to PATCH the eebo ID of a non-EEBO book
+        res2 = self.client.patch(
+            self.ENDPOINT + self.STR2 + "/",
+            data={
+                "eebo": 500,
+            },
+        )
+        self.assertEqual(res2.status_code, 200)
+        self.assertEqual(res2.data["eebo"], 500)
 
     def test_noaccess(self):
         noaccess(self)
