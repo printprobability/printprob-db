@@ -90,10 +90,7 @@ class Book(uuidModel):
         max_length=50,
     )
     pq_title = models.CharField(
-        max_length=2000,
-        db_index=True,
-        help_text="Title (as cataloged by EEBO)",
-        editable=False,
+        max_length=2000, db_index=True, help_text="Title (as cataloged by EEBO)"
     )
     pq_publisher = models.CharField(
         blank=True,
