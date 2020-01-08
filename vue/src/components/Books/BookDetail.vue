@@ -1,21 +1,75 @@
 <template>
   <div v-if="book" class="container-fluid">
+    <b-row>
+      <b-col cols="12">
+        <div class="card my-2">
+          <div class="card-header">Identifiers</div>
+          <div class="card-body">
+            <b-row class="mx-2">
+              <p>
+                P&P:
+                <code>{{ book.id }}</code>
+              </p>
+            </b-row>
+            <b-row align-h="between" class="mx-2">
+              <b-form-group id="eebo-group" label="EEBO id" label-for="eebo-input">
+                <b-form-input
+                  :readonly="readonly"
+                  id="eebo-input"
+                  type="number"
+                  v-model="book.eebo"
+                  @blur="edit_group('eebo', book.eebo)"
+                />
+              </b-form-group>
+              <b-form-group id="vid-group" label="VID" label-for="vid-input">
+                <b-form-input
+                  :readonly="readonly"
+                  id="vid-input"
+                  type="number"
+                  v-model="book.vid"
+                  @blur="edit_group('vid', $event.target.innerText)"
+                />
+              </b-form-group>
+              <b-form-group id="tcp-group" label="TCP id" label-for="tcp-input">
+                <b-form-input
+                  :readonly="readonly"
+                  id="tcp-input"
+                  v-model="book.tcp"
+                  @blur="edit_group('tcp', $event.target.innerText)"
+                />
+              </b-form-group>
+              <b-form-group id="estc-group" label="ESTC id" label-for="estc-input">
+                <b-form-input
+                  :readonly="readonly"
+                  id="estc-input"
+                  v-model="book.estc"
+                  @blur="edit_group('estc', $event.target.innerText)"
+                />
+              </b-form-group>
+            </b-row>
+          </div>
+        </div>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col cols="12">
+        <b-card :header="title_card_header">
+          <b-form-textarea
+            :disabled="readonly"
+            v-model="book.pq_title"
+            @blur="edit_group('pq_title', book.pq_title)"
+          />
+        </b-card>
+      </b-col>
+    </b-row>
     <div class="row">
       <div class="col-6">
         <div class="card my-2">
           <div class="card-header">EEBO Metadata</div>
           <div class="card-body">
-            <h5>{{ book.pq_title }}</h5>
             <p>Publisher: {{ book.pq_publisher }}</p>
             <p>Author: {{ book.pq_author }}</p>
-            <p>
-              EEBO id:
-              <code>{{ book.eebo }}</code>
-            </p>
-            <p>
-              VID:
-              <code>{{ book.vid }}</code>
-            </p>
+
             <p>
               Bridges zipfiles:
               <code>unzip -d . {{ book.zipfile }}.zip {{ book.zipfile }}/{{ book.vid }}/*</code>
@@ -29,11 +83,6 @@
         <div class="card my-2">
           <div class="card-header">P&P Metadata</div>
           <div class="card-body">
-            <p>
-              UUID:
-              <code>{{ book.id }}</code>
-            </p>
-
             <dl class="row">
               <dt class="col-sm-3">Publisher</dt>
               <dd
@@ -147,6 +196,18 @@ export default {
       selected_run: null,
       selected_run_id: null
     };
+  },
+  computed: {
+    readonly() {
+      return this.book.is_eebo_book;
+    },
+    title_card_header() {
+      if (this.readonly) {
+        return "Title";
+      } else {
+        return "Title (click to edit)";
+      }
+    }
   },
   methods: {
     run_delete: function(runtype, id) {
