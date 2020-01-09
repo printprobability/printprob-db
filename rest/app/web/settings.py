@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "pp.apps.ppConfig",
     "rest_framework",
     "django.contrib.auth",
+    "django.contrib.admin",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
