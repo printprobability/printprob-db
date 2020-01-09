@@ -6,6 +6,16 @@
           <template v-slot:header>
             <b-row align-h="between" class="px-3">
               Metadata
+              <b-button v-if="edit_mode & !readonly" variant="danger" v-b-modal.delete-modal>Delete</b-button>
+              <b-modal
+                id="delete-modal"
+                title="Delete book?"
+                ok-variant="danger"
+                ok-title="Delete"
+                @ok="delete_book"
+              >
+                <p>Are you sure? This will wipe out every record associated with this book and can't be undone!</p>
+              </b-modal>
               <b-button v-if="edit_mode" @click="edit_mode=false" variant="warning">Done editing</b-button>
               <b-button v-else @click="edit_mode=true" variant="primary">Edit</b-button>
             </b-row>
@@ -114,6 +124,29 @@ export default {
     }
   },
   methods: {
+    delete_book: function() {
+      HTTP.delete("/books/" + this.book.id + "/").then(
+        response => {
+          this.$router.push({ name: "BookListView" });
+          this.$root.$bvToast.toast(`"${this.book.pq_title}" deleted`, {
+            title: response.data.id,
+            autoHideDelay: 5000,
+            appendToast: true,
+            variant: "success"
+          });
+        },
+        error => {
+          for (let [k, v] of Object.entries(error.response.data)) {
+            this.$bvToast.toast(v, {
+              title: error.response.status + ": " + k,
+              autoHideDelay: 5000,
+              appendToast: true,
+              variant: "danger"
+            });
+          }
+        }
+      );
+    },
     run_delete: function(runtype, id) {
       console.log(runtype + " " + id);
       HTTP.delete("/runs/" + runtype + "/" + id + "/").then(
