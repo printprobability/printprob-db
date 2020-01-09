@@ -1,122 +1,21 @@
 <template>
-  <div v-if="book" class="container-fluid">
+  <b-container v-if="book" fluid class="my-3">
     <b-row>
-      <b-col cols="12">
-        <div class="card my-2">
-          <div class="card-header">Identifiers</div>
-          <div class="card-body">
-            <b-row class="mx-2">
-              <p>
-                P&P:
-                <code>{{ book.id }}</code>
-              </p>
+      <b-col cols="6">
+        <b-card>
+          <template v-slot:header>
+            <b-row align-h="between" class="px-3">
+              Metadata
+              <b-button v-if="edit_mode" @click="edit_mode=false" variant="warning">Done editing</b-button>
+              <b-button v-else @click="edit_mode=true" variant="primary">Edit</b-button>
             </b-row>
-            <b-row align-h="between" class="mx-2">
-              <b-form-group id="eebo-group" label="EEBO id" label-for="eebo-input">
-                <b-form-input
-                  :readonly="readonly"
-                  id="eebo-input"
-                  type="number"
-                  v-model="book.eebo"
-                  @blur="edit_group('eebo', book.eebo)"
-                />
-              </b-form-group>
-              <b-form-group id="vid-group" label="VID" label-for="vid-input">
-                <b-form-input
-                  :readonly="readonly"
-                  id="vid-input"
-                  type="number"
-                  v-model="book.vid"
-                  @blur="edit_group('vid', $event.target.innerText)"
-                />
-              </b-form-group>
-              <b-form-group id="tcp-group" label="TCP id" label-for="tcp-input">
-                <b-form-input
-                  :readonly="readonly"
-                  id="tcp-input"
-                  v-model="book.tcp"
-                  @blur="edit_group('tcp', $event.target.innerText)"
-                />
-              </b-form-group>
-              <b-form-group id="estc-group" label="ESTC id" label-for="estc-input">
-                <b-form-input
-                  :readonly="readonly"
-                  id="estc-input"
-                  v-model="book.estc"
-                  @blur="edit_group('estc', $event.target.innerText)"
-                />
-              </b-form-group>
-            </b-row>
-          </div>
-        </div>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col cols="12">
-        <b-card :header="title_card_header">
-          <b-form-textarea
-            :disabled="readonly"
-            v-model="book.pq_title"
-            @blur="edit_group('pq_title', book.pq_title)"
-          />
+          </template>
+          <BookDetailEdit v-if="edit_mode" :book="book" />
+          <BookDetailDisplay v-else :book="book" />
         </b-card>
       </b-col>
-    </b-row>
-    <div class="row">
-      <div class="col-6">
-        <div class="card my-2">
-          <div class="card-header">EEBO Metadata</div>
-          <div class="card-body">
-            <p>Publisher: {{ book.pq_publisher }}</p>
-            <p>Author: {{ book.pq_author }}</p>
-
-            <p>
-              Bridges zipfiles:
-              <code>unzip -d . {{ book.zipfile }}.zip {{ book.zipfile }}/{{ book.vid }}/*</code>
-            </p>
-            <p>
-              Proquest link:
-              <a :href="book.pq_url">{{ book.pq_url }}</a>
-            </p>
-          </div>
-        </div>
-        <div class="card my-2">
-          <div class="card-header">P&P Metadata</div>
-          <div class="card-body">
-            <dl class="row">
-              <dt class="col-sm-3">Publisher</dt>
-              <dd
-                class="col-sm-9"
-                contenteditable="contenteditable"
-                @blur="edit_group('publisher', $event.target.innerText)"
-              >{{ book.publisher }}</dd>
-
-              <dt class="col-sm-3">Created no earlier than</dt>
-              <dd class="col-sm-9">
-                <b-form-input
-                  id="year-input-early"
-                  type="date"
-                  v-model="book.date_early"
-                  @blur="edit_group('date_early', book.date_early)"
-                />
-              </dd>
-
-              <dt class="col-sm-3">Created no later than</dt>
-              <dd class="col-sm-9">
-                <b-form-input
-                  id="year-input-early"
-                  type="date"
-                  v-model="book.date_late"
-                  @blur="edit_group('date_late', book.date_late)"
-                />
-              </dd>
-            </dl>
-          </div>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="card my-2">
-          <div class="card-header">Components</div>
+      <b-col cols="6">
+        <b-card header="Components" no-body>
           <b-list-group flush>
             <b-list-group-item>
               <h5>spreads</h5>
@@ -158,9 +57,9 @@
               <p v-else>No runs for this segmentation type yet.</p>
             </b-list-group-item>
           </b-list-group>
-        </div>
-      </div>
-    </div>
+        </b-card>
+      </b-col>
+    </b-row>
     <SpreadList v-if="detail_show=='spreads'" :spreads="book.spreads" />
     <PageList v-if="detail_show=='pages'" :page_run_id="selected_run_id" />
     <LineList
@@ -168,10 +67,12 @@
       :line_run_id="selected_run_id"
       :n_spreads="book.spreads.length"
     />
-  </div>
+  </b-container>
 </template>
 
 <script>
+import BookDetailDisplay from "./BookDetailDisplay";
+import BookDetailEdit from "./BookDetailEdit";
 import SpreadList from "../Spreads/SpreadList";
 import PageList from "../Pages/PageList";
 import LineList from "../Lines/LineList";
@@ -183,7 +84,9 @@ export default {
   components: {
     SpreadList,
     PageList,
-    LineList
+    LineList,
+    BookDetailDisplay,
+    BookDetailEdit
   },
   props: {
     id: String
@@ -191,6 +94,7 @@ export default {
   data() {
     return {
       book: null,
+      edit_mode: false,
       display_fields: ["date_started", "count", "erase"],
       detail_show: null,
       selected_run: null,
@@ -268,30 +172,6 @@ export default {
           }
         );
       }
-    },
-    edit_group: function(fieldname, content) {
-      var payload = {};
-      payload[fieldname] = content;
-      return HTTP.patch("/books/" + this.id + "/", payload).then(
-        response => {
-          this.$bvToast.toast(`${fieldname} updated`, {
-            title: response.data.id,
-            autoHideDelay: 5000,
-            appendToast: true,
-            variant: "success"
-          });
-        },
-        error => {
-          for (let [k, v] of Object.entries(error.response.data)) {
-            this.$bvToast.toast(v, {
-              title: error.response.status + ": " + k,
-              autoHideDelay: 5000,
-              appendToast: true,
-              variant: "danger"
-            });
-          }
-        }
-      );
     }
   },
   created: function() {
