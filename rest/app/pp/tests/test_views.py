@@ -1039,3 +1039,20 @@ class CharacterGroupingViewTest(TestCase):
     def test_noaccess(self):
         noaccess(self)
 
+
+class UserViewTest(TestCase):
+
+    fixtures = ["test.json"]
+
+    ENDPOINT = reverse("user-profile")
+
+    @classmethod
+    def setUpTestData(cls):
+        pass
+
+    @as_auth()
+    def test_get(self):
+        res = self.client.get(self.ENDPOINT)
+        self.assertEqual(res.status_code, 200)
+        for k in ["username", "token"]:
+            self.assertIn(k, res.data)

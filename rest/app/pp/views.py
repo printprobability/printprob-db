@@ -20,6 +20,7 @@ from django.db import transaction
 from django.db.models import Count, F, Q, Exists, OuterRef
 from django.contrib.auth.models import User
 from rest_framework import permissions
+from rest_framework.authtoken.models import Token
 from django_filters import rest_framework as filters
 from . import models, serializers
 from base64 import b64encode, b64decode
@@ -533,3 +534,15 @@ class CharacterGroupingViewSet(CRUDViewSet):
         response["Content-Disposition"] = f"attachment; filename={zip_file_name}"
 
         return response
+
+
+class UserView(views.APIView):
+    def get(self, request, format=None):
+        user = request.user
+        # If auth token doesn't yet exist, create one
+        try:
+            auth_token = user.auth_token.key
+        except:
+            Token.objects.create(user=user)
+            auth_token = user.auth_token.key
+        return Response({"username": user.username, "token": auth_token})

@@ -35,5 +35,6 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("user/", views.UserView.as_view(), name="user-profile"),
     path("docs/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]
