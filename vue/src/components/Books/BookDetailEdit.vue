@@ -2,6 +2,18 @@
   <div>
     <b-row>
       <b-col cols="12">
+        <b-card header="Title">
+          <b-form-textarea
+            required
+            v-model="book.pq_title"
+            :plaintext="readonly"
+            @blur="conditional_edit_group('pq_title', book.pq_title)"
+          />
+        </b-card>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col cols="12">
         <b-card header="Identifiers">
           <b-row align-h="between" class="px-3">
             <dl>
@@ -43,18 +55,6 @@
               />
             </b-form-group>
           </b-row>
-        </b-card>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col cols="12">
-        <b-card header="Title">
-          <b-form-textarea
-            required
-            v-model="book.pq_title"
-            :plaintext="readonly"
-            @blur="edit_group('pq_title', book.pq_title)"
-          />
         </b-card>
       </b-col>
     </b-row>

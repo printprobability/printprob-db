@@ -2,6 +2,11 @@
   <div>
     <b-row>
       <b-col cols="12">
+        <b-card header="Title">{{ book.pq_title }}</b-card>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col cols="12">
         <b-card header="Identifiers">
           <b-row align-h="between" class="px-3">
             <dl>
@@ -18,11 +23,6 @@
             </dl>
           </b-row>
         </b-card>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col cols="12">
-        <b-card header="Title">{{ book.pq_title }}</b-card>
       </b-col>
     </b-row>
     <b-row>
