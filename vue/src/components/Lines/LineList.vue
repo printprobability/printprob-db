@@ -10,19 +10,21 @@
     <div class="row">
       <div v-if="lines" class="col-6">
         <h5>Left page</h5>
-        <ol>
+        <ol v-if="!!lines.l">
           <li v-for="line in lines.l" :key="line.id">
             <LineImage :line="line"></LineImage>
           </li>
         </ol>
+        <p v-else>No lines extracted for this page</p>
       </div>
       <div class="col-6">
         <h5>Right page</h5>
-        <ol>
+        <ol v-if="!!lines.r">
           <li v-for="line in lines.r" :key="line.id">
             <LineImage :line="line"></LineImage>
           </li>
         </ol>
+        <p v-else>No lines extracted for this page</p>
       </div>
     </div>
   </div>
