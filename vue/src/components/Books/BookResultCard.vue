@@ -39,10 +39,8 @@
         </p>
         <p>Spreads: {{ book.n_spreads }}</p>
         <p>
-          Bridges zipfile:
-          <code>{{ book.zipfile }}</code>
-          <br />
-          <code>unzip -d . {{ book.zipfile }}.zip {{ book.zipfile }}/{{ book.vid }}/*</code>
+          Bridges images:
+          <code>/pylon5/hm560ip/djevans/eebo_unzipped/{{ book.zipfile }}/{{ book.vid }}/</code>
         </p>
       </b-col>
       <b-col cols sm="6">
