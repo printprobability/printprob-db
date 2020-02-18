@@ -261,6 +261,7 @@ class BookViewTest(TestCase):
             "vid",
             "tcp",
             "estc",
+            "prefix",
             "pp_publisher",
             "pq_publisher",
             "pq_title",
@@ -297,6 +298,7 @@ class BookViewTest(TestCase):
             "vid",
             "tcp",
             "estc",
+            "prefix",
             "pp_publisher",
             "pq_publisher",
             "pq_title",
@@ -343,10 +345,11 @@ class BookViewTest(TestCase):
                 "estc": "A876",
                 "pq_title": "foobar",
                 "pdf": "foobar",
+                "prefix": "susuan"
             },
         )
         self.assertEqual(res.status_code, 201)
-        for k in ["url", "eebo", "vid", "pq_title", "pdf"]:
+        for k in ["url", "eebo", "vid", "pq_title", "pdf", "prefix",]:
             self.assertIn(k, res.data)
 
     @as_auth()

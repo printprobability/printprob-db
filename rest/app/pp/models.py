@@ -143,6 +143,7 @@ class Book(uuidModel):
     starred = models.BooleanField(default=False, db_index=True)
     ignored = models.BooleanField(default=False, db_index=True)
     is_eebo_book = models.BooleanField(default=False, db_index=True)
+    prefix = models.CharField(max_length=200, blank=True, null=True, unique=True)
 
     class Meta:
         ordering = ["pq_title"]
