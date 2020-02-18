@@ -147,4 +147,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = "/vol/static_files"
+STATIC_ROOT = os.environ["STATIC_ROOT"]
