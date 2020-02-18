@@ -94,6 +94,7 @@ class BookListSerializer(serializers.ModelSerializer):
             "starred",
             "ignored",
             "is_eebo_book",
+            "prefix",
         ]
 
     def update(self, instance, validated_data):
@@ -342,6 +343,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "starred",
             "ignored",
             "is_eebo_book",
+            "prefix",
         ]
 
 

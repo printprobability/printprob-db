@@ -1,9 +1,9 @@
-django==3.0.2
+django>=3.0.3
 coverage>=4.5.4
 psycopg2-binary
 gunicorn
 tblib
-djangorestframework==3.11
+djangorestframework>=3.11
 django-cors-headers
 Markdown
 Pygments

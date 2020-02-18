@@ -168,7 +168,8 @@
     "zipfile": "",
     "starred": false,
     "ignored": false,
-    "is_eebo_book": true
+    "is_eebo_book": true,
+    "prefix": null
   }
 },
 {
@@ -196,7 +197,8 @@
     "zipfile": "",
     "starred": false,
     "ignored": false,
-    "is_eebo_book": true
+    "is_eebo_book": true,
+    "prefix": "new_most_build"
   }
 },
 {
@@ -224,7 +226,8 @@
     "zipfile": "",
     "starred": false,
     "ignored": false,
-    "is_eebo_book": false
+    "is_eebo_book": false,
+    "prefix": "order_no_notice"
   }
 },
 {
@@ -252,7 +255,8 @@
     "zipfile": "",
     "starred": false,
     "ignored": false,
-    "is_eebo_book": false
+    "is_eebo_book": false,
+    "prefix": null
   }
 },
 {
@@ -5907,8 +5911,8 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$150000$7ZDKKtEVtq2u$ddNgD82vYVAPdpPYHOd/3SWNHPh5WlRAag/L6hcohOs=",
-    "last_login": "2019-12-25T22:33:19.206Z",
+    "password": "pbkdf2_sha256$180000$2Y1iYHKK9Y2G$De2sJoBkiAD5dmEUniJfG77ptkHmw6wf1Bh92QEd+Yg=",
+    "last_login": "2020-02-18T19:34:26.636Z",
     "is_superuser": true,
     "username": "root",
     "first_name": "",
