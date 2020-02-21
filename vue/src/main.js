@@ -32,7 +32,7 @@ import CharacterDetail from "./components/Characters/CharacterDetail"
 
 Vue.prototype.$APIConstants = {
   REST_PAGE_SIZE: 100,
-  BOOK_PAGE_SIZE: 25,
+  BOOK_PAGE_SIZE: 10,
   API_LOGIN: "/api/auth/login/?next=/",
   API_LOGOUT: "/api/auth/logout/?next=/",
   PP_ENDPOINT: process.env.VUE_APP_PP_ENDPOINT
