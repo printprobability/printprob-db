@@ -29,7 +29,6 @@ export default {
     tx_year_max: Number,
     year_early: String,
     year_late: String,
-    has_images: Boolean,
     starred: Boolean,
     pp_publisher: String,
     order: {
@@ -66,7 +65,6 @@ export default {
           tx_year_late_max: this.tx_year_max,
           year_early_min: this.year_early,
           year_late_max: this.year_late,
-          images: this.has_images,
           pp_publisher: this.pp_publisher,
           starred: this.starred,
           ordering: this.order

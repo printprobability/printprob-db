@@ -128,9 +128,6 @@
                     placeholder="simmons"
                   />
                 </b-form-group>
-                <b-form-group id="book-image-group" label="Only show books with images">
-                  <b-form-checkbox id="book-image-input" v-model="has_images" />
-                </b-form-group>
                 <b-form-group id="starred-group" label="Only show starred books">
                   <b-form-checkbox id="starred-input" v-model="starred" />
                 </b-form-group>
@@ -193,7 +190,6 @@
         :pq_year_max="pq_year_range[1]"
         :tx_year_min="tx_year_range[0]"
         :tx_year_max="tx_year_range[1]"
-        :has_images="has_images"
         :starred="starred"
         :pp_publisher="pp_publisher_search"
         :page="page"
@@ -240,7 +236,6 @@ export default {
       tx_year_range: [1500, 1800],
       year_early: null,
       year_late: null,
-      has_images: false,
       starred: false,
       page: 1,
       order: "pq_title",
@@ -263,7 +258,6 @@ export default {
         tx_year_max: this.tx_year_range[1],
         year_late_max: this.year_early,
         year_early_min: this.year_late,
-        has_images: this.has_images,
         page: this.page,
         order: this.order
       };
@@ -284,7 +278,6 @@ export default {
     this.raw_title = this.$route.query.pq_title;
     this.raw_author = this.$route.query.pq_author;
     this.raw_pp_publisher = this.$route.query.pp_publisher;
-    this.has_images = this.$route.query.has_images == "true";
     this.year_early = this.$route.query.date_early;
     this.year_late = this.$route.query.date_late;
     this.page = Number(pn);

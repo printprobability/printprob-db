@@ -63,11 +63,6 @@ class BookFilter(filters.FilterSet):
     pp_publisher = filters.CharFilter(
         help_text="books assinged to this printer by P&P team", lookup_expr="icontains"
     )
-    images = filters.BooleanFilter(
-        method="has_images",
-        label="Has images?",
-        help_text="Has been processed on Bridges?",
-    )
     characters = filters.BooleanFilter(
         method="has_characters",
         label="Has characters?",
