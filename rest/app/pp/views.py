@@ -17,7 +17,7 @@ from rest_framework import (
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.db import transaction
-from django.db.models import Count, F, Q, Exists, OuterRef
+from django.db.models import Count, F, Q, Exists, OuterRef, Subquery, Prefetch
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from django_filters import rest_framework as filters
@@ -138,16 +138,11 @@ class BookViewSet(CRUDViewSet):
     list: Lists all books.
     """
 
+    cover_query = Prefetch("spreads", queryset=models.Spread.objects.filter(sequence=1))
+
     queryset = (
         models.Book.objects.annotate(n_spreads=Count("spreads"))
-        .prefetch_related(
-            "spreads",
-            "pageruns",
-            "pageruns__pages",
-            "lineruns",
-            "linegroupruns__linegroups",
-            "characterruns",
-        )
+        .prefetch_related(cover_query)
         .all()
     )
     filterset_class = BookFilter
