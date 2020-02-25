@@ -76,6 +76,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "web.wsgi.application"
 
+SILKY_AUTHENTICATION = True
+
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 100,
