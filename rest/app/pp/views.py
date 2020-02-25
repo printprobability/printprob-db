@@ -134,15 +134,8 @@ class BookViewSet(CRUDViewSet):
     """
 
     queryset = (
-        models.Book.objects.annotate(n_spreads=Count("spreads"))
-        .prefetch_related(
-            "spreads",
-            "pageruns",
-            "pageruns__pages",
-            "lineruns",
-            "linegroupruns__linegroups",
-            "characterruns",
-        )
+        models.Book.objects.prefetch_related("spreads")
+        .annotate(n_spreads=Count("spreads"))
         .all()
     )
     filterset_class = BookFilter
