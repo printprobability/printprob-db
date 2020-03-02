@@ -3,11 +3,15 @@
     <p>Machine: {{ character.character_class }} ({{ (character.class_probability * 100).toFixed(2) }}%)</p>
     <p>Human: {{ character.human_character_class }}</p>
     <p>
-      <router-link :to="character_link">
+      <router-link :to="character_link" target="_blank" rel="noopen noreferrer">
         <img class="buffer_preview" :src="character.image.buffer" />
       </router-link>
     </p>
-    <router-link :to="character_link">See character in context</router-link>
+    <router-link
+      :to="character_link"
+      target="_blank"
+      rel="noopen noreferrer"
+    >See character in context</router-link>
   </div>
 </template>
 
