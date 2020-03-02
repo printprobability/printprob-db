@@ -4,8 +4,10 @@
     label-for="character-class-select"
     :label="label"
     :description="description"
+    label-size="sm"
   >
     <b-form-select
+      size="sm"
       id="character-class-id"
       :value="value"
       :options="character_classes"

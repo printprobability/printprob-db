@@ -1,6 +1,7 @@
 <template>
-  <b-form-group id="ordering-group" label="Sort by">
+  <b-form-group id="ordering-group" label="Sort by" label-size="sm">
     <b-form-select
+      size="sm"
       id="ordering-select"
       :value="value"
       :options="options"

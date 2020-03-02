@@ -8,7 +8,7 @@
         </b-row>
       </div>
       <div class="card-body">
-        <b-row>
+        <b-form-row>
           <b-col col lg="6" class="border-right p-3">
             <h5>EEBO metadata</h5>
             <b-form-row>
@@ -17,9 +17,10 @@
                   id="eebo-group"
                   label="EEBO id"
                   label-for="eebo-input"
-                  description="EEBO number"
+                  label-size="sm"
                 >
                   <b-form-input
+                    size="sm"
                     id="eebo-input"
                     v-model="eebo_search"
                     placeholder="99896497"
@@ -27,8 +28,9 @@
                     debounce="750"
                   />
                 </b-form-group>
-                <b-form-group id="vid-group" label="VID" label-for="vid-input" description="VID">
+                <b-form-group id="vid-group" label="VID" label-for="vid-input" label-size="sm">
                   <b-form-input
+                    size="sm"
                     id="vid-input"
                     v-model="vid_search"
                     placeholder="184449"
@@ -37,21 +39,18 @@
                     debounce="750"
                   />
                 </b-form-group>
-                <b-form-group id="tcp-group" label="tcp" label-for="tcp-input" description="tcp">
+                <b-form-group id="tcp-group" label="tcp" label-for="tcp-input" label-size="sm">
                   <b-form-input
+                    size="sm"
                     id="tcp-input"
                     v-model="tcp_search"
                     placeholder="A27900"
                     debounce="750"
                   />
                 </b-form-group>
-                <b-form-group
-                  id="estc-group"
-                  label="estc"
-                  label-for="estc-input"
-                  description="estc"
-                >
+                <b-form-group id="estc-group" label="estc" label-for="estc-input" label-size="sm">
                   <b-form-input
+                    size="sm"
                     id="estc-input"
                     v-model="estc_search"
                     placeholder="R23698"
@@ -63,8 +62,10 @@
                   label="Publisher"
                   label-for="publisher-input"
                   description="Partial publisher name (case insensitive)"
+                  label-size="sm"
                 >
                   <b-form-input
+                    size="sm"
                     id="publisher-input"
                     v-model="publisher_search"
                     placeholder="overton"
@@ -76,8 +77,10 @@
                   label-for="title-input"
                   label="Title"
                   description="Search by partial title (case insensitive)"
+                  label-size="sm"
                 >
                   <b-form-input
+                    size="sm"
                     id="title-input"
                     v-model="title_search"
                     placeholder="nine arguments"
@@ -91,8 +94,10 @@
                   label-for="author-input"
                   label="Author"
                   description="Search by partial author (case insensitive)"
+                  label-size="sm"
                 >
                   <b-form-input
+                    size="sm"
                     id="author-input"
                     v-model="author_search"
                     placeholder="milton"
@@ -104,6 +109,7 @@
                   label-for="pq_year_input"
                   label="Year"
                   description="Get books produced within this year range"
+                  label-size="sm"
                 >
                   <vue-slider
                     id="pq_year_input"
@@ -120,6 +126,7 @@
                   label-for="tx_year_input"
                   label="Texas A&M Year"
                   description="Get books produced within this year range"
+                  label-size="sm"
                 >
                   <vue-slider
                     v-model="tx_year_range"
@@ -141,15 +148,17 @@
                   id="pp-publisher-group"
                   label="Publisher"
                   description="Search by partial publisher (as assigned by P&P)"
+                  label-size="sm"
                 >
                   <b-form-input
+                    size="sm"
                     id="pp-publisher-input"
                     v-model="pp_publisher_search"
                     placeholder="simmons"
                     debounce="750"
                   />
                 </b-form-group>
-                <b-form-group id="starred-group" label="Only show starred books">
+                <b-form-group id="starred-group" label="Only show starred books" label-size="sm">
                   <b-form-checkbox id="starred-input" v-model="starred" />
                 </b-form-group>
               </b-col>
@@ -158,9 +167,11 @@
                   id="date-range-group"
                   label="Books published between"
                   description="Only books whose dates overlap the specified range"
+                  label-size="sm"
                 >
                   <b-form inline>
                     <b-form-input
+                      size="sm"
                       class="mx-2"
                       id="year-input-early"
                       type="date"
@@ -168,6 +179,7 @@
                       debounce="750"
                     />and
                     <b-form-input
+                      size="sm"
                       class="mx-2"
                       id="year-input-late"
                       type="date"
@@ -179,7 +191,7 @@
               </b-col>
             </b-form-row>
           </b-col>
-        </b-row>
+        </b-form-row>
       </div>
     </div>
     <b-container fluid>

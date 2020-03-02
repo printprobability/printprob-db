@@ -1,6 +1,7 @@
 <template>
-  <b-form-group :label="label" :description="description">
+  <b-form-group :label="label" :description="description" label-size="sm">
     <VueBootstrapTypeahead
+      size="sm"
       :data="results"
       :value="value"
       :serializer="serializer"
