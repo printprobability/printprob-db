@@ -2,7 +2,7 @@
   <b-media>
     <template v-slot:aside>
       <div class="cover-image-frame">
-        <b-img
+        <b-img-lazy
           v-if="!!book.cover_spread"
           class="cover-image"
           :src="book.cover_spread.image.iiif_base +'/full/250,/0/default.jpg'"
