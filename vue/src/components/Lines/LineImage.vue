@@ -1,6 +1,6 @@
 <template>
   <a :href="line.image.web_url">
-    <img
+    <b-img-lazy
       :src="line.image.thumbnail"
       class="line-image my-3 mx-auto"
       @click="$emit('line_clicked', line)"
