@@ -12,7 +12,11 @@
       </div>
     </template>
     <b-row align-v="center" align-h="between" class="pr-2">
-      <router-link :to="{name: 'BookDetailView', params: {id: book.id}}">
+      <router-link
+        :to="{name: 'BookDetailView', params: {id: book.id}}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <h5>{{ truncate(book.pq_title, 140) }}</h5>
       </router-link>
       <button class="star_button" @click="set_star(!star_status)">
