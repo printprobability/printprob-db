@@ -24,6 +24,7 @@
                     v-model="eebo_search"
                     placeholder="99896497"
                     type="number"
+                    debounce="750"
                   />
                 </b-form-group>
                 <b-form-group id="vid-group" label="VID" label-for="vid-input" description="VID">
@@ -32,10 +33,17 @@
                     v-model="vid_search"
                     placeholder="184449"
                     type="number"
+                    number
+                    debounce="750"
                   />
                 </b-form-group>
                 <b-form-group id="tcp-group" label="tcp" label-for="tcp-input" description="tcp">
-                  <b-form-input id="tcp-input" v-model="tcp_search" placeholder="A27900" />
+                  <b-form-input
+                    id="tcp-input"
+                    v-model="tcp_search"
+                    placeholder="A27900"
+                    debounce="750"
+                  />
                 </b-form-group>
                 <b-form-group
                   id="estc-group"
@@ -43,7 +51,12 @@
                   label-for="estc-input"
                   description="estc"
                 >
-                  <b-form-input id="estc-input" v-model="estc_search" placeholder="R23698" />
+                  <b-form-input
+                    id="estc-input"
+                    v-model="estc_search"
+                    placeholder="R23698"
+                    debounce="750"
+                  />
                 </b-form-group>
                 <b-form-group
                   id="publisher-group"
@@ -53,8 +66,9 @@
                 >
                   <b-form-input
                     id="publisher-input"
-                    v-model="raw_publisher_search"
+                    v-model="publisher_search"
                     placeholder="overton"
+                    debounce="750"
                   />
                 </b-form-group>
                 <b-form-group
@@ -65,8 +79,9 @@
                 >
                   <b-form-input
                     id="title-input"
-                    v-model="raw_title_search"
+                    v-model="title_search"
                     placeholder="nine arguments"
+                    debounce="750"
                   />
                 </b-form-group>
               </b-col>
@@ -77,7 +92,12 @@
                   label="Author"
                   description="Search by partial author (case insensitive)"
                 >
-                  <b-form-input id="author-input" v-model="raw_author_search" placeholder="milton" />
+                  <b-form-input
+                    id="author-input"
+                    v-model="author_search"
+                    placeholder="milton"
+                    debounce="750"
+                  />
                 </b-form-group>
                 <b-form-group
                   id="pq_year_group"
@@ -126,6 +146,7 @@
                     id="pp-publisher-input"
                     v-model="pp_publisher_search"
                     placeholder="simmons"
+                    debounce="750"
                   />
                 </b-form-group>
                 <b-form-group id="starred-group" label="Only show starred books">
@@ -144,12 +165,14 @@
                       id="year-input-early"
                       type="date"
                       v-model="year_early"
+                      debounce="750"
                     />and
                     <b-form-input
                       class="mx-2"
                       id="year-input-late"
                       type="date"
                       v-model="year_late"
+                      debounce="750"
                     />
                   </b-form>
                 </b-form-group>
@@ -186,10 +209,10 @@
         :author="author_search"
         :year_early="year_early"
         :year_late="year_late"
-        :pq_year_min="pq_year_range[0]"
-        :pq_year_max="pq_year_range[1]"
-        :tx_year_min="tx_year_range[0]"
-        :tx_year_max="tx_year_range[1]"
+        :pq_year_min="pq_year_min"
+        :pq_year_max="pq_year_max"
+        :tx_year_min="tx_year_min"
+        :tx_year_max="tx_year_max"
         :starred="starred"
         :pp_publisher="pp_publisher_search"
         :page="page"
@@ -224,16 +247,16 @@ export default {
       vid_search: null,
       tcp_search: null,
       estc_search: null,
-      raw_publisher_search: "",
       publisher_search: "",
-      raw_title_search: "",
       title_search: "",
-      raw_author_search: "",
       author_search: "",
-      raw_pp_publisher_search: "",
       pp_publisher_search: "",
       pq_year_range: [1500, 1800],
+      pq_year_min: 1500,
+      pq_year_max: 1800,
       tx_year_range: [1500, 1800],
+      tx_year_min: 1500,
+      tx_year_max: 1800,
       year_early: null,
       year_late: null,
       starred: false,
@@ -252,10 +275,10 @@ export default {
         pq_title: this.title_search,
         pq_author: this.author_search,
         pp_publisher: this.pp_publisher_search,
-        pq_year_min: this.pq_year_range[0],
-        pq_year_max: this.pq_year_range[1],
-        tx_year_min: this.tx_year_range[0],
-        tx_year_max: this.tx_year_range[1],
+        pq_year_min: this.pq_year_min,
+        pq_year_max: this.pq_year_max,
+        tx_year_min: this.tx_year_min,
+        tx_year_max: this.tx_year_max,
         year_late_max: this.year_early,
         year_early_min: this.year_late,
         page: this.page,
@@ -270,33 +293,14 @@ export default {
       return [base + 1, this.results_length + base];
     }
   },
-  created() {
-    var pn = !!this.$route.query.page ? Number(this.$route.query.page) : 1;
-
-    this.eebo_search = this.$route.query.eebo;
-    this.raw_publisher_search = this.$route.query.pq_publisher;
-    this.raw_title = this.$route.query.pq_title;
-    this.raw_author = this.$route.query.pq_author;
-    this.raw_pp_publisher = this.$route.query.pp_publisher;
-    this.year_early = this.$route.query.date_early;
-    this.year_late = this.$route.query.date_late;
-    this.page = Number(pn);
-  },
-  updated() {
-    this.$router.push({ name: "BookListView", query: this.view_params });
-  },
   watch: {
-    raw_publisher_search: _.debounce(function() {
-      this.publisher_search = this.raw_publisher_search;
+    pq_year_range: _.debounce(function() {
+      this.pq_year_min = this.pq_year_range[0];
+      this.pq_year_max = this.pq_year_range[1];
     }, 750),
-    raw_title_search: _.debounce(function() {
-      this.title_search = this.raw_title_search;
-    }, 750),
-    raw_author_search: _.debounce(function() {
-      this.author_search = this.raw_author_search;
-    }, 750),
-    raw_pp_publisher_search: _.debounce(function() {
-      this.pp_publisher_search = this.raw_pp_publisher_search;
+    tx_year_range: _.debounce(function() {
+      this.tx_year_min = this.tx_year_range[0];
+      this.tx_year_max = this.tx_year_range[1];
     }, 750)
   }
 };
