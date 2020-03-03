@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     get_charcacter_classes: function() {
-      return HTTP.get("/character_classes/").then(
+      return HTTP.get("/character_classes/", { params: { limit: 200 } }).then(
         response => {
           var character_options = _.concat(
             { text: "all characters", value: null },
