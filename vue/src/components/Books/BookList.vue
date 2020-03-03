@@ -25,17 +25,18 @@
                     v-model="eebo_search"
                     placeholder="99896497"
                     type="number"
+                    number
                     debounce="750"
                   />
                 </b-form-group>
                 <b-form-group id="vid-group" label="VID" label-for="vid-input" label-size="sm">
                   <b-form-input
+                    number
+                    type="number"
                     size="sm"
                     id="vid-input"
                     v-model="vid_search"
                     placeholder="184449"
-                    type="number"
-                    number
                     debounce="750"
                   />
                 </b-form-group>
@@ -217,8 +218,8 @@
         </b-form-group>
       </b-row>
       <BookResults
-        :eebo="eebo_search"
-        :vid="vid_search"
+        :eebo="Number(eebo_search)"
+        :vid="Number(vid_search)"
         :tcp="tcp_search"
         :estc="estc_search"
         :publisher="publisher_search"
