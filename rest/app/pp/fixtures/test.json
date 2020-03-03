@@ -1977,263 +1977,381 @@
 },
 {
   "model": "pp.characterclass",
+  "pk": "!",
+  "fields": {
+    "group": "pu"
+  }
+},
+{
+  "model": "pp.characterclass",
+  "pk": ":",
+  "fields": {
+    "group": "pu"
+  }
+},
+{
+  "model": "pp.characterclass",
   "pk": "a",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "A",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "b",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "B",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "c",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "C",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "d",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "D",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "e",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "E",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "f",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "F",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "g",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "G",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "h",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "H",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "i",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "I",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "j",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "J",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "k",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "K",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "l",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "L",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "m",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "M",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "n",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "N",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "o",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "O",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "p",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "P",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "q",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "Q",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "r",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "R",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "s",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "S",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "t",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "T",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "u",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "U",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "v",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "V",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "w",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "W",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "x",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "X",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "y",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "Y",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "z",
-  "fields": {}
+  "fields": {
+    "group": "cl"
+  }
 },
 {
   "model": "pp.characterclass",
   "pk": "Z",
-  "fields": {}
+  "fields": {
+    "group": "cu"
+  }
 },
 {
   "model": "pp.character",
