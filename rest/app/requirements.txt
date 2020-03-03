@@ -16,4 +16,3 @@ packaging
 tqdm
 drf-tweaks
 django-silk
-django-postgres-fuzzycount

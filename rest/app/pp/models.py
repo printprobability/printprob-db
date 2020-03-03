@@ -5,15 +5,11 @@ import uuid
 from datetime import date
 from django.conf import settings
 import math
-from fuzzycount import FuzzyCountManager
 
 
 class uuidModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     label = models.CharField(max_length=200, default="", editable=False, blank=True)
-
-    # Fuzzy counting relies on PostgreSQL-specific method for estimating table sizes, dramatically speeds counts.
-    objects = FuzzyCountManager()
 
     class Meta:
         abstract = True
