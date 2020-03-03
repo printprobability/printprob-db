@@ -66,9 +66,9 @@
           <dt>Author:</dt>
           <dd>{{ book.pq_author }}</dd>
 
-          <dt>Bridges zipfiles</dt>
+          <dt>Bridges images</dt>
           <dd>
-            <code>unzip -d . {{ book.zipfile }}.zip {{ book.zipfile }}/{{ book.vid }}/*</code>
+            <code>/pylon5/hm560ip/djevans/eebo_unzipped/{{ book.zipfile }}/{{ book.vid }}/*</code>
           </dd>
           <dt>Proquest link</dt>
           <dd>
