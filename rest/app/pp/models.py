@@ -433,10 +433,12 @@ class LineGroup(uuidModel):
 class CharacterClass(models.Model):
     LOWERCASE = "cl"
     UPPERCASE = "cu"
+    NUMBER = "nu"
     PUNCTUATION = "pu"
     CHARACTER_GROUPS = [
         (LOWERCASE, "Lowercase"),
         (UPPERCASE, "Uppercase"),
+        (NUMBER, "Number"),
         (PUNCTUATION, "Punctuation"),
     ]
 

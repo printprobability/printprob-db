@@ -46,7 +46,8 @@ export default {
       const group_dict = {
         cl: "Lowercase",
         cu: "Uppercase",
-        pu: "Puncutation"
+        pu: "Puncutation",
+        nu: "Number"
       };
 
       return HTTP.get("/character_classes/", { params: { limit: 200 } }).then(
