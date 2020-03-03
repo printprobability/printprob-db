@@ -8,7 +8,7 @@ from . import models
 class CharacterClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CharacterClass
-        fields = ["url", "classname", "label"]
+        fields = ["url", "classname", "label", "group"]
 
 
 class CroppedImageSerializer(serializers.Serializer):

@@ -43,12 +43,30 @@ export default {
   },
   methods: {
     get_charcacter_classes: function() {
+      const group_dict = {
+        cl: "Lowercase",
+        cu: "Uppercase",
+        pu: "Puncutation"
+      };
+
       return HTTP.get("/character_classes/", { params: { limit: 200 } }).then(
         response => {
-          var character_options = _.concat(
-            { text: "all characters", value: null },
-            response.data.results.map(x => x.classname)
+          const null_value = { text: "all characters", value: null };
+          const grouped_classes = _.groupBy(response.data.results, "group");
+
+          const formatted_classes = _.sortBy(
+            _.map(grouped_classes, (x, n) => {
+              return {
+                label: group_dict[n],
+                options: _.map(x, t => {
+                  return { value: t.classname, text: t.label };
+                })
+              };
+            }),
+            "label"
           );
+
+          var character_options = _.concat(null_value, formatted_classes);
           this.character_classes = character_options;
         },
         error => {

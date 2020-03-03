@@ -248,7 +248,6 @@ class BookViewTest(TestCase):
         cls.STR2 = str(cls.OBJ2)
         cls.EEBO2 = models.Book.objects.all()[2].eebo
 
-
     @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
@@ -282,7 +281,7 @@ class BookViewTest(TestCase):
             "zip_path",
             "starred",
             "ignored",
-            "is_eebo_book"
+            "is_eebo_book",
         ]:
             self.assertIn(k, res.data["results"][0])
         self.assertIn("web_url", res.data["results"][0]["cover_spread"]["image"])
@@ -320,7 +319,7 @@ class BookViewTest(TestCase):
             "zip_path",
             "starred",
             "ignored",
-            "is_eebo_book"
+            "is_eebo_book",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)
@@ -345,32 +344,22 @@ class BookViewTest(TestCase):
                 "estc": "A876",
                 "pq_title": "foobar",
                 "pdf": "foobar",
-                "prefix": "susuan"
+                "prefix": "susuan",
             },
         )
         self.assertEqual(res.status_code, 201)
-        for k in ["url", "eebo", "vid", "pq_title", "pdf", "prefix",]:
+        for k in ["url", "eebo", "vid", "pq_title", "pdf", "prefix"]:
             self.assertIn(k, res.data)
 
     @as_auth()
     def test_patch(self):
         # Not able to PATCH the eebo ID of an EEBO book
-        res = self.client.patch(
-            self.ENDPOINT + self.STR1 + "/",
-            data={
-                "eebo": 500,
-            },
-        )
+        res = self.client.patch(self.ENDPOINT + self.STR1 + "/", data={"eebo": 500})
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["eebo"], self.EEBO1)
 
         # Able to PATCH the eebo ID of a non-EEBO book
-        res2 = self.client.patch(
-            self.ENDPOINT + self.STR2 + "/",
-            data={
-                "eebo": 500,
-            },
-        )
+        res2 = self.client.patch(self.ENDPOINT + self.STR2 + "/", data={"eebo": 500})
         self.assertEqual(res2.status_code, 200)
         self.assertEqual(res2.data["eebo"], 500)
 
@@ -419,7 +408,13 @@ class SpreadViewTest(TestCase):
     def test_post(self):
         book = models.Book.objects.first().pk
         res = self.client.post(
-            self.ENDPOINT, data={"book": book, "sequence": 100, "tif": "/foo/bat.tiff", "tif_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",}
+            self.ENDPOINT,
+            data={
+                "book": book,
+                "sequence": 100,
+                "tif": "/foo/bat.tiff",
+                "tif_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
+            },
         )
         self.assertEqual(res.status_code, 201)
         for k in ["url", "id", "book", "sequence", "image"]:
@@ -835,7 +830,6 @@ class CharacterViewTest(TestCase):
         noaccess(self)
 
 
-
 class CharacterClassViewTest(TestCase):
 
     fixtures = ["test.json"]
@@ -853,14 +847,14 @@ class CharacterClassViewTest(TestCase):
         res = self.client.get(self.ENDPOINT)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in ["url", "classname"]:
+        for k in ["url", "classname", "group"]:
             self.assertIn(k, res.data["results"][0])
 
     @as_auth()
     def test_get_detail(self):
         res = self.client.get(self.ENDPOINT + self.STR1 + "/")
         self.assertEqual(res.status_code, 200)
-        for k in ["url", "classname"]:
+        for k in ["url", "classname", "group"]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["classname"], self.STR1)
 
@@ -873,11 +867,13 @@ class CharacterClassViewTest(TestCase):
 
     @as_auth()
     def test_post(self):
-        res = self.client.post(self.ENDPOINT, data={"classname": "zed"})
+        res = self.client.post(self.ENDPOINT, data={"classname": "zed", "group": "cl"})
         self.assertEqual(res.status_code, 201)
-        for k in ["url", "classname"]:
+        for k in ["url", "classname", "group"]:
             self.assertIn(k, res.data)
-        constrainres = self.client.post(self.ENDPOINT, data={"classname": "a"})
+        constrainres = self.client.post(
+            self.ENDPOINT, data={"classname": "a", "group": "cl"}
+        )
         self.assertEqual(constrainres.status_code, 400)
 
     def test_noaccess(self):

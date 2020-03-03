@@ -431,14 +431,26 @@ class LineGroup(uuidModel):
 
 
 class CharacterClass(models.Model):
+    LOWERCASE = "cl"
+    UPPERCASE = "cu"
+    PUNCTUATION = "pu"
+    CHARACTER_GROUPS = [
+        (LOWERCASE, "Lowercase"),
+        (UPPERCASE, "Uppercase"),
+        (PUNCTUATION, "Punctuation"),
+    ]
+
     classname = models.CharField(
         primary_key=True,
         max_length=50,
         help_text="A human-readable, unique class identifier",
     )
+    group = models.CharField(
+        max_length=2, choices=CHARACTER_GROUPS, default=LOWERCASE, db_index=True
+    )
 
     class Meta:
-        ordering = ["classname"]
+        ordering = ["group", "classname"]
 
     def __str__(self):
         return self.classname
