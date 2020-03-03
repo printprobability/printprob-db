@@ -200,52 +200,28 @@
         </b-form-row>
       </div>
     </div>
-    <b-container fluid>
-      <b-row align-h="between">
-        <div class="paginator">
-          <p>Displaying books {{ page_range[0].toLocaleString() }} to {{ page_range[1].toLocaleString() }} out of {{ count.toLocaleString() }} total</p>
-          <b-pagination
-            hide-goto-end-buttons
-            v-model="page"
-            :total-rows="count"
-            :per-page="$APIConstants.REST_PAGE_SIZE"
-            aria-controls="book-results"
-          />
-        </div>
-        <b-spinner v-show="fetch_state=='getting'" />
-        <b-form-group id="sort-group" label-for="sort-select" label="Sort">
-          <BookSort v-model="order" />
-        </b-form-group>
-      </b-row>
-      <BookResults
-        :eebo="Number(eebo_search)"
-        :vid="Number(vid_search)"
-        :tcp="tcp_search"
-        :estc="estc_search"
-        :publisher="publisher_search"
-        :title="title_search"
-        :author="author_search"
-        :year_early="year_early"
-        :year_late="year_late"
-        :pq_year_min="pq_year_min"
-        :pq_year_max="pq_year_max"
-        :tx_year_min="tx_year_min"
-        :tx_year_max="tx_year_max"
-        :starred="starred"
-        :pp_publisher="pp_publisher_search"
-        :page="page"
-        :order="order"
-        @count-update="count=$event"
-        @books-update="results_length=$event"
-        @state="fetch_state=$event"
-      />
-    </b-container>
+    <BookResults
+      :eebo="eebo_search"
+      :vid="vid_search"
+      :tcp="tcp_search"
+      :estc="estc_search"
+      :publisher="publisher_search"
+      :title="title_search"
+      :author="author_search"
+      :year_early="year_early"
+      :year_late="year_late"
+      :pq_year_min="pq_year_min"
+      :pq_year_max="pq_year_max"
+      :tx_year_min="tx_year_min"
+      :tx_year_max="tx_year_max"
+      :starred="starred"
+      :pp_publisher="pp_publisher_search"
+    />
   </div>
 </template>
 
 <script>
 import BookResults from "./BookResults";
-import BookSort from "../Menus/BookSort";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/default.css";
 import _ from "lodash";
@@ -254,7 +230,6 @@ export default {
   name: "BookList",
   components: {
     BookResults,
-    BookSort,
     VueSlider
   },
   data() {
@@ -277,39 +252,8 @@ export default {
       tx_year_max: 1800,
       year_early: null,
       year_late: null,
-      starred: null,
-      page: 1,
-      order: "pq_title",
-      count: 0,
-      results_length: 0,
-      fetch_state: "waiting"
+      starred: null
     };
-  },
-  computed: {
-    view_params() {
-      return {
-        eebo: this.eebo,
-        pq_publisher: this.publisher_search,
-        pq_title: this.title_search,
-        pq_author: this.author_search,
-        pp_publisher: this.pp_publisher_search,
-        pq_year_min: this.pq_year_min,
-        pq_year_max: this.pq_year_max,
-        tx_year_min: this.tx_year_min,
-        tx_year_max: this.tx_year_max,
-        year_late_max: this.year_early,
-        year_early_min: this.year_late,
-        page: this.page,
-        order: this.order
-      };
-    },
-    page_range: function() {
-      var base = 0;
-      if (this.page > 1) {
-        base = (this.page - 1) * this.$APIConstants.BOOK_PAGE_SIZE;
-      }
-      return [base + 1, this.results_length + base];
-    }
   },
   watch: {
     pq_year_range: _.debounce(function() {

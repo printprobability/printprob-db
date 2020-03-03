@@ -1,18 +1,45 @@
 <template>
-  <b-list-group>
-    <b-list-group-item v-for="book in books" :key="book.id">
-      <BookResultCard :book="book" />
-    </b-list-group-item>
-  </b-list-group>
+  <b-container fluid>
+    <b-row align-h="between">
+      <div class="paginator">
+        <p>Displaying books {{ page_range[0].toLocaleString() }} to {{ page_range[1].toLocaleString() }} out of {{ count.toLocaleString() }} total</p>
+        <b-pagination
+          hide-goto-end-buttons
+          v-model="page"
+          :total-rows="count"
+          :per-page="$APIConstants.BOOK_PAGE_SIZE"
+          aria-controls="book-results"
+        />
+      </div>
+      <b-spinner v-show="fetch_state=='getting'" />
+      <b-form-group id="sort-group" label-for="sort-select" label="Sort">
+        <BookSort v-model="order" />
+      </b-form-group>
+    </b-row>
+    <b-list-group>
+      <b-list-group-item v-for="book in books" :key="book.id">
+        <BookResultCard :book="book" />
+      </b-list-group-item>
+    </b-list-group>
+    <b-pagination
+      hide-goto-end-buttons
+      v-model="page"
+      :total-rows="count"
+      :per-page="$APIConstants.BOOK_PAGE_SIZE"
+      aria-controls="book-results"
+    />
+  </b-container>
 </template>
 
 <script>
 import { HTTP } from "../../main";
+import BookSort from "../Menus/BookSort";
 import BookResultCard from "./BookResultCard";
 
 export default {
   name: "BookResults",
   components: {
+    BookSort,
     BookResultCard
   },
   props: {
@@ -30,24 +57,18 @@ export default {
     year_early: String,
     year_late: String,
     starred: Boolean,
-    pp_publisher: String,
-    order: {
-      type: String,
-      default: "pq_title"
-    },
-    page: {
-      type: Number,
-      default: 1
-    }
+    pp_publisher: String
   },
   data() {
     return {
-      state: "waiting"
+      fetch_state: "waiting",
+      order: "pq_title",
+      page: 1
     };
   },
   asyncComputed: {
     results() {
-      this.state = "getting";
+      this.fetch_state = "getting";
       return HTTP.get("/books/", {
         params: {
           limit: this.$APIConstants.BOOK_PAGE_SIZE,
@@ -71,11 +92,11 @@ export default {
         }
       }).then(
         response => {
-          this.state = "done";
+          this.fetch_state = "done";
           return response.data;
         },
         error => {
-          this.state = "done";
+          this.fetch_state = "done";
           console.log(error);
         }
       );
@@ -94,20 +115,42 @@ export default {
       }
       return 0;
     },
+    results_length() {
+      if (!!this.results) {
+        return this.results.results.length;
+      }
+      return 0;
+    },
     rest_offset: function() {
-      return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
+      return (this.page - 1) * this.$APIConstants.BOOK_PAGE_SIZE;
+    },
+    page_range: function() {
+      var base = 0;
+      if (this.page > 1) {
+        base = (this.page - 1) * this.$APIConstants.BOOK_PAGE_SIZE;
+      }
+      return [base + 1, this.results_length + base];
+    },
+    view_params() {
+      return {
+        eebo: this.eebo,
+        pq_publisher: this.publisher_search,
+        pq_title: this.title_search,
+        pq_author: this.author_search,
+        pp_publisher: this.pp_publisher_search,
+        pq_year_min: this.pq_year_min,
+        pq_year_max: this.pq_year_max,
+        tx_year_min: this.tx_year_min,
+        tx_year_max: this.tx_year_max,
+        year_late_max: this.year_early,
+        year_early_min: this.year_late,
+        order: this.order
+      };
     }
   },
-  methods: {},
   watch: {
-    count() {
-      this.$emit("count-update", this.count);
-    },
-    books() {
-      this.$emit("books-update", this.books.length);
-    },
-    state() {
-      this.$emit("state", this.state);
+    view_params: function() {
+      this.page = 1;
     }
   }
 };
