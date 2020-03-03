@@ -6,7 +6,12 @@
     </div>
     <div class="card-body">
       <a :href="page.image.web_url">
-        <b-img-lazy class="page-image" :src="page.image.thumbnail" />
+        <b-img-lazy
+          class="page-image"
+          :src="page.image.thumbnail"
+          blank-width="300"
+          blank-height="500"
+        />
       </a>
     </div>
     <div v-if="footer" class="card-footer">{{ footer }}</div>

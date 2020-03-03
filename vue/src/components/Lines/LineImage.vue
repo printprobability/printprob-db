@@ -4,6 +4,8 @@
       :src="line.image.thumbnail"
       class="line-image my-3 mx-auto"
       @click="$emit('line_clicked', line)"
+      blank-width="750"
+      blank-height="200"
     />
   </a>
 </template>
