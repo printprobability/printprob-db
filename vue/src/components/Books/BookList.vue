@@ -159,7 +159,12 @@
                   />
                 </b-form-group>
                 <b-form-group id="starred-group" label="Only show starred books" label-size="sm">
-                  <b-form-checkbox id="starred-input" v-model="starred" />
+                  <b-form-checkbox
+                    id="starred-input"
+                    v-model="starred"
+                    checked-value="true"
+                    unchecked-value="null"
+                  />
                 </b-form-group>
               </b-col>
               <b-col col md="6">
@@ -271,7 +276,7 @@ export default {
       tx_year_max: 1800,
       year_early: null,
       year_late: null,
-      starred: false,
+      starred: null,
       page: 1,
       order: "pq_title",
       count: 0,
