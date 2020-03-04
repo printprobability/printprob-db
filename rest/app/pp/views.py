@@ -1,4 +1,4 @@
-import zipfile
+import tarfile
 import os
 from django import forms
 from django.shortcuts import render
@@ -492,10 +492,9 @@ class CharacterGroupingViewSet(CRUDViewSet):
 
     @action(detail=True, methods=["get"])
     def download(self, request, pk=None):
-        response = HttpResponse(content_type="application/zip")
         obj = self.get_object()
 
-        zip_file_name = f"character_group-{slugify(obj.label)}-{obj.id}.zip"
+        zip_file_name = f"character_group-{slugify(obj.label)}-{obj.id}.tar.gz"
 
         if obj.characters.count() < 1:
             return Response(
@@ -504,19 +503,20 @@ class CharacterGroupingViewSet(CRUDViewSet):
             )
         image_objects = obj.characters.all()
 
-        zip_file = zipfile.ZipFile(response, "w")
         with TemporaryDirectory(dir=settings.DOWNLOAD_SCRATCH_DIR) as scratch_dir:
+            zip_file = tarfile.open(f"{scratch_dir}/cg.tar.gz", "w:gz")
             for img in image_objects:
                 filename = f"{img.label}.tif"
                 # Make requests out to the iiif endpoint and send back the files
                 # TODO stream the zip response as we request images, rather than waiting for all the images to be done first.
                 direct_url = img.full_tif
                 download_destination = f"{scratch_dir}/{filename}"
-                print(download_destination)
                 tif_response = requests.get(direct_url, verify=settings.CA_CERT_ROUTE)
                 open(download_destination, "wb").write(tif_response.content)
-                print(os.stat(download_destination))
-                zip_file.write(download_destination, filename)
+                zip_file.add(download_destination, arcname=filename)
             zip_file.close()
-        response["Content-Disposition"] = f"attachment; filename={zip_file_name}"
-        return response
+            response = FileResponse(
+                open(zip_file.name, "rb"), content_type="application/gzip"
+            )
+            response["Content-Disposition"] = f"attachment; filename={zip_file_name}"
+            return response
