@@ -512,6 +512,7 @@ class CharacterGroupingViewSet(CRUDViewSet):
                 # TODO stream the zip response as we request images, rather than waiting for all the images to be done first.
                 direct_url = img.full_tif
                 download_destination = f"{scratch_dir}/{filename}"
+                print(download_destination)
                 tif_response = requests.get(direct_url, verify=settings.CA_CERT_ROUTE)
                 open(download_destination, "wb").write(tif_response.content)
                 zip_file.write(download_destination, filename)
