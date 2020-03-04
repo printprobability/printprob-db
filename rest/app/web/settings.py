@@ -153,3 +153,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = os.environ["STATIC_ROOT"]
 CA_CERT_ROUTE = os.environ["CA_CERT_ROUTE"]
+if (
+    CA_CERT_ROUTE == "False"
+):  # If we want to skip verification, e.g. during testing, passing false needs to convert this setting into a boolean FALSE instead
+    CA_CERT_ROUTE = False
