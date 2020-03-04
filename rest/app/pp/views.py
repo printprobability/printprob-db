@@ -515,6 +515,7 @@ class CharacterGroupingViewSet(CRUDViewSet):
                 print(download_destination)
                 tif_response = requests.get(direct_url, verify=settings.CA_CERT_ROUTE)
                 open(download_destination, "wb").write(tif_response.content)
+                print(os.stat(download_destination))
                 zip_file.write(download_destination, filename)
             zip_file.close()
         response["Content-Disposition"] = f"attachment; filename={zip_file_name}"
