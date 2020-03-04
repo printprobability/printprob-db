@@ -157,3 +157,4 @@ if (
     CA_CERT_ROUTE == "False"
 ):  # If we want to skip verification, e.g. during testing, passing false needs to convert this setting into a boolean FALSE instead
     CA_CERT_ROUTE = False
+DOWNLOAD_SCRATCH_DIR = os.environ["DOWNLOAD_SCRATCH_DIR"]

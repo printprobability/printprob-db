@@ -505,8 +505,7 @@ class CharacterGroupingViewSet(CRUDViewSet):
         image_objects = obj.characters.all()
 
         zip_file = zipfile.ZipFile(response, "w")
-        with TemporaryDirectory() as scratch_dir:
-            print(scratch_dir)
+        with TemporaryDirectory(dir=settings.DOWNLOAD_SCRATCH_DIR) as scratch_dir:
             for img in image_objects:
                 filename = f"{img.label}.tif"
                 # Make requests out to the iiif endpoint and send back the files
@@ -518,5 +517,4 @@ class CharacterGroupingViewSet(CRUDViewSet):
                 zip_file.write(download_destination, filename)
             zip_file.close()
         response["Content-Disposition"] = f"attachment; filename={zip_file_name}"
-
         return response
