@@ -129,7 +129,6 @@ export default {
       }
     },
     edit_group: function(fieldname, content) {
-      console.log(content);
       var payload = {};
       payload[fieldname] = content;
       return HTTP.patch("/books/" + this.book.id + "/", payload).then(
