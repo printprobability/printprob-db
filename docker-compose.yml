@@ -32,7 +32,6 @@ services:
     volumes:
       - ppstatic:/vol/static_files:z
       - ${REAL_IMAGE_DIR}:/vol/img:z
-      - ./vue/dist:/vol/vue:z
       - ./nginx:/etc/nginx/conf.d:z
     ports:
       - "443:443"
@@ -41,10 +40,8 @@ services:
     links:
       - "web:web"
       - "iiif:iiif"
-      - "vue:vue"
     depends_on:
       - web
-      - vue
     command: sh -c "envsubst '$$ALLOWED_HOSTS $$CERT_PATH $$KEY_PATH $$PP_NGINX_LISTEN $$PP_NGINX_SERVER_NAME $$HTTPS_REDIRECT' < /etc/nginx/conf.d/pp.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 
   iiif:
@@ -56,14 +53,6 @@ services:
     expose:
       - 80
     command: "/bin/iiif-server -host 0.0.0.0 -port 80 -config-source file:///etc/iiif-server -config-name config.json"
-
-  vue:
-    image: node
-    working_dir: /home/node/app
-    volumes:
-      - ./vue:/home/node/app:z
-    command: "npm run build"
-
 
 volumes:
   pp:
