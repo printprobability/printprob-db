@@ -144,6 +144,7 @@ class Book(uuidModel):
     ignored = models.BooleanField(default=False, db_index=True)
     is_eebo_book = models.BooleanField(default=False, db_index=True)
     prefix = models.CharField(max_length=200, blank=True, null=True, unique=True)
+    n_spreads = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ["pq_title"]
@@ -175,15 +176,6 @@ class Book(uuidModel):
 
     def cover_spread(self):
         return self.spreads.first()
-
-    def cover_page(self):
-        return self.most_recent_pages().first()
-
-    def n_spreads(self):
-        return self.spreads.count()
-
-    def n_pages(self):
-        return ordered_pages.count()
 
     @property
     def zip_path(self):
@@ -302,6 +294,15 @@ class Spread(ImagedModel):
 
     def most_recent_pages(self):
         return self.book.pageruns.first().pages.filter(spread=self)
+
+    def save(self, *args, **kwargs):
+        """
+        Update book spread count on save
+        """
+        response = super().save(*args, **kwargs)
+        self.book.n_spreads = self.book.spreads.count()
+        self.book.save()
+        return response
 
 
 class Page(ImagedModel):

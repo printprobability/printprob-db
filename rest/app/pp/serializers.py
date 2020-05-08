@@ -519,4 +519,3 @@ class CharacterAnnotateSerializer(serializers.Serializer):
     human_character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all(), many=False, allow_null=True
     )
-

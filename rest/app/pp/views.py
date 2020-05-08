@@ -17,7 +17,7 @@ from rest_framework import (
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.db import transaction
-from django.db.models import Count, F, Q, Exists, OuterRef
+from django.db.models import Count, F, Q, Exists, OuterRef, Prefetch
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from django_filters import rest_framework as filters
@@ -26,6 +26,20 @@ from base64 import b64encode, b64decode
 from drf_tweaks.pagination import NoCountsLimitOffsetPagination
 from tempfile import TemporaryDirectory
 import requests
+
+
+class GetSerializerClassMixin(object):
+    def get_queryset(self):
+        try:
+            return self.queryset_action_classes[self.action]
+        except (KeyError, AttributeError):
+            return super().get_queryset()
+
+    def get_serializer_class(self):
+        try:
+            return self.serializer_action_classes[self.action]
+        except (KeyError, AttributeError):
+            return super().get_serializer_class()
 
 
 class CRUDViewSet(viewsets.ModelViewSet):
@@ -128,16 +142,19 @@ class BookFilter(filters.FilterSet):
         return queryset.filter(date_late__lte=value)
 
 
-class BookViewSet(CRUDViewSet):
+class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
     """
     list: Lists all books.
     """
 
-    queryset = (
-        models.Book.objects.prefetch_related("spreads")
-        .annotate(n_spreads=Count("spreads"))
-        .all()
-    )
+    detail_queryset = models.Book.objects.prefetch_related("spreads").all()
+
+    list_queryset = models.Book.objects.prefetch_related(
+        Prefetch("spreads", queryset=models.Spread.objects.filter(sequence=1))
+    ).all()
+
+    queryset = detail_queryset
+    serializer_action_classes = {"list": list_queryset, "detail": detail_queryset}
     filterset_class = BookFilter
     ordering_fields = ["pq_title", "pq_author", "pq_publisher", "date_early"]
 
