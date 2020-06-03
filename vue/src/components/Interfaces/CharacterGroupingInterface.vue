@@ -8,16 +8,12 @@
       <div class="col-7">
         <CharacterList
           :highlighted_characters="intersecting_images"
-          :page="page"
-          @page_input="page=$event"
           :character_class="character_class"
           @character_class_input="character_class=$event"
           :book="book"
           @book_input="book=$event"
           :char_agreement="char_agreement"
           @char_agreement_input="char_agreement=$event"
-          :order="order"
-          @order_input="order=$event"
           :character_run="character_run"
           @character_run_input="character_run=$event"
           v-model="displayed_images"
@@ -109,6 +105,7 @@ export default {
     CharacterImage,
     CharacterList
   },
+  props: {},
   data() {
     return {
       cg_id: null,
@@ -126,10 +123,8 @@ export default {
         }
       },
       cg_menu_key: 0,
-      page: 1,
       book: null,
       character_class: null,
-      order: "-class_probability",
       character_run: null,
       char_agreement: "all"
     };

@@ -39,7 +39,7 @@
           <p>
             Characters {{1 + (page - 1) * $APIConstants.REST_PAGE_SIZE }} to {{ (page - 1) * $APIConstants.REST_PAGE_SIZE + value.length }}
             <span
-              v-if="this.results.next"
+              v-if="results.next"
               v-b-tooltip.hover
               title="Arbitrarily counting characters is a very expensive operation, so we only estimate here..."
             >(out of many)</span>
@@ -48,7 +48,6 @@
             hide-goto-end-buttons
             v-show="pagination_needed"
             :value="page"
-            @input="$emit('page_input', $event)"
             :per-page="$APIConstants.REST_PAGE_SIZE"
             :total-rows="mock_rows"
             aria-controls="character-results"
@@ -102,20 +101,12 @@ export default {
         return [];
       }
     },
-    page: {
-      default: 1,
-      type: Number
-    },
     character_class: {
       default: null,
       type: String
     },
     book: {
       default: null,
-      type: String
-    },
-    order: {
-      default: "-class_probability",
       type: String
     },
     char_agreement: {
@@ -139,7 +130,9 @@ export default {
   data() {
     return {
       progress_spinner: false,
-      cursor: null
+      cursor: null,
+      page: 1,
+      order: "-class_probability"
     };
   },
   asyncComputed: {
@@ -152,8 +145,7 @@ export default {
           character_class: this.character_class,
           book: this.book,
           agreement: this.char_agreement,
-          ordering: this.order,
-          cursor: this.cursor
+          ordering: this.order
         }
       }).then(
         response => {
@@ -180,6 +172,16 @@ export default {
     }
   },
   computed: {
+    view_params() {
+      return {
+        limit: this.$APIConstants.REST_PAGE_SIZE,
+        character_class: this.character_class,
+        book: this.book,
+        agreement: this.char_agreement,
+        ordering: this.order,
+        cursor: this.cursor
+      };
+    },
     rest_offset: function() {
       return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
     },
@@ -202,6 +204,9 @@ export default {
   watch: {
     results() {
       this.$emit("input", this.results.results);
+    },
+    view_params() {
+      this.page = 1;
     }
   }
 };
