@@ -97,7 +97,7 @@ class BookFilter(filters.FilterSet):
     def has_images(self, queryset, name, value):
         spreads = models.Spread.objects.filter(book=OuterRef("pk"), tif__isnull=False)
         pages = models.Page.objects.filter(
-            spread__book=OuterRef("pk"), tif__isnull=False
+            created_by_run__book=OuterRef("pk"), tif__isnull=False
         )
         lines = models.Line.objects.filter(created_by_run__book=OuterRef("pk"))
         characters = models.Character.objects.filter(
@@ -220,12 +220,6 @@ class LineRunViewSet(CRUDViewSet):
     serializer_class = serializers.LineRunSerializer
 
 
-class LineGroupRunViewSet(CRUDViewSet):
-    queryset = models.LineGroupRun.objects.all()
-    filterset_class = RunFilter
-    serializer_class = serializers.LineGroupRunSerializer
-
-
 class CharacterRunViewSet(CRUDViewSet):
     queryset = models.CharacterRun.objects.all()
     filterset_class = RunFilter
@@ -236,12 +230,11 @@ class PageFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
         queryset=models.Book.objects.all(),
         help_text="Book ID for this page",
-        field_name="spread__book",
+        field_name="created_by_run__book",
         widget=forms.TextInput,
     )
-    spread_sequence = filters.NumberFilter(
-        field_name="spread__sequence",
-        help_text="The spread sequence integer this page belongs to",
+    sequence = filters.NumberFilter(
+        field_name="sequence", help_text="The sequence of this page in the book"
     )
     side = filters.ChoiceFilter(
         choices=models.Page.SPREAD_SIDE, help_text="Which side of the page"
@@ -259,7 +252,7 @@ class PageViewSet(CRUDViewSet):
     """
 
     queryset = models.Page.objects.prefetch_related(
-        "spread__book__lineruns", "created_by_run"
+        "created_by_run__book__lineruns", "created_by_run"
     ).all()
     filterset_class = PageFilter
 
@@ -274,15 +267,15 @@ class PageViewSet(CRUDViewSet):
 class LineFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
         queryset=models.Book.objects.all(),
-        field_name="page__spread__book",
+        field_name="page__created_by_run__book",
         label="Book ID",
         help_text="Lines belonging to this book",
         widget=forms.TextInput,
     )
-    spread_sequence = filters.NumberFilter(
-        field_name="page__spread__sequence",
-        label="Spread sequence",
-        help_text="Lines belonging to a spread with this sequence index",
+    sequence = filters.NumberFilter(
+        field_name="page__sequence",
+        label="Sequence",
+        help_text="Lines belonging to a page with this sequence index",
     )
     page_side = filters.ChoiceFilter(
         choices=models.Page.SPREAD_SIDE,
@@ -310,58 +303,15 @@ class LineViewSet(CRUDViewSet):
         return serializers.LineCreateSerializer
 
 
-class LineGroupFilter(filters.FilterSet):
-    book = filters.ModelChoiceFilter(
-        queryset=models.Book.objects.all(),
-        field_name="spread__book",
-        label="Book ID",
-        widget=forms.TextInput,
-    )
-    spread_sequence = filters.NumberFilter(
-        field_name="spread__sequence", help_text="Spread sequence number in the book"
-    )
-    spread_id = filters.ModelChoiceFilter(
-        queryset=models.Spread.objects.all(),
-        field_name="spread",
-        label="Spread ID",
-        widget=forms.TextInput,
-    )
-    page = (
-        filters.ModelChoiceFilter(
-            queryset=models.Page.objects.all(),
-            field_name="pages__pk",
-            label="Page ID",
-            widget=forms.TextInput,
-        ),
-    )
-    created_by_run = filters.ModelChoiceFilter(
-        queryset=models.LineGroupRun.objects.all(),
-        label="Line Group Run ID",
-        widget=forms.TextInput,
-    )
-
-
-class LineGroupViewSet(CRUDViewSet):
-    queryset = models.LineGroup.objects.all()
-    filterset_class = LineGroupFilter
-
-    def get_serializer_class(self):
-        if self.action == "retrieve":
-            return serializers.LineGroupDetailSerializer
-        elif self.action == "list":
-            return serializers.LineGroupListSerializer
-        return serializers.LineGroupCreateSerializer
-
-
 class CharacterFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
         queryset=models.Book.objects.all(),
-        field_name="line__page__spread__book",
+        field_name="created_by_run__book",
         label="Book ID",
         widget=forms.TextInput,
     )
-    spread_sequence = filters.NumberFilter(
-        field_name="line__page__spread__sequence", label="Spread sequence"
+    page_sequence = filters.NumberFilter(
+        field_name="line__page__sequence", label="Page sequence"
     )
     page_side = filters.ChoiceFilter(
         choices=models.Page.SPREAD_SIDE, field_name="line__page__side"
@@ -408,8 +358,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
         models.Character.objects.select_related(
             "line",
             "line__page",
-            "line__page__spread",
-            "line__page__spread__book",
+            "created_by_run__book",
             "character_class",
             "human_character_class",
         )
@@ -417,13 +366,12 @@ class CharacterViewSet(viewsets.ModelViewSet):
             rundate=F("created_by_run__date_started"),
             lineseq=F("line__sequence"),
             pageseq=F("line__page__side"),
-            spreadseq=F("line__page__spread__sequence"),
-            bookseq=F("line__page__spread__book__id"),
+            bookseq=F("created_by_run__book__id"),
         )
         .all()
     )
     ordering_fields = ["class_probability"]
-    ordering = ["rundate", "bookseq", "spreadseq", "pageseq", "lineseq", "sequence"]
+    ordering = ["rundate", "bookseq", "pageseq", "lineseq", "sequence"]
     filterset_class = CharacterFilter
     pagination_class = NoCountsLimitOffsetPagination
 

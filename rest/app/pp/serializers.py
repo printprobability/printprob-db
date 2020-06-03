@@ -25,7 +25,7 @@ class SpreadFlatSerializer(serializers.ModelSerializer):
 class PageFlatSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Page
-        fields = ["url", "id", "label", "spread", "spread_sequence", "side", "image"]
+        fields = ["url", "id", "label", "sequence", "side", "image"]
 
 
 class LineFlatSerializer(serializers.ModelSerializer):
@@ -120,13 +120,6 @@ class LineRunSerializer(serializers.ModelSerializer):
         read_only_fields = ["component_count", "label", "date_started", "id"]
 
 
-class LineGroupRunSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.LineGroupRun
-        fields = ["url", "id", "label", "book", "date_started", "component_count"]
-        read_only_fields = ["component_count", "label", "date_started", "id"]
-
-
 class CharacterRunSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CharacterRun
@@ -193,8 +186,7 @@ class PageListSerializer(serializers.ModelSerializer):
             "id",
             "label",
             "created_by_run",
-            "spread",
-            "spread_sequence",
+            "sequence",
             "side",
             "x",
             "y",
@@ -216,7 +208,6 @@ class PageDetailSerializer(serializers.ModelSerializer):
     )
     most_recent_lines = LineFlatSerializer(many=True)
     book = BookListSerializer(many=False)
-    spread = SpreadFlatSerializer(many=False)
 
     class Meta:
         model = models.Page
@@ -226,7 +217,6 @@ class PageDetailSerializer(serializers.ModelSerializer):
             "label",
             "created_by_run",
             "book",
-            "spread",
             "side",
             "x",
             "y",
@@ -248,7 +238,6 @@ class PageCreateSerializer(serializers.ModelSerializer):
             "id",
             "label",
             "created_by_run",
-            "spread",
             "side",
             "x",
             "y",
@@ -268,30 +257,10 @@ class SpreadListSerializer(serializers.ModelSerializer):
 
 class SpreadDetailSerializer(serializers.ModelSerializer):
     book = BookListSerializer(many=False)
-    pages = serializers.HyperlinkedRelatedField(
-        many=True,
-        view_name="page-detail",
-        read_only=True,
-        help_text="All Page instances ever produced from this spread, under any run.",
-    )
-    most_recent_pages = PageFlatSerializer(
-        many=True,
-        read_only=True,
-        help_text="Pages processed for this spread during the most recent page run processed for this book.",
-    )
 
     class Meta:
         model = models.Spread
-        fields = [
-            "url",
-            "id",
-            "label",
-            "book",
-            "sequence",
-            "image",
-            "most_recent_pages",
-            "pages",
-        ]
+        fields = ["url", "id", "label", "book", "sequence", "image"]
 
 
 class SpreadCreateSeralizer(serializers.ModelSerializer):
@@ -303,7 +272,6 @@ class SpreadCreateSeralizer(serializers.ModelSerializer):
 class BookAllRunsSerializer(serializers.Serializer):
     pages = PageRunSerializer(many=True)
     lines = LineRunSerializer(many=True)
-    linegroups = LineGroupRunSerializer(many=True)
     characters = CharacterRunSerializer(many=True)
 
 
@@ -345,26 +313,6 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "is_eebo_book",
             "prefix",
         ]
-
-
-class LineGroupListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.LineGroup
-        fields = ["url", "id", "label", "page", "created_by_run", "lines"]
-
-
-class LineGroupDetailSerializer(serializers.ModelSerializer):
-    lines = LineListSerializer(many=True)
-
-    class Meta:
-        model = models.LineGroup
-        fields = ["url", "id", "label", "page", "created_by_run", "lines"]
-
-
-class LineGroupCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.LineGroup
-        fields = ["url", "id", "label", "page", "created_by_run", "lines"]
 
 
 class CharacterGroupingListSerializer(serializers.ModelSerializer):

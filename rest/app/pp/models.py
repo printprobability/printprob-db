@@ -47,11 +47,6 @@ class LineRun(Run):
         return self.lines.count()
 
 
-class LineGroupRun(Run):
-    def component_count(self):
-        return self.linegroups.count()
-
-
 class CharacterRun(Run):
     def component_count(self):
         return self.characters.count()
@@ -156,7 +151,6 @@ class Book(uuidModel):
         return {
             "pages": self.pageruns.all(),
             "lines": self.lineruns.all(),
-            "linegroups": self.linegroupruns.all(),
             "characters": self.characterruns.all(),
         }
 
@@ -164,7 +158,6 @@ class Book(uuidModel):
         return {
             "page": self.pageruns.first(),
             "line": self.lineruns.first(),
-            "linegroup": self.linegroupruns.first(),
             "character": self.characterruns.first(),
         }
 
@@ -311,12 +304,7 @@ class Page(ImagedModel):
     """
 
     SPREAD_SIDE = (("s", "single"), ("l", "left"), ("r", "right"))
-    spread = models.ForeignKey(
-        Spread,
-        on_delete=models.CASCADE,
-        related_name="pages",
-        help_text="Spread ID this page belongs to",
-    )
+    sequence = models.PositiveIntegerField(default=0)
     side = models.CharField(
         max_length=1,
         choices=SPREAD_SIDE,
@@ -336,23 +324,22 @@ class Page(ImagedModel):
     )
 
     class Meta:
-        unique_together = (("created_by_run", "spread", "side"),)
-        ordering = ["created_by_run", "spread", "side"]
+        unique_together = (("created_by_run", "sequence"),)
+        ordering = ["created_by_run", "sequence"]
 
     def labeller(self):
-        return f"{self.spread.book} p. {self.spread.sequence}-{self.side}"
+        return (
+            f"{self.created_by_run.book} p. {self.created_by_run.sequence}-{self.side}"
+        )
 
     def n_lines(self):
         return self.lines.count()
 
     def most_recent_lines(self):
-        return self.spread.book.lineruns.first().lines.filter(page=self)
-
-    def spread_sequence(self):
-        return self.spread.sequence
+        return self.created_by_run.book.lineruns.first().lines.filter(page=self)
 
     def book(self):
-        return self.spread.book
+        return self.created_by_run.book
 
 
 class Line(CroppedModel):
@@ -393,12 +380,9 @@ class Line(CroppedModel):
         return self.characters.count()
 
     def most_recent_characters(self):
-        return self.page.spread.book.characterruns.first().characters.filter(line=self)
-
-    def most_recent_linegroups(self):
-        return LineGroup.objects.filter(
-            lines=self, created_by_run=self.page.spread.book.linegroupruns.first()
-        ).distinct()
+        return self.page.created_by_run.book.characterruns.first().characters.filter(
+            line=self
+        )
 
     @property
     def root_object(self):
@@ -418,17 +402,6 @@ class Line(CroppedModel):
 
     def page_side(self):
         return self.page.side
-
-
-class LineGroup(uuidModel):
-    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name="linegroups")
-    lines = models.ManyToManyField(Line, related_name="linegroups")
-    created_by_run = models.ForeignKey(
-        LineGroupRun, on_delete=models.CASCADE, related_name="linegroups"
-    )
-
-    def labeller(self):
-        return f"{self.page} grouping"
 
 
 class CharacterClass(models.Model):
@@ -505,10 +478,7 @@ class Character(CroppedModel):
         return f"{self.line} c. {self.sequence}"
 
     def book(self):
-        return self.line.page.spread.book
-
-    def spread(self):
-        return self.line.page.spread
+        return self.line.page.created_by_run.book
 
     def page(self):
         return self.line.page
