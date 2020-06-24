@@ -159,3 +159,8 @@ if (
 ):  # If we want to skip verification, e.g. during testing, passing false needs to convert this setting into a boolean FALSE instead
     CA_CERT_ROUTE = False
 DOWNLOAD_SCRATCH_DIR = os.environ["DOWNLOAD_SCRATCH_DIR"]
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_PORT = os.environ.get("EMAIL_PORT", 25)
+DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_ADDRESS")
