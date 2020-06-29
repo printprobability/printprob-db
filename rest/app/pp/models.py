@@ -196,9 +196,6 @@ class ImagedModel(uuidModel):
         help_text="relative file path to root directory containing all images",
         blank=True,
     )
-    tif_md5 = models.UUIDField(
-        help_text="md5 hash of the tif file (as hex digest)", null=True
-    )
 
     @property
     def iiif_base(self):
