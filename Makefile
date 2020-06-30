@@ -40,7 +40,7 @@ restore: blank
 	docker-compose exec -T postgres psql -U app -d postgres < ../bkp/bkp.sql
 	$(MAKE) restart
 dumptest:
-	docker-compose exec web python manage.py dumpdata --indent 2 -e auth.permission -e contenttypes -e sessions -o pp/fixtures/test.json
+	docker-compose exec web python manage.py dumpdata --indent 2 -e auth.permission -e contenttypes -e sessions -e silk -o pp/fixtures/test.json
 loadtest: wipe
 	docker-compose exec web python manage.py loaddata pp/fixtures/test.json
 test:
