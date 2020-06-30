@@ -140,52 +140,6 @@ class LineRunTestCase(TestCase):
         noaccess(self)
 
 
-class LineGroupRunTestCase(TestCase):
-    fixtures = ["test.json"]
-
-    ENDPOINT = reverse("linegrouprun-list")
-
-    @classmethod
-    def setUp(cls):
-        cls.OBJCOUNT = models.LineGroupRun.objects.count()
-        cls.OBJ1 = models.LineGroupRun.objects.first().pk
-        cls.STR1 = str(cls.OBJ1)
-
-    @as_auth()
-    def test_get(self):
-        res = self.client.get(self.ENDPOINT)
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in ["url", "id", "book", "date_started", "label"]:
-            self.assertIn(k, res.data["results"][0])
-
-    @as_auth()
-    def test_get_detail(self):
-        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
-        self.assertEqual(res.status_code, 200)
-        for k in ["url", "id", "book", "date_started", "label"]:
-            self.assertIn(k, res.data)
-        self.assertEqual(res.data["id"], self.STR1)
-
-    @as_auth()
-    def test_delete(self):
-        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
-        self.assertEqual(res.status_code, 204)
-        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
-        self.assertEqual(delres.status_code, 404)
-
-    @as_auth()
-    def test_post(self):
-        book = models.Book.objects.first().pk
-        res = self.client.post(self.ENDPOINT, data={"book": book})
-        self.assertEqual(res.status_code, 201)
-        for k in ["url", "id", "book", "date_started", "label"]:
-            self.assertIn(k, res.data)
-
-    def test_noaccess(self):
-        noaccess(self)
-
-
 class CharacterRunTestCase(TestCase):
     fixtures = ["test.json"]
 
@@ -408,13 +362,7 @@ class SpreadViewTest(TestCase):
     def test_post(self):
         book = models.Book.objects.first().pk
         res = self.client.post(
-            self.ENDPOINT,
-            data={
-                "book": book,
-                "sequence": 100,
-                "tif": "/foo/bat.tiff",
-                "tif_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
-            },
+            self.ENDPOINT, data={"book": book, "sequence": 100, "tif": "/foo/bat.tiff"}
         )
         self.assertEqual(res.status_code, 201)
         for k in ["url", "id", "book", "sequence", "image"]:
@@ -434,6 +382,9 @@ class PageViewTest(TestCase):
     def setUpTestData(cls):
         cls.OBJCOUNT = models.Page.objects.count()
         cls.OBJ1 = models.Page.objects.first().pk
+        cls.SEQUENCE1 = models.Page.objects.first().sequence
+        cls.RUN1 = str(models.Page.objects.first().created_by_run.pk)
+        cls.BOOK1 = str(models.Page.objects.first().created_by_run.book.pk)
         cls.STR1 = str(cls.OBJ1)
 
     @as_auth()
@@ -445,9 +396,8 @@ class PageViewTest(TestCase):
             "url",
             "id",
             "created_by_run",
-            "spread",
-            "spread_sequence",
             "side",
+            "sequence",
             "x",
             "y",
             "w",
@@ -468,8 +418,8 @@ class PageViewTest(TestCase):
             "url",
             "id",
             "created_by_run",
-            "spread",
             "side",
+            "sequence",
             "x",
             "y",
             "w",
@@ -482,7 +432,6 @@ class PageViewTest(TestCase):
             self.assertIn(k, res.data.keys())
         self.assertEqual(res.data["id"], self.STR1)
         self.assertIn("web_url", res.data["image"])
-        self.assertIn("id", res.data["spread"])
 
     @as_auth()
     def test_delete(self):
@@ -493,17 +442,15 @@ class PageViewTest(TestCase):
 
     @as_auth()
     def test_post(self):
-        spread = models.Spread.objects.first()
-        run = spread.pages.first().created_by_run.pk
+        run = self.RUN1
         # Posting an existing page fails
         failres = self.client.post(
             self.ENDPOINT,
             data={
-                "spread": spread.pk,
                 "created_by_run": run,
+                "sequence": self.SEQUENCE1,
                 "side": "l",
                 "tif": "/foo/bat.tiff",
-                "tif_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
                 "x": 0,
                 "y": 0,
                 "w": 0,
@@ -515,13 +462,7 @@ class PageViewTest(TestCase):
         self.assertEqual(failres.status_code, 400)
         # Delete it and then try again
         getextant = self.client.get(
-            self.ENDPOINT,
-            {
-                "book": spread.book.pk,
-                "spread_sequence": spread.sequence,
-                "created_by_run": run,
-                "side": "l",
-            },
+            self.ENDPOINT, {"created_by_run": run, "sequence": self.SEQUENCE1}
         )
         delres = self.client.delete(
             self.ENDPOINT + str(getextant.data["results"][0]["id"]) + "/"
@@ -530,11 +471,10 @@ class PageViewTest(TestCase):
         res = self.client.post(
             self.ENDPOINT,
             data={
-                "spread": spread.pk,
                 "created_by_run": run,
                 "side": "l",
+                "sequence": self.SEQUENCE1,
                 "tif": "/foo/bat.tiff",
-                "tif_md5": "c08fa2dc-6ebc-4c0e-a48e-efdcea56ba45",
                 "x": 0,
                 "y": 0,
                 "w": 0,
@@ -549,8 +489,8 @@ class PageViewTest(TestCase):
             "url",
             "id",
             "created_by_run",
-            "spread",
             "side",
+            "sequence",
             "x",
             "y",
             "w",
@@ -649,63 +589,6 @@ class LineViewTest(TestCase):
             "image",
             "label",
         ]:
-            self.assertIn(k, res.data)
-
-    def test_noaccess(self):
-        noaccess(self)
-
-
-class LineGroupViewTest(TestCase):
-
-    fixtures = ["test.json"]
-
-    ENDPOINT = reverse("linegroup-list")
-
-    @classmethod
-    def setUpTestData(cls):
-        cls.OBJCOUNT = models.LineGroup.objects.count()
-        cls.OBJ1 = models.LineGroup.objects.first().pk
-        cls.STR1 = str(cls.OBJ1)
-
-    @as_auth()
-    def test_get(self):
-        res = self.client.get(self.ENDPOINT)
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.data["count"], self.OBJCOUNT)
-        for k in ["url", "id", "page", "created_by_run", "lines"]:
-            self.assertIn(k, res.data["results"][0])
-
-    @as_auth()
-    def test_get_detail(self):
-        res = self.client.get(self.ENDPOINT + self.STR1 + "/")
-        self.assertEqual(res.status_code, 200)
-        for k in ["url", "id", "page", "created_by_run", "lines"]:
-            self.assertIn(k, res.data)
-        self.assertEqual(res.data["id"], self.STR1)
-        self.assertIsInstance(res.data["lines"], list)
-
-    @as_auth()
-    def test_delete(self):
-        res = self.client.delete(self.ENDPOINT + self.STR1 + "/")
-        self.assertEqual(res.status_code, 204)
-        delres = self.client.get(self.ENDPOINT + self.STR1 + "/")
-        self.assertEqual(delres.status_code, 404)
-
-    @as_auth()
-    def test_post(self):
-        page = models.Page.objects.first()
-        run = models.LineGroupRun.objects.first().pk
-        lines = page.lines.all()[:1]
-        res = self.client.post(
-            self.ENDPOINT,
-            data={
-                "page": page.pk,
-                "created_by_run": run,
-                "lines": [l.pk for l in lines],
-            },
-        )
-        self.assertEqual(res.status_code, 201)
-        for k in ["url", "id", "page", "created_by_run", "lines"]:
             self.assertIn(k, res.data)
 
     def test_noaccess(self):

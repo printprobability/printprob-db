@@ -218,6 +218,7 @@ class PageDetailSerializer(serializers.ModelSerializer):
             "created_by_run",
             "book",
             "side",
+            "sequence",
             "x",
             "y",
             "w",
@@ -238,6 +239,7 @@ class PageCreateSerializer(serializers.ModelSerializer):
             "id",
             "label",
             "created_by_run",
+            "sequence",
             "side",
             "x",
             "y",
@@ -373,7 +375,6 @@ class CharacterGroupingCharacterListSerializer(serializers.ModelSerializer):
 
 class CharacterDetailSerializer(serializers.ModelSerializer):
     book = BookListSerializer(many=False)
-    spread = SpreadFlatSerializer(many=False)
     page = PageFlatSerializer(many=False)
     line = LineFlatSerializer(many=False)
     character_class = serializers.PrimaryKeyRelatedField(
@@ -391,7 +392,6 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
             "label",
             "created_by_run",
             "book",
-            "spread",
             "page",
             "line",
             "sequence",

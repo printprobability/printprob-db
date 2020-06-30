@@ -218,7 +218,6 @@ class ImagedModel(uuidModel):
     def image(self):
         return {
             "tif": self.tif,
-            "tif_md5": self.tif_md5,
             "iiif_base": self.iiif_base,
             "web_url": self.web_url,
             "thumbnail": self.thumbnail,
@@ -326,9 +325,7 @@ class Page(ImagedModel):
         ordering = ["created_by_run", "sequence"]
 
     def labeller(self):
-        return (
-            f"{self.created_by_run.book} p. {self.created_by_run.sequence}-{self.side}"
-        )
+        return f"{self.created_by_run.book} p. {self.sequence}-{self.side}"
 
     def n_lines(self):
         return self.lines.count()
