@@ -307,12 +307,12 @@ class Page(ImagedModel):
         choices=SPREAD_SIDE,
         help_text="Side of the spread this has been segmented to",
     )
-    x = models.FloatField()
-    y = models.FloatField()
-    w = models.FloatField()
-    h = models.FloatField()
-    rot1 = models.FloatField()
-    rot2 = models.FloatField()
+    x = models.FloatField(null=True)
+    y = models.FloatField(null=True)
+    w = models.FloatField(null=True)
+    h = models.FloatField(null=True)
+    rot1 = models.FloatField(null=True)
+    rot2 = models.FloatField(null=True)
     created_by_run = models.ForeignKey(
         PageRun,
         on_delete=models.CASCADE,
