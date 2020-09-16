@@ -108,7 +108,7 @@ class BookLoader:
                     "created_by_run": page_run_id,
                     "sequence": p["page_num"],
                     "side": "s",
-                    "tif": p["page_filename"],
+                    "image": p["page_filename"].replace("/pylon5/hm4s82p/shared", ""),
                 },
                 headers=AUTH_HEADER,
             )
