@@ -182,6 +182,8 @@ class BookLoader:
 
 
 def main():
+    logging.basicConfig(level=logging.INFO)
+
     # Options and arguments
     p = optparse.OptionParser(
         description="Load a directory containing Ocular JSON outputs",
