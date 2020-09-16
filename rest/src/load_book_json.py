@@ -119,14 +119,14 @@ class BookLoader:
 
     def create_lines(self):
         line_run_response = requests.post(
-            f"{PP_URL}/run/lines/", json={"book": self.book_id,}, headers=AUTH_HEADER,
+            f"{PP_URL}/runs/lines/", json={"book": self.book_id,}, headers=AUTH_HEADER,
         )
         if line_run_response.status_code != 201:
-            raise Exception(f"Couldn't create line run: {line_run.content}")
+            raise Exception(f"Couldn't create line run: {line_run_response.content}")
         self.line_run_id = line_run_response.json()["id"]
 
         character_run_response = requests.post(
-            f"{PP_URL}/run/characters/",
+            f"{PP_URL}/runs/characters/",
             json={"book": self.book_id,},
             headers=AUTH_HEADER,
         )
