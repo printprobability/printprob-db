@@ -30,7 +30,7 @@ class CharacterClasses:
         )
         if cc_res.status_code == 200:
             for cc in cc_res.json()["results"]:
-                self.data[cc["classname"]]: cc["classname"]
+                self.data[cc["classname"]] = cc["classname"]
             logging.info(self.data)
         else:
             raise Exception(cc_res.content)
