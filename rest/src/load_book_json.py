@@ -169,10 +169,11 @@ class BookLoader:
                         "line": line["id"],
                         "sequence": char["sequence"],
                         "offset": char["offset"],
+                        "exposure": char["exposure"],
                         "class_probability": char["logprob"],
                         "character_class": char_type,
                         "x_max": char["x_end"],
-                        "x_start": char["x_start"],
+                        "x_min": char["x_start"],
                     },
                     headers=AUTH_HEADER,
                 )
