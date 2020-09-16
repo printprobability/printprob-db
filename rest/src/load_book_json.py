@@ -30,13 +30,15 @@ class CharacterClasses:
         )
         if cc_res.status_code == 200:
             for cc in cc_res.json()["results"]:
-                self.data[cc["classname"]]: cc["id"]
+                self.data[cc["classname"]]: cc["classname"]
+            logging.info(self.data)
         else:
             raise Exception(cc_res.content)
 
     def get_or_create(self, ocular_code):
         if ocular_code == "":
             ocular_code = "space"
+        logging.info(ocular_code)
         try:
             return self.data[ocular_code]
         except:
