@@ -114,7 +114,7 @@ class BookLoader:
             )
             if page_response.status_code != 201:
                 raise Exception(f"Page couldn't be created: {page_response.content}")
-            p["id"]: page_response.json()["id"]
+            p["id"] = page_response.json()["id"]
             logging.info(f"Page {p['page_num']} loaded as {p['id']}")
 
     def create_lines(self):
