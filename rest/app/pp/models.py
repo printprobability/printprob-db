@@ -415,7 +415,7 @@ class CharacterClass(models.Model):
         primary_key=True, max_length=50, help_text="Unique Ocular identifier",
     )
     label = models.CharField(
-        max_length=15, default="", help_text="Human-readable label"
+        max_length=50, default="", help_text="Human-readable label"
     )
     group = models.CharField(
         max_length=2, choices=CHARACTER_GROUPS, default=LOWERCASE, db_index=True
