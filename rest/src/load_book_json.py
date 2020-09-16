@@ -179,7 +179,7 @@ class BookLoader:
                 )
                 if char_response.status_code != 201:
                     raise Exception(char_response.content)
-                logging.info(f"Character {char_response.json['id']} loaded")
+                logging.info(f"Character {char_response.json()['id']} loaded")
 
 
 def main():
