@@ -75,11 +75,11 @@ class BookLoader:
 
     def load_lines_json(self):
         self.linefiles = glob(f"{self.lines_directory}/*.json")
-        if len(linefiles) <= 0:
+        if len(self.linefiles) <= 0:
             raise Exception("No json files found in the given directory")
         self.lines = []
         for linefile in self.linefiles:
-            line_obj = json.load(open(linefile, "rb"))
+            line_obj = json.load(open(linefile, "r"))
             line_obj["page_num"] = int(re.search(r"\d{4}", linefile).group(0))
             self.lines.append(line_obj)
         n_lines = len(self.lines)
