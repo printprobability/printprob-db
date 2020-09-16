@@ -79,6 +79,7 @@ class BookLoader:
             raise Exception("No json files found in the given directory")
         self.lines = []
         for linefile in self.linefiles:
+            logging.info(f"Loading {linefile}")
             line_obj = json.load(open(linefile, "r"))
             line_obj["page_num"] = int(re.search(r"\d{4}", linefile).group(0))
             self.lines.append(line_obj)
