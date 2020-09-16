@@ -30,7 +30,7 @@ class CharacterClasses:
         )
         if cc_res.status_code == 200:
             for cc in cc_res.json()["results"]:
-                self.data[cc["ocular_code"]]: cc["id"]
+                self.data[cc["classname"]]: cc["id"]
         else:
             raise Exception(cc_res.content)
 
@@ -40,7 +40,7 @@ class CharacterClasses:
         except:
             cc_res = requests.post(
                 f"{PP_URL}/character_classes/",
-                json={"id": ocular_code, "ocular_code": ocular_code},
+                json={"classname": ocular_code, "label": ocular_code},
                 headers=AUTH_HEADER,
             )
             if cc_res.status_code == 201:

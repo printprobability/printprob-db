@@ -412,10 +412,9 @@ class CharacterClass(models.Model):
     ]
 
     classname = models.CharField(
-        primary_key=True,
-        max_length=50,
-        help_text="A human-readable, unique class identifier",
+        primary_key=True, max_length=50, help_text="Unique Ocular identifier",
     )
+    label = models.CharField(max_length=5, default="", help_text="Human-readable label")
     group = models.CharField(
         max_length=2, choices=CHARACTER_GROUPS, default=LOWERCASE, db_index=True
     )
@@ -425,9 +424,6 @@ class CharacterClass(models.Model):
 
     def __str__(self):
         return self.classname
-
-    def label(self):
-        return str(self)
 
 
 class Character(CroppedModel):
