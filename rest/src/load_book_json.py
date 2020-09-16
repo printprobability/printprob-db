@@ -29,7 +29,7 @@ class CharacterClasses:
             f"{PP_URL}/character_classes/", params={"limit": 500}, headers=AUTH_HEADER
         )
         if cc_res.status_code == 200:
-            for cc in cc_res.content.results:
+            for cc in cc_res.json()["results"]:
                 self.data[cc["ocular_code"]]: cc["id"]
         else:
             raise Exception(cc_res.content)
