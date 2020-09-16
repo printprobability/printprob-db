@@ -36,16 +36,15 @@ class CharacterClasses:
             raise Exception(cc_res.content)
 
     def get_or_create(self, ocular_code):
-        logging.info(self.data)
         if ocular_code == "":
             ocular_code = "space"
-        elif ocular_code == "."
+        elif ocular_code == ".":
             ocular_code = "period"
-        elif ocular_code == ";"
+        elif ocular_code == ";":
             ocular_code = "semicolon"
-        elif ocular_code == "/"
+        elif ocular_code == "/":
             ocular_code = "slash"
-        elif ocular_code == "\\"
+        elif ocular_code == "\\":
             ocular_code = "backslash"
         logging.info(ocular_code)
         try:
