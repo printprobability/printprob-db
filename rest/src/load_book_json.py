@@ -73,6 +73,9 @@ class BookLoader:
                 f"The book {book_id} is not yet registered in the database. Please confirm you have used the correct UUID."
             )
 
+    def get_page_id(self, page_num):
+        return [p["id"] for p in self.pages if p["page_num"] == page_num][0]
+
     def load_lines_json(self):
         self.linefiles = glob(f"{self.lines_directory}/*.json")
         if len(self.linefiles) <= 0:
@@ -141,7 +144,7 @@ class BookLoader:
                 f"{PP_URL}/lines/",
                 json={
                     "created_by_run": self.line_run_id,
-                    "page": line["page_id"],
+                    "page": self.get_page_id(line["page_num"]),
                     "sequence": line["sequence"],
                     "y_min": line["y_start"],
                     "y_max": line["y_end"],
