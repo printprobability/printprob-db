@@ -74,7 +74,7 @@ class BookLoader:
             )
 
     def load_lines_json(self):
-        self.linefiles = glob(f"{lines_directory}/*.json")
+        self.linefiles = glob(f"{self.lines_directory}/*.json")
         if len(linefiles) <= 0:
             raise Exception("No json files found in the given directory")
         self.lines = []
