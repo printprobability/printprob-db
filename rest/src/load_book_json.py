@@ -94,12 +94,7 @@ class BookLoader:
         ]
         self.pages = list({v["page_filename"]: v for v in duplicated_pages}.values())
         page_run_response = requests.post(
-            f"{PP_URL}/runs/pages/",
-            json={
-                "book": self.book_id,
-                "date_started": self.page_data["run"]["datetime_started"],
-            },
-            headers=AUTH_HEADER,
+            f"{PP_URL}/runs/pages/", json={"book": self.book_id}, headers=AUTH_HEADER,
         )
         if page_run_respone.status_code != 200:
             raise Exception(f"Page run couldn't be created: {page_run_respone.content}")
@@ -121,12 +116,7 @@ class BookLoader:
 
     def create_lines(self):
         line_run_response = requests.post(
-            f"{PP_URL}/run/lines/",
-            json={
-                "book": self.book_id,
-                "date_started": self.line_data["run"]["datetime_started"],
-            },
-            headers=AUTH_HEADER,
+            f"{PP_URL}/run/lines/", json={"book": self.book_id,}, headers=AUTH_HEADER,
         )
         if line_run_response.status_code != 201:
             raise Exception(f"Couldn't create line run: {line_run.content}")
@@ -134,10 +124,7 @@ class BookLoader:
 
         character_run_response = requests.post(
             f"{PP_URL}/run/characters/",
-            json={
-                "book": self.book_id,
-                "date_started": self.line_data["run"]["datetime_started"],
-            },
+            json={"book": self.book_id,},
             headers=AUTH_HEADER,
         )
         if character_run_response.status_code != 201:
