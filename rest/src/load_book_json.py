@@ -35,6 +35,8 @@ class CharacterClasses:
             raise Exception(cc_res.content)
 
     def get_or_create(self, ocular_code):
+        if ocular_code == "":
+            ocular_code = "space"
         try:
             return self.data[ocular_code]
         except:
