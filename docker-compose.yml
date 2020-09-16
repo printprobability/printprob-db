@@ -12,7 +12,7 @@ services:
   web:
     build: rest
     restart: always
-    command: "bash -c ${SERVE_COMMAND}"
+    command: ${SERVE_COMMAND}
     volumes:
       - ./rest/app:/vol/app:z
       - ppstatic:/vol/static_files:z
