@@ -174,6 +174,7 @@ class BookLoader:
                         "x_max": char["x_end"],
                         "x_start": char["x_start"],
                     },
+                    headers=AUTH_HEADER,
                 )
                 if char_response.status_code != 201:
                     raise Exception(char_response.content)
