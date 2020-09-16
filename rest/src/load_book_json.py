@@ -202,7 +202,7 @@ def main():
 
     (opt, sources) = p.parse_args()
 
-    pp_loader = BookLoader(book_id=opt["book_id"], lines=opt["lines"],)
+    pp_loader = BookLoader(book_id=opt.book_id, lines=opt.lines,)
     pp_loader.load_db()
 
 
