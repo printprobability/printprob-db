@@ -165,7 +165,7 @@ class BookLoader:
                 char_response = requests.post(
                     f"{PP_URL}/characters/",
                     json={
-                        "created_by_run": self.line_run_id,
+                        "created_by_run": self.character_run_id,
                         "line": line["id"],
                         "sequence": char["sequence"],
                         "offset": char["offset"],
