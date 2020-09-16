@@ -107,6 +107,7 @@ class BookLoader:
                 json={
                     "created_by_run": page_run_id,
                     "sequence": p["page_num"],
+                    "side": "s",
                     "tif": p["page_filename"],
                 },
                 headers=AUTH_HEADER,
