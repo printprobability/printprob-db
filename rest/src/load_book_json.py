@@ -140,7 +140,7 @@ class BookLoader:
             line_response = requests.post(
                 f"{PP_URL}/lines/",
                 json={
-                    "created_by_run": line_run_id,
+                    "created_by_run": self.line_run_id,
                     "page": line["page_id"],
                     "sequence": line["sequence"],
                     "y_min": line["y_start"],
