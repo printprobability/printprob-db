@@ -247,7 +247,7 @@ class PageCreateSerializer(serializers.ModelSerializer):
             "h",
             "rot1",
             "rot2",
-            "image",
+            "tif",
         ]
 
 
