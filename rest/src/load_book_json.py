@@ -96,7 +96,7 @@ class BookLoader:
         page_run_response = requests.post(
             f"{PP_URL}/runs/pages/", json={"book": self.book_id}, headers=AUTH_HEADER,
         )
-        if page_run_response.status_code != 200:
+        if page_run_response.status_code != 201:
             raise Exception(
                 f"Page run couldn't be created: {page_run_response.content}"
             )
