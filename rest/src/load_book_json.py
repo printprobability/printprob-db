@@ -153,7 +153,7 @@ class BookLoader:
             )
             if line_response.status_code != 201:
                 raise Exception(line.content)
-            line.id = line_response.json()["id"]
+            line["id"] = line_response.json()["id"]
             logging.info(f"Line {line['id']} created")
             for char in line["characters"]:
                 char_type = self.cc.get_or_create(char["character_class"])
@@ -161,7 +161,7 @@ class BookLoader:
                     f"{PP_URL}/characters/",
                     json={
                         "created_by_run": self.line_run_id,
-                        "line": line.id,
+                        "line": line["id"],
                         "sequence": char["sequence"],
                         "offset": char["offset"],
                         "class_probability": char["logprob"],
