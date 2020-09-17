@@ -482,10 +482,9 @@ class Character(CroppedModel):
 
     @property
     def absolute_coords(self):
-        multiplier = self.line.height / 30
-        x = math.floor(self.x_min * multiplier)
-        y = max(math.floor(self.line.y_min - self.offset * multiplier), 0)
-        w = math.floor(self.width * multiplier)
+        x = self.x_min
+        y = self.line.y_min
+        w = self.width
         h = self.line.height
         return {"x": x, "y": y, "w": w, "h": h}
 
