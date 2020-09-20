@@ -171,6 +171,9 @@ class Book(uuidModel):
     def cover_spread(self):
         return self.spreads.first()
 
+    def cover_page(self):
+        return Page.objects.filter(created_by_run__book=self).first()
+
     @property
     def zip_path(self):
         return f"{self.zipfile}/{self.vid}/*.tif"

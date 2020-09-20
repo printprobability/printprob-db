@@ -62,6 +62,7 @@ class CharacterFlatSerializer(serializers.ModelSerializer):
 
 class BookListSerializer(serializers.ModelSerializer):
     cover_spread = SpreadFlatSerializer(many=False, read_only=True)
+    cover_page = PageFlatSerializer(many=False, read_only=True)
     n_spreads = serializers.IntegerField(read_only=True)
 
     class Meta:
@@ -91,6 +92,7 @@ class BookListSerializer(serializers.ModelSerializer):
             "pdf",
             "n_spreads",
             "cover_spread",
+            "cover_page",
             "starred",
             "ignored",
             "is_eebo_book",
@@ -280,6 +282,7 @@ class BookAllRunsSerializer(serializers.Serializer):
 class BookDetailSerializer(serializers.ModelSerializer):
     spreads = SpreadListSerializer(many=True)
     cover_spread = SpreadListSerializer(many=False)
+    cover_page = PageListSerializer(many=False)
     all_runs = BookAllRunsSerializer()
 
     class Meta:
@@ -310,6 +313,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "spreads",
             "all_runs",
             "cover_spread",
+            "cover_page",
             "starred",
             "ignored",
             "is_eebo_book",

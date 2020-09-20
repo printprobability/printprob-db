@@ -17,7 +17,7 @@ from rest_framework import (
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.db import transaction
-from django.db.models import Count, F, Q, Exists, OuterRef, Prefetch
+from django.db.models import Count, F, Q, Exists, OuterRef, Prefetch, Subquery
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from django_filters import rest_framework as filters
