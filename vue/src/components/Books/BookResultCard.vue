@@ -8,6 +8,12 @@
           :src="book.cover_spread.image.iiif_base +'/full/250,/0/default.jpg'"
           center
         />
+        <b-img-lazy
+          v-else-if="!!book.cover_page"
+          class="cover-image"
+          :src="book.cover_page.image.iiif_base +'/full/250,/0/default.jpg'"
+          center
+        />
         <small v-else>Not run yet</small>
       </div>
     </template>
@@ -61,12 +67,12 @@ import { HTTP } from "../../main";
 export default {
   name: "BookResultCard",
   props: {
-    book: Object
+    book: Object,
   },
   data() {
     return {
       star_status: false,
-      ignored_status: false
+      ignored_status: false,
     };
   },
   mounted() {
@@ -83,33 +89,33 @@ export default {
       } else {
         return ["far", "star"];
       }
-    }
+    },
   },
   methods: {
-    truncate: function(input, length) {
+    truncate: function (input, length) {
       return input.length > length ? `${input.substring(0, length)}...` : input;
     },
     set_star(val) {
       HTTP.patch(this.object_url, { starred: val }).then(
-        response => {
+        (response) => {
           this.star_status = response.data.starred;
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
     },
     set_ignore(val) {
       HTTP.patch(this.object_url, { ignored: val }).then(
-        response => {
+        (response) => {
           this.ignored_status = response.data.ignored;
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
