@@ -272,7 +272,7 @@ class LineFilter(filters.FilterSet):
         help_text="Lines belonging to this book",
         widget=forms.TextInput,
     )
-    sequence = filters.NumberFilter(
+    page_sequence = filters.NumberFilter(
         field_name="page__sequence",
         label="Sequence",
         help_text="Lines belonging to a page with this sequence index",
