@@ -8,7 +8,7 @@
             :to="{name: 'BookDetailView', params: {id: this.character.book.id}}"
           >{{ this.character.book.label }}</router-link>
         </p>
-        <p>Location: Spread {{ this.character.spread.sequence }}, page {{ this.character.page.side }}, line {{ this.character.line.sequence }}, position {{ this.character.sequence }}</p>
+        <p>Location: page {{ this.character.page.sequence }}, line {{ this.character.line.sequence }}, position {{ this.character.sequence }}</p>
         <p>Assigned class: {{ this.character.character_class }} ({{ this.character.class_probability}})</p>
         <p>Human character class: {{ this.character.human_character_class }}</p>
         <p>
@@ -34,10 +34,10 @@ import AnnotatedImage from "../Interfaces/AnnotatedImage";
 export default {
   name: "CharacterDetail",
   components: {
-    AnnotatedImage
+    AnnotatedImage,
   },
   props: {
-    id: String
+    id: String,
   },
   data() {
     return {};
@@ -45,14 +45,14 @@ export default {
   asyncComputed: {
     character() {
       return HTTP.get("/characters/" + this.id + "/").then(
-        response => {
+        (response) => {
           return response.data;
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
-    }
+    },
   },
   computed: {
     annotation() {
@@ -60,7 +60,7 @@ export default {
     },
     image_info_url() {
       return this.character.page.image.iiif_base + "/info.json";
-    }
-  }
+    },
+  },
 };
 </script>
