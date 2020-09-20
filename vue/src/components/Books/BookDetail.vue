@@ -75,7 +75,7 @@
     <LineList
       v-if="detail_show=='lines'"
       :line_run_id="selected_run_id"
-      :n_spreads="book.spreads.length"
+      :n_pages="book.all_runs.pages.slice(-1)[0].component_count"
     />
   </b-container>
 </template>
@@ -96,10 +96,10 @@ export default {
     PageList,
     LineList,
     BookDetailDisplay,
-    BookDetailEdit
+    BookDetailEdit,
   },
   props: {
-    id: String
+    id: String,
   },
   data() {
     return {
@@ -108,7 +108,7 @@ export default {
       display_fields: ["date_started", "count", "erase"],
       detail_show: null,
       selected_run: null,
-      selected_run_id: null
+      selected_run_id: null,
     };
   },
   computed: {
@@ -121,95 +121,95 @@ export default {
       } else {
         return "Title (click to edit)";
       }
-    }
+    },
   },
   methods: {
-    delete_book: function() {
+    delete_book: function () {
       HTTP.delete("/books/" + this.book.id + "/").then(
-        response => {
+        (response) => {
           this.$router.push({ name: "BookListView" });
           this.$root.$bvToast.toast(`"${this.book.pq_title}" deleted`, {
             title: response.data.id,
             autoHideDelay: 5000,
             appendToast: true,
-            variant: "success"
+            variant: "success",
           });
         },
-        error => {
+        (error) => {
           for (let [k, v] of Object.entries(error.response.data)) {
             this.$bvToast.toast(v, {
               title: error.response.status + ": " + k,
               autoHideDelay: 5000,
               appendToast: true,
-              variant: "danger"
+              variant: "danger",
             });
           }
         }
       );
     },
-    run_delete: function(runtype, id) {
+    run_delete: function (runtype, id) {
       console.log(runtype + " " + id);
       HTTP.delete("/runs/" + runtype + "/" + id + "/").then(
-        results => {
+        (results) => {
           this.get_book(this.id);
           return results;
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
     },
-    get_book: function(id) {
+    get_book: function (id) {
       return HTTP.get("/books/" + id + "/").then(
-        response => {
+        (response) => {
           this.book = response.data;
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
     },
-    display_date: function(date) {
+    display_date: function (date) {
       return moment(new Date(date)).format("MM-DD-YY, h:mm a");
     },
-    run_table_formatter: function(run, runtype) {
-      return run.map(r => {
+    run_table_formatter: function (run, runtype) {
+      return run.map((r) => {
         return {
           id: r.id,
           type: runtype,
           date_started: this.display_date(r.date_started),
-          count: r.component_count
+          count: r.component_count,
         };
       });
     },
-    select_run: function(payload) {
+    select_run: function (payload) {
       const run_type = payload.type;
       const run_id = payload.id;
       if (run_type == "characters") {
         this.$router.push({
           name: "CharacterReviewView",
-          query: { book: this.id, character_run: run_id }
+          query: { book: this.id, character_run: run_id },
         });
       } else if (run_type == "lines") {
         this.detail_show = run_type;
         this.selected_run_id = run_id;
       } else {
         return HTTP.get("/runs/" + run_type + "/" + run_id + "/").then(
-          response => {
+          (response) => {
             this.selected_run = response.data;
             this.selected_run_id = run_id;
             this.detail_show = run_type;
           },
-          error => {
+          (error) => {
             console.log(error);
           }
         );
       }
-    }
+    },
   },
-  created: function() {
+  created: function () {
     this.get_book(this.id);
-  }
+  },
 };
 </script>
 

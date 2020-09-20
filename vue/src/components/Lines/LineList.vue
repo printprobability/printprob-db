@@ -1,31 +1,21 @@
 <template>
   <div>
     <b-pagination
-      v-model="spread"
-      :total-rows="n_spreads"
+      v-model="sequence"
+      :total-rows="n_pages-1"
       :per-page="1"
-      aria-controls="spread-results"
+      aria-controls="page-results"
     />
-    <h4>Spread {{ spread }}</h4>
+    <h4>Page {{ sequence }}</h4>
     <div class="row">
       <div v-if="lines" class="col-6">
-        <h5>Left page</h5>
-        <ol v-if="!!lines.l">
-          <li v-for="line in lines.l" :key="line.id">
+        <ol>
+          <li v-for="line in lines" :key="line.id">
             <LineImage :line="line"></LineImage>
           </li>
         </ol>
-        <p v-else>No lines extracted for this page</p>
       </div>
-      <div class="col-6">
-        <h5>Right page</h5>
-        <ol v-if="!!lines.r">
-          <li v-for="line in lines.r" :key="line.id">
-            <LineImage :line="line"></LineImage>
-          </li>
-        </ol>
-        <p v-else>No lines extracted for this page</p>
-      </div>
+      <p v-else>No lines extracted for this page</p>
     </div>
   </div>
 </template>
@@ -33,44 +23,43 @@
 <script>
 import LineImage from "../Lines/LineImage";
 import { HTTP } from "../../main";
-import _ from "lodash";
 
 export default {
   name: "LineList",
   components: {
-    LineImage
+    LineImage,
   },
   props: {
-    n_spreads: Number,
-    line_run_id: String
+    n_pages: Number,
+    line_run_id: String,
   },
   data() {
     return {
-      lines: {},
-      spread: 1
+      lines: [],
+      sequence: 0,
     };
   },
   methods: {
-    get_line_run: function(id, spread) {
+    get_line_run: function (id, sequence) {
       return HTTP.get("/lines/", {
-        params: { created_by_run: id, spread_sequence: spread }
+        params: { created_by_run: id, page_sequence: sequence },
       }).then(
-        response => {
-          this.lines = _.groupBy(response.data.results, "page_side");
+        (response) => {
+          this.lines = response.data.results;
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
-    }
+    },
   },
   watch: {
-    spread: function() {
-      this.get_line_run(this.line_run_id, this.spread);
-    }
+    sequence: function () {
+      this.get_line_run(this.line_run_id, this.sequence);
+    },
   },
   created() {
-    this.get_line_run(this.line_run_id, this.spread);
-  }
+    this.get_line_run(this.line_run_id, this.sequence);
+  },
 };
 </script>
