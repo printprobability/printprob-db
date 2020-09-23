@@ -138,7 +138,7 @@ class BookLoader:
             line_response = requests.post(
                 f"{PP_URL}/lines/",
                 json={
-                    "id": line["page_id"],
+                    "id": line["id"],
                     "created_by_run": self.line_run_id,
                     "page": line["page_id"],
                     "sequence": line["sequence"],
