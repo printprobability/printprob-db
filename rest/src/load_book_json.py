@@ -63,17 +63,18 @@ class CharacterClasses:
 
 
 class BookLoader:
-    def __init__(self, book_id, lines_directory):
+    def __init__(self, book_id, json_directory):
         self.book_id = book_id
-        self.lines_directory = lines_directory
+        self.json_directory = json_directory
         self.cc = CharacterClasses()
         self.cc.load_character_classes()
 
     def load_db(self):
         self.confirm_book()
-        self.load_lines_json()
+        self.load_json()
         self.create_pages()
         self.create_lines()
+        self.create_characters()
 
     def confirm_book(self):
         """
@@ -85,29 +86,17 @@ class BookLoader:
                 f"The book {book_id} is not yet registered in the database. Please confirm you have used the correct UUID."
             )
 
-    def get_page_id(self, page_num):
-        return [p["id"] for p in self.pages if p["page_num"] == page_num][0]
-
-    def load_lines_json(self):
-        self.linefiles = glob(f"{self.lines_directory}/*.json")
-        if len(self.linefiles) <= 0:
-            raise Exception("No json files found in the given directory")
-        self.lines = []
-        for linefile in self.linefiles:
-            logging.info(f"Loading {linefile}")
-            line_obj = json.load(open(linefile, "r"))
-            line_obj["page_num"] = int(re.search(r"\d{4}", linefile).group(0))
-            self.lines.append(line_obj)
-        n_lines = len(self.lines)
-        logging.info(f"{len(self.lines)} line files loaded")
+    def load_json(self):
+        self.pages = json.load(open(f"{self.json_directory}/pages.json"), "r")["pages"]
+        logging.info(f"{len(self.pages)} pages loaded")
+        self.lines = json.load(open(f"{self.json_directory}/lines.json"), "r")["lines"]
+        logging.info(f"{len(self.lines)} lines loaded")
+        self.characters = json.load(
+            open(f"{self.json_directory}/characters.json"), "r"
+        )["chars"]
+        logging.info(f"{len(self.characters)} characters loaded")
 
     def create_pages(self):
-        # Create a list of unique pages represented across all the loaded JSON files
-        duplicated_pages = [
-            {"page_num": l["page_num"], "page_filename": l["page_filename"]}
-            for l in self.lines
-        ]
-        self.pages = list({v["page_filename"]: v for v in duplicated_pages}.values())
         page_run_response = requests.post(
             f"{PP_URL}/runs/pages/", json={"book": self.book_id}, headers=AUTH_HEADER,
         )
@@ -120,6 +109,7 @@ class BookLoader:
             page_response = requests.post(
                 f"{PP_URL}/pages/",
                 json={
+                    "id": p["id"],
                     "created_by_run": page_run_id,
                     "sequence": p["page_num"],
                     "side": "s",
@@ -129,7 +119,10 @@ class BookLoader:
             )
             if page_response.status_code != 201:
                 raise Exception(f"Page couldn't be created: {page_response.content}")
-            p["id"] = page_response.json()["id"]
+            if page_response.json()["id"] != p["id"]:
+                raise Exception(
+                    f"Page id submitted as {p['id']} but {page_response.json()['id']} returned instead"
+                )
             logging.info(f"Page {p['page_num']} loaded as {p['id']}")
 
     def create_lines(self):
@@ -140,6 +133,24 @@ class BookLoader:
             raise Exception(f"Couldn't create line run: {line_run_response.content}")
         self.line_run_id = line_run_response.json()["id"]
 
+        for line in self.lines:
+            line_response = requests.post(
+                f"{PP_URL}/lines/",
+                json={
+                    "id": line["page_id"],
+                    "created_by_run": self.line_run_id,
+                    "page": line["page_id"]),
+                    "sequence": line["line_num"],
+                    "y_min": line["y_start"],
+                    "y_max": line["y_end"],
+                },
+                headers=AUTH_HEADER,
+            )
+            if line_response.status_code != 201:
+                raise Exception(line.content)
+            logging.info(f"Line {line['id']} created")
+
+    def create_characters(self):
         character_run_response = requests.post(
             f"{PP_URL}/runs/characters/",
             json={"book": self.book_id,},
@@ -151,42 +162,27 @@ class BookLoader:
             )
         self.character_run_id = character_run_response.json()["id"]
 
-        for line in self.lines:
-            line_response = requests.post(
-                f"{PP_URL}/lines/",
+        for char in self.characters:
+            char_type = self.cc.get_or_create(char["character_class"])
+            char_response = requests.post(
+                f"{PP_URL}/characters/",
                 json={
-                    "created_by_run": self.line_run_id,
-                    "page": self.get_page_id(line["page_num"]),
-                    "sequence": line["line_num"],
-                    "y_min": line["y_start"],
-                    "y_max": line["y_end"],
+                    "id": char["id"],
+                    "created_by_run": self.character_run_id,
+                    "line": char["line_id"],
+                    "sequence": char["sequence"],
+                    "offset": char["offset"],
+                    "exposure": char["exposure"],
+                    "class_probability": char["logprob"],
+                    "character_class": char_type,
+                    "x_max": char["x_end"],
+                    "x_min": char["x_start"],
                 },
                 headers=AUTH_HEADER,
             )
-            if line_response.status_code != 201:
-                raise Exception(line.content)
-            line["id"] = line_response.json()["id"]
-            logging.info(f"Line {line['id']} created")
-            for char in line["characters"]:
-                char_type = self.cc.get_or_create(char["character_class"])
-                char_response = requests.post(
-                    f"{PP_URL}/characters/",
-                    json={
-                        "created_by_run": self.character_run_id,
-                        "line": line["id"],
-                        "sequence": char["sequence"],
-                        "offset": char["offset"],
-                        "exposure": char["exposure"],
-                        "class_probability": char["logprob"],
-                        "character_class": char_type,
-                        "x_max": char["x_end"],
-                        "x_min": char["x_start"],
-                    },
-                    headers=AUTH_HEADER,
-                )
-                if char_response.status_code != 201:
-                    raise Exception(char_response.content)
-                logging.info(f"Character {char_response.json()['id']} loaded")
+            if char_response.status_code != 201:
+                raise Exception(char_response.content)
+            logging.info(f"Character {char_response.json()['id']} loaded")
 
 
 def main():
@@ -204,15 +200,15 @@ def main():
         help="UUID of the book from printprobability.bridges.psc.edu",
     )
     p.add_option(
-        "-l",
-        "--lines",
-        dest="lines",
-        help="Absolute directory path (starting with /pylon5) of the file where the Ocular JSON output is stored for lines.",
+        "-j",
+        "--json",
+        dest="json",
+        help="Absolute directory path (starting with /pylon5) where the Ocular JSON output is stored.",
     )
 
     (opt, sources) = p.parse_args()
 
-    pp_loader = BookLoader(book_id=opt.book_id, lines_directory=opt.lines,)
+    pp_loader = BookLoader(book_id=opt.book_id, json_directory=opt.json,)
     pp_loader.load_db()
 
 
