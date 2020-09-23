@@ -87,12 +87,12 @@ class BookLoader:
             )
 
     def load_json(self):
-        self.pages = json.load(open(f"{self.json_directory}/pages.json"), "r")["pages"]
+        self.pages = json.load(open(f"{self.json_directory}/pages.json", "r"))["pages"]
         logging.info(f"{len(self.pages)} pages loaded")
-        self.lines = json.load(open(f"{self.json_directory}/lines.json"), "r")["lines"]
+        self.lines = json.load(open(f"{self.json_directory}/lines.json", "r"))["lines"]
         logging.info(f"{len(self.lines)} lines loaded")
         self.characters = json.load(
-            open(f"{self.json_directory}/characters.json"), "r"
+            open(f"{self.json_directory}/characters.json", "r")
         )["chars"]
         logging.info(f"{len(self.characters)} characters loaded")
 
