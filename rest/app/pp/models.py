@@ -8,7 +8,7 @@ import math
 
 
 class uuidModel(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     label = models.CharField(max_length=200, default="", editable=False, blank=True)
 
     class Meta:
