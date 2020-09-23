@@ -139,7 +139,7 @@ class BookLoader:
                 json={
                     "id": line["page_id"],
                     "created_by_run": self.line_run_id,
-                    "page": line["page_id"]),
+                    "page": line["page_id"],
                     "sequence": line["line_num"],
                     "y_min": line["y_start"],
                     "y_max": line["y_end"],
