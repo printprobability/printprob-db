@@ -141,7 +141,7 @@ class BookLoader:
                     "id": line["page_id"],
                     "created_by_run": self.line_run_id,
                     "page": line["page_id"],
-                    "sequence": line["line_num"],
+                    "sequence": line["sequence"],
                     "y_min": line["y_start"],
                     "y_max": line["y_end"],
                 },
