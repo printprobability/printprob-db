@@ -91,9 +91,9 @@ class BookLoader:
         logging.info(f"{len(self.pages)} pages loaded")
         self.lines = json.load(open(f"{self.json_directory}/lines.json", "r"))["lines"]
         logging.info(f"{len(self.lines)} lines loaded")
-        self.characters = json.load(
-            open(f"{self.json_directory}/characters.json", "r")
-        )["chars"]
+        self.characters = json.load(open(f"{self.json_directory}/chars.json", "r"))[
+            "chars"
+        ]
         logging.info(f"{len(self.characters)} characters loaded")
 
     def create_pages(self):
