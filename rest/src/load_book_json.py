@@ -119,9 +119,10 @@ class BookLoader:
             )
             if page_response.status_code != 201:
                 raise Exception(f"Page couldn't be created: {page_response.content}")
-            if page_response.json()["id"] != p["id"]:
+            page_response_id = page_response.json()["id"]
+            if page_response_id != p["id"]:
                 raise Exception(
-                    f"Page id submitted as {p['id']} but {page_response.json()['id']} returned instead"
+                    f"Page id submitted as {p['id']} but {page_response_id} returned instead"
                 )
             logging.info(f"Page {p['sequence']} loaded as {p['id']}")
 
@@ -148,6 +149,11 @@ class BookLoader:
             )
             if line_response.status_code != 201:
                 raise Exception(line.content)
+            line_response_id = line_response.json()["id"]
+            if line_response_id != p["id"]:
+                raise Exception(
+                    f"Line id submitted as {p['id']} but {line_response_id} returned instead"
+                )
             logging.info(f"Line {line['id']} created")
 
     def create_characters(self):
@@ -182,6 +188,11 @@ class BookLoader:
             )
             if char_response.status_code != 201:
                 raise Exception(char_response.content)
+            char_response_id = char_response.json()["id"]
+            if char_response_id != p["id"]:
+                raise Exception(
+                    f"Character id submitted as {p['id']} but {char_response_id} returned instead"
+                )
             logging.info(f"Character {char_response.json()['id']} loaded")
 
 
