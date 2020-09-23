@@ -113,7 +113,7 @@ class BookLoader:
                     "created_by_run": page_run_id,
                     "sequence": p["sequence"],
                     "side": "s",
-                    "tif": p["page_filename"].replace("/pylon5/hm4s82p/shared", ""),
+                    "tif": p["filename"].replace("/pylon5/hm4s82p/shared", ""),
                 },
                 headers=AUTH_HEADER,
             )
