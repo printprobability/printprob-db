@@ -150,9 +150,9 @@ class BookLoader:
             if line_response.status_code != 201:
                 raise Exception(line.content)
             line_response_id = line_response.json()["id"]
-            if line_response_id != p["id"]:
+            if line_response_id != line["id"]:
                 raise Exception(
-                    f"Line id submitted as {p['id']} but {line_response_id} returned instead"
+                    f"Line id submitted as {line['id']} but {line_response_id} returned instead"
                 )
             logging.info(f"Line {line['id']} created")
 
@@ -189,9 +189,9 @@ class BookLoader:
             if char_response.status_code != 201:
                 raise Exception(char_response.content)
             char_response_id = char_response.json()["id"]
-            if char_response_id != p["id"]:
+            if char_response_id != char["id"]:
                 raise Exception(
-                    f"Character id submitted as {p['id']} but {char_response_id} returned instead"
+                    f"Character id submitted as {char['id']} but {char_response_id} returned instead"
                 )
             logging.info(f"Character {char_response.json()['id']} loaded")
 
