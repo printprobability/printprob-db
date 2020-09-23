@@ -111,7 +111,7 @@ class BookLoader:
                 json={
                     "id": p["id"],
                     "created_by_run": page_run_id,
-                    "sequence": p["page_num"],
+                    "sequence": p["sequence"],
                     "side": "s",
                     "tif": p["page_filename"].replace("/pylon5/hm4s82p/shared", ""),
                 },
@@ -123,7 +123,7 @@ class BookLoader:
                 raise Exception(
                     f"Page id submitted as {p['id']} but {page_response.json()['id']} returned instead"
                 )
-            logging.info(f"Page {p['page_num']} loaded as {p['id']}")
+            logging.info(f"Page {p['sequence']} loaded as {p['id']}")
 
     def create_lines(self):
         line_run_response = requests.post(
