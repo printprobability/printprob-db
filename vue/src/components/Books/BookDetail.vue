@@ -6,7 +6,12 @@
           <template v-slot:header>
             <b-row align-h="between" class="px-3">
               Metadata
-              <b-button v-if="edit_mode & !readonly" variant="danger" v-b-modal.delete-modal>Delete</b-button>
+              <b-button
+                v-if="edit_mode & !readonly"
+                variant="danger"
+                v-b-modal.delete-modal
+                >Delete</b-button
+              >
               <b-modal
                 id="delete-modal"
                 title="Delete book?"
@@ -14,10 +19,20 @@
                 ok-title="Delete"
                 @ok="delete_book"
               >
-                <p>Are you sure? This will wipe out every record associated with this book and can't be undone!</p>
+                <p>
+                  Are you sure? This will wipe out every record associated with
+                  this book and can't be undone!
+                </p>
               </b-modal>
-              <b-button v-if="edit_mode" @click="edit_mode=false" variant="warning">Done editing</b-button>
-              <b-button v-else @click="edit_mode=true" variant="primary">Edit</b-button>
+              <b-button
+                v-if="edit_mode"
+                @click="edit_mode = false"
+                variant="warning"
+                >Done editing</b-button
+              >
+              <b-button v-else @click="edit_mode = true" variant="primary"
+                >Edit</b-button
+              >
             </b-row>
           </template>
           <BookDetailEdit v-if="edit_mode" :book="book" />
@@ -30,13 +45,18 @@
             <b-list-group-item>
               <h5>spreads</h5>
               <p
-                v-if="book.spreads.length>0"
-                @click="detail_show='spreads'"
+                v-if="book.spreads.length > 0"
+                @click="detail_show = 'spreads'"
                 class="clickable"
-              >{{ book.spreads.length }} spreads</p>
+              >
+                {{ book.spreads.length }} spreads
+              </p>
               <p v-else>No spreads have been loaded for this book yet.</p>
             </b-list-group-item>
-            <b-list-group-item v-for="(runs, runtype) in book.all_runs" :key="runtype">
+            <b-list-group-item
+              v-for="(runs, runtype) in book.all_runs"
+              :key="runtype"
+            >
               <h5>{{ runtype }}</h5>
               <b-table
                 class="clickable"
@@ -54,14 +74,17 @@
                     variant="danger"
                     size="sm"
                     v-b-modal="'delete-modal' + data.item.id"
-                  >Delete</b-button>
+                    >Delete</b-button
+                  >
                   <b-modal
                     :id="'delete-modal' + data.item.id"
                     :title="'Delete this ' + runtype + ' run?'"
                     ok-variant="danger"
                     ok-title="Delete"
                     @ok="run_delete(runtype, data.item.id)"
-                  >This will wipe all data from the run, as well as any descendant book components. It cannot be undone.</b-modal>
+                    >This will wipe all data from the run, as well as any
+                    descendant book components. It cannot be undone.</b-modal
+                  >
                 </template>
               </b-table>
               <p v-else>No runs for this segmentation type yet.</p>
@@ -70,10 +93,10 @@
         </b-card>
       </b-col>
     </b-row>
-    <SpreadList v-if="detail_show=='spreads'" :spreads="book.spreads" />
-    <PageList v-if="detail_show=='pages'" :page_run_id="selected_run_id" />
+    <SpreadList v-if="detail_show == 'spreads'" :spreads="book.spreads" />
+    <PageList v-if="detail_show == 'pages'" :page_run_id="selected_run_id" />
     <LineList
-      v-if="detail_show=='lines'"
+      v-if="detail_show == 'lines'"
       :line_run_id="selected_run_id"
       :n_pages="book.all_runs.pages.slice(-1)[0].component_count"
     />
@@ -125,6 +148,12 @@ export default {
   },
   methods: {
     delete_book: function () {
+      this.$root.$bvToast.toast(`"Deleting ${this.book.pq_title}"`, {
+        title: response.data.id,
+        autoHideDelay: 5000,
+        appendToast: true,
+        variant: "info",
+      });
       HTTP.delete("/books/" + this.book.id + "/").then(
         (response) => {
           this.$router.push({ name: "BookListView" });
