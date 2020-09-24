@@ -5,13 +5,13 @@
         <b-img-lazy
           v-if="!!book.cover_spread"
           class="cover-image"
-          :src="book.cover_spread.image.iiif_base +'/full/250,/0/default.jpg'"
+          :src="book.cover_spread.image.iiif_base + '/full/250,/0/default.jpg'"
           center
         />
         <b-img-lazy
           v-else-if="!!book.cover_page"
           class="cover-image"
-          :src="book.cover_page.image.iiif_base +'/full/250,/0/default.jpg'"
+          :src="book.cover_page.image.iiif_base + '/full/250,/0/default.jpg'"
           center
         />
         <small v-else>Not run yet</small>
@@ -19,7 +19,7 @@
     </template>
     <b-row align-v="center" align-h="between" class="pr-2">
       <router-link
-        :to="{name: 'BookDetailView', params: {id: book.id}}"
+        :to="{ name: 'BookDetailView', params: { id: book.id } }"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -38,7 +38,6 @@
         <p>Author: {{ book.pq_author }}</p>
         <p>Publisher: {{ book.pq_publisher }}</p>
         <p>EEBO date: {{ book.pq_year_early }}-{{ book.pq_year_late }}</p>
-        <p>TX A&M date: {{ book.tx_year_early }}-{{ book.tx_year_late }}</p>
         <p>
           EEBO ID:
           <code>{{ book.eebo }}</code>
@@ -50,7 +49,11 @@
         <p>Spreads: {{ book.n_spreads }}</p>
         <p>
           Bridges images:
-          <code>/pylon5/hm560ip/djevans/eebo_unzipped/{{ book.zipfile }}/{{ book.vid }}/</code>
+          <code
+            >/pylon5/hm560ip/djevans/eebo_unzipped/{{ book.zipfile }}/{{
+              book.vid
+            }}/</code
+          >
         </p>
       </b-col>
       <b-col cols sm="6">
