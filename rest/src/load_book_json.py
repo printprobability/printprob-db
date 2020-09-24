@@ -12,6 +12,7 @@ import re
 AUTH_TOKEN = open("/pylon5/hm4s82p/shared/api/api_token.txt", "r").read().strip()
 AUTH_HEADER = {"Authorization": f"Token {AUTH_TOKEN}"}
 PP_URL = "https://printprobdb.bridges.psc.edu/api"
+CERT_PATH = "/pylon5/hm4s82p/shared/api/incommonrsaserverca-bundle.crt"
 
 
 class CharacterClasses:
@@ -26,7 +27,10 @@ class CharacterClasses:
         Create a dict of all currently-loaded character classes
         """
         cc_res = requests.get(
-            f"{PP_URL}/character_classes/", params={"limit": 500}, headers=AUTH_HEADER
+            f"{PP_URL}/character_classes/",
+            params={"limit": 500},
+            headers=AUTH_HEADER,
+            verify=CERT_PATH,
         )
         if cc_res.status_code == 200:
             for cc in cc_res.json()["results"]:
@@ -54,6 +58,7 @@ class CharacterClasses:
                 f"{PP_URL}/character_classes/",
                 json={"classname": ocular_code, "label": ocular_code},
                 headers=AUTH_HEADER,
+                verify=CERT_PATH,
             )
             if cc_res.status_code == 201:
                 self.data[ocular_code] = ocular_code
@@ -80,7 +85,9 @@ class BookLoader:
         """
         Confirm that the book actually exists on Bridges
         """
-        res = requests.get(f"{PP_URL}/books/{self.book_id}/", headers=AUTH_HEADER)
+        res = requests.get(
+            f"{PP_URL}/books/{self.book_id}/", headers=AUTH_HEADER, verify=CERT_PATH
+        )
         if res.status_code != 200:
             raise Exception(
                 f"The book {book_id} is not yet registered in the database. Please confirm you have used the correct UUID."
@@ -98,7 +105,10 @@ class BookLoader:
 
     def create_pages(self):
         page_run_response = requests.post(
-            f"{PP_URL}/runs/pages/", json={"book": self.book_id}, headers=AUTH_HEADER,
+            f"{PP_URL}/runs/pages/",
+            json={"book": self.book_id},
+            headers=AUTH_HEADER,
+            verify=CERT_PATH,
         )
         if page_run_response.status_code != 201:
             raise Exception(
@@ -116,6 +126,7 @@ class BookLoader:
                     "tif": p["filename"].replace("/pylon5/hm4s82p/shared", ""),
                 },
                 headers=AUTH_HEADER,
+                verify=CERT_PATH,
             )
             if page_response.status_code != 201:
                 raise Exception(f"Page couldn't be created: {page_response.content}")
@@ -128,7 +139,10 @@ class BookLoader:
 
     def create_lines(self):
         line_run_response = requests.post(
-            f"{PP_URL}/runs/lines/", json={"book": self.book_id,}, headers=AUTH_HEADER,
+            f"{PP_URL}/runs/lines/",
+            json={"book": self.book_id,},
+            headers=AUTH_HEADER,
+            verify=CERT_PATH,
         )
         if line_run_response.status_code != 201:
             raise Exception(f"Couldn't create line run: {line_run_response.content}")
@@ -146,6 +160,7 @@ class BookLoader:
                     "y_max": line["y_end"],
                 },
                 headers=AUTH_HEADER,
+                verify=CERT_PATH,
             )
             if line_response.status_code != 201:
                 raise Exception(line.content)
@@ -161,6 +176,7 @@ class BookLoader:
             f"{PP_URL}/runs/characters/",
             json={"book": self.book_id,},
             headers=AUTH_HEADER,
+            verify=CERT_PATH,
         )
         if character_run_response.status_code != 201:
             raise Exception(
@@ -185,6 +201,7 @@ class BookLoader:
                     "x_min": char["x_start"],
                 },
                 headers=AUTH_HEADER,
+                verify=CERT_PATH,
             )
             if char_response.status_code != 201:
                 raise Exception(char_response.content)
@@ -218,6 +235,8 @@ def main():
     )
 
     (opt, sources) = p.parse_args()
+
+    logging.info(f"Using {CERT_PATH} for SSL verification")
 
     pp_loader = BookLoader(book_id=opt.book_id, json_directory=opt.json,)
     pp_loader.load_db()
