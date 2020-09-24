@@ -60,6 +60,7 @@ export default {
     year_late: String,
     starred: Boolean,
     pp_publisher: String,
+    pp_author: String,
   },
   data() {
     return {
@@ -87,6 +88,7 @@ export default {
           year_early_min: this.year_early,
           year_late_max: this.year_late,
           pp_publisher: this.pp_publisher,
+          pp_author: this.pp_author,
           starred: this.starred,
           ordering: this.order,
         },

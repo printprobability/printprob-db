@@ -98,20 +98,18 @@ class Book(uuidModel):
         help_text="Date string from EEBO, may contain non-numeric values",
     )
     pq_year_early = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="Proquest early year", editable=False
+        db_index=True, null=True, help_text="Proquest early year",
     )
     pq_year_late = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="Proquest late year", editable=False
+        db_index=True, null=True, help_text="Proquest late year",
     )
     tx_year_early = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="Texas A&M early year", editable=False
+        db_index=True, null=True, help_text="Texas A&M early year",
     )
     tx_year_late = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="Texas A&M late year", editable=False
+        db_index=True, null=True, help_text="Texas A&M late year",
     )
-    pq_url = models.URLField(
-        max_length=1000, blank=True, help_text="ProQuest URL", editable=False
-    )
+    pq_url = models.URLField(max_length=1000, blank=True, help_text="ProQuest URL",)
     pp_publisher = models.CharField(
         blank=True, max_length=2000, help_text="Publisher as asserted by P&P team"
     )
