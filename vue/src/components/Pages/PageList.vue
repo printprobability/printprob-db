@@ -1,7 +1,12 @@
 <template>
   <div class="container-fluid">
     <div class="d-flex flex-wrap">
-      <PageImage v-for="page in pages" :key="page.id" :page="page" :header="page_header(page)" />
+      <PageImage
+        v-for="page in pages"
+        :key="page.id"
+        :page="page"
+        :header="page_header(page)"
+      />
     </div>
   </div>
 </template>
@@ -12,32 +17,33 @@ import { HTTP } from "../../main";
 export default {
   name: "PageList",
   components: {
-    PageImage
+    PageImage,
   },
   props: {
-    page_run_id: String
+    page_run_id: String,
   },
   methods: {
-    page_header: function(page) {
-      return page.spread_sequence + "-" + page.side;
-    }
+    page_header: function (page) {
+      return page.sequence;
+    },
   },
   asyncComputed: {
     pages() {
       return HTTP.get("/pages/", {
         params: {
-          created_by_run: this.page_run_id
-        }
+          created_by_run: this.page_run_id,
+          limit: 1000,
+        },
       }).then(
-        response => {
+        (response) => {
           return response.data.results;
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
