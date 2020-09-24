@@ -62,9 +62,7 @@ class Book(uuidModel):
         "estc",
         "zipfile",
         "zip_path",
-        "pq_title",
         "pq_url",
-        "pq_author",
         "pq_year_verbatim",
         "pq_year_early",
         "pq_year_late",
@@ -89,22 +87,15 @@ class Book(uuidModel):
         max_length=2000, db_index=True, help_text="Title (as cataloged by EEBO)"
     )
     pq_publisher = models.CharField(
-        blank=True,
-        max_length=2000,
-        help_text="Publisher (as cataloged by EEBO)",
-        editable=False,
+        blank=True, max_length=2000, help_text="Publisher (as cataloged by EEBO)",
     )
     pq_author = models.CharField(
-        blank=True,
-        max_length=2000,
-        help_text="Author (as cataloged by EEBO)",
-        editable=False,
+        blank=True, max_length=2000, help_text="Author (as cataloged by EEBO)",
     )
     pq_year_verbatim = models.CharField(
         max_length=2000,
         blank=True,
         help_text="Date string from EEBO, may contain non-numeric values",
-        editable=False,
     )
     pq_year_early = models.PositiveIntegerField(
         db_index=True, null=True, help_text="Proquest early year", editable=False

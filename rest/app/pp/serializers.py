@@ -99,14 +99,6 @@ class BookListSerializer(serializers.ModelSerializer):
             "prefix",
         ]
 
-    def update(self, instance, validated_data):
-        if (
-            instance.is_eebo_book
-        ):  # If this is an eebo book, prevent reserved fields from ever getting edited
-            for fieldname in instance.EEBO_ONLY:
-                validated_data.pop(fieldname, None)
-        return super().update(instance, validated_data)
-
 
 class PageRunSerializer(serializers.ModelSerializer):
     class Meta:
