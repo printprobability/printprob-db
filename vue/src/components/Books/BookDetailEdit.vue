@@ -20,7 +20,11 @@
               <dt>P&P id</dt>
               <dd>{{ book.id }}</dd>
             </dl>
-            <b-form-group id="eebo-group" label="EEBO id" label-for="eebo-input">
+            <b-form-group
+              id="eebo-group"
+              label="EEBO id"
+              label-for="eebo-input"
+            >
               <b-form-input
                 :plaintext="readonly"
                 id="eebo-input"
@@ -46,7 +50,11 @@
                 @blur="conditional_edit_group('tcp', book.tcp)"
               />
             </b-form-group>
-            <b-form-group id="estc-group" label="ESTC id" label-for="estc-input">
+            <b-form-group
+              id="estc-group"
+              label="ESTC id"
+              label-for="estc-input"
+            >
               <b-form-input
                 :plaintext="readonly"
                 id="estc-input"
@@ -65,23 +73,31 @@
           <dd>{{ book.pq_publisher }}</dd>
           <dt>Author:</dt>
           <dd>{{ book.pq_author }}</dd>
-
-          <dt>Bridges images</dt>
-          <dd>
-            <code>/pylon5/hm560ip/djevans/eebo_unzipped/{{ book.zipfile }}/{{ book.vid }}/*</code>
-          </dd>
-          <dt>Proquest link</dt>
-          <dd>
-            <a :href="book.pq_url">{{ book.pq_url }}</a>
-          </dd>
+          <div>
+            <dt v-if="book.pq_url">Proquest link</dt>
+            <dd>
+              <a :href="book.pq_url">{{ book.pq_url }}</a>
+            </dd>
+          </div>
         </dl>
       </b-card>
       <b-card header="P&P Metadata">
-        <b-form-group id="publisher-group" label="Publisher" label-for="publisher-input">
+        <b-form-group
+          id="publisher-group"
+          label="Publisher"
+          label-for="publisher-input"
+        >
           <b-form-input
             id="publisher-input"
             v-model="book.pp_publisher"
             @blur="edit_group('pp_publisher', book.pp_publisher)"
+          />
+        </b-form-group>
+        <b-form-group id="author-group" label="Author" label-for="author-input">
+          <b-form-input
+            id="author-input"
+            v-model="book.pp_author"
+            @blur="edit_group('pp_author', book.pp_author)"
           />
         </b-form-group>
         <b-form-group
@@ -96,7 +112,11 @@
             @blur="edit_group('date_early', book.date_early)"
           />
         </b-form-group>
-        <b-form-group id="created-late-group" label="publisher" label-for="created-late-input">
+        <b-form-group
+          id="created-late-group"
+          label="publisher"
+          label-for="created-late-input"
+        >
           <b-form-input
             type="date"
             id="created-late-input"
@@ -115,12 +135,12 @@ import { HTTP } from "../../main";
 export default {
   name: "BookDetailEdit",
   props: {
-    book: null
+    book: null,
   },
   computed: {
     readonly() {
       return this.book.is_eebo_book;
-    }
+    },
   },
   methods: {
     conditional_edit_group(fieldname, content) {
@@ -128,30 +148,30 @@ export default {
         this.edit_group(fieldname, content);
       }
     },
-    edit_group: function(fieldname, content) {
+    edit_group: function (fieldname, content) {
       var payload = {};
       payload[fieldname] = content;
       return HTTP.patch("/books/" + this.book.id + "/", payload).then(
-        response => {
+        (response) => {
           this.$bvToast.toast(`${fieldname} updated`, {
             title: response.data.id,
             autoHideDelay: 5000,
             appendToast: true,
-            variant: "success"
+            variant: "success",
           });
         },
-        error => {
+        (error) => {
           for (let [k, v] of Object.entries(error.response.data)) {
             this.$bvToast.toast(v, {
               title: error.response.status + ": " + k,
               autoHideDelay: 5000,
               appendToast: true,
-              variant: "danger"
+              variant: "danger",
             });
           }
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>

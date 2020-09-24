@@ -115,6 +115,9 @@ class Book(uuidModel):
     pp_publisher = models.CharField(
         blank=True, max_length=2000, help_text="Publisher as asserted by P&P team"
     )
+    pp_author = models.CharField(
+        blank=True, max_length=2000, help_text="Author as asserted by P&P team"
+    )
     pdf = models.CharField(
         blank=True,
         max_length=1500,

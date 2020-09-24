@@ -4,7 +4,9 @@
       <div class="card-header">
         <b-row align-v="center" align-h="between">
           <span class="ml-2">Filter books</span>
-          <b-button variant="success" :to="{name: 'BookCreateView'}">Create book</b-button>
+          <b-button variant="success" :to="{ name: 'BookCreateView' }"
+            >Create book</b-button
+          >
         </b-row>
       </div>
       <div class="card-body">
@@ -29,7 +31,12 @@
                     debounce="750"
                   />
                 </b-form-group>
-                <b-form-group id="vid-group" label="VID" label-for="vid-input" label-size="sm">
+                <b-form-group
+                  id="vid-group"
+                  label="VID"
+                  label-for="vid-input"
+                  label-size="sm"
+                >
                   <b-form-input
                     number
                     type="number"
@@ -40,7 +47,12 @@
                     debounce="750"
                   />
                 </b-form-group>
-                <b-form-group id="tcp-group" label="tcp" label-for="tcp-input" label-size="sm">
+                <b-form-group
+                  id="tcp-group"
+                  label="tcp"
+                  label-for="tcp-input"
+                  label-size="sm"
+                >
                   <b-form-input
                     size="sm"
                     id="tcp-input"
@@ -49,7 +61,12 @@
                     debounce="750"
                   />
                 </b-form-group>
-                <b-form-group id="estc-group" label="estc" label-for="estc-input" label-size="sm">
+                <b-form-group
+                  id="estc-group"
+                  label="estc"
+                  label-for="estc-input"
+                  label-size="sm"
+                >
                   <b-form-input
                     size="sm"
                     id="estc-input"
@@ -122,22 +139,6 @@
                     :max="max_year"
                   />
                 </b-form-group>
-                <b-form-group
-                  id="tx_year_group"
-                  label-for="tx_year_input"
-                  label="Texas A&M Year"
-                  description="Get books produced within this year range"
-                  label-size="sm"
-                >
-                  <vue-slider
-                    v-model="tx_year_range"
-                    tooltip="always"
-                    tooltip-placement="bottom"
-                    :enable-cross="false"
-                    :min="min_year"
-                    :max="max_year"
-                  />
-                </b-form-group>
               </b-col>
             </b-form-row>
           </b-col>
@@ -159,7 +160,25 @@
                     debounce="750"
                   />
                 </b-form-group>
-                <b-form-group id="starred-group" label="Only show starred books" label-size="sm">
+                <b-form-group
+                  id="pp-author-group"
+                  label="Author"
+                  description="Search by partial author (as assigned by P&P)"
+                  label-size="sm"
+                >
+                  <b-form-input
+                    size="sm"
+                    id="pp-author-input"
+                    v-model="pp_author_search"
+                    placeholder="milton"
+                    debounce="750"
+                  />
+                </b-form-group>
+                <b-form-group
+                  id="starred-group"
+                  label="Only show starred books"
+                  label-size="sm"
+                >
                   <b-form-checkbox
                     id="starred-input"
                     v-model="starred"
@@ -212,10 +231,9 @@
       :year_late="year_late"
       :pq_year_min="pq_year_min"
       :pq_year_max="pq_year_max"
-      :tx_year_min="tx_year_min"
-      :tx_year_max="tx_year_max"
       :starred="starred"
       :pp_publisher="pp_publisher_search"
+      :pp_author="pp_author_search"
     />
   </div>
 </template>
@@ -230,7 +248,7 @@ export default {
   name: "BookList",
   components: {
     BookResults,
-    VueSlider
+    VueSlider,
   },
   data() {
     return {
@@ -244,27 +262,21 @@ export default {
       title_search: "",
       author_search: "",
       pp_publisher_search: "",
+      pp_author_search: "",
       pq_year_range: [1500, 1800],
       pq_year_min: 1500,
       pq_year_max: 1800,
-      tx_year_range: [1500, 1800],
-      tx_year_min: 1500,
-      tx_year_max: 1800,
       year_early: null,
       year_late: null,
-      starred: null
+      starred: null,
     };
   },
   watch: {
-    pq_year_range: _.debounce(function() {
+    pq_year_range: _.debounce(function () {
       this.pq_year_min = this.pq_year_range[0];
       this.pq_year_max = this.pq_year_range[1];
     }, 750),
-    tx_year_range: _.debounce(function() {
-      this.tx_year_min = this.tx_year_range[0];
-      this.tx_year_max = this.tx_year_range[1];
-    }, 750)
-  }
+  },
 };
 </script>
 

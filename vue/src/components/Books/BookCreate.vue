@@ -13,7 +13,13 @@
             />
           </b-form-group>
           <b-form-group id="vid-group" label="VID" label-for="vid-input">
-            <b-form-input id="vid-input" v-model="vid" placeholder="184449" type="number" no-wheel />
+            <b-form-input
+              id="vid-input"
+              v-model="vid"
+              placeholder="184449"
+              type="number"
+              no-wheel
+            />
           </b-form-group>
           <b-form-group id="tcp-group" label="tcp" label-for="tcp-input">
             <b-form-input id="tcp-input" v-model="tcp" placeholder="A27900" />
@@ -24,20 +30,60 @@
         </b-col>
         <b-col col md="4">
           <b-form-group id="title-group" label-for="title-input" label="Title">
-            <b-form-input id="title-input" v-model="title" placeholder="nine arguments" required />
+            <b-form-input
+              id="title-input"
+              v-model="title"
+              placeholder="nine arguments"
+              required
+              :state="title != ''"
+            />
           </b-form-group>
-          <b-form-group id="publisher-group" label="Publisher" label-for="publisher-input">
-            <b-form-input id="publisher-input" v-model="publisher" placeholder="overton" />
+          <b-form-group
+            id="publisher-group"
+            label="Publisher"
+            label-for="publisher-input"
+          >
+            <b-form-input
+              id="publisher-input"
+              v-model="publisher"
+              placeholder="overton"
+            />
           </b-form-group>
-          <b-form-group id="author-group" label-for="author-input" label="author">
-            <b-form-input id="author-input" v-model="author" placeholder="milton" />
+          <b-form-group
+            id="author-group"
+            label-for="author-input"
+            label="author"
+          >
+            <b-form-input
+              id="author-input"
+              v-model="author"
+              placeholder="milton"
+            />
           </b-form-group>
         </b-col>
         <b-col col md="4">
-          <b-form-group id="date-range-group" label="Published between" description>
+          <b-form-group
+            id="date-range-group"
+            label="Published between"
+            description
+          >
             <b-form inline>
-              <b-form-input class="mx-2" id="year-input-early" type="date" v-model="date_early" />and
-              <b-form-input class="mx-2" id="year-input-late" type="date" v-model="date_late" />
+              <b-form-input
+                class="mx-2"
+                id="year-input-early"
+                type="date"
+                v-model="date_early"
+                :state="date_early != ''"
+                required
+              />and
+              <b-form-input
+                class="mx-2"
+                id="year-input-late"
+                type="date"
+                v-model="date_late"
+                :state="date_late != ''"
+                required
+              />
             </b-form>
           </b-form-group>
         </b-col>
@@ -54,6 +100,7 @@
 
 <script>
 import { HTTP } from "../../main";
+import moment from "moment";
 export default {
   name: "BookCreate",
   data() {
@@ -66,12 +113,15 @@ export default {
       publisher: "",
       author: "",
       date_early: "",
-      date_late: ""
+      date_late: "",
     };
   },
   methods: {
     cancel() {
       this.$router.push({ name: "BookListView" });
+    },
+    date_to_number(d) {
+      return Number(moment(new Date(d)).format("YYYY"));
     },
     submit() {
       const payload = {
@@ -82,34 +132,36 @@ export default {
         pq_title: this.title,
         pp_publisher: this.publisher,
         pp_author: this.author,
-        pp_date_early: this.date_early,
-        pp_date_late: this.date_late
+        pq_year_early: this.date_to_number(this.date_early),
+        pq_year_late: this.date_to_number(this.date_late),
+        date_early: this.date_early,
+        date_late: this.date_late,
       };
       HTTP.post("/books/", payload).then(
-        response => {
+        (response) => {
           this.$bvToast.toast(`Book created`, {
             title: response.data.pq_title,
             autoHideDelay: 5000,
             appendToast: true,
-            variant: "success"
+            variant: "success",
           });
           this.$router.push({
             name: "BookDetailView",
-            params: { id: response.data.id }
+            params: { id: response.data.id },
           });
         },
-        error => {
+        (error) => {
           for (let [k, v] of Object.entries(error.response.data)) {
             this.$bvToast.toast(v, {
               title: error.response.status + ": " + k,
               autoHideDelay: 5000,
               appendToast: true,
-              variant: "danger"
+              variant: "danger",
             });
           }
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>

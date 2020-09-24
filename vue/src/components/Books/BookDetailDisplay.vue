@@ -31,17 +31,14 @@
           <dl>
             <dt>Publisher</dt>
             <dd>{{ book.pq_publisher }}</dd>
-            <dt>Author:</dt>
+            <dt>Author</dt>
             <dd>{{ book.pq_author }}</dd>
-
-            <dt>Bridges images</dt>
-            <dd>
-              <code>/pylon5/hm560ip/djevans/eebo_unzipped/{{ book.zipfile }}/{{ book.vid }}/</code>
-            </dd>
-            <dt>Proquest link</dt>
-            <dd>
-              <a :href="book.pq_url">{{ book.pq_url }}</a>
-            </dd>
+            <div v-if="book.pq_url">
+              <dt>Proquest link</dt>
+              <dd>
+                <a :href="book.pq_url">{{ book.pq_url }}</a>
+              </dd>
+            </div>
           </dl>
         </b-card>
       </b-col>
@@ -50,10 +47,12 @@
           <dl>
             <dt>Publisher</dt>
             <dd>{{ book.pp_publisher }}</dd>
+            <dt>Author</dt>
+            <dd>{{ book.pp_author }}</dd>
             <dt>Created no earlier than</dt>
             <dd>{{ book.date_early }}</dd>
             <dt>Created no later than</dt>
-            <dd>{{ book.date_late}}</dd>
+            <dd>{{ book.date_late }}</dd>
           </dl>
         </b-card>
       </b-col>
@@ -65,7 +64,7 @@
 export default {
   name: "BookDetailDisplay",
   props: {
-    book: null
-  }
+    book: null,
+  },
 };
 </script>

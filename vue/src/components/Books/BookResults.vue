@@ -2,7 +2,11 @@
   <b-container fluid>
     <b-row align-h="between">
       <div class="paginator">
-        <p>Displaying books {{ page_range[0].toLocaleString() }} to {{ page_range[1].toLocaleString() }} out of {{ count.toLocaleString() }} total</p>
+        <p>
+          Displaying books {{ page_range[0].toLocaleString() }} to
+          {{ page_range[1].toLocaleString() }} out of
+          {{ count.toLocaleString() }} total
+        </p>
         <b-pagination
           hide-goto-end-buttons
           v-model="page"
@@ -11,7 +15,7 @@
           aria-controls="book-results"
         />
       </div>
-      <b-spinner v-show="fetch_state=='getting'" />
+      <b-spinner v-show="fetch_state == 'getting'" />
       <b-form-group id="sort-group" label-for="sort-select" label="Sort">
         <BookSort v-model="order" />
       </b-form-group>
@@ -40,7 +44,7 @@ export default {
   name: "BookResults",
   components: {
     BookSort,
-    BookResultCard
+    BookResultCard,
   },
   props: {
     publisher: String,
@@ -52,18 +56,16 @@ export default {
     author: String,
     pq_year_min: Number,
     pq_year_max: Number,
-    tx_year_min: Number,
-    tx_year_max: Number,
     year_early: String,
     year_late: String,
     starred: Boolean,
-    pp_publisher: String
+    pp_publisher: String,
   },
   data() {
     return {
       fetch_state: "waiting",
       order: "pq_title",
-      page: 1
+      page: 1,
     };
   },
   asyncComputed: {
@@ -82,25 +84,23 @@ export default {
           pq_author: this.author,
           pq_year_early_min: this.pq_year_min,
           pq_year_late_max: this.pq_year_max,
-          tx_year_early_min: this.tx_year_min,
-          tx_year_late_max: this.tx_year_max,
           year_early_min: this.year_early,
           year_late_max: this.year_late,
           pp_publisher: this.pp_publisher,
           starred: this.starred,
-          ordering: this.order
-        }
+          ordering: this.order,
+        },
       }).then(
-        response => {
+        (response) => {
           this.fetch_state = "done";
           return response.data;
         },
-        error => {
+        (error) => {
           this.fetch_state = "done";
           console.log(error);
         }
       );
-    }
+    },
   },
   computed: {
     books() {
@@ -121,10 +121,10 @@ export default {
       }
       return 0;
     },
-    rest_offset: function() {
+    rest_offset: function () {
       return (this.page - 1) * this.$APIConstants.BOOK_PAGE_SIZE;
     },
-    page_range: function() {
+    page_range: function () {
       var base = 0;
       if (this.page > 1) {
         base = (this.page - 1) * this.$APIConstants.BOOK_PAGE_SIZE;
@@ -140,19 +140,17 @@ export default {
         pp_publisher: this.pp_publisher_search,
         pq_year_min: this.pq_year_min,
         pq_year_max: this.pq_year_max,
-        tx_year_min: this.tx_year_min,
-        tx_year_max: this.tx_year_max,
         year_late_max: this.year_early,
         year_early_min: this.year_late,
-        order: this.order
+        order: this.order,
       };
-    }
+    },
   },
   watch: {
-    view_params: function() {
+    view_params: function () {
       this.page = 1;
-    }
-  }
+    },
+  },
 };
 </script>
 
