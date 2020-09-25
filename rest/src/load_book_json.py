@@ -109,11 +109,11 @@ class BookLoader:
         wait_exponential_max=10000,
         stop_max_delay=30000,
     )
-    def make_post(url, payload):
-        res = requests.post(url, payload, headers=AUTH_HEADER, verify=CERT_PATH)
+    def make_post(url, json):
+        res = requests.post(url, json=json, headers=AUTH_HEADER, verify=CERT_PATH)
         if res.status_code != 201:
-            logger.WARNING(f"Retrying {payload}")
-            raise Exception(f"Couldn't be created: {page_response.content}")
+            logger.WARNING(f"Retrying {json}")
+            raise Exception(f"Couldn't be created: {res.content}")
         return res
 
     def create_pages(self):
