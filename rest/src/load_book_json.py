@@ -109,7 +109,7 @@ class BookLoader:
         wait_exponential_max=10000,
         stop_max_delay=30000,
     )
-    def make_post(url, json):
+    def make_post(self, url, json):
         res = requests.post(url, json=json, headers=AUTH_HEADER, verify=CERT_PATH)
         if res.status_code != 201:
             logger.WARNING(f"Retrying {json}")
@@ -200,7 +200,7 @@ class BookLoader:
         for char in self.characters:
             char_type = self.cc.get_or_create(char["character_class"])
             char_response = self.make_post(
-                f"{PP_URL}/characters/",
+                url=f"{PP_URL}/characters/",
                 json={
                     "id": char["id"],
                     "created_by_run": self.character_run_id,
