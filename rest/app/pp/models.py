@@ -433,10 +433,18 @@ class Character(CroppedModel):
         db_index=True, help_text="Sequence of characters on the line"
     )
     x_min = models.PositiveIntegerField(
-        help_text="X-axis index for the start of this character on the line image"
+        help_text="X-axis index for the start of this character on the page image"
     )
     x_max = models.PositiveIntegerField(
-        help_text="X-axis index for the end of this character on the line image"
+        help_text="X-axis index for the end of this character on the page image"
+    )
+    y_min = models.PositiveIntegerField(
+        null=True,
+        help_text="Y-axis index for the start of this character on the page image",
+    )
+    y_max = models.PositiveIntegerField(
+        null=True,
+        help_text="Y-axis index for the end of this character on the page image",
     )
     character_class = models.ForeignKey(
         CharacterClass, on_delete=models.CASCADE, related_name="assigned_to"
@@ -472,15 +480,29 @@ class Character(CroppedModel):
         return self.line.page
 
     @property
+    def y(self):
+        if self.y_min is not None:
+            return self.y_min
+        else:
+            return self.line.y_min
+
+    @property
     def width(self):
         return self.x_max - self.x_min
 
     @property
+    def height(self):
+        if self.y_max is not None and self.y_min is not None:
+            return self.y_max - self.y_min
+        else:
+            return self.line.height
+
+    @property
     def absolute_coords(self):
         x = self.x_min
-        y = self.line.y_min
+        y = self.y
         w = self.width
-        h = self.line.height
+        h = self.height
         return {"x": x, "y": y, "w": w, "h": h}
 
     @property

@@ -378,6 +378,12 @@ class CharacterViewSet(viewsets.ModelViewSet):
     filterset_class = CharacterFilter
     pagination_class = NoCountsLimitOffsetPagination
 
+    def get_queryset(self):
+        if self.action == "create":
+            return models.Character.objects.all()
+        else:
+            return self.queryset
+
     def get_serializer_class(self):
         if self.action == "retrieve":
             return serializers.CharacterDetailSerializer

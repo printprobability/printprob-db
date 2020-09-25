@@ -199,6 +199,8 @@ class BookLoader:
                     "character_class": char_type,
                     "x_max": char["x_end"],
                     "x_min": char["x_start"],
+                    "y_max": char["y_end"],
+                    "y_min": char["y_start"],
                 },
                 headers=AUTH_HEADER,
                 verify=CERT_PATH,
