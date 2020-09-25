@@ -3,7 +3,7 @@ Script to load JSON-formatted outputs from Ocular into the P&P REST API.
 """
 
 import requests
-import retrying
+from retrying import retry
 import json
 import logging
 from glob import glob
