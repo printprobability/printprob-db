@@ -3,6 +3,7 @@ Script to load JSON-formatted outputs from Ocular into the P&P REST API.
 """
 
 import requests
+import retrying
 import json
 import logging
 from glob import glob
@@ -103,6 +104,18 @@ class BookLoader:
         ]
         logging.info(f"{len(self.characters)} characters loaded")
 
+    @retry(
+        wait_exponential_multiplier=1000,
+        wait_exponential_max=10000,
+        stop_max_delay=30000,
+    )
+    def make_post(url, payload):
+        res = requests.post(url, payload, headers=AUTH_HEADER, verify=CERT_PATH)
+        if res.status_code != 201:
+            logger.WARNING(f"Retrying {payload}")
+            raise Exception(f"Couldn't be created: {page_response.content}")
+        return res
+
     def create_pages(self):
         page_run_response = requests.post(
             f"{PP_URL}/runs/pages/",
@@ -186,7 +199,7 @@ class BookLoader:
 
         for char in self.characters:
             char_type = self.cc.get_or_create(char["character_class"])
-            char_response = requests.post(
+            char_response = make_post(
                 f"{PP_URL}/characters/",
                 json={
                     "id": char["id"],
@@ -202,12 +215,10 @@ class BookLoader:
                     "y_max": char["y_end"],
                     "y_min": char["y_start"],
                 },
-                headers=AUTH_HEADER,
-                verify=CERT_PATH,
             )
-            if char_response.status_code != 201:
-                raise Exception(char_response.content)
-            char_response_id = char_response.json()["id"]
+            # if char_response.status_code != 201:
+            #     raise Exception(char_response.content)
+            # char_response_id = char_response.json()["id"]
             # if char_response_id != char["id"]:
             #     raise Exception(
             #         f"Character id submitted as {char['id']} but {char_response_id} returned instead"
