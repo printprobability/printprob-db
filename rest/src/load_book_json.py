@@ -208,11 +208,11 @@ class BookLoader:
             if char_response.status_code != 201:
                 raise Exception(char_response.content)
             char_response_id = char_response.json()["id"]
-            if char_response_id != char["id"]:
-                raise Exception(
-                    f"Character id submitted as {char['id']} but {char_response_id} returned instead"
-                )
-            logging.info(f"Character {char_response.json()['id']} loaded")
+            # if char_response_id != char["id"]:
+            #     raise Exception(
+            #         f"Character id submitted as {char['id']} but {char_response_id} returned instead"
+            #     )
+            logging.info(f"Character {char['id']} loaded")
 
 
 def main():
