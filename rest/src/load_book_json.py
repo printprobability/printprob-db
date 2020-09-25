@@ -112,7 +112,7 @@ class BookLoader:
     def make_post(self, url, json):
         res = requests.post(url, json=json, headers=AUTH_HEADER, verify=CERT_PATH)
         if res.status_code != 201:
-            logger.WARNING(f"Retrying {json}")
+            logging.WARNING(f"Retrying {json}")
             raise Exception(f"Couldn't be created: {res.content}")
         return res
 
