@@ -148,8 +148,8 @@ export default {
   },
   methods: {
     delete_book: function () {
-      this.$root.$bvToast.toast(`"Deleting ${this.book.pq_title}"`, {
-        title: response.data.id,
+      this.$root.$bvToast.toast({
+        title: `"Deleting ${this.book.pq_title}"`,
         autoHideDelay: 5000,
         appendToast: true,
         variant: "info",
