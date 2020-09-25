@@ -199,7 +199,7 @@ class BookLoader:
 
         for char in self.characters:
             char_type = self.cc.get_or_create(char["character_class"])
-            char_response = make_post(
+            char_response = self.make_post(
                 f"{PP_URL}/characters/",
                 json={
                     "id": char["id"],
