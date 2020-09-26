@@ -11,7 +11,7 @@ import re
 
 AUTH_TOKEN = open("/pylon5/hm4s82p/shared/api/api_token.txt", "r").read().strip()
 AUTH_HEADER = {"Authorization": f"Token {AUTH_TOKEN}"}
-PP_URL = "http://localhost/api"
+PP_URL = "https://printprobdb.bridges.psc.edu/api"
 CERT_PATH = "/pylon5/hm4s82p/shared/api/incommonrsaserverca-bundle.crt"
 
 
