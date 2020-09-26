@@ -432,17 +432,17 @@ class Character(CroppedModel):
     sequence = models.PositiveIntegerField(
         db_index=True, help_text="Sequence of characters on the line"
     )
-    x_min = models.PositiveIntegerField(
+    x_min = models.IntegerField(
         help_text="X-axis index for the start of this character on the page image"
     )
-    x_max = models.PositiveIntegerField(
+    x_max = models.IntegerField(
         help_text="X-axis index for the end of this character on the page image"
     )
-    y_min = models.PositiveIntegerField(
+    y_min = models.IntegerField(
         null=True,
         help_text="Y-axis index for the start of this character on the page image",
     )
-    y_max = models.PositiveIntegerField(
+    y_max = models.IntegerField(
         null=True,
         help_text="Y-axis index for the end of this character on the page image",
     )
@@ -499,8 +499,8 @@ class Character(CroppedModel):
 
     @property
     def absolute_coords(self):
-        x = self.x_min
-        y = self.y
+        x = max(self.x_min, 0)
+        y = max(self.y, 0)
         w = self.width
         h = self.height
         return {"x": x, "y": y, "w": w, "h": h}
