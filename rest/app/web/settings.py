@@ -164,3 +164,6 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.environ.get("EMAIL_HOST")
 EMAIL_PORT = os.environ.get("EMAIL_PORT", 25)
 DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_ADDRESS")
+
+# Allow large data file
+DATA_UPLOAD_MAX_MEMORY_SIZE = 50000000

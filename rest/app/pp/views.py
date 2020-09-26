@@ -26,6 +26,7 @@ from base64 import b64encode, b64decode
 from drf_tweaks.pagination import NoCountsLimitOffsetPagination
 from tempfile import TemporaryDirectory
 import requests
+from uuid import UUID
 
 
 class GetSerializerClassMixin(object):
@@ -171,6 +172,113 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         obj = self.get_object()
         res = obj.spreads.all().delete()
         return Response(res)
+
+    @action(detail=True, methods=["post"])
+    @transaction.atomic
+    def bulk_pages(self, request, pk=None):
+        book = self.get_object()
+        # try:
+        pages_json = request.data["pages"]
+        tif_root = request.data["tif_root"]
+        # Create page run
+        page_run = models.PageRun.objects.create(book=book)
+        # Create list of page objects
+        page_list = [
+            models.Page(
+                id=page["id"],
+                created_by_run=page_run,
+                sequence=page["sequence"],
+                side=page["side"],
+                tif=page["filename"].replace(tif_root, ""),
+            )
+            for page in pages_json
+        ]
+        # Bulk save to DB
+        models.Page.objects.bulk_create(
+            page_list, batch_size=500, ignore_conflicts=True
+        )
+        return Response(
+            {"pages created": len(page_list)}, status=status.HTTP_201_CREATED
+        )
+
+    @action(detail=True, methods=["post"])
+    @transaction.atomic
+    def bulk_lines(self, request, pk=None):
+        book = self.get_object()
+        # try:
+        lines_json = request.data["lines"]
+        # Create line run
+        line_run = models.LineRun.objects.create(book=book)
+        page_objects = models.Page.objects.in_bulk(
+            list({line["page_id"] for line in lines_json}), field_name="id"
+        )
+        # Create list of line objects
+        line_list = [
+            models.Line(
+                id=line["id"],
+                created_by_run=line_run,
+                page=page_objects[UUID(line["page_id"])],
+                sequence=line["sequence"],
+                y_min=line["y_start"],
+                y_max=line["y_end"],
+            )
+            for line in lines_json
+        ]
+        # Bulk save to DB
+        models.Line.objects.bulk_create(
+            line_list, batch_size=500, ignore_conflicts=True
+        )
+        return Response(
+            {"lines created": len(line_list)}, status=status.HTTP_201_CREATED
+        )
+
+    @action(detail=True, methods=["post"])
+    @transaction.atomic
+    def bulk_characters(self, request, pk=None):
+        book = self.get_object()
+        # try:
+        characters_json = request.data["characters"]
+        # Create character run
+        character_run = models.CharacterRun.objects.create(book=book)
+        # Collect line objects
+        line_objects = models.Line.objects.in_bulk(
+            list({character["line_id"] for character in characters_json}),
+            field_name="id",
+        )
+        # Collect character class objects
+        character_class_objects = models.CharacterClass.objects.in_bulk(
+            models.CharacterClass.objects.all().values_list("classname", flat=True),
+            field_name="classname",
+        )
+        # Create list of page objects
+        character_list = [
+            models.Character(
+                id=character["id"],
+                created_by_run=character_run,
+                line=line_objects[UUID(character["line_id"])],
+                sequence=character["sequence"],
+                y_min=character["y_start"] if character["y_start"] >= 0 else 0,
+                y_max=character["y_end"] if character["y_end"] >= 0 else 0,
+                x_min=character["x_start"] if character["x_start"] >= 0 else 0,
+                x_max=character["x_end"] if character["x_end"] >= 0 else 0,
+                offset=character["offset"],
+                exposure=character["exposure"],
+                class_probability=character["logprob"],
+                character_class=character_class_objects[character["character_class"]],
+            )
+            for character in characters_json
+        ]
+        # Bulk save to DB
+        models.Character.objects.bulk_create(
+            character_list, batch_size=500, ignore_conflicts=True
+        )
+        return Response(
+            {"lines created": len(character_list)}, status=status.HTTP_201_CREATED
+        )
+        # except:
+        #     return Response(
+        #         {"error": "There was an error"}, status=status.HTTP_400_BAD_REQUEST
+        #     )
 
 
 class SpreadFilter(filters.FilterSet):

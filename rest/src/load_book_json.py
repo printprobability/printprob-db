@@ -112,8 +112,14 @@ class BookLoader:
     def make_post(self, url, json):
         res = requests.post(url, json=json, headers=AUTH_HEADER, verify=CERT_PATH)
         if res.status_code != 201:
-            logging.WARNING(f"Retrying {json}")
-            raise Exception(f"Couldn't be created: {res.content}")
+            try:
+                if "id" in res.json():
+                    # IF there's a duplicated ID, that means it was already loaded. Keep going.
+                    logging.warning(res.json())
+                    return None
+            except:
+                logging.warning(f"Retrying {json}")
+                raise Exception(f"Couldn't be created: {res.content}")
         return res
 
     def create_pages(self):
