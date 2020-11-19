@@ -50,7 +50,7 @@
         <p>
           Bridges images:
           <code
-            >/pylon5/hm560ip/djevans/eebo_unzipped/{{ book.zipfile }}/{{
+            >/pylon5/hm4s82p/shared/eebo_unzipped/{{ book.zipfile }}/{{
               book.vid
             }}/</code
           >
