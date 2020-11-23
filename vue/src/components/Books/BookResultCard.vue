@@ -60,6 +60,7 @@
         <p class="bg-light p-2">P&P</p>
         <p>Date between: {{ book.date_early }} and {{ book.date_late }}</p>
         <p>Publisher: {{ book.pp_publisher }}</p>
+        <p>Repository: {{ book.repository }}</p>
       </b-col>
     </b-row>
   </b-media>

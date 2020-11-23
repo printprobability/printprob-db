@@ -236,6 +236,7 @@ class BookViewTest(TestCase):
             "starred",
             "ignored",
             "is_eebo_book",
+            "repository",
         ]:
             self.assertIn(k, res.data["results"][0])
         self.assertIn("web_url", res.data["results"][0]["cover_spread"]["image"])
@@ -274,6 +275,7 @@ class BookViewTest(TestCase):
             "starred",
             "ignored",
             "is_eebo_book",
+            "repository",
         ]:
             self.assertIn(k, res.data)
         self.assertEqual(res.data["id"], self.STR1)

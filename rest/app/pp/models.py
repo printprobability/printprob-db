@@ -87,10 +87,14 @@ class Book(uuidModel):
         max_length=2000, db_index=True, help_text="Title (as cataloged by EEBO)"
     )
     pq_publisher = models.CharField(
-        blank=True, max_length=2000, help_text="Publisher (as cataloged by EEBO)",
+        blank=True,
+        max_length=2000,
+        help_text="Publisher (as cataloged by EEBO)",
     )
     pq_author = models.CharField(
-        blank=True, max_length=2000, help_text="Author (as cataloged by EEBO)",
+        blank=True,
+        max_length=2000,
+        help_text="Author (as cataloged by EEBO)",
     )
     pq_year_verbatim = models.CharField(
         max_length=2000,
@@ -98,18 +102,30 @@ class Book(uuidModel):
         help_text="Date string from EEBO, may contain non-numeric values",
     )
     pq_year_early = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="Proquest early year",
+        db_index=True,
+        null=True,
+        help_text="Proquest early year",
     )
     pq_year_late = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="Proquest late year",
+        db_index=True,
+        null=True,
+        help_text="Proquest late year",
     )
     tx_year_early = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="Texas A&M early year",
+        db_index=True,
+        null=True,
+        help_text="Texas A&M early year",
     )
     tx_year_late = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="Texas A&M late year",
+        db_index=True,
+        null=True,
+        help_text="Texas A&M late year",
     )
-    pq_url = models.URLField(max_length=1000, blank=True, help_text="ProQuest URL",)
+    pq_url = models.URLField(
+        max_length=1000,
+        blank=True,
+        help_text="ProQuest URL",
+    )
     pp_publisher = models.CharField(
         blank=True, max_length=2000, help_text="Publisher as asserted by P&P team"
     )
@@ -133,6 +149,9 @@ class Book(uuidModel):
     is_eebo_book = models.BooleanField(default=False, db_index=True)
     prefix = models.CharField(max_length=200, blank=True, null=True, unique=True)
     n_spreads = models.PositiveIntegerField(default=0)
+    repository = models.CharField(
+        max_length=1000, blank=True, null=True, default="", db_index=True
+    )
 
     class Meta:
         ordering = ["pq_title"]
@@ -407,7 +426,9 @@ class CharacterClass(models.Model):
     ]
 
     classname = models.CharField(
-        primary_key=True, max_length=50, help_text="Unique Ocular identifier",
+        primary_key=True,
+        max_length=50,
+        help_text="Unique Ocular identifier",
     )
     label = models.CharField(
         max_length=50, default="", help_text="Human-readable label"

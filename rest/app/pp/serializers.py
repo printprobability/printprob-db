@@ -100,6 +100,7 @@ class BookListSerializer(serializers.ModelSerializer):
             "ignored",
             "is_eebo_book",
             "prefix",
+            "repository",
         ]
 
 
@@ -314,6 +315,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "ignored",
             "is_eebo_book",
             "prefix",
+            "repository",
         ]
 
 

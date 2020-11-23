@@ -45,6 +45,8 @@
       <b-col cols="6">
         <b-card header="P&P Metadata">
           <dl>
+            <dt>Repository</dt>
+            <dd>{{ book.repository }}</dd>
             <dt>Publisher</dt>
             <dd>{{ book.pp_publisher }}</dd>
             <dt>Author</dt>

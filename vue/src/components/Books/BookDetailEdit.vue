@@ -83,6 +83,17 @@
       </b-card>
       <b-card header="P&P Metadata">
         <b-form-group
+          id="repository-group"
+          label="Repository"
+          label-for="repository-input"
+        >
+          <b-form-input
+            id="repository-input"
+            v-model="book.repository"
+            @blur="edit_group('repository', book.repository)"
+          />
+        </b-form-group>
+        <b-form-group
           id="publisher-group"
           label="Publisher"
           label-for="publisher-input"
