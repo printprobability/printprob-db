@@ -113,7 +113,7 @@
         </b-form-group>
         <b-form-group
           id="created-early-group"
-          label="Created no earlier"
+          label="Created no earlier than"
           label-for="created-early-input"
         >
           <b-form-input
@@ -125,7 +125,7 @@
         </b-form-group>
         <b-form-group
           id="created-late-group"
-          label="publisher"
+          label="Created no later than"
           label-for="created-late-input"
         >
           <b-form-input
