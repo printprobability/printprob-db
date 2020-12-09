@@ -74,7 +74,7 @@
                     variant="danger"
                     size="sm"
                     v-b-modal="'delete-modal' + data.item.id"
-                    >Delete</b-button
+                    >Delete book</b-button
                   >
                   <b-modal
                     :id="'delete-modal' + data.item.id"
