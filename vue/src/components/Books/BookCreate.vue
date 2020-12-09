@@ -66,6 +66,17 @@
               placeholder="milton"
             />
           </b-form-group>
+          <b-form-group
+            id="repository-group"
+            label-for="repository-input"
+            label="Repository"
+          >
+            <b-form-input
+              id="repository-input"
+              v-model="repository"
+              placeholder="British Library"
+            />
+          </b-form-group>
         </b-col>
         <b-col col md="4">
           <b-form-group
@@ -118,6 +129,7 @@ export default {
       title: "",
       publisher: "",
       author: "",
+      repository: "",
       date_early: "",
       date_late: "",
     };
@@ -147,6 +159,7 @@ export default {
               this.title = retrieved_book.pq_title;
               this.publisher = retrieved_book.pq_publisher;
               this.author = retrieved_book.pq_author;
+              this.author = retrieved_book.repository;
               this.date_early = `${retrieved_book.pq_year_early}-01-01`;
               this.date_late = `${retrieved_book.pq_year_late}-12-31`;
             } else {
@@ -178,6 +191,7 @@ export default {
         pq_title: this.title,
         pp_publisher: this.publisher,
         pp_author: this.author,
+        repository: this.repository,
         pq_year_early: this.date_to_number(this.date_early),
         pq_year_late: this.date_to_number(this.date_late),
         date_early: this.date_early,
