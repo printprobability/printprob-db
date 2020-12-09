@@ -61,6 +61,7 @@ export default {
     starred: Boolean,
     pp_publisher: String,
     pp_author: String,
+    pp_repository: String,
   },
   data() {
     return {
@@ -89,6 +90,7 @@ export default {
           year_late_max: this.year_late,
           pp_publisher: this.pp_publisher,
           pp_author: this.pp_author,
+          repository: this.pp_repository,
           starred: this.starred,
           ordering: this.order,
         },
@@ -140,6 +142,7 @@ export default {
         pq_title: this.title_search,
         pq_author: this.author_search,
         pp_publisher: this.pp_publisher_search,
+        pp_repository: this.pp_repository_search,
         pq_year_min: this.pq_year_min,
         pq_year_max: this.pq_year_max,
         year_late_max: this.year_early,

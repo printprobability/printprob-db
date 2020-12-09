@@ -81,6 +81,9 @@ class BookFilter(filters.FilterSet):
     pp_author = filters.CharFilter(
         help_text="books assinged to this author by P&P team", lookup_expr="icontains"
     )
+    repository = filters.CharFilter(
+        help_text="Repository holding this copy of the book", lookup_expr="icontains"
+    )
     characters = filters.BooleanFilter(
         method="has_characters",
         label="Has characters?",

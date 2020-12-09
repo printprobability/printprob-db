@@ -175,6 +175,20 @@
                   />
                 </b-form-group>
                 <b-form-group
+                  id="pp-repository-group"
+                  label="Repository"
+                  description="The repository holding this instance of the book"
+                  label-size="sm"
+                >
+                  <b-form-input
+                    size="sm"
+                    id="pp-repository-input"
+                    v-model="pp_repository_search"
+                    placeholder="British Library"
+                    debounce="750"
+                  />
+                </b-form-group>
+                <b-form-group
                   id="starred-group"
                   label="Only show starred books"
                   label-size="sm"
@@ -234,6 +248,7 @@
       :starred="starred"
       :pp_publisher="pp_publisher_search"
       :pp_author="pp_author_search"
+      :pp_repository="pp_repository_search"
     />
   </div>
 </template>
@@ -263,6 +278,7 @@ export default {
       author_search: "",
       pp_publisher_search: "",
       pp_author_search: "",
+      pp_repository_search: "",
       pq_year_range: [1500, 1800],
       pq_year_min: 1500,
       pq_year_max: 1800,
