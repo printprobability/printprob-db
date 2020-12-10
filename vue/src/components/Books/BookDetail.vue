@@ -10,13 +10,13 @@
                 v-if="edit_mode & !readonly"
                 variant="danger"
                 v-b-modal.delete-modal
-                >Delete</b-button
+                >Delete book</b-button
               >
               <b-modal
                 id="delete-modal"
                 title="Delete book?"
                 ok-variant="danger"
-                ok-title="Delete book"
+                ok-title="Delete"
                 @ok="delete_book"
               >
                 <p>
