@@ -16,7 +16,7 @@
                 id="delete-modal"
                 title="Delete book?"
                 ok-variant="danger"
-                ok-title="Delete"
+                ok-title="Delete book"
                 @ok="delete_book"
               >
                 <p>
@@ -74,7 +74,7 @@
                     variant="danger"
                     size="sm"
                     v-b-modal="'delete-modal' + data.item.id"
-                    >Delete book</b-button
+                    >Delete</b-button
                   >
                   <b-modal
                     :id="'delete-modal' + data.item.id"
