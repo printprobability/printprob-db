@@ -78,6 +78,9 @@ class BookFilter(filters.FilterSet):
     pp_publisher = filters.CharFilter(
         help_text="books assinged to this printer by P&P team", lookup_expr="icontains"
     )
+    colloq_printer = filters.CharFilter(lookup_expr="icontains")
+    pp_printer = filters.CharFilter(lookup_expr="icontains")
+    repository = filters.CharFilter(lookup_expr="icontains")
     pp_author = filters.CharFilter(
         help_text="books assinged to this author by P&P team", lookup_expr="icontains"
     )
