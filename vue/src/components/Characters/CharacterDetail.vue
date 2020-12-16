@@ -5,23 +5,11 @@
         <p>
           Book:
           <router-link
-            :to="{
-              name: 'BookDetailView',
-              params: { id: this.character.book.id },
-            }"
-            >{{ this.character.book.label }}</router-link
-          >
+            :to="{name: 'BookDetailView', params: {id: this.character.book.id}}"
+          >{{ this.character.book.label }}</router-link>
         </p>
-        <p>
-          Location: page {{ this.character.page.sequence }}, line
-          {{ this.character.line.sequence }}, position
-          {{ this.character.sequence }}
-        </p>
-        <p>
-          Assigned class: {{ this.character.character_class }} ({{
-            this.character.class_probability
-          }})
-        </p>
+        <p>Location: page {{ this.character.page.sequence }}, line {{ this.character.line.sequence }}, position {{ this.character.sequence }}</p>
+        <p>Assigned class: {{ this.character.character_class }} ({{ this.character.class_probability}})</p>
         <p>Human character class: {{ this.character.human_character_class }}</p>
         <p>
           Character id:
@@ -71,7 +59,7 @@ export default {
       return this.character.absolute_coords;
     },
     image_info_url() {
-      return `/iiif/${this.character.page.image.iiif_base}/info.json`;
+      return this.character.page.image.iiif_base + "/info.json";
     },
   },
 };
