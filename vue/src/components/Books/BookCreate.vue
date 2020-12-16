@@ -7,12 +7,11 @@
             id="vid-group"
             label="VID"
             label-for="vid-input"
-            description="Enter a VID for a known book from EEBO to prepopulate these fields."
+            description="Enter a the Proquest ID for a known book from EEBO to prepopulate other ID, title, author, publisher, and date fields if already recorded in EEBO."
           >
             <b-form-input
               id="vid-input"
               v-model="vid"
-              placeholder="184449"
               type="number"
               no-wheel
               debounce="750"
@@ -22,16 +21,15 @@
             <b-form-input
               id="eebo-input"
               v-model="eebo"
-              placeholder="99896497"
               type="number"
               no-wheel
             />
           </b-form-group>
           <b-form-group id="tcp-group" label="tcp" label-for="tcp-input">
-            <b-form-input id="tcp-input" v-model="tcp" placeholder="A27900" />
+            <b-form-input id="tcp-input" v-model="tcp" />
           </b-form-group>
           <b-form-group id="estc-group" label="estc" label-for="estc-input">
-            <b-form-input id="estc-input" v-model="estc" placeholder="R23698" />
+            <b-form-input id="estc-input" v-model="estc" />
           </b-form-group>
         </b-col>
         <b-col col md="4">
@@ -39,7 +37,6 @@
             <b-form-input
               id="title-input"
               v-model="title"
-              placeholder="nine arguments"
               required
               :state="title != ''"
             />
@@ -48,42 +45,43 @@
             id="publisher-group"
             label="Publisher"
             label-for="publisher-input"
+            description="Publisher of the book (enter as 'Last name, first name (CERL ID)' using ; to separate multiple names)"
           >
-            <b-form-input
-              id="publisher-input"
-              v-model="publisher"
-              placeholder="overton"
-            />
+            <b-form-input id="publisher-input" v-model="publisher" />
+          </b-form-group>
+          <b-form-group
+            id="colloquial-printer-group"
+            label="Colloquial Printer"
+            label-for="colloq-printer-input"
+            description="Commonly-held printer identification (enter as 'Last name, first name (CERL ID)' using ; to separate multiple names)"
+          >
+            <b-form-input id="colloq-printer-input" v-model="colloq_printer" />
+          </b-form-group>
+          <b-form-group
+            id="pp-printer-group"
+            label="P&P Printer"
+            label-for="pp-printer-input"
+            description="The printer as proposed by the P&P team (enter as 'Last name, first name (CERL ID)' using ; to separate multiple names)"
+          >
+            <b-form-input id="pp-printer-input" v-model="pp_printer" />
           </b-form-group>
           <b-form-group
             id="author-group"
             label-for="author-input"
             label="Author"
           >
-            <b-form-input
-              id="author-input"
-              v-model="author"
-              placeholder="milton"
-            />
+            <b-form-input id="author-input" v-model="author" />
           </b-form-group>
           <b-form-group
             id="repository-group"
             label-for="repository-input"
             label="Repository"
           >
-            <b-form-input
-              id="repository-input"
-              v-model="repository"
-              placeholder="British Library"
-            />
+            <b-form-input id="repository-input" v-model="repository" />
           </b-form-group>
         </b-col>
         <b-col col md="4">
-          <b-form-group
-            id="date-range-group"
-            label="Published between"
-            description
-          >
+          <b-form-group id="date-range-group" label="Published between">
             <b-form inline>
               <b-form-input
                 class="mx-2"
@@ -102,6 +100,13 @@
                 required
               />
             </b-form>
+          </b-form-group>
+          <b-form-group
+            id="pp-notes-group"
+            label="Notes"
+            label-for="pp-notes-input"
+          >
+            <b-form-textarea id="pp-notes-input" size="lg" v-model="pp_notes" />
           </b-form-group>
         </b-col>
       </b-form-row>
@@ -128,10 +133,13 @@ export default {
       estc: "",
       title: "",
       publisher: "",
+      colloq_printer: "",
+      pp_printer: "",
       author: "",
       repository: "",
       date_early: "",
       date_late: "",
+      pp_notes: "",
     };
   },
   methods: {
@@ -190,12 +198,15 @@ export default {
         estc: this.estc,
         pq_title: this.title,
         pp_publisher: this.publisher,
+        colloq_printer: this.colloq_printer,
+        pp_printer: this.pp_printer,
         pp_author: this.author,
         repository: this.repository,
         pq_year_early: this.date_to_number(this.date_early),
         pq_year_late: this.date_to_number(this.date_late),
         date_early: this.date_early,
         date_late: this.date_late,
+        pp_notes: this.pp_notes,
       };
       HTTP.post("/books/", payload).then(
         (response) => {

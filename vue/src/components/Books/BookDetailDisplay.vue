@@ -49,12 +49,18 @@
             <dd>{{ book.repository }}</dd>
             <dt>Publisher</dt>
             <dd>{{ book.pp_publisher }}</dd>
+            <dt>Commonly-known printer</dt>
+            <dd>{{ book.colloq_printer }}</dd>
+            <dt>P&P Printer</dt>
+            <dd>{{ book.pp_printer }}</dd>
             <dt>Author</dt>
             <dd>{{ book.pp_author }}</dd>
             <dt>Created no earlier than</dt>
             <dd>{{ book.date_early }}</dd>
             <dt>Created no later than</dt>
             <dd>{{ book.date_late }}</dd>
+            <dt>Notes</dt>
+            <dd>{{ book.pp_notes }}</dd>
           </dl>
         </b-card>
       </b-col>

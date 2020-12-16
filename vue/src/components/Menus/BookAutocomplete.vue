@@ -5,13 +5,12 @@
     query_field="pq_title"
     label="Source book"
     description="Begin typing for suggestions"
-    placeholder="an answer to nine"
     display_field="pq_title"
     n_choices="10"
     return_field="id"
     prefix_field="vid"
     @input="$emit('input', $event)"
-    :additional_params="{characters: true}"
+    :additional_params="{ characters: true }"
   />
 </template>
 
@@ -21,13 +20,13 @@ import Autocomplete from "./Autocomplete";
 export default {
   name: "BookAutocomplete",
   components: {
-    Autocomplete
+    Autocomplete,
   },
   props: {
     value: {
       type: String,
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 };
 </script>

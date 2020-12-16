@@ -25,7 +25,6 @@
                     size="sm"
                     id="eebo-input"
                     v-model="eebo_search"
-                    placeholder="99896497"
                     type="number"
                     number
                     debounce="750"
@@ -43,7 +42,6 @@
                     size="sm"
                     id="vid-input"
                     v-model="vid_search"
-                    placeholder="184449"
                     debounce="750"
                   />
                 </b-form-group>
@@ -57,7 +55,6 @@
                     size="sm"
                     id="tcp-input"
                     v-model="tcp_search"
-                    placeholder="A27900"
                     debounce="750"
                   />
                 </b-form-group>
@@ -71,7 +68,6 @@
                     size="sm"
                     id="estc-input"
                     v-model="estc_search"
-                    placeholder="R23698"
                     debounce="750"
                   />
                 </b-form-group>
@@ -86,7 +82,6 @@
                     size="sm"
                     id="publisher-input"
                     v-model="publisher_search"
-                    placeholder="overton"
                     debounce="750"
                   />
                 </b-form-group>
@@ -101,7 +96,6 @@
                     size="sm"
                     id="title-input"
                     v-model="title_search"
-                    placeholder="nine arguments"
                     debounce="750"
                   />
                 </b-form-group>
@@ -118,7 +112,6 @@
                     size="sm"
                     id="author-input"
                     v-model="author_search"
-                    placeholder="milton"
                     debounce="750"
                   />
                 </b-form-group>
@@ -156,7 +149,6 @@
                     size="sm"
                     id="pp-publisher-input"
                     v-model="pp_publisher_search"
-                    placeholder="simmons"
                     debounce="750"
                   />
                 </b-form-group>
@@ -170,7 +162,33 @@
                     size="sm"
                     id="pp-author-input"
                     v-model="pp_author_search"
-                    placeholder="milton"
+                    debounce="750"
+                  />
+                </b-form-group>
+
+                <b-form-group
+                  id="colloq-printer-group"
+                  label="Commonly-accepted printer"
+                  description="Search by partial printer (commonly accepted)"
+                  label-size="sm"
+                >
+                  <b-form-input
+                    size="sm"
+                    id="colloq-printer-input"
+                    v-model="colloq_printer_search"
+                    debounce="750"
+                  />
+                </b-form-group>
+                <b-form-group
+                  id="pp-printer-group"
+                  label="P&P Printer"
+                  description="Search by partial printer (as assigned by P&P)"
+                  label-size="sm"
+                >
+                  <b-form-input
+                    size="sm"
+                    id="pp-printer-input"
+                    v-model="pp_printer_search"
                     debounce="750"
                   />
                 </b-form-group>
@@ -184,7 +202,6 @@
                     size="sm"
                     id="pp-repository-input"
                     v-model="pp_repository_search"
-                    placeholder="British Library"
                     debounce="750"
                   />
                 </b-form-group>
@@ -247,6 +264,8 @@
       :pq_year_max="pq_year_max"
       :starred="starred"
       :pp_publisher="pp_publisher_search"
+      :pp_printer="pp_printer_search"
+      :colloq_printer="colloq_printer_search"
       :pp_author="pp_author_search"
       :pp_repository="pp_repository_search"
     />
@@ -277,6 +296,8 @@ export default {
       title_search: "",
       author_search: "",
       pp_publisher_search: "",
+      pp_printer_search: "",
+      colloq_printer_search: "",
       pp_author_search: "",
       pp_repository_search: "",
       pq_year_range: [1500, 1800],

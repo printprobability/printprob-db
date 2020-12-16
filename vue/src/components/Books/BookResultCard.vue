@@ -58,9 +58,19 @@
       </b-col>
       <b-col cols sm="6">
         <p class="bg-light p-2">P&P</p>
-        <p>Date between: {{ book.date_early }} and {{ book.date_late }}</p>
+        <p>Published between: {{ book.date_early }} and {{ book.date_late }}</p>
         <p>Publisher: {{ book.pp_publisher }}</p>
+        <p>
+          <abbr title="The commonly-known printer for this book"
+            >Colloquial Printer</abbr
+          >: {{ book.pp_printer }}
+        </p>
+        <p>
+          <abbr title="The P&P team's printer attribution">P&P Printer</abbr>:
+          {{ book.pp_printer }}
+        </p>
         <p>Repository: {{ book.repository }}</p>
+        <p>Notes: {{ book.pp_notes }}</p>
       </b-col>
     </b-row>
   </b-media>
