@@ -89,8 +89,9 @@ class BookLoader:
             f"{PP_URL}/books/{self.book_id}/", headers=AUTH_HEADER, verify=CERT_PATH
         )
         if res.status_code != 200:
+            logging.info(res.content)
             raise Exception(
-                f"The book {book_id} is not yet registered in the database. Please confirm you have used the correct UUID."
+                f"The book {self.book_id} is not yet registered in the database. Please confirm you have used the correct UUID."
             )
 
     def load_json(self):
@@ -164,8 +165,13 @@ def main():
     (opt, sources) = p.parse_args()
 
     logging.info(f"Using {CERT_PATH} for SSL verification")
+    logging.info(f"Book id {opt.book_id}")
+    logging.info(f"JSON dir {opt.json}")
 
-    pp_loader = BookLoader(book_id=opt.book_id, json_directory=opt.json,)
+    pp_loader = BookLoader(
+        book_id=opt.book_id,
+        json_directory=opt.json,
+    )
     pp_loader.load_db()
 
 
