@@ -12,11 +12,17 @@
           </div>
           <div class="col-8">
             <p v-if="!!book">
-              <b-button @click="clear_book" variant="danger" size="sm">x</b-button>
+              <b-button @click="clear_book" variant="danger" size="sm"
+                >x</b-button
+              >
               <strong>Book:</strong>
               {{ book_title }}
             </p>
-            <BookAutocomplete v-else :value="book" @input="$emit('book_input', $event)" />
+            <BookAutocomplete
+              v-else
+              :value="book"
+              @input="$emit('book_input', $event)"
+            />
           </div>
         </div>
         <b-row>
@@ -27,7 +33,10 @@
             />
           </div>
           <div class="col-4">
-            <CharacterOrderingSelect :value="order" @input="$emit('order_input', $event)" />
+            <CharacterOrderingSelect
+              :value="order"
+              @input="$emit('order_input', $event)"
+            />
           </div>
         </b-row>
       </div>
@@ -35,19 +44,21 @@
     <div class="char-images card my-2">
       <div class="card-header">
         <Spinner v-if="progress_spinner" />
-        <div class="paginator" v-if="value.length>0">
+        <div class="paginator" v-if="value.length > 0">
           <p>
-            Characters {{1 + (page - 1) * $APIConstants.REST_PAGE_SIZE }} to {{ (page - 1) * $APIConstants.REST_PAGE_SIZE + value.length }}
+            Characters {{ 1 + (page - 1) * $APIConstants.REST_PAGE_SIZE }} to
+            {{ (page - 1) * $APIConstants.REST_PAGE_SIZE + value.length }}
             <span
               v-if="results.next"
               v-b-tooltip.hover
               title="Arbitrarily counting characters is a very expensive operation, so we only estimate here..."
-            >(out of many)</span>
+              >(out of many)</span
+            >
           </p>
           <b-pagination
             hide-goto-end-buttons
             v-show="pagination_needed"
-            :value="page"
+            v-model="page"
             :per-page="$APIConstants.REST_PAGE_SIZE"
             :total-rows="mock_rows"
             aria-controls="character-results"
@@ -56,7 +67,11 @@
         </div>
         <div show v-else>No matching characters</div>
       </div>
-      <div class="d-flex flex-wrap card-body" id="character-results" v-if="value.length>0">
+      <div
+        class="d-flex flex-wrap card-body"
+        id="character-results"
+        v-if="value.length > 0"
+      >
         <CharacterImage
           v-for="character in value"
           :character="character"
@@ -85,39 +100,39 @@ export default {
   props: {
     highlighted_characters: {
       type: Array,
-      default: function() {
+      default: function () {
         return [];
-      }
+      },
     },
     bad_characters: {
       type: Array,
-      default: function() {
+      default: function () {
         return [];
-      }
+      },
     },
     good_characters: {
       type: Array,
-      default: function() {
+      default: function () {
         return [];
-      }
+      },
     },
     character_class: {
       default: null,
-      type: String
+      type: String,
     },
     book: {
       default: null,
-      type: String
+      type: String,
     },
     char_agreement: {
       default: "all",
-      type: String
+      type: String,
     },
     value: {
       // Here is where the characters themselves live
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   components: {
     CharacterClassSelect,
@@ -125,14 +140,14 @@ export default {
     BookAutocomplete,
     CharacterAgreementRadio,
     CharacterImage,
-    Spinner
+    Spinner,
   },
   data() {
     return {
       progress_spinner: false,
       cursor: null,
       page: 1,
-      order: "-class_probability"
+      order: "-class_probability",
     };
   },
   asyncComputed: {
@@ -145,14 +160,14 @@ export default {
           character_class: this.character_class,
           book: this.book,
           agreement: this.char_agreement,
-          ordering: this.order
-        }
+          ordering: this.order,
+        },
       }).then(
-        response => {
+        (response) => {
           this.progress_spinner = false;
           return response.data;
         },
-        error => {
+        (error) => {
           this.progress_spinner = false;
           console.log(error);
         }
@@ -161,15 +176,15 @@ export default {
     book_title() {
       if (!!this.book) {
         return HTTP.get("/books/" + this.book + "/").then(
-          results => {
+          (results) => {
             return results.data.label;
           },
-          error => {
+          (error) => {
             console.log(error);
           }
         );
       }
-    }
+    },
   },
   computed: {
     view_params() {
@@ -179,27 +194,27 @@ export default {
         book: this.book,
         agreement: this.char_agreement,
         ordering: this.order,
-        cursor: this.cursor
+        cursor: this.cursor,
       };
     },
-    rest_offset: function() {
+    rest_offset: function () {
       return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
     },
-    pagination_needed: function() {
+    pagination_needed: function () {
       return !!this.results.next || !!this.results.previous;
     },
-    mock_rows: function() {
+    mock_rows: function () {
       var baseline = this.rest_offset + this.value.length;
       if (!!this.results.next) {
         baseline += this.$APIConstants.REST_PAGE_SIZE;
       }
       return baseline;
-    }
+    },
   },
   methods: {
     clear_book() {
       this.$emit("book_input", null);
-    }
+    },
   },
   watch: {
     results() {
@@ -207,7 +222,7 @@ export default {
     },
     view_params() {
       this.page = 1;
-    }
-  }
+    },
+  },
 };
 </script>
