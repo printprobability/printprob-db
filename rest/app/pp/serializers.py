@@ -101,6 +101,8 @@ class BookListSerializer(serializers.ModelSerializer):
             "is_eebo_book",
             "prefix",
             "repository",
+            "pp_printer",
+            "pp_notes",
         ]
 
 
@@ -316,6 +318,8 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "is_eebo_book",
             "prefix",
             "repository",
+            "pp_printer",
+            "pp_notes",
         ]
 
 

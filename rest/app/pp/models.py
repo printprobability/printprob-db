@@ -152,6 +152,16 @@ class Book(uuidModel):
     repository = models.CharField(
         max_length=1000, blank=True, null=True, default="", db_index=True
     )
+    pp_printer = models.CharField(
+        blank=True,
+        max_length=2000,
+        help_text="Printer as asserted by P&P team",
+        default="",
+        db_index=True,
+    )
+    pp_notes = models.TextField(
+        blank=True, help_text="Free notes by the P&P team", default=""
+    )
 
     class Meta:
         ordering = ["pq_title"]
