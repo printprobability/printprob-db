@@ -216,7 +216,7 @@ export default {
       const run_id = payload.id;
       if (run_type == "characters") {
         this.$router.push({
-          name: "CharacterReviewView",
+          name: "CharacterGroupingView",
           query: { book: this.id, character_run: run_id },
         });
       } else if (run_type == "lines") {
