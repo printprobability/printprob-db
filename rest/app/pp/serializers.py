@@ -102,6 +102,7 @@ class BookListSerializer(serializers.ModelSerializer):
             "prefix",
             "repository",
             "pp_printer",
+            "colloq_printer",
             "pp_notes",
         ]
 
@@ -319,6 +320,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "prefix",
             "repository",
             "pp_printer",
+            "colloq_printer",
             "pp_notes",
         ]
 

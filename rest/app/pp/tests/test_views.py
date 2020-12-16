@@ -238,6 +238,7 @@ class BookViewTest(TestCase):
             "is_eebo_book",
             "repository",
             "pp_printer",
+            "colloq_printer",
             "pp_notes",
         ]:
             self.assertIn(k, res.data["results"][0])
@@ -279,6 +280,7 @@ class BookViewTest(TestCase):
             "is_eebo_book",
             "repository",
             "pp_printer",
+            "colloq_printer",
             "pp_notes",
         ]:
             self.assertIn(k, res.data)

@@ -159,6 +159,13 @@ class Book(uuidModel):
         default="",
         db_index=True,
     )
+    colloq_printer = models.CharField(
+        blank=True,
+        max_length=2000,
+        help_text="Commonly-held printer identification",
+        default="",
+        db_index=True,
+    )
     pp_notes = models.TextField(
         blank=True, help_text="Free notes by the P&P team", default=""
     )
