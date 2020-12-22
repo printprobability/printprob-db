@@ -47,14 +47,6 @@
           <code>{{ book.vid }}</code>
         </p>
         <p>Spreads: {{ book.n_spreads }}</p>
-        <p>
-          Bridges images:
-          <code
-            >/pylon5/hm4s82p/shared/eebo_unzipped/{{ book.zipfile }}/{{
-              book.vid
-            }}/</code
-          >
-        </p>
       </b-col>
       <b-col cols sm="6">
         <p class="bg-light p-2">P&P</p>
