@@ -217,7 +217,7 @@ export default {
       if (run_type == "characters") {
         this.$router.push({
           name: "CharacterGroupingView",
-          query: { book: this.id, character_run: run_id },
+          query: { book: this.book.id, character_run: run_id },
         });
       } else if (run_type == "lines") {
         this.detail_show = run_type;
