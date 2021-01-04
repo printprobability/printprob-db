@@ -138,19 +138,54 @@ class Book(uuidModel):
         help_text="relative file path to root directory containing pdfs",
     )
     date_early = models.DateField(
-        default=date(year=1550, month=1, day=1), db_index=True
+        default=date(year=1550, month=1, day=1),
+        db_index=True,
+        help_text="The earliest date this book may have been printed",
     )
     date_late = models.DateField(
-        default=date(year=1800, month=12, day=12), db_index=True
+        default=date(year=1800, month=12, day=12),
+        db_index=True,
+        help_text="The latest date this book may have been printed",
     )
-    zipfile = models.CharField(max_length=1000, blank=True, null=False)
-    starred = models.BooleanField(default=False, db_index=True)
-    ignored = models.BooleanField(default=False, db_index=True)
-    is_eebo_book = models.BooleanField(default=False, db_index=True)
-    prefix = models.CharField(max_length=200, blank=True, null=True, unique=True)
-    n_spreads = models.PositiveIntegerField(default=0)
+    zipfile = models.CharField(
+        max_length=1000,
+        blank=True,
+        null=False,
+        help_text="Location of ZIP file of images on Bridges, for EEBO books only",
+    )
+    starred = models.BooleanField(
+        default=False,
+        db_index=True,
+        help_text="This book has been maunally starred by a  user",
+    )
+    ignored = models.BooleanField(
+        default=False,
+        db_index=True,
+        help_text="This book has been marked as ignored by a user, and won't show up in search results",
+    )
+    is_eebo_book = models.BooleanField(
+        default=False,
+        db_index=True,
+        help_text="Are these book images from ProQuest EEBO?",
+    )
+    prefix = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        unique=True,
+        help_text="Prefix to most Bridges files for this book, e.g. `thodgkin` for thodgkin_xxxxx_yyyyy_00height_caesarsF.txt",
+    )
+    n_spreads = models.PositiveIntegerField(
+        default=0,
+        help_text="Number of spread images for this book. Only used for EEBO images.",
+    )
     repository = models.CharField(
-        max_length=1000, blank=True, null=True, default="", db_index=True
+        max_length=1000,
+        blank=True,
+        null=True,
+        default="",
+        db_index=True,
+        help_text="Name of the library/collection where these book images came from, e.g. 'British Library'",
     )
     pp_printer = models.CharField(
         blank=True,
