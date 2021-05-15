@@ -14,29 +14,16 @@ export default {
     overlay: Object,
   },
   data() {
-    return {};
+    return {
+      image_info_data: null,
+    };
   },
   computed: {
-    rewritten_image_info() {
-      return HTTP.get(this.image_info_url).then(
-        (response) => {
-          var res = response.data;
-          res["@id"] = res["@id"].replace(
-            /http.+8080/,
-            `${$APIConstants.PP_HOST}/iiif`
-          );
-          return res;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
     options() {
       return {
         id: this.id,
         prefixUrl: "/osd/",
-        tileSources: this.rewritten_image_info,
+        tileSources: [this.image_info_data],
         maxZoomLevel: 3,
         overlays: this.overlays,
       };
@@ -55,7 +42,20 @@ export default {
     },
   },
   mounted() {
-    OpenSeadragon(this.options);
+    HTTP.get(this.image_info_url).then(
+      (response) => {
+        var res = response.data;
+        res["@id"] = res["@id"].replace(
+          /http.+8080/,
+          "https://printprobdb.psc.edu/iiif"
+        );
+        this.image_info_data = res;
+        OpenSeadragon(this.options);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
   updated() {
     OpenSeadragon(this.options);
