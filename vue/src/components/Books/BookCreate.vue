@@ -7,22 +7,30 @@
             id="vid-group"
             label="VID"
             label-for="vid-input"
-            description="Enter a the Proquest ID for a known book from EEBO to prepopulate other ID, title, author, publisher, and date fields if already recorded in EEBO."
+            description="Enter the Proquest ID for a known book from EEBO to prepopulate other ID, title, author, publisher, and date fields if already recorded in EEBO."
           >
             <b-form-input
               id="vid-input"
               v-model="vid"
               type="number"
+              number
               no-wheel
               debounce="750"
             />
           </b-form-group>
-          <b-form-group id="eebo-group" label="EEBO id" label-for="eebo-input">
+          <b-form-group
+            id="eebo-group"
+            label="EEBO id"
+            label-for="eebo-input"
+            description="Enter an EEBO number to prepopulate other ID, title, author, publisher, and date fields if already recorded in EEBO."
+          >
             <b-form-input
               id="eebo-input"
               v-model="eebo"
               type="number"
+              number
               no-wheel
+              debouce="750"
             />
           </b-form-group>
           <b-form-group id="tcp-group" label="tcp" label-for="tcp-input">
@@ -149,30 +157,65 @@ export default {
     date_to_number(d) {
       return Number(moment(new Date(d)).format("YYYY"));
     },
+    populate(retrieved_book, update_vid = false, update_eebo = false) {
+      this.$bvToast.toast(`Data retrieved`, {
+        title: retrieved_book.pq_title,
+        autoHideDelay: 5000,
+        appendToast: true,
+        variant: "success",
+      });
+      if (update_vid) {
+        this.vid = retrieved_book.vid;
+      }
+      if (update_eebo) {
+        this.eebo = retrieved_book.eebo;
+      }
+      this.tcp = retrieved_book.tcp;
+      this.estc = retrieved_book.estc;
+      this.title = retrieved_book.pq_title;
+      this.publisher = retrieved_book.pq_publisher;
+      this.author = retrieved_book.pq_author;
+      this.author = retrieved_book.repository;
+      this.date_early = `${retrieved_book.pq_year_early}-01-01`;
+      this.date_late = `${retrieved_book.pq_year_late}-12-31`;
+    },
     populate_from_vid(vid) {
       if (!!vid) {
         HTTP.get("/books/", { params: { vid: vid } }).then(
           (response) => {
             if (response.data.count >= 1) {
               const retrieved_book = response.data.results[0];
-              this.$bvToast.toast(`Data retrieved`, {
-                title: retrieved_book.pq_title,
-                autoHideDelay: 5000,
-                appendToast: true,
-                variant: "success",
-              });
-              this.eebo = retrieved_book.eebo;
-              this.tcp = retrieved_book.tcp;
-              this.estc = retrieved_book.estc;
-              this.title = retrieved_book.pq_title;
-              this.publisher = retrieved_book.pq_publisher;
-              this.author = retrieved_book.pq_author;
-              this.author = retrieved_book.repository;
-              this.date_early = `${retrieved_book.pq_year_early}-01-01`;
-              this.date_late = `${retrieved_book.pq_year_late}-12-31`;
+              this.populate(retrieved_book, { skip_vid: true });
             } else {
               this.$bvToast.toast(`Failed`, {
                 title: `No book with VID ${vid}`,
+                autoHideDelay: 5000,
+                appendToast: true,
+                variant: "warning",
+              });
+            }
+          },
+          (error) => {
+            this.$bvToast.toast(error, {
+              title: "Error",
+              autoHideDelay: 5000,
+              appendToast: true,
+              variant: "danger",
+            });
+          }
+        );
+      }
+    },
+    populate_from_eebo(eebo) {
+      if (!!eebo) {
+        HTTP.get("/books/", { params: { eebo: eebo } }).then(
+          (response) => {
+            if (response.data.count >= 1) {
+              const retrieved_book = response.data.results[0];
+              this.populate(retrieved_book, { skip_eebo: true });
+            } else {
+              this.$bvToast.toast(`Failed`, {
+                title: `No book with EEBO ${eebo}`,
                 autoHideDelay: 5000,
                 appendToast: true,
                 variant: "warning",
@@ -236,7 +279,16 @@ export default {
   },
   watch: {
     vid() {
+      if (this.vid == "") {
+        this.vid = null;
+      }
       this.populate_from_vid(this.vid);
+    },
+    eebo() {
+      if (this.eebo == "") {
+        this.eebo = null;
+      }
+      this.populate_from_eebo(this.eebo);
     },
   },
 };
