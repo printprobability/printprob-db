@@ -71,10 +71,10 @@ class Book(uuidModel):
     ]
 
     eebo = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="EEBO ID number"
+        db_index=True, null=True, blank=True, help_text="EEBO ID number"
     )
     vid = models.PositiveIntegerField(
-        db_index=True, null=True, help_text="Proquest ID number"
+        db_index=True, null=True, blank=True, help_text="Proquest ID number"
     )
     tcp = models.CharField(db_index=True, blank=True, help_text="TCP ID", max_length=50)
     estc = models.CharField(
