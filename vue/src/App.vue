@@ -19,7 +19,9 @@
             <b-dropdown-item href="/api/">Browsable API</b-dropdown-item>
             <b-dropdown-item href="/api/docs">Documentation</b-dropdown-item>
           </b-nav-dropdown>
-          <b-nav-item v-if="logged_in" :href="$APIConstants.API_LOGOUT">Logout</b-nav-item>
+          <b-nav-item v-if="logged_in" :href="$APIConstants.API_LOGOUT"
+            >Logout</b-nav-item
+          >
           <b-nav-item v-else :href="$APIConstants.API_LOGIN">Login</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -29,7 +31,10 @@
       <b-navbar-nav>
         <b-nav-text>
           ©
-          <a href="https://library.cmu.edu">Carnegie Mellon University Libraries</a> 2019. Built by
+          <a href="https://library.cmu.edu"
+            >Carnegie Mellon University Libraries</a
+          >
+          2021. Built by
           <a href="https://matthewlincoln.net">Matthew Lincoln</a>.
         </b-nav-text>
       </b-navbar-nav>
@@ -46,21 +51,21 @@ export default {
   name: "app",
   data() {
     return {
-      logged_in: false
+      logged_in: false,
     };
   },
   methods: {},
-  mounted: function() {
+  mounted: function () {
     return HTTP.get("/", {}).then(
-      response => {
+      (response) => {
         this.logged_in = !!response;
       },
-      error => {
+      (error) => {
         console.log(error);
         this.logged_in = false;
       }
     );
-  }
+  },
 };
 </script>
 
