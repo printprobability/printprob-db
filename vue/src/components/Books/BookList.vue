@@ -217,6 +217,18 @@
                     unchecked-value="null"
                   />
                 </b-form-group>
+                <b-form-group
+                  id="has-characters-group"
+                  label="Only show books that have segmented characters"
+                  label-size="sm"
+                >
+                  <b-form-checkbox
+                    id="has-characters-input"
+                    v-model="has_characters"
+                    checked-value="true"
+                    unchecked-value="null"
+                  />
+                </b-form-group>
               </b-col>
               <b-col col md="6">
                 <b-form-group
@@ -263,6 +275,7 @@
       :pq_year_min="pq_year_min"
       :pq_year_max="pq_year_max"
       :starred="starred"
+      :has_characters="has_characters"
       :pp_publisher="pp_publisher_search"
       :pp_printer="pp_printer_search"
       :colloq_printer="colloq_printer_search"
@@ -306,6 +319,7 @@ export default {
       year_early: null,
       year_late: null,
       starred: null,
+      has_characters: null,
     };
   },
   watch: {

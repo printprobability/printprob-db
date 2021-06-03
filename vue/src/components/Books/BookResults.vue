@@ -59,6 +59,7 @@ export default {
     year_early: String,
     year_late: String,
     starred: Boolean,
+    has_characters: Boolean,
     pp_publisher: String,
     pp_author: String,
     pp_printer: String,
@@ -96,6 +97,7 @@ export default {
           pp_printer: this.pp_printer,
           colloq_printer: this.colloq_printer,
           starred: this.starred,
+          characters: this.has_characters,
           ordering: this.order,
         },
       }).then(
@@ -153,6 +155,8 @@ export default {
         pq_year_max: this.pq_year_max,
         year_late_max: this.year_early,
         year_early_min: this.year_late,
+        starred: this.starred,
+        has_characters: this.has_characters,
         order: this.order,
       };
     },
