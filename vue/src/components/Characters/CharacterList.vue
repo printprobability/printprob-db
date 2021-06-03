@@ -64,6 +64,23 @@
             aria-controls="character-results"
             limit="3"
           />
+          <b-form-group label="Image size">
+            <b-form-radio v-model="image_size" name="image-size" value="actual"
+              >Actual pixels</b-form-radio
+            >
+            <b-form-radio
+              v-model="image_size"
+              name="image-size"
+              value="bound100"
+              >100px</b-form-radio
+            >
+            <b-form-radio
+              v-model="image_size"
+              name="image-size"
+              value="bound300"
+              >300px</b-form-radio
+            >
+          </b-form-group>
         </div>
         <div show v-else>No matching characters</div>
       </div>
@@ -79,6 +96,7 @@
           :highlight="highlighted_characters.includes(character.id)"
           :bad="bad_characters.includes(character.id)"
           :good="good_characters.includes(character.id)"
+          :image_size="image_size"
           @char_clicked="$emit('char_clicked', $event)"
         />
       </div>
@@ -148,6 +166,7 @@ export default {
       cursor: null,
       page: 1,
       order: "-class_probability",
+      image_size: "actual",
     };
   },
   asyncComputed: {

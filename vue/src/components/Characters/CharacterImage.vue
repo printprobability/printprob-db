@@ -5,7 +5,14 @@
       :src="character.image.web_url"
       class="character-image m-1"
       @click="$emit('char_clicked', character.id)"
-      :class="{ highligted: highlight, marked_good: good, marked_bad: bad }"
+      :class="{
+        highligted: highlight,
+        marked_good: good,
+        marked_bad: bad,
+        actual: size_actual,
+        bound100: size_bound100,
+        bound300: size_bound300,
+      }"
       @mouseover="$emit('hover', $event)"
     />
     <b-popover
@@ -25,24 +32,34 @@ import CharacterCard from "./CharacterCard";
 export default {
   name: "CharacterImage",
   components: {
-    CharacterCard
+    CharacterCard,
   },
   props: {
     character: Object,
     highlight: Boolean,
     bad: Boolean,
     good: Boolean,
+    image_size: String,
     popover: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      pop_delay: { show: 1000, hide: 200 }
+      pop_delay: { show: 1000, hide: 200 },
     };
   },
   computed: {
+    size_actual() {
+      return this.image_size == "actual";
+    },
+    size_bound100() {
+      return this.image_size == "bound100";
+    },
+    size_bound300() {
+      return this.image_size == "bound300";
+    },
     character_tooltip() {
       return (
         this.character.label +
@@ -54,20 +71,33 @@ export default {
       return {
         name: "CharacterDetailView",
         params: {
-          id: this.character.id
-        }
+          id: this.character.id,
+        },
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 img.character-image {
+  border: 1px solid black;
+}
+
+img.actual {
+}
+
+img.bound100 {
   max-width: 100px;
   max-height: 100px;
-  border: 1px solid black;
+  min-height: 100px;
+}
+
+img.bound300 {
+  max-width: 300px;
+  max-height: 300px;
+  min-height: 300px;
 }
 
 img.highligted {
