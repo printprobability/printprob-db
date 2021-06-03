@@ -480,15 +480,13 @@ class CharacterViewSet(viewsets.ModelViewSet):
             "human_character_class",
         )
         .annotate(
-            rundate=F("created_by_run__date_started"),
             lineseq=F("line__sequence"),
-            pageseq=F("line__page__side"),
+            pageseq=F("line__page__sequence"),
             bookseq=F("created_by_run__book__id"),
         )
         .all()
     )
-    ordering_fields = ["class_probability"]
-    ordering = ["rundate", "bookseq", "pageseq", "lineseq", "sequence"]
+    ordering_fields = ["class_probability", "bookseq", "pageseq", "lineseq", "sequence"]
     filterset_class = CharacterFilter
     pagination_class = NoCountsLimitOffsetPagination
 

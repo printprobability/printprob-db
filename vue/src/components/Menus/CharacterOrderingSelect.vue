@@ -16,22 +16,26 @@ export default {
   props: {
     value: {
       type: String,
-      default: "-class_probability"
-    }
+      default: "-class_probability",
+    },
   },
   data() {
     return {
       options: [
         {
           value: "-class_probability",
-          text: "Probability (descending)"
+          text: "Probability (descending)",
         },
         {
           value: "class_probability",
-          text: "Probability (ascending)"
-        }
-      ]
+          text: "Probability (ascending)",
+        },
+        {
+          value: "bookseq,pageseq,lineseq,sequence",
+          text: "Sequence",
+        },
+      ],
     };
-  }
+  },
 };
 </script>

@@ -146,6 +146,10 @@ export default {
       default: "all",
       type: String,
     },
+    order: {
+      default: "-class_probability",
+      type: String,
+    },
     value: {
       // Here is where the characters themselves live
       type: Array,
@@ -165,7 +169,6 @@ export default {
       progress_spinner: false,
       cursor: null,
       page: 1,
-      order: "-class_probability",
       image_size: "actual",
     };
   },
@@ -212,7 +215,7 @@ export default {
         character_class: this.character_class,
         book: this.book,
         agreement: this.char_agreement,
-        ordering: this.order,
+        order: this.order,
         cursor: this.cursor,
       };
     },
