@@ -167,3 +167,5 @@ DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_ADDRESS")
 
 # Allow large data file
 DATA_UPLOAD_MAX_MEMORY_SIZE = 300000000
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
