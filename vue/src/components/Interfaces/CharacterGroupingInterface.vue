@@ -14,6 +14,8 @@
           @character_class_input="character_class = $event"
           :book="book"
           @book_input="book = $event"
+          :order="order"
+          @order_input="order = $event"
           :char_agreement="char_agreement"
           @char_agreement_input="char_agreement = $event"
           :character_run="character_run"
@@ -157,6 +159,7 @@ export default {
       character_class: null,
       character_run: null,
       char_agreement: "all",
+      order: "-class_probability",
     };
   },
   computed: {
