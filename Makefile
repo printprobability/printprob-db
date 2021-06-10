@@ -32,6 +32,7 @@ restoredbonly: blank
 	docker-compose up -d postgres
 	docker-compose exec -T postgres psql -U app -d postgres -c 'CREATE DATABASE pp;'
 	docker-compose exec -T postgres psql -U app pp < ../bkp/dbonly.sql
+	$(MAKE) restart
 backup:
 	docker-compose exec -T postgres pg_dumpall -U app > ../bkp/bkp.sql
 	cd ../bkp && git commit -am 'incremental commit'
