@@ -35,7 +35,6 @@ restoredbonly: blank
 	$(MAKE) restart
 backup:
 	docker-compose exec -T postgres pg_dumpall -U app > ../bkp/bkp.sql
-	cd ../bkp && git commit -am 'incremental commit'
 restore: blank
 	docker-compose up -d postgres
 	docker-compose exec -T postgres psql -U app -d postgres < ../bkp/bkp.sql
