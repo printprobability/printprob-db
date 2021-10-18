@@ -66,7 +66,7 @@ export default {
 <style>
 .osd {
   height: 750px;
-  width: 100%;
+  min-width: 100%;
 }
 
 .overlay {
