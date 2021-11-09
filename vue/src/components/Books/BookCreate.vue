@@ -187,8 +187,12 @@ export default {
       }
       this.tcp = retrieved_book.tcp;
       this.title = retrieved_book.pq_title;
-      this.publisher = retrieved_book.pq_publisher;
-      this.author = retrieved_book.pq_author;
+      this.publisher = !!retrieved_book.pq_publisher
+        ? retrieved_book.pq_publisher
+        : retrieved_book.pp_publisher;
+      this.author = !!retrieved_book.pq_author
+        ? retrieved_book.pq_author
+        : retrieved_book.pp_author;
       this.repository = retrieved_book.repository;
       this.colloq_printer = retrieved_book.colloq_printer;
       this.date_early = `${retrieved_book.pq_year_early}-01-01`;
