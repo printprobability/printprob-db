@@ -16,6 +16,7 @@
               number
               no-wheel
               debounce="750"
+              @input="populate_from_vid($event)"
             />
           </b-form-group>
           <b-form-group
@@ -31,13 +32,19 @@
               number
               no-wheel
               debouce="750"
+              @input="populate_from_eebo($event)"
             />
           </b-form-group>
           <b-form-group id="tcp-group" label="tcp" label-for="tcp-input">
             <b-form-input id="tcp-input" v-model="tcp" />
           </b-form-group>
           <b-form-group id="estc-group" label="estc" label-for="estc-input">
-            <b-form-input id="estc-input" v-model="estc" />
+            <b-form-input
+              id="estc-input"
+              v-model="estc"
+              debounce="750"
+              @input="populate_from_estc($event)"
+            />
           </b-form-group>
         </b-col>
         <b-col col md="4">
@@ -157,7 +164,12 @@ export default {
     date_to_number(d) {
       return Number(moment(new Date(d)).format("YYYY"));
     },
-    populate(retrieved_book, update_vid = false, update_eebo = false) {
+    populate(
+      retrieved_book,
+      update_vid = true,
+      update_eebo = true,
+      update_estc = true
+    ) {
       this.$bvToast.toast(`Data retrieved`, {
         title: retrieved_book.pq_title,
         autoHideDelay: 5000,
@@ -170,12 +182,15 @@ export default {
       if (update_eebo) {
         this.eebo = retrieved_book.eebo;
       }
+      if (update_estc) {
+        this.estc = retrieved_book.estc;
+      }
       this.tcp = retrieved_book.tcp;
-      this.estc = retrieved_book.estc;
       this.title = retrieved_book.pq_title;
       this.publisher = retrieved_book.pq_publisher;
       this.author = retrieved_book.pq_author;
-      this.author = retrieved_book.repository;
+      this.repository = retrieved_book.repository;
+      this.colloq_printer = retrieved_book.colloq_printer;
       this.date_early = `${retrieved_book.pq_year_early}-01-01`;
       this.date_late = `${retrieved_book.pq_year_late}-12-31`;
     },
@@ -216,6 +231,33 @@ export default {
             } else {
               this.$bvToast.toast(`Failed`, {
                 title: `No book with EEBO ${eebo}`,
+                autoHideDelay: 5000,
+                appendToast: true,
+                variant: "warning",
+              });
+            }
+          },
+          (error) => {
+            this.$bvToast.toast(error, {
+              title: "Error",
+              autoHideDelay: 5000,
+              appendToast: true,
+              variant: "danger",
+            });
+          }
+        );
+      }
+    },
+    populate_from_estc(estc) {
+      if (!!estc) {
+        HTTP.get("/books/", { params: { estc: estc } }).then(
+          (response) => {
+            if (response.data.count >= 1) {
+              const retrieved_book = response.data.results[0];
+              this.populate(retrieved_book, { skip_estc: true });
+            } else {
+              this.$bvToast.toast(`Failed`, {
+                title: `No book with ESTC ${estc}`,
                 autoHideDelay: 5000,
                 appendToast: true,
                 variant: "warning",
@@ -275,20 +317,6 @@ export default {
           }
         }
       );
-    },
-  },
-  watch: {
-    vid() {
-      if (this.vid == "") {
-        this.vid = null;
-      }
-      this.populate_from_vid(this.vid);
-    },
-    eebo() {
-      if (this.eebo == "") {
-        this.eebo = null;
-      }
-      this.populate_from_eebo(this.eebo);
     },
   },
 };
