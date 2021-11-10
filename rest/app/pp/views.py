@@ -121,17 +121,11 @@ class BookFilter(filters.FilterSet):
         if value:
             return (
                 queryset.annotate(
-                    has_spreads=Exists(spreads),
                     has_pages=Exists(pages),
                     has_lines=Exists(lines),
                     has_characters=Exists(characters),
                 )
-                .filter(
-                    Q(has_spreads=True)
-                    | Q(has_pages=True)
-                    | Q(has_lines=True)
-                    | Q(has_characters=True)
-                )
+                .filter(Q(has_pages=True) | Q(has_lines=True) | Q(has_characters=True))
                 .all()
             )
         return queryset
