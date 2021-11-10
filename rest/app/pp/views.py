@@ -103,6 +103,10 @@ class BookFilter(filters.FilterSet):
     year_late = filters.RangeFilter(label="PP end date")
     starred = filters.BooleanFilter(label="Has star?")
     ignored = filters.BooleanFilter(label="Ignored?")
+    is_eebo_book = filters.BooleanFilter(
+        label="Record from EEBO database?",
+        help_text="Book loaded from original EEBO data dump",
+    )
 
     def has_images(self, queryset, name, value):
         spreads = models.Spread.objects.filter(book=OuterRef("pk"), tif__isnull=False)
