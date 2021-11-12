@@ -135,13 +135,11 @@ class BookFilter(filters.FilterSet):
             created_by_run__book=OuterRef("pk")
         )
 
-        if value:
-            return (
-                queryset.annotate(has_characters=Exists(characters))
-                .filter(Q(has_characters=value))
-                .distinct()
-            )
-        return queryset
+        return (
+            queryset.annotate(has_characters=Exists(characters))
+            .filter(Q(has_characters=value))
+            .distinct()
+        )
 
     def after_early(self, queryset, name, value):
         return queryset.filter(date_early__gte=value)
