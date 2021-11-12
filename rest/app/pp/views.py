@@ -125,7 +125,7 @@ class BookFilter(filters.FilterSet):
                     has_lines=Exists(lines),
                     has_characters=Exists(characters),
                 )
-                .filter(Q(has_pages=True) | Q(has_lines=True) | Q(has_characters=True))
+                .filter(Q(has_pages=True) | Q(has_lines=True) | Q(has_characters=value))
                 .all()
             )
         return queryset
@@ -138,8 +138,8 @@ class BookFilter(filters.FilterSet):
         if value:
             return (
                 queryset.annotate(has_characters=Exists(characters))
-                .filter(Q(has_characters=True))
-                .all()
+                .filter(Q(has_characters=value))
+                .distinct()
             )
         return queryset
 
