@@ -108,6 +108,19 @@ class Command(BaseCommand):
         # create full list of images
         all_images = {}
         for c in all_char_data:
+            # Make sure book cover page is captured
+            book_cover_url = c["book"]["cover_page"]["image"]["iiif_base"]
+            book_cover_identifier = c["book"]["cover_page"]["id"]
+            if book_cover_identifier not in all_images:
+                all_images[book_cover_identifier] = {
+                    "url": book_cover_url,
+                    "identifier": book_cover_url.replace(
+                        "https://printprobdb.psc.edu/iiif//", ""
+                    ),
+                    # add thumbnail image of cover
+                    "custom_tiles": [{"size_w": 500}],
+                }
+
             page_url = c["page"]["image"]["iiif_base"]
             identifier = c["page"]["id"]
             if identifier not in all_images:
