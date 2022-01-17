@@ -131,8 +131,16 @@ class Command(BaseCommand):
                 "region_h": c["absolute_coords"]["h"],
                 "size_w": 500,
             }
+            buffer_tile = {
+                "region_x": max(c["absolute_coords"]["x"] - 50, 0),
+                "region_y": max(c["absolute_coords"]["y"] - 50, 0),
+                "region_w": c["absolute_coords"]["w"] + 100,
+                "region_h": c["absolute_coords"]["h"] + 100,
+                "size_w": 150,
+            }
             all_images[identifier]["custom_tiles"].append(character_tile)
             all_images[identifier]["custom_tiles"].append(thumbnail_tile)
+            all_images[identifier]["custom_tiles"].append(buffer_tile)
         list_images = [v for k, v in all_images.items()]
         with open(f"serialized_json/converter.json", "w") as dumpfile:
             json.dump(list_images, dumpfile, cls=UUIDEncoder, indent=2)
