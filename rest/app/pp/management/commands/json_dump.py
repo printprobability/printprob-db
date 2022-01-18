@@ -56,7 +56,9 @@ class Command(BaseCommand):
                 ).data
                 for g in char.charactergroupings.all()
             ]
-            all_char_data.append(ch_ser)
+            all_char_data.append(
+                {"id": ch_ser["id"], "title": ch_ser["label"], "data": ch_ser}
+            )
         with open(f"{OUTPUT_PATH}/characters.json", "w") as dumpfile:
             json.dump(all_char_data, dumpfile, cls=UUIDEncoder, indent=2)
 
@@ -71,7 +73,13 @@ class Command(BaseCommand):
                     for c in chars.filter(character_class=cc)
                 ],
             }
-            all_class_data.append(cc_ser)
+            all_class_data.append(
+                {
+                    "id": cc_ser["classname"],
+                    "title": cc_ser["classname"],
+                    "data": cc_ser,
+                }
+            )
         with open(f"{OUTPUT_PATH}/classes.json", "w") as dumpfile:
             json.dump(all_class_data, dumpfile, cls=UUIDEncoder, indent=2)
 
@@ -86,7 +94,9 @@ class Command(BaseCommand):
                 ).data
                 for c in chars.filter(created_by_run__book=book)
             ]
-            all_book_data.append(bk_ser)
+            all_book_data.append(
+                {"id": bk_ser["id"], "title": bk_ser["pq_title"], "data": bk_ser}
+            )
         with open(f"serialized_json/books.json", "w") as dumpfile:
             json.dump(all_book_data, dumpfile, cls=UUIDEncoder, indent=2)
 
@@ -101,7 +111,9 @@ class Command(BaseCommand):
                 ).data
                 for c in chars.filter(charactergroupings=grouping)
             ]
-            all_grouping_data.append(group_ser)
+            all_grouping_data.append(
+                {"id": group_ser["id"], "title": group_ser["label"], "data": group_ser}
+            )
         with open(f"serialized_json/groupings.json", "w") as dumpfile:
             json.dump(all_grouping_data, dumpfile, cls=UUIDEncoder, indent=2)
 
@@ -109,8 +121,8 @@ class Command(BaseCommand):
         all_images = {}
         for c in all_char_data:
             # Make sure book cover page is captured
-            book_cover_url = c["book"]["cover_page"]["image"]["iiif_base"]
-            book_cover_identifier = c["book"]["cover_page"]["id"]
+            book_cover_url = c["data"]["book"]["cover_page"]["image"]["iiif_base"]
+            book_cover_identifier = c["data"]["book"]["cover_page"]["id"]
             if book_cover_identifier not in all_images:
                 all_images[book_cover_identifier] = {
                     "url": book_cover_url,
@@ -121,8 +133,8 @@ class Command(BaseCommand):
                     "custom_tiles": [{"size_w": 500}],
                 }
 
-            page_url = c["page"]["image"]["iiif_base"]
-            identifier = c["page"]["id"]
+            page_url = c["data"]["page"]["image"]["iiif_base"]
+            identifier = c["data"]["page"]["id"]
             if identifier not in all_images:
                 all_images[identifier] = {
                     "url": page_url,
@@ -132,23 +144,23 @@ class Command(BaseCommand):
                     "custom_tiles": [],
                 }
             character_tile = {
-                "region_x": c["absolute_coords"]["x"],
-                "region_y": c["absolute_coords"]["y"],
-                "region_w": c["absolute_coords"]["w"],
-                "region_h": c["absolute_coords"]["h"],
+                "region_x": c["data"]["absolute_coords"]["x"],
+                "region_y": c["data"]["absolute_coords"]["y"],
+                "region_w": c["data"]["absolute_coords"]["w"],
+                "region_h": c["data"]["absolute_coords"]["h"],
             }
             thumbnail_tile = {
-                "region_x": c["absolute_coords"]["x"],
-                "region_y": c["absolute_coords"]["y"],
-                "region_w": c["absolute_coords"]["w"],
-                "region_h": c["absolute_coords"]["h"],
+                "region_x": c["data"]["absolute_coords"]["x"],
+                "region_y": c["data"]["absolute_coords"]["y"],
+                "region_w": c["data"]["absolute_coords"]["w"],
+                "region_h": c["data"]["absolute_coords"]["h"],
                 "size_w": 500,
             }
             buffer_tile = {
-                "region_x": max(c["absolute_coords"]["x"] - 50, 0),
-                "region_y": max(c["absolute_coords"]["y"] - 50, 0),
-                "region_w": c["absolute_coords"]["w"] + 100,
-                "region_h": c["absolute_coords"]["h"] + 100,
+                "region_x": max(c["data"]["absolute_coords"]["x"] - 50, 0),
+                "region_y": max(c["data"]["absolute_coords"]["y"] - 50, 0),
+                "region_w": c["data"]["absolute_coords"]["w"] + 100,
+                "region_h": c["data"]["absolute_coords"]["h"] + 100,
                 "size_w": 150,
             }
             all_images[identifier]["custom_tiles"].append(character_tile)
