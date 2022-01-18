@@ -1,9 +1,12 @@
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from pp import models, serializers
-from rest_framework.renderers import JSONRenderer
 import json
 from tqdm import tqdm
 from uuid import UUID
+
+# Baseurl for static site
+settings.IMAGE_BASEURL = "/assets/img/iiif"
 
 
 class UUIDEncoder(json.JSONEncoder):
