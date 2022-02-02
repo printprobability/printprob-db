@@ -5,6 +5,12 @@ from django.contrib.auth.models import User
 from . import models
 
 
+class BreakageTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.BreakageType
+        fields = ["url", "id", "label"]
+
+
 class CharacterClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CharacterClass
@@ -391,6 +397,7 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
     human_character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
+    breakage_types = BreakageTypeSerializer(many=True)
 
     class Meta:
         model = models.Character
@@ -413,6 +420,7 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
             "human_character_class",
             "exposure",
             "offset",
+            "breakage_types",
             "absolute_coords",
             "image",
         ]
@@ -444,6 +452,7 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "human_character_class",
             "exposure",
             "offset",
+            "breakage_types",
             "image",
         ]
 

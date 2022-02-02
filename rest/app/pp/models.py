@@ -6,6 +6,8 @@ from datetime import date
 from django.conf import settings
 import math
 
+from django.db.models.fields import related
+
 
 class uuidModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
@@ -274,7 +276,7 @@ class ImagedModel(uuidModel):
 
     @property
     def thumbnail(self):
-        return f"{self.iiif_base}/full/500,/0/default.jpg"
+        return f"{self.iiif_base}/full/200,/0/default.jpg"
 
     @property
     def full_tif(self):
@@ -465,6 +467,10 @@ class Line(CroppedModel):
         return self.page.side
 
 
+class BreakageType(uuidModel):
+    pass
+
+
 class CharacterClass(models.Model):
     LOWERCASE = "cl"
     UPPERCASE = "cu"
@@ -538,6 +544,11 @@ class Character(CroppedModel):
     )
     exposure = models.IntegerField(default=0)
     offset = models.IntegerField(default=0)
+    breakage_types = models.ManyToManyField(
+        BreakageType,
+        related_name="characters",
+        help_text="Types of breakage exhibited by this character.",
+    )
 
     class Meta:
         unique_together = (("created_by_run", "line", "sequence"),)
