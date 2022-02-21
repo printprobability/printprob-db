@@ -1,12 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from collections import namedtuple
 import uuid
 from datetime import date
 from django.conf import settings
-import math
-
-from django.db.models.fields import related
+from abc import abstractmethod
 
 
 class uuidModel(models.Model):
@@ -15,6 +12,10 @@ class uuidModel(models.Model):
 
     class Meta:
         abstract = True
+
+    @abstractmethod
+    def labeller(self) -> None:
+        raise NotImplementedError
 
     def save(self, *args, **kwargs):
         self.label = self.labeller()
@@ -41,16 +42,28 @@ class Run(uuidModel):
 
 
 class PageRun(Run):
+    @abstractmethod
+    def pages(self):
+        raise NotImplementedError
+
     def component_count(self):
         return self.pages.count()
 
 
 class LineRun(Run):
+    @abstractmethod
+    def lines(self):
+        raise NotImplementedError
+
     def component_count(self):
         return self.lines.count()
 
 
 class CharacterRun(Run):
+    @abstractmethod
+    def characters(self):
+        raise NotImplementedError
+
     def component_count(self):
         return self.characters.count()
 
@@ -254,9 +267,7 @@ class Task(uuidModel):
         ordering = ["date_entered"]
 
     def labeller(self):
-        return f"{date_entered}"
-
-        return self.id
+        return f"{self.date_entered}"
 
 
 class ImagedModel(uuidModel):
@@ -297,6 +308,14 @@ class ImagedModel(uuidModel):
 
 
 class CroppedModel(uuidModel):
+    @property
+    def absolute_coords(self) -> dict:
+        raise NotImplementedError
+
+    @property
+    def root_object(self) -> ImagedModel:
+        raise NotImplementedError
+
     @property
     def region_string(self):
         ac = self.absolute_coords
