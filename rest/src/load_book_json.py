@@ -159,7 +159,9 @@ class BookLoader:
     def create_lines(self):
         line_run_response = requests.post(
             f"{PP_URL}/runs/lines/",
-            json={"book": self.book_id,},
+            json={
+                "book": self.book_id,
+            },
             headers=AUTH_HEADER,
             verify=CERT_PATH,
         )
@@ -193,7 +195,9 @@ class BookLoader:
     def create_characters(self):
         character_run_response = requests.post(
             f"{PP_URL}/runs/characters/",
-            json={"book": self.book_id,},
+            json={
+                "book": self.book_id,
+            },
             headers=AUTH_HEADER,
             verify=CERT_PATH,
         )
@@ -258,7 +262,10 @@ def main():
 
     logging.info(f"Using {CERT_PATH} for SSL verification")
 
-    pp_loader = BookLoader(book_id=opt.book_id, json_directory=opt.json,)
+    pp_loader = BookLoader(
+        book_id=opt.book_id,
+        json_directory=opt.json,
+    )
     pp_loader.load_db()
 
 

@@ -8,7 +8,9 @@ class Command(BaseCommand):
     help = "Refresh all materialized labels for a Page, Line, Character, etc."
 
     def add_arguments(self, parser):
-        parser.add_argument("--cached", action="store_true", help="Only refresh objects with no labels")
+        parser.add_argument(
+            "--cached", action="store_true", help="Only refresh objects with no labels"
+        )
 
     def handle(self, *args, **options):
         labelled_models = [
@@ -26,7 +28,7 @@ class Command(BaseCommand):
 
         for m in labelled_models:
             print(m)
-            if (use_cache):
+            if use_cache:
                 qs = m.objects.filter(label="")
             else:
                 qs = m.objects.all()

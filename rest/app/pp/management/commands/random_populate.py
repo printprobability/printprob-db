@@ -150,4 +150,3 @@ class Command(BaseCommand):
                 tqdm(pool.map(gen_chars, books), total=books.count())
 
         gen_all_chars(books)
-

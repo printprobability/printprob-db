@@ -17,7 +17,7 @@ class CroppedImageSerializer(serializers.Serializer):
 class PageFlatSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Page
-        fields = ["id", "label", "sequence", "side", "image"]
+        fields = ["id", "label", "sequence", "side", "image", "height", "width"]
 
 
 class BookListSerializer(serializers.ModelSerializer):
