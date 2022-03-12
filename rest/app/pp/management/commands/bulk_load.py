@@ -36,6 +36,8 @@ class CharacterClasses:
     Utility to create a hashmap of Ocular character codes to database IDs, so that we don't need to check every single time
     """
 
+    logging.basicConfig(format="%(asctime)s %(message)s", level=logging.INFO)
+
     data = {}
 
     def load_character_classes(self):
