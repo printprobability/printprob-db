@@ -30,13 +30,6 @@ class Command(BaseCommand):
         bl = BookLoader(book_id=book_id, json_directory=directory)
         bl.load_db()
 
-    # AUTH_TOKEN = open("/pylon5/hm4s82p/shared/api/api_token.txt", "r").read().strip()
-
-
-# AUTH_HEADER = {"Authorization": f"Token {AUTH_TOKEN}"}
-# PP_URL = "https://printprobdb.bridges.psc.edu/api"
-# CERT_PATH = "/pylon5/hm4s82p/shared/api/incommonrsaserverca-bundle.crt"
-
 
 class CharacterClasses:
     """
@@ -94,7 +87,7 @@ class BookLoader:
             raise Exception(
                 f"The book {self.book_id} is not yet registered in the database. Please confirm you have used the correct UUID."
             )
-        self.book = models.Book.objects.get(self.book_id)
+        self.book = models.Book.objects.get(id=self.book_id)
 
     def load_json(self):
         self.pages = json.load(open(f"{self.json_directory}/pages.json", "r"))["pages"]
