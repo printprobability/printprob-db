@@ -5,6 +5,8 @@ import logging
 from uuid import UUID
 from django.db import transaction
 
+TIF_ROOT = "/ocean/projects/hum160002p/shared"
+
 
 class Command(BaseCommand):
     help = "Load segmented book components from a directory path"
@@ -121,7 +123,7 @@ class BookLoader:
                 created_by_run=page_run,
                 sequence=page["sequence"],
                 side=page["side"],
-                tif=page["filename"],
+                tif=page["filename"].replace(TIF_ROOT, ""),
             )
             for page in pages_json
         ]
