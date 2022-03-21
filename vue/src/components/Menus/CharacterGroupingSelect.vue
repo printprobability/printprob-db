@@ -15,30 +15,30 @@ import _ from "lodash";
 export default {
   name: "CharacterGroupingSelect",
   props: {
-    value: String
+    value: String,
   },
   data() {
     return {};
   },
   asyncComputed: {
     character_groupings() {
-      return HTTP.get("/character_groupings/").then(
-        response => {
+      return HTTP.get("/character_groupings/", { params: { limit: 200 } }).then(
+        (response) => {
           return _.concat(
             {
               text: "Select character grouping",
-              value: null
+              value: null,
             },
-            response.data.results.map(x => {
+            response.data.results.map((x) => {
               return { value: x.id, text: x.label };
             })
           );
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>
