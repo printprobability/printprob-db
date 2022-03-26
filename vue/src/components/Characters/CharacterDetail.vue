@@ -34,13 +34,15 @@
       </b-col>
     </b-row>
     <b-row>
-      <div class="m-2">
-        <AnnotatedImage
-          :id="this.character.id"
-          :image_info_url="image_info_url"
-          :overlay="annotation"
-        />
-      </div>
+      <b-col cols="12">
+        <div class="m-2">
+          <AnnotatedImage
+            :id="this.character.id"
+            :image_info_url="image_info_url"
+            :overlay="annotation"
+          />
+        </div>
+      </b-col>
     </b-row>
   </b-container>
 </template>
