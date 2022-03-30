@@ -190,6 +190,7 @@ class BookLoader:
                 offset=character["offset"],
                 exposure=character["exposure"],
                 class_probability=character["logprob"],
+                damage_score=character.get("damage_score", None),
                 character_class=character_class_objects[character["character_class"]],
             )
             for character in characters_json

@@ -2099,7 +2099,9 @@
     "class_probability": 0.019991005223612746,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2118,7 +2120,9 @@
     "class_probability": 0.2122617723609297,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2137,7 +2141,9 @@
     "class_probability": 0.48669699473214656,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2156,7 +2162,9 @@
     "class_probability": 0.7449511249682138,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2175,7 +2183,9 @@
     "class_probability": 0.6509345757462668,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2194,7 +2204,9 @@
     "class_probability": 0.7648096482065083,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2213,7 +2225,9 @@
     "class_probability": 0.8672547559950664,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2232,7 +2246,9 @@
     "class_probability": 0.5261322409813427,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2251,7 +2267,9 @@
     "class_probability": 0.9825761371527967,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2270,7 +2288,9 @@
     "class_probability": 0.1210190066364375,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2289,7 +2309,9 @@
     "class_probability": 0.10640318134394011,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2308,7 +2330,9 @@
     "class_probability": 0.08064489626573179,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2327,7 +2351,9 @@
     "class_probability": 0.03945806088182946,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2346,7 +2372,9 @@
     "class_probability": 0.28185124916806525,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2365,7 +2393,9 @@
     "class_probability": 0.39423780490897997,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2384,7 +2414,9 @@
     "class_probability": 0.5446124340171389,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2403,7 +2435,9 @@
     "class_probability": 0.20863364716100885,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2422,7 +2456,9 @@
     "class_probability": 0.8454393692861182,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2441,7 +2477,9 @@
     "class_probability": 0.13250674075468993,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2460,7 +2498,9 @@
     "class_probability": 0.5613975825690665,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2479,7 +2519,9 @@
     "class_probability": 0.24491324300848616,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2498,7 +2540,9 @@
     "class_probability": 0.42144550329142516,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2517,7 +2561,9 @@
     "class_probability": 0.810394026154953,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2536,7 +2582,9 @@
     "class_probability": 0.46730025407947506,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2555,7 +2603,9 @@
     "class_probability": 0.4733047676981791,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2574,7 +2624,9 @@
     "class_probability": 0.3313048246385075,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2593,7 +2645,9 @@
     "class_probability": 0.9213023038505548,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2612,7 +2666,9 @@
     "class_probability": 0.8299877273037363,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2631,7 +2687,9 @@
     "class_probability": 0.7076374061461876,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2650,7 +2708,9 @@
     "class_probability": 0.30543144463872696,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2669,7 +2729,9 @@
     "class_probability": 0.09030837700504746,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2688,7 +2750,9 @@
     "class_probability": 0.9655358038851238,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2707,7 +2771,9 @@
     "class_probability": 0.646315565847581,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2726,7 +2792,9 @@
     "class_probability": 0.015296608538283962,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2745,7 +2813,9 @@
     "class_probability": 0.7508300568621651,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2764,7 +2834,9 @@
     "class_probability": 0.4048908028269669,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2783,7 +2855,9 @@
     "class_probability": 0.3878168781709799,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2802,7 +2876,9 @@
     "class_probability": 0.9397809259744135,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2821,7 +2897,9 @@
     "class_probability": 0.5300028061683283,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2840,7 +2918,9 @@
     "class_probability": 0.35060396429318985,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2859,7 +2939,9 @@
     "class_probability": 0.003634230689553597,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2878,7 +2960,9 @@
     "class_probability": 0.9866115895797614,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2897,7 +2981,9 @@
     "class_probability": 0.4883825666000041,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2916,7 +3002,9 @@
     "class_probability": 0.6098917293408497,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2935,7 +3023,9 @@
     "class_probability": 0.5066937055173866,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2954,7 +3044,9 @@
     "class_probability": 0.020340126626166022,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2973,7 +3065,9 @@
     "class_probability": 0.5071380229435049,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -2992,7 +3086,9 @@
     "class_probability": 0.049736081394303966,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3011,7 +3107,9 @@
     "class_probability": 0.6609685638413367,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3030,7 +3128,9 @@
     "class_probability": 0.5098471673548476,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3049,7 +3149,9 @@
     "class_probability": 0.5804102563472464,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3068,7 +3170,9 @@
     "class_probability": 0.5074053498303466,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3087,7 +3191,9 @@
     "class_probability": 0.7195937019137846,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3106,7 +3212,9 @@
     "class_probability": 0.9154783042481315,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3125,7 +3233,9 @@
     "class_probability": 0.0700287026922859,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3144,7 +3254,9 @@
     "class_probability": 0.8368217518300407,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3163,7 +3275,9 @@
     "class_probability": 0.04942292157719219,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3182,7 +3296,9 @@
     "class_probability": 0.5215592993813326,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3201,7 +3317,9 @@
     "class_probability": 0.8702124268896532,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3220,7 +3338,9 @@
     "class_probability": 0.04086185627850636,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3239,7 +3359,9 @@
     "class_probability": 0.27920907746039303,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3258,7 +3380,9 @@
     "class_probability": 0.26879905233674717,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3277,7 +3401,9 @@
     "class_probability": 0.514153899295781,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3296,7 +3422,9 @@
     "class_probability": 0.525240242547167,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3315,7 +3443,9 @@
     "class_probability": 0.4665670523358493,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3334,7 +3464,9 @@
     "class_probability": 0.07220929129892062,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3353,7 +3485,9 @@
     "class_probability": 0.3812752215225329,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3372,7 +3506,9 @@
     "class_probability": 0.3090531129343628,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3391,7 +3527,9 @@
     "class_probability": 0.6682581091526715,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3410,7 +3548,9 @@
     "class_probability": 0.23004939428104265,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3429,7 +3569,9 @@
     "class_probability": 0.8886387789983756,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3448,7 +3590,9 @@
     "class_probability": 0.5301190576297671,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3467,7 +3611,9 @@
     "class_probability": 0.6759321071205431,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3486,7 +3632,9 @@
     "class_probability": 0.7561895393102634,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3505,7 +3653,9 @@
     "class_probability": 0.876498536957807,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3524,7 +3674,9 @@
     "class_probability": 0.16817755359122344,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3543,7 +3695,9 @@
     "class_probability": 0.22367564477856428,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3562,7 +3716,9 @@
     "class_probability": 0.6954412894737152,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3581,7 +3737,9 @@
     "class_probability": 0.889103513249701,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3600,7 +3758,9 @@
     "class_probability": 0.7334711556317671,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3619,7 +3779,9 @@
     "class_probability": 0.6575761716639229,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3638,7 +3800,9 @@
     "class_probability": 0.20622676794113237,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3657,7 +3821,9 @@
     "class_probability": 0.15199858353114726,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3676,7 +3842,9 @@
     "class_probability": 0.8591086859819235,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3695,7 +3863,9 @@
     "class_probability": 0.8138772768119823,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3714,7 +3884,9 @@
     "class_probability": 0.6019192113131127,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3733,7 +3905,9 @@
     "class_probability": 0.09376689258410897,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3752,7 +3926,9 @@
     "class_probability": 0.1905969294460924,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3771,7 +3947,9 @@
     "class_probability": 0.14189184934203003,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3790,7 +3968,9 @@
     "class_probability": 0.8096652186987704,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3809,7 +3989,9 @@
     "class_probability": 0.5964303759620909,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3828,7 +4010,9 @@
     "class_probability": 0.7640413360927739,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3847,7 +4031,9 @@
     "class_probability": 0.6052935110237259,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3866,7 +4052,9 @@
     "class_probability": 0.5532109052054053,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3885,7 +4073,9 @@
     "class_probability": 0.5850876098892592,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3904,7 +4094,9 @@
     "class_probability": 0.8587970761165373,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3923,7 +4115,9 @@
     "class_probability": 0.5461006023952333,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3942,7 +4136,9 @@
     "class_probability": 0.014724663880826605,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3961,7 +4157,9 @@
     "class_probability": 0.6613369545531869,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3980,7 +4178,9 @@
     "class_probability": 0.22167533523475969,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -3999,7 +4199,9 @@
     "class_probability": 0.23313694037910582,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4018,7 +4220,9 @@
     "class_probability": 0.07101528911176591,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4037,7 +4241,9 @@
     "class_probability": 0.8668300606314713,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4056,7 +4262,9 @@
     "class_probability": 0.6718826091423146,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4075,7 +4283,9 @@
     "class_probability": 0.08935674589198594,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4094,7 +4304,9 @@
     "class_probability": 0.3907610135283818,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4113,7 +4325,9 @@
     "class_probability": 0.8707437128603572,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4132,7 +4346,9 @@
     "class_probability": 0.4617113035129351,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4151,7 +4367,9 @@
     "class_probability": 0.006231607110627424,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4170,7 +4388,9 @@
     "class_probability": 0.7669474935404035,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4189,7 +4409,9 @@
     "class_probability": 0.4350854166546779,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4208,7 +4430,9 @@
     "class_probability": 0.9985419740567287,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4227,7 +4451,9 @@
     "class_probability": 0.07473738578397049,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4246,7 +4472,9 @@
     "class_probability": 0.8635555911783747,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4265,7 +4493,9 @@
     "class_probability": 0.01779367872746529,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4284,7 +4514,9 @@
     "class_probability": 0.9640446668365898,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4303,7 +4535,9 @@
     "class_probability": 0.9794987794168262,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4322,7 +4556,9 @@
     "class_probability": 0.3042806372494177,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4341,7 +4577,9 @@
     "class_probability": 0.6464944195111515,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4360,7 +4598,9 @@
     "class_probability": 0.4304343006020107,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4379,7 +4619,9 @@
     "class_probability": 0.9153653500460995,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4398,7 +4640,9 @@
     "class_probability": 0.7093461109664769,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4417,7 +4661,9 @@
     "class_probability": 0.7898905933037424,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4436,7 +4682,9 @@
     "class_probability": 0.46781610878063506,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4455,7 +4703,9 @@
     "class_probability": 0.20560830621041015,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4474,7 +4724,9 @@
     "class_probability": 0.6359832875286047,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4493,7 +4745,9 @@
     "class_probability": 0.41035292192830886,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4512,7 +4766,9 @@
     "class_probability": 0.6845095653534647,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4531,7 +4787,9 @@
     "class_probability": 0.6384691025996934,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4550,7 +4808,9 @@
     "class_probability": 0.3631282527057814,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4569,7 +4829,9 @@
     "class_probability": 0.3009205417738984,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4588,7 +4850,9 @@
     "class_probability": 0.6257158455248527,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4607,7 +4871,9 @@
     "class_probability": 0.9983992720464707,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4626,7 +4892,9 @@
     "class_probability": 0.17171343239132975,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4645,7 +4913,9 @@
     "class_probability": 0.7872992050889431,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4664,7 +4934,9 @@
     "class_probability": 0.43676929377408547,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4683,7 +4955,9 @@
     "class_probability": 0.32611881871771264,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4702,7 +4976,9 @@
     "class_probability": 0.7976592765844169,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4721,7 +4997,9 @@
     "class_probability": 0.8293635597998922,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4740,7 +5018,9 @@
     "class_probability": 0.023075496493464187,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4759,7 +5039,9 @@
     "class_probability": 0.2734641566607853,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4778,7 +5060,9 @@
     "class_probability": 0.6328669095346914,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4797,7 +5081,9 @@
     "class_probability": 0.11708608671268517,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4816,7 +5102,9 @@
     "class_probability": 0.12438820600666423,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4835,7 +5123,9 @@
     "class_probability": 0.9925644431172131,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4854,7 +5144,9 @@
     "class_probability": 0.8525143254245098,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4873,7 +5165,9 @@
     "class_probability": 0.14616258308080932,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4892,7 +5186,9 @@
     "class_probability": 0.9499706424060771,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4911,7 +5207,9 @@
     "class_probability": 0.9132193082326927,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4930,7 +5228,9 @@
     "class_probability": 0.36570548420415816,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4949,7 +5249,9 @@
     "class_probability": 0.8481630075420153,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4968,7 +5270,9 @@
     "class_probability": 0.2745062305870556,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -4987,7 +5291,9 @@
     "class_probability": 0.7842235905340121,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5006,7 +5312,9 @@
     "class_probability": 0.30612500687544386,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5025,7 +5333,9 @@
     "class_probability": 0.26792497800248527,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5044,7 +5354,9 @@
     "class_probability": 0.24323002978656272,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5063,7 +5375,9 @@
     "class_probability": 0.5774221274467958,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5082,7 +5396,9 @@
     "class_probability": 0.5454242475613278,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5101,7 +5417,9 @@
     "class_probability": 0.433432664222519,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5120,7 +5438,9 @@
     "class_probability": 0.48724861521214013,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5139,7 +5459,9 @@
     "class_probability": 0.8944755146469346,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5158,7 +5480,9 @@
     "class_probability": 0.6662910870685951,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5177,7 +5501,9 @@
     "class_probability": 0.1800985533017081,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5196,7 +5522,9 @@
     "class_probability": 0.936023844030179,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5215,7 +5543,9 @@
     "class_probability": 0.14652805189239393,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5234,7 +5564,9 @@
     "class_probability": 0.477703994795339,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5253,7 +5585,9 @@
     "class_probability": 0.9047134261963174,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5272,7 +5606,9 @@
     "class_probability": 0.297222259522822,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5291,7 +5627,9 @@
     "class_probability": 0.3983994593766379,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5310,7 +5648,9 @@
     "class_probability": 0.1498839642327816,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5329,7 +5669,9 @@
     "class_probability": 0.23786979022065713,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5348,7 +5690,9 @@
     "class_probability": 0.38196767089369843,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5367,7 +5711,9 @@
     "class_probability": 0.22132514837374873,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5386,7 +5732,9 @@
     "class_probability": 0.5237203083612786,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5405,7 +5753,9 @@
     "class_probability": 0.5779286199310243,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5424,7 +5774,9 @@
     "class_probability": 0.5217334860094621,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5443,7 +5795,9 @@
     "class_probability": 0.7011400672025807,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5462,7 +5816,9 @@
     "class_probability": 0.4644231065577581,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5481,7 +5837,9 @@
     "class_probability": 0.10784688501414741,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5500,7 +5858,9 @@
     "class_probability": 0.29463420318136235,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5519,7 +5879,9 @@
     "class_probability": 0.24714119522975675,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5538,7 +5900,9 @@
     "class_probability": 0.05261643193889465,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5557,7 +5921,9 @@
     "class_probability": 0.4928275119467179,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5576,7 +5942,9 @@
     "class_probability": 0.7551142117153771,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5595,7 +5963,9 @@
     "class_probability": 0.7482860468343803,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5614,7 +5984,9 @@
     "class_probability": 0.09289478377507854,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5633,7 +6005,9 @@
     "class_probability": 0.8937578488091364,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5652,7 +6026,9 @@
     "class_probability": 0.558432189384329,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5671,7 +6047,9 @@
     "class_probability": 0.3689713893349269,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5690,7 +6068,9 @@
     "class_probability": 0.2188375175922841,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5709,7 +6089,9 @@
     "class_probability": 0.05348466516051664,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5728,7 +6110,9 @@
     "class_probability": 0.33911619500681667,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5747,7 +6131,9 @@
     "class_probability": 0.6403220010213502,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5766,7 +6152,9 @@
     "class_probability": 0.14513820199087046,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5785,7 +6173,9 @@
     "class_probability": 0.32883466879572687,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5804,7 +6194,9 @@
     "class_probability": 0.49708557160561573,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5823,7 +6215,9 @@
     "class_probability": 0.36089076595435776,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5842,7 +6236,9 @@
     "class_probability": 0.41329648675667985,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5861,7 +6257,9 @@
     "class_probability": 0.5218814807752313,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5880,7 +6278,9 @@
     "class_probability": 0.9804860533772444,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5899,7 +6299,9 @@
     "class_probability": 0.978955253377084,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5918,7 +6320,9 @@
     "class_probability": 0.5298528173396428,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5937,7 +6341,9 @@
     "class_probability": 0.6638293815220727,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5956,7 +6362,9 @@
     "class_probability": 0.9139728854019304,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5975,7 +6383,9 @@
     "class_probability": 0.6777305121939093,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -5994,7 +6404,9 @@
     "class_probability": 0.48899787967792674,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -6013,7 +6425,9 @@
     "class_probability": 0.9140568073231374,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -6032,7 +6446,9 @@
     "class_probability": 0.9943255770580361,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -6051,7 +6467,9 @@
     "class_probability": 0.48393194533854356,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -6070,7 +6488,9 @@
     "class_probability": 0.335730512798759,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -6089,7 +6509,9 @@
     "class_probability": 0.8756915566286253,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -6108,7 +6530,9 @@
     "class_probability": 0.1835459698794668,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -6127,7 +6551,9 @@
     "class_probability": 0.015173443011429755,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -6146,7 +6572,9 @@
     "class_probability": 0.19150102059769436,
     "created_by_run": "df24fc7a-5e1e-4db0-908e-bfa905d0fe6a",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -6165,7 +6593,9 @@
     "class_probability": 0.6318429566101631,
     "created_by_run": "2936e490-f669-4f45-8afd-6f70f46e9dc0",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {
@@ -6184,7 +6614,9 @@
     "class_probability": 0.15732821351596105,
     "created_by_run": "e4dde0c0-72ab-44e0-aa44-666d19e800f5",
     "exposure": 0,
-    "offset": 0
+    "offset": 0,
+    "damage_score": null,
+    "breakage_types": []
   }
 },
 {

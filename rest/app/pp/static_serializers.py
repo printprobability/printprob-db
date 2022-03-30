@@ -72,6 +72,7 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "sequence",
             "character_class",
             "class_probability",
+            "damage_score",
             "book",
             "page",
             "image",

@@ -441,6 +441,7 @@ class CharacterFilter(filters.FilterSet):
     human_character_class = filters.ModelChoiceFilter(
         queryset=models.CharacterClass.objects.all(), widget=forms.TextInput
     )
+    damage_score = filters.NumberFilter(field_name="damage_score", label="Damage score")
     agreement = filters.ChoiceFilter(
         choices=(
             ("all", "all"),
@@ -485,7 +486,14 @@ class CharacterViewSet(viewsets.ModelViewSet):
         )
         .all()
     )
-    ordering_fields = ["class_probability", "bookseq", "pageseq", "lineseq", "sequence"]
+    ordering_fields = [
+        "class_probability",
+        "bookseq",
+        "pageseq",
+        "lineseq",
+        "sequence",
+        "damage_score",
+    ]
     filterset_class = CharacterFilter
     pagination_class = NoCountsLimitOffsetPagination
 

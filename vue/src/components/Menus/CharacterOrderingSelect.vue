@@ -23,6 +23,14 @@ export default {
     return {
       options: [
         {
+          value: "-damage_score",
+          text: "Damage score (descending)",
+        },
+        {
+          value: "damage_score",
+          text: "Damage score (ascending)",
+        },
+        {
           value: "-class_probability",
           text: "Probability (descending)",
         },

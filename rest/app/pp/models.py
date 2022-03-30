@@ -568,6 +568,12 @@ class Character(CroppedModel):
         related_name="characters",
         help_text="Types of breakage exhibited by this character.",
     )
+    damage_score = models.FloatField(
+        db_index=True,
+        null=True,
+        blank=True,
+        help_text="Machine-generated score for the level of damage of the character.",
+    )
 
     class Meta:
         unique_together = (("created_by_run", "line", "sequence"),)
