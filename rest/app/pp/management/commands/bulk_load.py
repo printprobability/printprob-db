@@ -177,24 +177,29 @@ class BookLoader:
             field_name="classname",
         )
         # Create list of character objects
-        character_list = [
-            models.Character(
-                id=character["id"],
-                created_by_run=character_run,
-                line=line_objects[UUID(character["line_id"])],
-                sequence=character["sequence"],
-                y_min=character["y_start"],
-                y_max=character["y_end"],
-                x_min=character["x_start"],
-                x_max=character["x_end"],
-                offset=character["offset"],
-                exposure=character["exposure"],
-                class_probability=character["logprob"],
-                # damage_score=character.get("damage_score", None),
-                character_class=character_class_objects[character["character_class"]],
-            )
-            for character in characters_json
-        ]
+        character_list = []
+        for i, character in enumerate(characters_json):
+            try:
+                cmodel = models.Character(
+                    id=character["id"],
+                    created_by_run=character_run,
+                    line=line_objects[UUID(character["line_id"])],
+                    sequence=character["sequence"],
+                    y_min=character["y_start"],
+                    y_max=character["y_end"],
+                    x_min=character["x_start"],
+                    x_max=character["x_end"],
+                    offset=character["offset"],
+                    exposure=character["exposure"],
+                    class_probability=character["logprob"],
+                    damage_score=character.get("damage_score", None),
+                    character_class=character_class_objects[
+                        character["character_class"]
+                    ],
+                )
+                character_list.append(cmodel)
+            except:
+                logging.error(f"Failing char object at index {i}: {character}")
         # Bulk save to DB
         models.Character.objects.bulk_create(
             character_list, batch_size=500, ignore_conflicts=True
