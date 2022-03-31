@@ -200,6 +200,7 @@ class BookLoader:
                 character_list.append(cmodel)
             except:
                 logging.error(f"Failing char object at index {i}: {character}")
+                raise
         # Bulk save to DB
         models.Character.objects.bulk_create(
             character_list, batch_size=500, ignore_conflicts=True
