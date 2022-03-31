@@ -176,7 +176,7 @@ class BookLoader:
             models.CharacterClass.objects.all().values_list("classname", flat=True),
             field_name="classname",
         )
-        # Create list of page objects
+        # Create list of character objects
         character_list = [
             models.Character(
                 id=character["id"],
@@ -190,7 +190,7 @@ class BookLoader:
                 offset=character["offset"],
                 exposure=character["exposure"],
                 class_probability=character["logprob"],
-                damage_score=character.get("damage_score", None),
+                # damage_score=character.get("damage_score", None),
                 character_class=character_class_objects[character["character_class"]],
             )
             for character in characters_json
