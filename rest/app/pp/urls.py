@@ -24,7 +24,7 @@ schema_view = get_schema_view(
         title="Print & Probability",
         default_version="v1",
         description="API for Print & Probability data processing pipeline.",
-        contact=openapi.Contact(email="mlincoln@andrew.cmu.edu"),
+        contact=openapi.Contact(email="matthew.d.lincoln@gmail.com"),
         license=openapi.License(name="MIT License"),
     ),
     public=True,
