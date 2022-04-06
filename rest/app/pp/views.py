@@ -544,8 +544,16 @@ class CharacterGroupingFilter(filters.FilterSet):
     created_by = filters.CharFilter(field_name="created_by__username")
 
 
-class CharacterGroupingViewSet(CRUDViewSet):
-    queryset = models.CharacterGrouping.objects.select_related("created_by")
+class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
+    detail_queryset = (
+        models.CharacterGrouping.objects.select_related("created_by")
+        .prefetch_related("characters__line__page")
+        .all()
+    )
+    list_queryset = models.CharacterGrouping.objects.select_related("created_by").all()
+    queryset = detail_queryset
+
+    serializer_action_classes = {"list": list_queryset, "detail": detail_queryset}
     filterset_class = CharacterGroupingFilter
 
     def get_serializer_class(self):
