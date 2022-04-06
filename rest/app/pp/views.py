@@ -545,9 +545,7 @@ class CharacterGroupingFilter(filters.FilterSet):
 
 
 class CharacterGroupingViewSet(CRUDViewSet):
-    queryset = models.CharacterGrouping.objects.select_related(
-        "created_by"
-    ).prefetch_related("characters")
+    queryset = models.CharacterGrouping.objects.select_related("created_by")
     filterset_class = CharacterGroupingFilter
 
     def get_serializer_class(self):
@@ -594,7 +592,12 @@ class CharacterGroupingViewSet(CRUDViewSet):
                 [{"error": "This character group has no characters to download"}],
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        image_objects = obj.characters.all()
+
+        image_objects = (
+            models.Character.objects.filter(charactergroupings=obj)
+            .select_related("line__page")
+            .all()
+        )
 
         with TemporaryDirectory(dir=settings.DOWNLOAD_SCRATCH_DIR) as scratch_dir:
             zip_file = tarfile.open(f"{scratch_dir}/cg.tar.gz", "w:gz")
