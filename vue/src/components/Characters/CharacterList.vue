@@ -39,6 +39,14 @@
             />
           </div>
         </b-row>
+        <b-row>
+          <div class="col-12">
+            <PageRangeInput
+              :value="page_range"
+              @input="$emit('page_range_input', $event)"
+            />
+          </div>
+        </b-row>
       </div>
     </div>
     <div class="char-images card my-2">
@@ -105,6 +113,7 @@
 </template>
 
 <script>
+import PageRangeInput from "../Menus/PageRangeInput";
 import CharacterClassSelect from "../Menus/CharacterClassSelect";
 import CharacterOrderingSelect from "../Menus/CharacterOrderingSelect";
 import BookAutocomplete from "../Menus/BookAutocomplete";
@@ -150,6 +159,12 @@ export default {
       default: "-class_probability",
       type: String,
     },
+    page_range: {
+      type: Array,
+      default: function () {
+        return [];
+      },
+    },
     value: {
       // Here is where the characters themselves live
       type: Array,
@@ -157,6 +172,7 @@ export default {
     },
   },
   components: {
+    PageRangeInput,
     CharacterClassSelect,
     CharacterOrderingSelect,
     BookAutocomplete,
@@ -183,6 +199,8 @@ export default {
           book: this.book,
           agreement: this.char_agreement,
           ordering: this.order,
+          page_sequence_gte: this.page_range[0],
+          page_sequence_lte: this.page_range[1],
         },
       }).then(
         (response) => {
@@ -217,6 +235,7 @@ export default {
         agreement: this.char_agreement,
         order: this.order,
         cursor: this.cursor,
+        page_range: this.page_range,
       };
     },
     rest_offset: function () {
