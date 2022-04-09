@@ -425,6 +425,16 @@ class CharacterFilter(filters.FilterSet):
     page_sequence = filters.NumberFilter(
         field_name="line__page__sequence", label="Page sequence"
     )
+    page_sequence_gte = filters.NumberFilter(
+        field_name="line__page__sequence",
+        label="Page sequence (greater than or equal)",
+        lookup_expr="gte",
+    )
+    page_sequence_lte = filters.NumberFilter(
+        field_name="line__page__sequence",
+        label="Page sequence (less than or equal)",
+        lookup_expr="lte",
+    )
     page_side = filters.ChoiceFilter(
         choices=models.Page.SPREAD_SIDE, field_name="line__page__side"
     )
