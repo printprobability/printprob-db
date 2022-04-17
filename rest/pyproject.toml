@@ -1,37 +1,37 @@
 [tool.poetry]
+authors = ["Matthew Lincoln <matthew.d.lincoln@gmail.com>"]
+description = "Print & Probability Backend API"
 name = "pp-db"
 version = "0.1.0"
-description = "Print & Probability Backend API"
-authors = ["Matthew Lincoln <matthew.d.lincoln@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "3.8.12"
-django = "~=3.2"
-coverage = "~=4.5"
-requests = "~=2.25"
-psycopg2-binary = "^2.9.3"
-gunicorn = "^20.1.0"
-tblib = "^1.7.0"
-djangorestframework = "~=3.12"
-django-cors-headers = "^3.11.0"
-markdown2 = "^2.4.2"
-pygments-arm = "^0.7.5"
-django-filter = "^21.1"
 Faker = "^13.0.0"
-drf-yasg = "~=1.16"
-packaging = "~=21.3"
-tqdm = "^4.62.3"
-drf-tweaks = "^0.9.7"
+coverage = "~=4.5"
+django = "~=3.2"
+django-cors-headers = "^3.11.0"
+django-filter = "^21.1"
 django-silk = "^4.2.0"
+djangorestframework = "~=3.12"
+drf-tweaks = "^0.9.7"
+drf-yasg = "~=1.16"
+gunicorn = "^20.1.0"
+markdown2 = "^2.4.2"
+packaging = "~=21.3"
+psycopg2-binary = "^2.9.3"
+pygments-arm = "^0.7.5"
+python = "~=3.10.4"
+requests = "~=2.25"
+tblib = "^1.7.0"
+tqdm = "^4.62.3"
 
 [tool.poetry.dev-dependencies]
-flake8 = "^4.0.1"
 black = "^22.1.0"
+flake8 = "^4.0.1"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 extend-exclude = "migrations"
+requires = ["poetry-core>=1.0.0"]
 
 [tool.black]
 extend-exclude = "migrations"
