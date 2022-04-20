@@ -23,10 +23,12 @@ python = "~=3.10.4"
 requests = "~=2.25"
 tblib = "^1.7.0"
 tqdm = "^4.62.3"
+django-elasticsearch-dsl = "^7.2.2"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
 flake8 = "^4.0.1"
+mypy = "^0.942"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"

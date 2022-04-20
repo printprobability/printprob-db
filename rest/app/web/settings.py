@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_elasticsearch_dsl",
     "corsheaders",
     "drf_yasg",
     "rest_framework.authtoken",
@@ -97,6 +98,15 @@ REST_FRAMEWORK = {
     ],
     "HTML_SELECT_CUTOFF": 10,
 }
+
+ELASTICSEARCH_DSL = {
+    "default": {
+        "hosts": "elasticsearch:9200",
+        "http_auth": (os.environ["ELASTIC_USER"], os.environ["ELASTIC_PASSWORD"]),
+    },
+}
+ELASTICSEARCH_DSL_AUTOSYNC = os.environ["DJANGO_ES_SYNC"] == "True"
+ELASTICSEARCH_DSL_AUTO_REFRESH = os.environ["DJANGO_ES_SYNC"] == "True"
 
 SWAGGER_SETTINGS = {
     "SECURITY_DEFINITIONS": {

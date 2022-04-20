@@ -1,6 +1,17 @@
 version: "3"
 
 services:
+
+  elasticsearch:
+    image: elasticsearch:8.1.2
+    volumes:
+      - es/es:/usr/share/elasticsearch/data:z
+      - es/logs:/usr/share/elasticsearch/logs:z
+    expose:
+      - 9200
+    env_file: .env
+    restart: always
+
   postgres:
     image: postgres:12.2
     volumes:
@@ -8,6 +19,7 @@ services:
     expose:
       - ${POSTGRES_PORT}
     env_file: .env
+    restart: always
 
   web:
     build: rest
@@ -21,9 +33,11 @@ services:
       - 8000
     links:
       - "postgres:postgres"
+      - "elasticsearch:elasticsearch"
     env_file: .env
     depends_on:
       - postgres
+      - elasticsearch
 
   nginx:
     image: nginx:1.17.10
@@ -55,4 +69,5 @@ services:
 
 volumes:
   pp:
+  es:
   ppstatic:
