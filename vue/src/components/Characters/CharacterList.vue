@@ -40,10 +40,16 @@
           </div>
         </b-row>
         <b-row>
-          <div class="col-12">
+          <div class="col-6">
             <PageRangeInput
               :value="page_range"
               @input="$emit('page_range_input', $event)"
+            />
+          </div>
+          <div class="col-6">
+            <ShowDamagedCharactersCheckbox
+              :value="show_damaged_characters"
+              @input="$emit('damaged_characters_input', $event)"
             />
           </div>
         </b-row>
@@ -113,6 +119,7 @@
 </template>
 
 <script>
+import ShowDamagedCharactersCheckbox from "../Menus/ShowDamagedCharactersCheckbox";
 import PageRangeInput from "../Menus/PageRangeInput";
 import CharacterClassSelect from "../Menus/CharacterClassSelect";
 import CharacterOrderingSelect from "../Menus/CharacterOrderingSelect";
@@ -165,6 +172,10 @@ export default {
         return [];
       },
     },
+    show_damaged_characters: {
+      type: Boolean,
+      default: true,
+    },
     value: {
       // Here is where the characters themselves live
       type: Array,
@@ -172,6 +183,7 @@ export default {
     },
   },
   components: {
+    ShowDamagedCharactersCheckbox,
     PageRangeInput,
     CharacterClassSelect,
     CharacterOrderingSelect,
@@ -191,17 +203,21 @@ export default {
   asyncComputed: {
     results() {
       this.progress_spinner = true;
+      var payload = {
+        limit: this.$APIConstants.REST_PAGE_SIZE,
+        offset: this.rest_offset,
+        character_class: this.character_class,
+        book: this.book,
+        agreement: this.char_agreement,
+        ordering: this.order,
+        page_sequence_gte: this.page_range[0],
+        page_sequence_lte: this.page_range[1],
+      };
+      if (this.show_damaged_characters) {
+        payload.damage_score_gte = 0.0;
+      }
       return HTTP.get("/characters/", {
-        params: {
-          limit: this.$APIConstants.REST_PAGE_SIZE,
-          offset: this.rest_offset,
-          character_class: this.character_class,
-          book: this.book,
-          agreement: this.char_agreement,
-          ordering: this.order,
-          page_sequence_gte: this.page_range[0],
-          page_sequence_lte: this.page_range[1],
-        },
+        params: payload,
       }).then(
         (response) => {
           this.progress_spinner = false;

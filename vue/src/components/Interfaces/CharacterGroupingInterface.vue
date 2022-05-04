@@ -22,6 +22,8 @@
           @character_run_input="character_run = $event"
           :page_range="page_range"
           @page_range_input="page_range = $event"
+          :show_damaged_characters="show_damaged_characters"
+          @damaged_characters_input="show_damaged_characters = $event"
           v-model="displayed_images"
           @char_clicked="register_character"
         />
@@ -163,6 +165,7 @@ export default {
       char_agreement: "all",
       order: "-class_probability",
       page_range: [null, null],
+      show_damaged_characters: false,
     };
   },
   computed: {
@@ -183,6 +186,7 @@ export default {
         character_class: this.character_class,
         char_agreement: this.char_agreement,
         page_range: this.page_range,
+        show_damaged_characters: this.show_damaged_characters,
       };
     },
   },
@@ -299,6 +303,7 @@ export default {
     this.character_class = this.$route.query.character_class;
     this.char_agreement = this.$route.query.char_agreement;
     this.page_range = this.$route.query.page_range;
+    this.show_damaged_characters = this.$route.query.show_damaged_characters;
   },
   updated() {
     this.$router.push({

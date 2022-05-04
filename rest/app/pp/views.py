@@ -451,7 +451,11 @@ class CharacterFilter(filters.FilterSet):
     human_character_class = filters.ModelChoiceFilter(
         queryset=models.CharacterClass.objects.all(), widget=forms.TextInput
     )
-    damage_score = filters.NumberFilter(field_name="damage_score", label="Damage score")
+    damage_score_gte = filters.NumberFilter(
+        field_name="damage_score",
+        label="Damage score (greater than or equal)",
+        lookup_expr="gte",
+    )
     agreement = filters.ChoiceFilter(
         choices=(
             ("all", "all"),
