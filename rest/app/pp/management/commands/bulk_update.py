@@ -208,7 +208,7 @@ class BookLoader:
         # Bulk save to DB
         models.Character.objects.bulk_update(
             character_list,
-            batch_size=500,
+            batch_size=250,
             fields=[
                 "sequence",
                 "y_min",
