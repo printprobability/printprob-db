@@ -363,6 +363,7 @@ class Spread(ImagedModel):
     )
 
     class Meta:
+        unique_together = (("book", "sequence"),)
         ordering = ("book", "sequence")
 
     def labeller(self):
@@ -407,6 +408,7 @@ class Page(ImagedModel):
     )
 
     class Meta:
+        unique_together = (("created_by_run", "sequence"),)
         ordering = ["created_by_run", "sequence"]
 
     def labeller(self):
@@ -450,6 +452,7 @@ class Line(CroppedModel):
     )
 
     class Meta:
+        unique_together = (("created_by_run", "page", "sequence"),)
         ordering = ["created_by_run", "page", "sequence"]
 
     def labeller(self):
@@ -573,7 +576,8 @@ class Character(CroppedModel):
     )
 
     class Meta:
-        ordering = ["created_by_run", "line"]
+        unique_together = (("created_by_run", "line", "sequence"),)
+        ordering = ["created_by_run", "line", "sequence"]
 
     def labeller(self):
         return f"{self.line} c. {self.sequence}"
