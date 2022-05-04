@@ -26,7 +26,7 @@
           <p v-if="this.character.human_character_class">
             Human character class: {{ this.character.human_character_class }}
           </p>
-          <p v-if="this.character.damage_score">
+          <p v-if="this.character.damage_score >= 0">
             Damage score: {{ this.character.damage_score }}
           </p>
           <p>

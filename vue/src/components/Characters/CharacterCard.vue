@@ -6,7 +6,7 @@
       }}%)
     </p>
     <p>Human: {{ character.human_character_class }}</p>
-    <p v-if="character.damage_score">
+    <p v-if="character.damage_score >= 0">
       Damage score: {{ character.damage_score }}
     </p>
     <p>
