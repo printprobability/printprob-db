@@ -4,6 +4,7 @@ import json
 import logging
 from uuid import UUID
 from django.db import transaction
+from tqdm import tqdm
 
 TIF_ROOT = "/ocean/projects/hum160002p/shared"
 
@@ -205,21 +206,6 @@ class BookLoader:
             except:
                 logging.error(f"Failing char object at index {i}: {character}")
                 raise
-        # Bulk save to DB
-        models.Character.objects.bulk_update(
-            character_list,
-            batch_size=250,
-            fields=[
-                "sequence",
-                "y_min",
-                "y_max",
-                "x_min",
-                "x_max",
-                "offset",
-                "exposure",
-                "class_probability",
-                "damage_score",
-                "character_class",
-            ],
-        )
+        for char in tqdm(character_list):
+            char.save()
         logging.info({"characters updated": len(character_list)})
