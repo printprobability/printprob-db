@@ -182,7 +182,6 @@ class BookLoader:
             field_name="classname",
         )
         # Create list of character objects
-        character_list = []
         for i, character in enumerate(tqdm(characters_json)):
             try:
                 models.Character.objects.filter(id=character["id"]).update(
@@ -204,4 +203,3 @@ class BookLoader:
             except:
                 logging.error(f"Failing char object at index {i}: {character}")
                 raise
-        logging.info({"characters updated": len(character_list)})
