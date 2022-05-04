@@ -183,7 +183,7 @@ class BookLoader:
         )
         # Create list of character objects
         character_list = []
-        for i, character in enumerate(characters_json):
+        for i, character in enumerate(tqdm(characters_json)):
             try:
                 cmodel = models.Character(
                     id=character["id"],
@@ -202,10 +202,8 @@ class BookLoader:
                         character["character_class"]
                     ],
                 )
-                character_list.append(cmodel)
+                cmodel.save()
             except:
                 logging.error(f"Failing char object at index {i}: {character}")
                 raise
-        for char in tqdm(character_list):
-            char.save()
         logging.info({"characters updated": len(character_list)})
