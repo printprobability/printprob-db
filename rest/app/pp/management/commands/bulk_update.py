@@ -185,8 +185,7 @@ class BookLoader:
         character_list = []
         for i, character in enumerate(tqdm(characters_json)):
             try:
-                cmodel = models.Character.objects.update(
-                    id=character["id"],
+                models.Character.objects.filter(id=character["id"]).update(
                     created_by_run=character_run,
                     line=line_objects[UUID(character["line_id"])],
                     sequence=character["sequence"],
