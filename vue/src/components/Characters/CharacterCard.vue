@@ -7,7 +7,7 @@
     </p>
     <p>Human: {{ character.human_character_class }}</p>
     <p v-if="character.damage_score">
-      Damage score: {{ (character.damage_score * 100).toFixed(2) }}%)
+      Damage score: {{ character.damage_score }}
     </p>
     <p>
       <router-link :to="character_link" target="_blank" rel="noopen noreferrer">
