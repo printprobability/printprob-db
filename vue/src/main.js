@@ -26,6 +26,7 @@ import BookList from "./components/Books/BookList";
 import BookDetail from "./components/Books/BookDetail";
 import BookCreate from "./components/Books/BookCreate";
 import CharacterGroupingInterface from "./components/Interfaces/CharacterGroupingInterface";
+import CharacterGroupingDetail from "./components/CharacterGroups/CharacterGroupingDetail";
 import CharacterReviewInterface from "./components/Interfaces/CharacterReviewInterface";
 import SpreadDetail from "./components/Spreads/SpreadDetail";
 import CharacterDetail from "./components/Characters/CharacterDetail"
@@ -71,6 +72,7 @@ const routes = [
       character_run: route.query.character_run
     })
   },
+  { path: "/character_groupings/:id", name: "CharacterGroupingDetail", component: CharacterGroupingDetail, props: (route) => ({ id: route.params.id }) },
   {
     path: "/character_review", name: "CharacterReviewView", component: CharacterReviewInterface, props: (route) => ({
       page: (!!route.query.page) ? Number(route.query.page) : 1,

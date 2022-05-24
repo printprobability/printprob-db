@@ -1,12 +1,6 @@
 <template>
   <b-form-group id="ordering-group" label="Sort by" label-size="sm">
-    <b-form-select
-      size="sm"
-      id="ordering-select"
-      :value="value"
-      :options="options"
-      @input="$emit('input', $event)"
-    />
+    <b-form-select size="sm" id="ordering-select" :value="value" :options="options" @input="$emit('input', $event)" />
   </b-form-group>
 </template>
 
@@ -42,6 +36,10 @@ export default {
           value: "bookseq,pageseq,lineseq,sequence",
           text: "Sequence",
         },
+        {
+          value: "character_class",
+          text: "Character class"
+        }
       ],
     };
   },
