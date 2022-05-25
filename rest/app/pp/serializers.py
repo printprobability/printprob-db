@@ -57,6 +57,7 @@ class CharacterFlatSerializer(serializers.ModelSerializer):
             "sequence",
             "image",
             "character_class",
+            "class_probability",
             "human_character_class",
             "damage_score",
             "x_min",

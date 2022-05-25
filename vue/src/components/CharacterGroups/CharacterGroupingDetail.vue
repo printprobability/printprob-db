@@ -5,15 +5,18 @@
                 <b-card>
                     <template v-slot:header>
                         <b-row align-h="between" class="px-3">
-                            {{ character_group.label }}
+                            <h3>
+                                {{ character_group.label }}
+                            </h3>
                             <small>
                                 Created by {{ character_group.created_by }} on
                                 {{ display_date(character_group.date_created) }}</small>
-                            <CharacterOrderingSelect :value="order" @input="$emit('order_input', $event)" />
+                            <p>{{ character_group.notes }}</p>
+                            <CharacterOrderingSelect v-model="order" />
                         </b-row>
                     </template>
-                    <div class="d-flex flex-wrap justify-content-around" v-if="character_group.characters.length > 0">
-                        <CharacterImage v-for="character in character_group.characters" :key="character.id"
+                    <div class="d-flex flex-wrap justify-content-around" v-if="ordered_characters.length > 0">
+                        <CharacterImage v-for="character in ordered_characters" :key="character.id"
                             :character="character" />
                     </div>
                     <b-alert v-else show variant="info">
@@ -30,6 +33,7 @@ import CharacterImage from "../Characters/CharacterImage";
 import CharacterOrderingSelect from "../Menus/CharacterOrderingSelect";
 import { HTTP } from "../../main";
 import moment from "moment";
+import _ from "lodash";
 
 export default {
     name: "CharacterGroupingDetail",
@@ -42,7 +46,26 @@ export default {
     },
     data() {
         return {
-            order: "-class_probability",
+            order: "bookseq,pageseq,lineseq,sequence",
+        }
+    },
+    computed: {
+        ordered_characters() {
+            if (this.order.variable == "bookseq,pageseq,lineseq,sequence") {
+                return this.character_group.characters
+            } else {
+                return _.orderBy(this.character_group.characters, [this.lodash_order.variable], this.lodash_order.direction)
+            }
+        },
+        lodash_order() {
+            var direction = "asc"
+            if (this.order.includes("-")) {
+                direction = "desc"
+            }
+            const clean_string = this.order.replace("-", "")
+            return {
+                variable: clean_string, direction: direction
+            }
         }
     },
     asyncComputed: {
