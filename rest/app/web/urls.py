@@ -21,5 +21,5 @@ urlpatterns = [
     path("api/admin/", admin.site.urls),
     path("api/accounts/", include("django.contrib.auth.urls")),
     path("api/auth/", include("rest_framework.urls")),
-    path("api/silk/", include("silk.urls", namespace="silk")),
+    # path("api/silk/", include("silk.urls", namespace="silk")),
 ]

@@ -4677,13 +4677,13 @@
     "x_max": 436,
     "y_min": null,
     "y_max": null,
-    "character_class": "x",
+    "character_class": "a",
     "human_character_class": null,
     "class_probability": 0.46781610878063506,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
     "offset": 0,
-    "damage_score": null,
+    "damage_score": 0.97,
     "breakage_types": []
   }
 },
@@ -5307,13 +5307,13 @@
     "x_max": 447,
     "y_min": null,
     "y_max": null,
-    "character_class": "U",
+    "character_class": "a",
     "human_character_class": null,
     "class_probability": 0.30612500687544386,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
     "offset": 0,
-    "damage_score": null,
+    "damage_score": 0.25,
     "breakage_types": []
   }
 },
@@ -5670,7 +5670,7 @@
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
     "offset": 0,
-    "damage_score": null,
+    "damage_score": 0.0,
     "breakage_types": []
   }
 },
@@ -6252,13 +6252,13 @@
     "x_max": 90,
     "y_min": null,
     "y_max": null,
-    "character_class": "u",
+    "character_class": "a",
     "human_character_class": null,
     "class_probability": 0.5218814807752313,
     "created_by_run": "06e75087-c42f-494e-afbe-58d178d296f8",
     "exposure": 0,
     "offset": 0,
-    "damage_score": null,
+    "damage_score": 0.76,
     "breakage_types": []
   }
 },
@@ -6673,8 +6673,8 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$180000$2Y1iYHKK9Y2G$De2sJoBkiAD5dmEUniJfG77ptkHmw6wf1Bh92QEd+Yg=",
-    "last_login": "2020-02-18T19:34:26.636Z",
+    "password": "pbkdf2_sha256$260000$rFPuYRqllGRZvMPBDz4fCn$Nut/MymzCyd6WDDkBBabYFKYdcKe0IRzY7GOl22HG8Y=",
+    "last_login": "2022-06-17T13:22:34.799Z",
     "is_superuser": true,
     "username": "root",
     "first_name": "",
