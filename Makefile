@@ -47,3 +47,8 @@ dumpusers:
 	docker-compose exec web python manage.py dumpdata --indent 2 auth authtoken -e auth.permission -o users.json
 restoreusers:
 	docker-compose exec web python manage.py loaddata users.json
+refreshstatic:
+	docker-compose exec web python manage.py collectstatic --no-input
+migrate:
+	docker-compose exec web python manage.py migrate
+redeploy: migrate refreshstatic
