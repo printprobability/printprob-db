@@ -449,31 +449,6 @@ class PageViewTest(TestCase):
     @as_auth()
     def test_post(self):
         run = self.RUN1
-        # Posting an existing page fails
-        # failres = self.client.post(
-        #     self.ENDPOINT,
-        #     data={
-        #         "created_by_run": run,
-        #         "sequence": self.SEQUENCE1,
-        #         "side": "l",
-        #         "tif": "/foo/bat.tiff",
-        #         "x": 0,
-        #         "y": 0,
-        #         "w": 0,
-        #         "h": 0,
-        #         "rot1": 0,
-        #         "rot2": 0,
-        #     },
-        # )
-        # self.assertEqual(failres.status_code, 400)
-        # # Delete it and then try again
-        # getextant = self.client.get(
-        #     self.ENDPOINT, {"created_by_run": run, "sequence": self.SEQUENCE1}
-        # )
-        # delres = self.client.delete(
-        #     self.ENDPOINT + str(getextant.data["results"][0]["id"]) + "/"
-        # )
-        # self.assertEqual(delres.status_code, 204)
         res = self.client.post(
             self.ENDPOINT,
             data={
@@ -798,32 +773,6 @@ class CharacterGroupingViewTest(TestCase):
         cls.CHARS_2 = models.Character.objects.all()[6:8].values_list("id", flat=True)
         cls.CHARS_ORIG = cls.OBJ1.characters.all().values_list("id", flat=True)
 
-    # @as_auth()
-    # def test_get(self):
-    #     res = self.client.get(self.ENDPOINT)
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(res.data["count"], self.OBJCOUNT)
-    #     for k in [
-    #         "url",
-    #         "id",
-    #         "label",
-    #         "created_by",
-    #         "date_created",
-    #         "notes",
-    #         "characters",
-    #     ]:
-    #         self.assertIn(k, res.data["results"][0])
-
-    # @as_auth()
-    # def test_get_filter(self):
-    #     res = self.client.get(self.ENDPOINT + "?created_by=susan")
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(res.data["count"], self.SUSANCOUNT)
-    #     for k in ["url", "id", "label", "created_by", "date_created", "notes"]:
-    #         self.assertIn(k, res.data["results"][0])
-    #     for entry in res.data["results"]:
-    #         self.assertEqual(entry["created_by"], "susan")
-
     @as_auth()
     def test_get(self):
         res = self.client.get(self.ENDPOINT)
@@ -875,27 +824,6 @@ class CharacterGroupingViewTest(TestCase):
         self.assertEqual(res.data["created_by"], "root")
         for char_id in res.data["characters"]:
             self.assertIn(char_id, self.CHARS_1)
-
-    # @as_auth(username="susan")
-    # def test_post_susan(self):
-    #     res = self.client.post(
-    #         self.ENDPOINT,
-    #         data={"label": "foo", "notes": "bar", "characters": self.CHARS_2},
-    #     )
-    #     self.assertEqual(res.status_code, 201)
-    #     for k in [
-    #         "url",
-    #         "id",
-    #         "label",
-    #         "created_by",
-    #         "date_created",
-    #         "notes",
-    #         "characters",
-    #     ]:
-    #         self.assertIn(k, res.data)
-    #     self.assertEqual(res.data["created_by"], "susan")
-    #     for char_id in res.data["characters"]:
-    #         self.assertIn(char_id, self.CHARS_2)
 
     @as_auth()
     def test_add_chars(self):
