@@ -8,8 +8,9 @@ Images are served as IIIF, currently using [go-iiif-vips](https://github.com/cmu
 
 1. PostgreSQL database
 2. Django REST API
-3. Vue frontend
-4. nginx reverse proxy
+3. IIIF image server
+4. Vue frontend
+5. nginx reverse proxy
 
 ## Local development
 
