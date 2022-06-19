@@ -33,12 +33,6 @@ restoredbonly: blank
 	docker-compose exec -T postgres psql -U app -d postgres -c 'CREATE DATABASE pp;'
 	docker-compose exec -T postgres psql -U app pp < ../bkp/dbonly.sql
 	$(MAKE) restart
-backup:
-	docker-compose exec -T postgres pg_dumpall -U app > ../bkp/bkp.sql
-restore: blank
-	docker-compose up -d postgres
-	docker-compose exec -T postgres psql -U app -d postgres < ../bkp/bkp.sql
-	$(MAKE) restart
 dumptest:
 	docker-compose exec web python manage.py dumpdata --indent 2 -e auth.permission -e contenttypes -e sessions -e silk -o pp/fixtures/test.json
 loadtest: wipe
