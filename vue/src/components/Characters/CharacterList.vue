@@ -112,7 +112,7 @@ export default {
       type: String,
     },
     order: {
-      default: "-class_probability",
+      default: "character_class",
       type: String,
     },
     page_range: {
