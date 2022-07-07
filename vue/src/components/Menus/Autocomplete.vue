@@ -18,6 +18,8 @@ import { HTTP } from "../../main";
 import VueBootstrapTypeahead from "vue-bootstrap-typeahead";
 import _ from "lodash";
 
+const AUTOCOMPLETE_DEBOUNCE_TIME = 500
+
 export default {
   name: "Autocomplete",
   components: {
@@ -82,7 +84,7 @@ export default {
           console.log(error);
         }
       );
-    }, 500),
+    }, AUTOCOMPLETE_DEBOUNCE_TIME),
     serializer: function(x) {
       if (!!this.prefix_field) {
         return (

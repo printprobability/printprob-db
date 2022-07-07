@@ -1,32 +1,25 @@
 import tarfile
-import os
+from tempfile import TemporaryDirectory
+from uuid import UUID
+
+import requests
 from django import forms
-from django.shortcuts import render
-from django.http import HttpResponse, StreamingHttpResponse, FileResponse
 from django.conf import settings
+from django.db import transaction
+from django.db.models import F, Q, Exists, OuterRef, Prefetch
+from django.db.models.query import EmptyQuerySet
+from django.http import FileResponse
 from django.utils.text import slugify
+from django_filters import rest_framework as filters
+from drf_tweaks.pagination import NoCountsLimitOffsetPagination
 from rest_framework import (
     viewsets,
-    views,
-    generics,
     status,
-    mixins,
-    parsers,
-    exceptions,
 )
-from rest_framework.response import Response
 from rest_framework.decorators import action
-from django.db import transaction
-from django.db.models import Count, F, Q, Exists, OuterRef, Prefetch, Subquery
-from django.contrib.auth.models import User
-from rest_framework import permissions
-from django_filters import rest_framework as filters
+from rest_framework.response import Response
+
 from . import models, serializers
-from base64 import b64encode, b64decode
-from drf_tweaks.pagination import NoCountsLimitOffsetPagination
-from tempfile import TemporaryDirectory
-import requests
-from uuid import UUID
 
 
 class GetSerializerClassMixin(object):
@@ -107,6 +100,11 @@ class BookFilter(filters.FilterSet):
         label="Record from EEBO database?",
         help_text="Book loaded from original EEBO data dump",
     )
+    printer_like = filters.CharFilter(
+        method='match_printer_name',
+        label="Substring match on printer name",
+        help_text="Substring match on printer name against either pp_printer or colloq_printer fields"
+    )
 
     def has_images(self, queryset, name, value):
         spreads = models.Spread.objects.filter(book=OuterRef("pk"), tif__isnull=False)
@@ -145,6 +143,20 @@ class BookFilter(filters.FilterSet):
 
     def before_late(self, queryset, name, value):
         return queryset.filter(date_late__lte=value)
+
+    def match_printer_name(self, queryset, name, value):
+
+        # No query result if incoming value is an empty string
+        # We do not want to return everything
+        if not value.strip():
+            return EmptyQuerySet()
+
+        # Match rows where we have either the pp_printer value or the colloq_printer value as non-empty
+        qs_filter = (
+                (Q(colloq_printer__exact='', _negated=True) | Q(colloq_printer__exact='', _negated=True)) &
+                (Q(pp_printer__icontains=value) | Q(colloq_printer__icontains=value))
+        )
+        return queryset.filter(qs_filter)
 
 
 class BookViewSet(CRUDViewSet, GetSerializerClassMixin):

@@ -2,10 +2,10 @@
   <Autocomplete
     :value="value"
     endpoint="/books/"
-    query_field="pq_title"
-    label="Source book"
+    :query_field="bookSearchField[field].query"
+    :label="bookSearchField[field].label"
     description="Begin typing for suggestions"
-    display_field="pq_title"
+    :display_field="bookSearchField[field].displayField"
     n_choices="10"
     return_field="id"
     prefix_field="vid"
@@ -17,6 +17,19 @@
 <script>
 import Autocomplete from "./Autocomplete";
 
+const BookSearchField = Object.freeze({
+  pq_title: {
+    query: 'pq_title',
+    displayField: 'pq_title',
+    label: 'Source book by title',
+  },
+  printer_name: {
+    query: 'printer_like',
+    displayField: 'printer_like',
+    label: 'Source book by printer name',
+  }
+})
+
 export default {
   name: "BookAutocomplete",
   components: {
@@ -27,6 +40,14 @@ export default {
       type: String,
       default: null,
     },
+    field: {
+      type: String,
+      default: null,
+    },
   },
-};
+  data: function() {
+    return {
+      bookSearchField: BookSearchField
+    };
+  },};
 </script>
