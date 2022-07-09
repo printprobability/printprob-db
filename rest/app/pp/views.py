@@ -107,6 +107,21 @@ class BookFilter(filters.FilterSet):
         label="Record from EEBO database?",
         help_text="Book loaded from original EEBO data dump",
     )
+    has_grouping = filters.BooleanFilter(
+        label="Has characters in a group?", method="has_any_grouping"
+    )
+
+    def has_any_grouping(self, queryset, name, value):
+        if value:
+            groupings = models.CharacterGrouping.objects.filter(
+                characters__created_by_run__book=OuterRef("pk")
+            )
+            return (
+                queryset.annotate(has_groupings=Exists(groupings))
+                .filter(has_groupings=True)
+                .all()
+            )
+        return queryset
 
     def has_images(self, queryset, name, value):
         spreads = models.Spread.objects.filter(book=OuterRef("pk"), tif__isnull=False)
@@ -469,6 +484,9 @@ class CharacterFilter(filters.FilterSet):
     breakage_types = filters.ModelChoiceFilter(
         queryset=models.BreakageType.objects.all(), widget=forms.TextInput
     )
+    has_grouping = filters.BooleanFilter(
+        method="in_any_grouping", label="In at least one grouping?"
+    )
 
     def class_agreement(self, queryset, name, value):
         if value == "unknown":
@@ -479,6 +497,12 @@ class CharacterFilter(filters.FilterSet):
             return queryset.exclude(character_class=F("human_character_class")).exclude(
                 human_character_class__isnull=True
             )
+        else:
+            return queryset
+
+    def in_any_grouping(self, queryset, name, value):
+        if value:
+            return queryset.filter(charactergroupings__isnull=False)
         else:
             return queryset
 
