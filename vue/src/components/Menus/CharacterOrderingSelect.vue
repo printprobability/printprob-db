@@ -10,7 +10,7 @@ export default {
   props: {
     value: {
       type: String,
-      default: "-class_probability",
+      default: "character_class",
     },
   },
   data() {
