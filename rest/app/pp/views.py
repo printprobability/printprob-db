@@ -502,7 +502,14 @@ class CharacterFilter(filters.FilterSet):
 
     def in_any_grouping(self, queryset, name, value):
         if value:
-            return queryset.filter(charactergroupings__isnull=False)
+            groupings = models.CharacterGrouping.objects.filter(
+                characters=OuterRef("pk")
+            )
+            return (
+                queryset.annotate(has_groupings=Exists(groupings))
+                .filter(has_groupings=True)
+                .all()
+            )
         else:
             return queryset
 
@@ -516,7 +523,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
             "character_class",
             "human_character_class",
         )
-        .prefetch_related("breakage_types")
+        .prefetch_related("breakage_types", "charactergroupings")
         .annotate(
             lineseq=F("line__sequence"),
             pageseq=F("line__page__sequence"),
@@ -580,6 +587,25 @@ class CharacterClassViewset(CRUDViewSet):
 
 class CharacterGroupingFilter(filters.FilterSet):
     created_by = filters.CharFilter(field_name="created_by__username")
+    book = filters.ModelChoiceFilter(
+        queryset=models.Book.objects.all(),
+        # field_name="characters__created_by_run__book",
+        method="characters_from_book",
+        label="Book ID",
+        widget=forms.TextInput,
+    )
+
+    def characters_from_book(self, queryset, name, value):
+        if value:
+            characters = models.Character.objects.filter(
+                created_by_run__book=value, charactergroupings=OuterRef("pk")
+            )
+            return (
+                queryset.annotate(chars_from_book=Exists(characters))
+                .filter(chars_from_book=True)
+                .all()
+            )
+        return queryset
 
 
 class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):

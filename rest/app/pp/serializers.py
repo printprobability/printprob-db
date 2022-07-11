@@ -436,6 +436,11 @@ class CharacterListSerializer(serializers.ModelSerializer):
     human_character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
+    charactergroupings = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterGrouping.objects.all(), many=True
+    )
+    pageseq = serializers.IntegerField()
+    lineseq = serializers.IntegerField()
 
     class Meta:
         model = models.Character
@@ -458,6 +463,9 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "offset",
             "breakage_types",
             "image",
+            "pageseq",
+            "lineseq",
+            "charactergroupings",
         ]
 
 
