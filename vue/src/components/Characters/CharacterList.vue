@@ -13,7 +13,10 @@
               <strong>Book:</strong>
               {{ book_title }}
             </p>
-            <BookAutocomplete v-else :value="book" @input="$emit('book_input', $event)" />
+            <div v-else>
+              <BookAutocomplete :value="book" field="pq_title"  @input="$emit('book_input', $event)" />
+              <BookAutocomplete :value="book" field="printer_name" @input="$emit('book_input', $event)" />
+            </div>
           </div>
         </div>
         <b-row>
