@@ -105,6 +105,21 @@ class BookFilter(filters.FilterSet):
         label="Substring match on printer name",
         help_text="Substring match on printer name against either pp_printer or colloq_printer fields"
     )
+    has_grouping = filters.BooleanFilter(
+        label="Has characters in a group?", method="has_any_grouping"
+    )
+
+    def has_any_grouping(self, queryset, name, value):
+        if value:
+            groupings = models.CharacterGrouping.objects.filter(
+                characters__created_by_run__book=OuterRef("pk")
+            )
+            return (
+                queryset.annotate(has_groupings=Exists(groupings))
+                .filter(has_groupings=True)
+                .all()
+            )
+        return queryset
 
     def has_images(self, queryset, name, value):
         spreads = models.Spread.objects.filter(book=OuterRef("pk"), tif__isnull=False)
@@ -481,6 +496,9 @@ class CharacterFilter(filters.FilterSet):
     breakage_types = filters.ModelChoiceFilter(
         queryset=models.BreakageType.objects.all(), widget=forms.TextInput
     )
+    has_grouping = filters.BooleanFilter(
+        method="in_any_grouping", label="In at least one grouping?"
+    )
 
     def class_agreement(self, queryset, name, value):
         if value == "unknown":
@@ -490,6 +508,19 @@ class CharacterFilter(filters.FilterSet):
         elif value == "disagreement":
             return queryset.exclude(character_class=F("human_character_class")).exclude(
                 human_character_class__isnull=True
+            )
+        else:
+            return queryset
+
+    def in_any_grouping(self, queryset, name, value):
+        if value:
+            groupings = models.CharacterGrouping.objects.filter(
+                characters=OuterRef("pk")
+            )
+            return (
+                queryset.annotate(has_groupings=Exists(groupings))
+                .filter(has_groupings=True)
+                .all()
             )
         else:
             return queryset
@@ -504,7 +535,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
             "character_class",
             "human_character_class",
         )
-        .prefetch_related("breakage_types")
+        .prefetch_related("breakage_types", "charactergroupings")
         .annotate(
             lineseq=F("line__sequence"),
             pageseq=F("line__page__sequence"),
@@ -568,6 +599,25 @@ class CharacterClassViewset(CRUDViewSet):
 
 class CharacterGroupingFilter(filters.FilterSet):
     created_by = filters.CharFilter(field_name="created_by__username")
+    book = filters.ModelChoiceFilter(
+        queryset=models.Book.objects.all(),
+        # field_name="characters__created_by_run__book",
+        method="characters_from_book",
+        label="Book ID",
+        widget=forms.TextInput,
+    )
+
+    def characters_from_book(self, queryset, name, value):
+        if value:
+            characters = models.Character.objects.filter(
+                created_by_run__book=value, charactergroupings=OuterRef("pk")
+            )
+            return (
+                queryset.annotate(chars_from_book=Exists(characters))
+                .filter(chars_from_book=True)
+                .all()
+            )
+        return queryset
 
 
 class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
