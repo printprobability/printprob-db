@@ -4,7 +4,7 @@
       size="sm"
       :data="results"
       :value="value"
-      :serializer="serializer"
+      :serializer="displayLabel"
       :placeholder="placeholder"
       @hit="selected=$event"
       @input="search_text=$event"
@@ -41,9 +41,9 @@ export default {
       type: String,
       default: null
     },
-    display_field: {
-      type: String,
-      default: "label"
+    displayLabel: {
+      type: Function,
+      default: null
     },
     n_choices: {
       type: String,
@@ -75,8 +75,6 @@ export default {
           if (results.data.count > 0) {
             this.results = results.data.results;
           } else {
-            var empty_result = {};
-            empty_result[this.display_field] = "No results";
             this.results.push();
           }
         },
@@ -85,19 +83,6 @@ export default {
         }
       );
     }, AUTOCOMPLETE_DEBOUNCE_TIME),
-    serializer: function(x) {
-      if (!!this.prefix_field) {
-        return (
-          this.prefix_field +
-          " " +
-          x[this.prefix_field] +
-          ": " +
-          x[this.display_field]
-        );
-      } else {
-        return x[this.display_field];
-      }
-    },
     clear() {
       this.results = [];
       this.search_text = "";
