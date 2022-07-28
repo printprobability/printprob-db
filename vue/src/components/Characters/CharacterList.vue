@@ -5,35 +5,53 @@
       <div class="card-body">
         <div class="row">
           <div class="col-4">
-            <CharacterClassSelect :value="character_class" @input="$emit('character_class_input', $event)" />
+            <CharacterClassSelect
+              :value="character_class"
+              @input="$emit('character_class_input', $event)"
+            />
           </div>
           <div class="col-8">
             <p v-if="!!book">
-              <b-button @click="clear_book" variant="danger" size="sm">x</b-button>
+              <b-button @click="clear_book" variant="danger" size="sm"
+                >x</b-button
+              >
               <strong>Book:</strong>
               {{ book_title }}
             </p>
             <div v-else>
-              <BookAutocomplete :value="book" field="pq_title"  @input="$emit('book_input', $event)" />
-              <BookAutocomplete :value="book" field="printer_name" @input="$emit('book_input', $event)" />
+              <BookAutocomplete
+                :value="book"
+                @input="$emit('book_input', $event)"
+              />
             </div>
           </div>
         </div>
         <b-row>
           <div class="col-4">
-            <CharacterAgreementRadio :value="char_agreement" @input="$emit('char_agreement_input', $event)" />
+            <CharacterAgreementRadio
+              :value="char_agreement"
+              @input="$emit('char_agreement_input', $event)"
+            />
           </div>
           <div class="col-4">
-            <CharacterOrderingSelect :value="order" @input="$emit('order_input', $event)" />
+            <CharacterOrderingSelect
+              :value="order"
+              @input="$emit('order_input', $event)"
+            />
           </div>
         </b-row>
         <b-row>
           <div class="col-6">
-            <PageRangeInput :value="page_range" @input="$emit('page_range_input', $event)" />
+            <PageRangeInput
+              :value="page_range"
+              @input="$emit('page_range_input', $event)"
+            />
           </div>
           <div class="col-6">
-            <ShowDamagedCharactersCheckbox :value="show_damaged_characters"
-              @input="$emit('damaged_characters_input', $event)" />
+            <ShowDamagedCharactersCheckbox
+              :value="show_damaged_characters"
+              @input="$emit('damaged_characters_input', $event)"
+            />
           </div>
         </b-row>
       </div>
@@ -45,26 +63,57 @@
           <p>
             Characters {{ 1 + (page - 1) * $APIConstants.REST_PAGE_SIZE }} to
             {{ (page - 1) * $APIConstants.REST_PAGE_SIZE + value.length }}
-            <span v-if="results.next" v-b-tooltip.hover
-              title="Arbitrarily counting characters is a very expensive operation, so we only estimate here...">(out of
-              many)</span>
+            <span
+              v-if="results.next"
+              v-b-tooltip.hover
+              title="Arbitrarily counting characters is a very expensive operation, so we only estimate here..."
+              >(out of many)</span
+            >
           </p>
-          <b-pagination hide-goto-end-buttons v-show="pagination_needed" v-model="page"
-            :per-page="$APIConstants.REST_PAGE_SIZE" :total-rows="mock_rows" aria-controls="character-results"
-            limit="3" />
+          <b-pagination
+            hide-goto-end-buttons
+            v-show="pagination_needed"
+            v-model="page"
+            :per-page="$APIConstants.REST_PAGE_SIZE"
+            :total-rows="mock_rows"
+            aria-controls="character-results"
+            limit="3"
+          />
           <b-form-group label="Image size">
-            <b-form-radio v-model="image_size" name="image-size" value="actual">Actual pixels</b-form-radio>
-            <b-form-radio v-model="image_size" name="image-size" value="bound100">100px</b-form-radio>
-            <b-form-radio v-model="image_size" name="image-size" value="bound300">300px</b-form-radio>
+            <b-form-radio v-model="image_size" name="image-size" value="actual"
+              >Actual pixels</b-form-radio
+            >
+            <b-form-radio
+              v-model="image_size"
+              name="image-size"
+              value="bound100"
+              >100px</b-form-radio
+            >
+            <b-form-radio
+              v-model="image_size"
+              name="image-size"
+              value="bound300"
+              >300px</b-form-radio
+            >
           </b-form-group>
         </div>
         <div show v-else>No matching characters</div>
       </div>
-      <div class="d-flex flex-wrap card-body" id="character-results" v-if="value.length > 0">
-        <CharacterImage v-for="character in value" :character="character" :key="character.id"
-          :highlight="highlighted_characters.includes(character.id)" :bad="bad_characters.includes(character.id)"
-          :good="good_characters.includes(character.id)" :image_size="image_size"
-          @char_clicked="$emit('char_clicked', $event)" />
+      <div
+        class="d-flex flex-wrap card-body"
+        id="character-results"
+        v-if="value.length > 0"
+      >
+        <CharacterImage
+          v-for="character in value"
+          :character="character"
+          :key="character.id"
+          :highlight="highlighted_characters.includes(character.id)"
+          :bad="bad_characters.includes(character.id)"
+          :good="good_characters.includes(character.id)"
+          :image_size="image_size"
+          @char_clicked="$emit('char_clicked', $event)"
+        />
       </div>
     </div>
   </div>
@@ -204,7 +253,7 @@ export default {
         order: this.order,
         cursor: this.cursor,
         page_range: this.page_range,
-        show_damaged_characters: this.show_damaged_characters
+        show_damaged_characters: this.show_damaged_characters,
       };
     },
     rest_offset: function () {

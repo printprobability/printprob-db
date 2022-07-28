@@ -1,5 +1,24 @@
 <template>
-  <Autocomplete
+  <div>
+    <b-form-group
+      label="Source books by:"
+      label-cols-sm="3"
+      label-align-sm="left"
+      label-size="md"
+      class="mb-0"
+      v-slot="{ ariaDescribedby }"
+    >
+      <b-form-radio-group
+        class="pt-2"
+        v-model="source_type"
+        size="md"
+        :aria-describedby="ariaDescribedby"
+      >
+        <b-form-radio value="title">Book Title</b-form-radio>
+        <b-form-radio value="printer">Printer Name</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
+    <Autocomplete
       :value="value"
       endpoint="/books/"
       :query_field="queryField"
@@ -10,22 +29,23 @@
       return_field="id"
       @input="fireInputEvent($event)"
       :additional_params="{ characters: true }"
-  />
+    />
+  </div>
 </template>
 
 <script>
 import Autocomplete from "./Autocomplete";
 
 const BookSearchField = Object.freeze({
-  pq_title: {
-    query: 'pq_title',
-    label: 'Source book by title',
+  title: {
+    query: "pq_title",
+    label: "Source book by title",
   },
-  printer_name: {
-    query: 'printer_like',
-    label: 'Source book by printer name',
-  }
-})
+  printer: {
+    query: "printer_like",
+    label: "Source book by printer name",
+  },
+});
 
 export default {
   name: "BookAutocomplete",
@@ -37,39 +57,36 @@ export default {
       type: String,
       default: null,
     },
-    field: {
-      type: String,
-      default: null,
-    },
   },
   computed: {
     label() {
-      return this.bookSearchField[this.field].label
+      return this.bookSearchField[this.source_type].label;
     },
     queryField() {
-      return this.bookSearchField[this.field].query
+      return this.bookSearchField[this.source_type].query;
     },
   },
   methods: {
     displayLabel(book) {
-      const bookTitle = book['pq_title']
-      if (this.field === 'pq_title') {
-        return this.addPrefixToLabel(book, bookTitle)
+      const bookTitle = book["pq_title"];
+      if (this.source_type === "title") {
+        return this.addPrefixToLabel(book, bookTitle);
       }
-      const printerName = book['pp_printer'] || book['colloq_printer']
-      return this.addPrefixToLabel(book, `${printerName} - ${bookTitle}`)
+      const printerName = book["pp_printer"] || book["colloq_printer"];
+      return this.addPrefixToLabel(book, `${printerName} - ${bookTitle}`);
     },
     fireInputEvent(bookId) {
-      this.$emit('input', bookId)
+      this.$emit("input", bookId);
     },
     addPrefixToLabel: function (book, displayLabel) {
-      return `${this.prefix_field} ${book[this.prefix_field]}: ${displayLabel}`
+      return `${this.prefix_field} ${book[this.prefix_field]}: ${displayLabel}`;
     },
   },
   data: function () {
     return {
       bookSearchField: BookSearchField,
-      prefix_field: 'vid'
+      prefix_field: "vid",
+      source_type: "title",
     };
   },
 };
