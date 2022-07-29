@@ -168,7 +168,7 @@ class BookFilter(filters.FilterSet):
 
         # Match rows where we have either the pp_printer value or the colloq_printer value as non-empty
         qs_filter = (
-                (Q(colloq_printer__exact='', _negated=True) | Q(colloq_printer__exact='', _negated=True)) &
+                (Q(pp_printer__exact='', _negated=True) | Q(colloq_printer__exact='', _negated=True)) &
                 (Q(pp_printer__icontains=value) | Q(colloq_printer__icontains=value))
         )
         return queryset.filter(qs_filter)
