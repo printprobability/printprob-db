@@ -8,66 +8,124 @@
     </p>
     <div class="row">
       <div class="col-7">
-        <CharacterList :highlighted_characters="intersecting_images" :character_class="character_class"
-          @character_class_input="character_class = $event" :book="book" @book_input="book = $event" :order="order"
-          @order_input="order = $event" :char_agreement="char_agreement" @char_agreement_input="char_agreement = $event"
-          :character_run="character_run" @character_run_input="character_run = $event" :page_range="page_range"
-          @page_range_input="page_range = $event" :show_damaged_characters="show_damaged_characters"
-          @damaged_characters_input="show_damaged_characters = $event" v-model="displayed_images"
-          @char_clicked="register_character" />
+        <CharacterList
+          :highlighted_characters="intersecting_images"
+          :character_class="character_class"
+          @character_class_input="character_class = $event"
+          :book="book"
+          @book_input="book = $event"
+          :order="order"
+          @order_input="order = $event"
+          :char_agreement="char_agreement"
+          @char_agreement_input="char_agreement = $event"
+          :character_run="character_run"
+          @character_run_input="character_run = $event"
+          :page_range="page_range"
+          @page_range_input="page_range = $event"
+          :show_damaged_characters="show_damaged_characters"
+          @damaged_characters_input="show_damaged_characters = $event"
+          v-model="displayed_images"
+          @char_clicked="register_character"
+        />
       </div>
       <div class="col-5">
         <div class="card sticky-top">
           <div class="card-header">
             <div class="d-inline-flex align-items-center">
-              <b-button @click="toggle_create" size="sm" class="mr-2"
-                :variant="new_cg_card.button_variant[new_cg_card.show]">{{ new_cg_card.button_text[new_cg_card.show] }}
+              <b-button
+                @click="toggle_create"
+                size="sm"
+                class="mr-2"
+                :variant="new_cg_card.button_variant[new_cg_card.show]"
+                >{{ new_cg_card.button_text[new_cg_card.show] }}
               </b-button>
               <CharacterGroupingSelect v-model="cg_id" :key="cg_menu_key" />
             </div>
-            <NewCharacterGrouping v-show="new_cg_card.show" @new_group="create_group" />
+            <NewCharacterGrouping
+              v-show="new_cg_card.show"
+              @new_group="create_group"
+            />
           </div>
           <div class="card-body" v-if="selected_cg">
             <p>
-
-              <router-link :to="{
-                name: 'CharacterGroupingDetail', params: { id: selected_cg.id }
-              }" target="_blank" rel="noopener noreferrer">
+              <router-link
+                :to="{
+                  name: 'CharacterGroupingDetail',
+                  params: { id: selected_cg.id },
+                }"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Open in separate page
               </router-link>
             </p>
             <dl class="row">
               <dt class="col-sm-3">Label</dt>
-              <dd class="col-sm-9" contenteditable="contenteditable" @blur="
-                edit_group(selected_cg.id, 'label', $event.target.innerText)
-              ">
-              </dd>
+              <dd
+                class="col-sm-9"
+                contenteditable="contenteditable"
+                @blur="
+                  edit_group(selected_cg.id, 'label', $event.target.innerText)
+                "
+              ></dd>
 
               <dt class="col-sm-3">Notes</dt>
-              <dd class="col-sm-9" contenteditable="contenteditable" @blur="
-                edit_group(selected_cg.id, 'notes', $event.target.innerText)
-              ">
+              <dd
+                class="col-sm-9"
+                contenteditable="contenteditable"
+                @blur="
+                  edit_group(selected_cg.id, 'notes', $event.target.innerText)
+                "
+              >
                 {{ selected_cg.notes }}
               </dd>
             </dl>
 
-            <div class="d-flex flex-wrap justify-content-around" v-if="selected_cg.characters.length > 0">
-              <CharacterImage v-for="character in selected_cg.characters" :key="character.id" :character="character"
-                :highlight="intersecting_images.includes(character.id)" @char_clicked="deregister_character" />
+            <div
+              class="d-flex flex-wrap justify-content-around"
+              v-if="selected_cg.characters.length > 0"
+            >
+              <CharacterImage
+                v-for="character in selected_cg.characters"
+                :key="character.id"
+                :character="character"
+                :highlight="intersecting_images.includes(character.id)"
+                @char_clicked="deregister_character"
+              />
             </div>
-            <b-alert v-else show variant="info">This group has no characters yet.</b-alert>
+            <b-alert v-else show variant="info"
+              >This group has no characters yet.</b-alert
+            >
           </div>
-          <div class="card-footer d-flex justify-content-between" v-if="selected_cg">
-            <small>Created by {{ selected_cg.created_by }} on
-              {{ display_date(selected_cg.date_created) }}</small>
-            <b-button variant="info" size="sm" :href="
-              $APIConstants.PP_ENDPOINT +
-              '/character_groupings/' +
-              cg_id +
-              '/download/'
-            ">Download ZIP</b-button>
-            <b-button v-b-modal.delete-modal variant="danger" size="sm">Delete</b-button>
-            <b-modal id="delete-modal" title="Delete group?" ok-variant="danger" ok-title="Delete" @ok="delete_group">
+          <div
+            class="card-footer d-flex justify-content-between"
+            v-if="selected_cg"
+          >
+            <small
+              >Created by {{ selected_cg.created_by }} on
+              {{ display_date(selected_cg.date_created) }}</small
+            >
+            <b-button
+              variant="info"
+              size="sm"
+              :href="
+                $APIConstants.PP_ENDPOINT +
+                '/character_groupings/' +
+                cg_id +
+                '/download/'
+              "
+              >Download ZIP</b-button
+            >
+            <b-button v-b-modal.delete-modal variant="danger" size="sm"
+              >Delete</b-button
+            >
+            <b-modal
+              id="delete-modal"
+              title="Delete group?"
+              ok-variant="danger"
+              ok-title="Delete"
+              @ok="delete_group"
+            >
               <p>Are you sure? This can't be undone.</p>
             </b-modal>
           </div>
@@ -116,7 +174,7 @@ export default {
       character_class: null,
       character_run: null,
       char_agreement: "all",
-      order: "-class_probability",
+      order: "character_class",
       page_range: [null, null],
       show_damaged_characters: false,
     };
