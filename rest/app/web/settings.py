@@ -54,6 +54,15 @@ CORS_ORIGIN_WHITELIST = [f"http://{ah}" for ah in ALLOWED_HOSTS]
 CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_NAME = "xsrfcookie"
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+    'VIEW',
+)
 
 ROOT_URLCONF = "web.urls"
 
