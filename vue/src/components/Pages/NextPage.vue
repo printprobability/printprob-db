@@ -9,12 +9,11 @@
 
 <script>
 export default {
-  name: "NextPage",
+  name: 'NextPage',
   props: {
-    path: String
-  }
-};
+    path: String,
+  },
+}
 </script>
 
-<style>
-</style>
+<style></style>

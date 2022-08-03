@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import { HTTP } from "../../main";
-import OpenSeadragon from "openseadragon";
+import { HTTP } from '../../main'
+import OpenSeadragon from 'openseadragon'
 
 export default {
-  name: "AnnotatedImage",
+  name: 'AnnotatedImage',
   props: {
     id: String,
     image_info_url: String,
@@ -16,51 +16,51 @@ export default {
   data() {
     return {
       image_info_data: null,
-    };
+    }
   },
   computed: {
     options() {
       return {
         id: this.id,
-        prefixUrl: "/osd/",
+        prefixUrl: '/osd/',
         tileSources: [this.image_info_data],
         maxZoomLevel: 3,
         overlays: this.overlays,
-      };
+      }
     },
     overlays() {
       return [
         {
-          id: "overlay" + this.id,
+          id: 'overlay' + this.id,
           px: this.overlay.x,
           py: this.overlay.y,
           width: this.overlay.w,
           height: this.overlay.h,
-          className: "overlay",
+          className: 'overlay',
         },
-      ];
+      ]
     },
   },
   mounted() {
     HTTP.get(this.image_info_url).then(
       (response) => {
-        var res = response.data;
-        res["@id"] = res["@id"].replace(
+        var res = response.data
+        res['@id'] = res['@id'].replace(
           /http.+8080/,
-          "https://printprobdb.psc.edu/iiif"
-        );
-        this.image_info_data = res;
-        OpenSeadragon(this.options);
+          'https://printprobdb.psc.edu/iiif'
+        )
+        this.image_info_data = res
+        OpenSeadragon(this.options)
       },
       (error) => {
-        console.log(error);
+        console.log(error)
       }
-    );
+    )
   },
   updated() {
-    OpenSeadragon(this.options);
+    OpenSeadragon(this.options)
   },
-};
+}
 </script>
 
 <style>

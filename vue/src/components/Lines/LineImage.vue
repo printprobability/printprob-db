@@ -12,11 +12,11 @@
 
 <script>
 export default {
-  name: "LineImage",
+  name: 'LineImage',
   props: {
-    line: Object
-  }
-};
+    line: Object,
+  },
+}
 </script>
 
 <style scoped>

@@ -14,21 +14,21 @@
 </template>
 
 <script>
-import { HTTP } from "../../main";
-import VueBootstrapTypeahead from "vue-bootstrap-typeahead";
-import _ from "lodash";
+import { HTTP } from '../../main'
+import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+import _ from 'lodash'
 
-const AUTOCOMPLETE_DEBOUNCE_TIME = 500;
+const AUTOCOMPLETE_DEBOUNCE_TIME = 500
 
 export default {
-  name: "Autocomplete",
+  name: 'Autocomplete',
   components: {
     VueBootstrapTypeahead,
   },
   props: {
     value: {
       type: String,
-      default: "",
+      default: '',
     },
     endpoint: String,
     query_field: String,
@@ -47,7 +47,7 @@ export default {
     },
     n_choices: {
       type: String,
-      default: "10",
+      default: '10',
     },
     prefix_field: {
       type: String,
@@ -59,46 +59,46 @@ export default {
   data() {
     return {
       results: [],
-      search_text: "",
+      search_text: '',
       selected: null,
-    };
+    }
   },
   methods: {
     get_results: _.debounce(function (query) {
-      var payload = { params: { limit: this.n_choices } };
-      payload.params[this.query_field] = query;
+      var payload = { params: { limit: this.n_choices } }
+      payload.params[this.query_field] = query
       for (var attrname in this.additional_params) {
-        payload.params[attrname] = this.additional_params[attrname];
+        payload.params[attrname] = this.additional_params[attrname]
       }
       HTTP.get(this.endpoint, payload).then(
         (results) => {
           if (results.data.count > 0) {
-            this.results = results.data.results;
+            this.results = results.data.results
           } else {
-            this.results.push();
+            this.results.push()
           }
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     }, AUTOCOMPLETE_DEBOUNCE_TIME),
     clear() {
-      this.results = [];
-      this.search_text = "";
-      this.selected = null;
+      this.results = []
+      this.search_text = ''
+      this.selected = null
     },
   },
   watch: {
     search_text: function (txt) {
-      this.results = [];
-      this.get_results(txt);
+      this.results = []
+      this.get_results(txt)
     },
     selected() {
       if (!!this.selected) {
-        this.$emit("input", this.selected[this.return_field]);
+        this.$emit('input', this.selected[this.return_field])
       }
     },
   },
-};
+}
 </script>

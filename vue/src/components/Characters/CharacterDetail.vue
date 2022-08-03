@@ -51,11 +51,11 @@
 </template>
 
 <script>
-import { HTTP } from "../../main";
-import AnnotatedImage from "../Interfaces/AnnotatedImage";
+import { HTTP } from '../../main'
+import AnnotatedImage from '../Interfaces/AnnotatedImage'
 
 export default {
-  name: "CharacterDetail",
+  name: 'CharacterDetail',
   components: {
     AnnotatedImage,
   },
@@ -63,27 +63,27 @@ export default {
     id: String,
   },
   data() {
-    return {};
+    return {}
   },
   asyncComputed: {
     character() {
-      return HTTP.get("/characters/" + this.id + "/").then(
+      return HTTP.get('/characters/' + this.id + '/').then(
         (response) => {
-          return response.data;
+          return response.data
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
   },
   computed: {
     annotation() {
-      return this.character.absolute_coords;
+      return this.character.absolute_coords
     },
     image_info_url() {
-      return this.character.page.image.iiif_base + "/info.json";
+      return this.character.page.image.iiif_base + '/info.json'
     },
   },
-};
+}
 </script>

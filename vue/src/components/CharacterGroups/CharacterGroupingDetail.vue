@@ -36,14 +36,14 @@
 </template>
 
 <script>
-import CharacterImage from "../Characters/CharacterImage";
-import CharacterOrderingSelect from "../Menus/CharacterOrderingSelect";
-import { HTTP } from "../../main";
-import moment from "moment";
-import _ from "lodash";
+import CharacterImage from '../Characters/CharacterImage'
+import CharacterOrderingSelect from '../Menus/CharacterOrderingSelect'
+import { HTTP } from '../../main'
+import moment from 'moment'
+import _ from 'lodash'
 
 export default {
-  name: "CharacterGroupingDetail",
+  name: 'CharacterGroupingDetail',
   components: {
     CharacterImage,
     CharacterOrderingSelect,
@@ -53,52 +53,52 @@ export default {
   },
   data() {
     return {
-      order: "character_class",
-    };
+      order: 'character_class',
+    }
   },
   computed: {
     ordered_characters() {
-      if (this.order.variable == "bookseq,pageseq,lineseq,sequence") {
-        return this.character_group.characters;
+      if (this.order.variable == 'bookseq,pageseq,lineseq,sequence') {
+        return this.character_group.characters
       } else {
         return _.orderBy(
           this.character_group.characters,
           [this.lodash_order.variable],
           this.lodash_order.direction
-        );
+        )
       }
     },
     lodash_order() {
-      var direction = "asc";
-      if (this.order.includes("-")) {
-        direction = "desc";
+      var direction = 'asc'
+      if (this.order.includes('-')) {
+        direction = 'desc'
       }
-      const clean_string = this.order.replace("-", "");
+      const clean_string = this.order.replace('-', '')
       return {
         variable: clean_string,
         direction: direction,
-      };
+      }
     },
   },
   asyncComputed: {
     character_group() {
-      return HTTP.get("/character_groupings/" + this.id + "/").then(
+      return HTTP.get('/character_groupings/' + this.id + '/').then(
         (response) => {
-          return response.data;
+          return response.data
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
   },
   methods: {
     display_date: function (date) {
-      return moment(new Date(date)).format("MM-DD-YY, h:mm a");
+      return moment(new Date(date)).format('MM-DD-YY, h:mm a')
     },
   },
   created: function () {
     // this.get_book(this.id);
   },
-};
+}
 </script>

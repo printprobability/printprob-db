@@ -22,19 +22,19 @@
 
 <script>
 export default {
-  name: "CharacterCard",
+  name: 'CharacterCard',
   props: {
     character: Object,
   },
   computed: {
     character_link() {
       return {
-        name: "CharacterDetailView",
+        name: 'CharacterDetailView',
         params: {
           id: this.character.id,
         },
-      };
+      }
     },
   },
-};
+}
 </script>

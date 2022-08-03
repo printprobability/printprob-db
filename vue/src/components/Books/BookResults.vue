@@ -36,12 +36,12 @@
 </template>
 
 <script>
-import { HTTP } from "../../main";
-import BookSort from "../Menus/BookSort";
-import BookResultCard from "./BookResultCard";
+import { HTTP } from '../../main'
+import BookSort from '../Menus/BookSort'
+import BookResultCard from './BookResultCard'
 
 export default {
-  name: "BookResults",
+  name: 'BookResults',
   components: {
     BookSort,
     BookResultCard,
@@ -68,15 +68,15 @@ export default {
   },
   data() {
     return {
-      fetch_state: "waiting",
-      order: "pq_title",
+      fetch_state: 'waiting',
+      order: 'pq_title',
       page: 1,
-    };
+    }
   },
   asyncComputed: {
     results() {
-      this.fetch_state = "getting";
-      return HTTP.get("/books/", {
+      this.fetch_state = 'getting'
+      return HTTP.get('/books/', {
         params: {
           limit: this.$APIConstants.BOOK_PAGE_SIZE,
           offset: this.rest_offset,
@@ -102,44 +102,44 @@ export default {
         },
       }).then(
         (response) => {
-          this.fetch_state = "done";
-          return response.data;
+          this.fetch_state = 'done'
+          return response.data
         },
         (error) => {
-          this.fetch_state = "done";
-          console.log(error);
+          this.fetch_state = 'done'
+          console.log(error)
         }
-      );
+      )
     },
   },
   computed: {
     books() {
       if (!!this.results) {
-        return this.results.results;
+        return this.results.results
       }
-      return [];
+      return []
     },
     count() {
       if (!!this.results) {
-        return this.results.count;
+        return this.results.count
       }
-      return 0;
+      return 0
     },
     results_length() {
       if (!!this.results) {
-        return this.results.results.length;
+        return this.results.results.length
       }
-      return 0;
+      return 0
     },
     rest_offset: function () {
-      return (this.page - 1) * this.$APIConstants.BOOK_PAGE_SIZE;
+      return (this.page - 1) * this.$APIConstants.BOOK_PAGE_SIZE
     },
     page_range: function () {
-      var base = 0;
+      var base = 0
       if (this.page > 1) {
-        base = (this.page - 1) * this.$APIConstants.BOOK_PAGE_SIZE;
+        base = (this.page - 1) * this.$APIConstants.BOOK_PAGE_SIZE
       }
-      return [base + 1, this.results_length + base];
+      return [base + 1, this.results_length + base]
     },
     view_params() {
       return {
@@ -158,15 +158,15 @@ export default {
         starred: this.starred,
         has_characters: this.has_characters,
         order: this.order,
-      };
+      }
     },
   },
   watch: {
     view_params: function () {
-      this.page = 1;
+      this.page = 1
     },
   },
-};
+}
 </script>
 
 <style scoped>

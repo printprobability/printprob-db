@@ -69,9 +69,10 @@
 </template>
 
 <script>
-import { HTTP } from "../../main";
+import { HTTP } from '../../main'
+
 export default {
-  name: "BookResultCard",
+  name: 'BookResultCard',
   props: {
     book: Object,
   },
@@ -79,50 +80,50 @@ export default {
     return {
       star_status: false,
       ignored_status: false,
-    };
+    }
   },
   mounted() {
-    this.star_status = this.book.starred;
-    this.ignored_status = this.book.ignored;
+    this.star_status = this.book.starred
+    this.ignored_status = this.book.ignored
   },
   computed: {
     object_url() {
-      return "books/" + this.book.id + "/";
+      return 'books/' + this.book.id + '/'
     },
     star_icon() {
       if (this.star_status) {
-        return ["fas", "star"];
+        return ['fas', 'star']
       } else {
-        return ["far", "star"];
+        return ['far', 'star']
       }
     },
   },
   methods: {
     truncate: function (input, length) {
-      return input.length > length ? `${input.substring(0, length)}...` : input;
+      return input.length > length ? `${input.substring(0, length)}...` : input
     },
     set_star(val) {
       HTTP.patch(this.object_url, { starred: val }).then(
         (response) => {
-          this.star_status = response.data.starred;
+          this.star_status = response.data.starred
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
     set_ignore(val) {
       HTTP.patch(this.object_url, { ignored: val }).then(
         (response) => {
-          this.ignored_status = response.data.ignored;
+          this.ignored_status = response.data.ignored
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
   },
-};
+}
 </script>
 
 <style lang="css">

@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import PageImage from "./PageImage";
-import { HTTP } from "../../main";
+import PageImage from './PageImage'
+import { HTTP } from '../../main'
 export default {
-  name: "PageList",
+  name: 'PageList',
   components: {
     PageImage,
   },
@@ -24,27 +24,27 @@ export default {
   },
   methods: {
     page_header: function (page) {
-      return page.sequence;
+      return page.sequence
     },
   },
   asyncComputed: {
     pages() {
-      return HTTP.get("/pages/", {
+      return HTTP.get('/pages/', {
         params: {
           created_by_run: this.page_run_id,
           limit: 1000,
         },
       }).then(
         (response) => {
-          return response.data.results;
+          return response.data.results
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
   },
-};
+}
 </script>
 
 <style scoped>

@@ -17,9 +17,9 @@
 
 <script>
 export default {
-  name: "ShowDamagedCharactersCheckbox",
+  name: 'ShowDamagedCharactersCheckbox',
   props: {
     value: Boolean,
   },
-};
+}
 </script>

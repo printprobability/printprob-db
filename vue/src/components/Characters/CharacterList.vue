@@ -120,35 +120,35 @@
 </template>
 
 <script>
-import ShowDamagedCharactersCheckbox from "../Menus/ShowDamagedCharactersCheckbox";
-import PageRangeInput from "../Menus/PageRangeInput";
-import CharacterClassSelect from "../Menus/CharacterClassSelect";
-import CharacterOrderingSelect from "../Menus/CharacterOrderingSelect";
-import BookAutocomplete from "../Menus/BookAutocomplete";
-import CharacterAgreementRadio from "../Menus/CharacterAgreementRadio";
-import CharacterImage from "./CharacterImage";
-import Spinner from "../Interfaces/Spinner";
-import { HTTP } from "../../main";
+import ShowDamagedCharactersCheckbox from '../Menus/ShowDamagedCharactersCheckbox'
+import PageRangeInput from '../Menus/PageRangeInput'
+import CharacterClassSelect from '../Menus/CharacterClassSelect'
+import CharacterOrderingSelect from '../Menus/CharacterOrderingSelect'
+import BookAutocomplete from '../Menus/BookAutocomplete'
+import CharacterAgreementRadio from '../Menus/CharacterAgreementRadio'
+import CharacterImage from './CharacterImage'
+import Spinner from '../Interfaces/Spinner'
+import { HTTP } from '../../main'
 
 export default {
-  name: "CharacterList",
+  name: 'CharacterList',
   props: {
     highlighted_characters: {
       type: Array,
       default: function () {
-        return [];
+        return []
       },
     },
     bad_characters: {
       type: Array,
       default: function () {
-        return [];
+        return []
       },
     },
     good_characters: {
       type: Array,
       default: function () {
-        return [];
+        return []
       },
     },
     character_class: {
@@ -160,17 +160,17 @@ export default {
       type: String,
     },
     char_agreement: {
-      default: "all",
+      default: 'all',
       type: String,
     },
     order: {
-      default: "character_class",
+      default: 'character_class',
       type: String,
     },
     page_range: {
       type: Array,
       default: function () {
-        return [];
+        return []
       },
     },
     show_damaged_characters: {
@@ -198,12 +198,12 @@ export default {
       progress_spinner: false,
       cursor: null,
       page: 1,
-      image_size: "actual",
-    };
+      image_size: 'actual',
+    }
   },
   asyncComputed: {
     results() {
-      this.progress_spinner = true;
+      this.progress_spinner = true
       var payload = {
         limit: this.$APIConstants.REST_PAGE_SIZE,
         offset: this.rest_offset,
@@ -213,33 +213,33 @@ export default {
         ordering: this.order,
         page_sequence_gte: this.page_range[0],
         page_sequence_lte: this.page_range[1],
-      };
-      if (this.show_damaged_characters) {
-        payload.damage_score_gte = 0.0;
       }
-      return HTTP.get("/characters/", {
+      if (this.show_damaged_characters) {
+        payload.damage_score_gte = 0.0
+      }
+      return HTTP.get('/characters/', {
         params: payload,
       }).then(
         (response) => {
-          this.progress_spinner = false;
-          return response.data;
+          this.progress_spinner = false
+          return response.data
         },
         (error) => {
-          this.progress_spinner = false;
-          console.log(error);
+          this.progress_spinner = false
+          console.log(error)
         }
-      );
+      )
     },
     book_title() {
       if (!!this.book) {
-        return HTTP.get("/books/" + this.book + "/").then(
+        return HTTP.get('/books/' + this.book + '/').then(
           (results) => {
-            return results.data.label;
+            return results.data.label
           },
           (error) => {
-            console.log(error);
+            console.log(error)
           }
-        );
+        )
       }
     },
   },
@@ -254,34 +254,34 @@ export default {
         cursor: this.cursor,
         page_range: this.page_range,
         show_damaged_characters: this.show_damaged_characters,
-      };
+      }
     },
     rest_offset: function () {
-      return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE;
+      return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE
     },
     pagination_needed: function () {
-      return !!this.results.next || !!this.results.previous;
+      return !!this.results.next || !!this.results.previous
     },
     mock_rows: function () {
-      var baseline = this.rest_offset + this.value.length;
+      var baseline = this.rest_offset + this.value.length
       if (!!this.results.next) {
-        baseline += this.$APIConstants.REST_PAGE_SIZE;
+        baseline += this.$APIConstants.REST_PAGE_SIZE
       }
-      return baseline;
+      return baseline
     },
   },
   methods: {
     clear_book() {
-      this.$emit("book_input", null);
+      this.$emit('book_input', null)
     },
   },
   watch: {
     results() {
-      this.$emit("input", this.results.results);
+      this.$emit('input', this.results.results)
     },
     view_params() {
-      this.page = 1;
+      this.page = 1
     },
   },
-};
+}
 </script>

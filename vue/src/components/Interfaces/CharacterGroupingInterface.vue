@@ -136,16 +136,16 @@
 </template>
 
 <script>
-import CharacterGroupingSelect from "../Menus/CharacterGroupingSelect";
-import NewCharacterGrouping from "../CharacterGroups/NewCharacterGrouping";
-import CharacterImage from "../Characters/CharacterImage";
-import CharacterList from "../Characters/CharacterList";
-import { HTTP } from "../../main";
-import moment from "moment";
-import _ from "lodash";
+import CharacterGroupingSelect from '../Menus/CharacterGroupingSelect'
+import NewCharacterGrouping from '../CharacterGroups/NewCharacterGrouping'
+import CharacterImage from '../Characters/CharacterImage'
+import CharacterList from '../Characters/CharacterList'
+import { HTTP } from '../../main'
+import moment from 'moment'
+import _ from 'lodash'
 
 export default {
-  name: "CharacterGroupingInterface",
+  name: 'CharacterGroupingInterface',
   components: {
     CharacterGroupingSelect,
     NewCharacterGrouping,
@@ -161,32 +161,32 @@ export default {
       new_cg_card: {
         show: false,
         button_variant: {
-          false: "primary",
-          true: "warning",
+          false: 'primary',
+          true: 'warning',
         },
         button_text: {
-          false: "New",
-          true: "Cancel",
+          false: 'New',
+          true: 'Cancel',
         },
       },
       cg_menu_key: 0,
       book: null,
       character_class: null,
       character_run: null,
-      char_agreement: "all",
-      order: "character_class",
+      char_agreement: 'all',
+      order: 'character_class',
       page_range: [null, null],
       show_damaged_characters: false,
-    };
+    }
   },
   computed: {
     intersecting_images: function () {
       if (!!this.selected_cg & !!this.displayed_images) {
-        var cg_ids = this.selected_cg.characters.map((c) => c.id);
-        var ls_ids = this.displayed_images.map((c) => c.id);
-        return _.intersection(cg_ids, ls_ids);
+        var cg_ids = this.selected_cg.characters.map((c) => c.id)
+        var ls_ids = this.displayed_images.map((c) => c.id)
+        return _.intersection(cg_ids, ls_ids)
       } else {
-        return [];
+        return []
       }
     },
     view_params() {
@@ -198,129 +198,129 @@ export default {
         char_agreement: this.char_agreement,
         page_range: this.page_range,
         show_damaged_characters: this.show_damaged_characters,
-      };
+      }
     },
   },
   asyncComputed: {
     selected_cg: {
       get() {
         if (!!this.cg_id) {
-          return HTTP.get("/character_groupings/" + this.cg_id + "/").then(
+          return HTTP.get('/character_groupings/' + this.cg_id + '/').then(
             (response) => {
-              return response.data;
+              return response.data
             },
             (error) => {
-              console.log(error);
+              console.log(error)
             }
-          );
+          )
         }
       },
     },
   },
   methods: {
     display_date: function (date) {
-      return moment(new Date(date)).format("MM-DD-YY, h:mm a");
+      return moment(new Date(date)).format('MM-DD-YY, h:mm a')
     },
     register_character: function (char_id) {
       if (!!this.cg_id) {
         // Send the add request to the endpoint
         return HTTP.patch(
-          "/character_groupings/" + this.cg_id + "/add_characters/",
+          '/character_groupings/' + this.cg_id + '/add_characters/',
           { characters: [char_id] }
         ).then(
           (response) => {
-            console.log(response);
-            this.$asyncComputed.selected_cg.update();
+            console.log(response)
+            this.$asyncComputed.selected_cg.update()
           },
           (error) => {
-            console.log(error);
+            console.log(error)
           }
-        );
+        )
       }
     },
     deregister_character: function (char_id) {
       if (!!this.cg_id) {
         // Send the add request to the endpoint
         return HTTP.patch(
-          "/character_groupings/" + this.cg_id + "/delete_characters/",
+          '/character_groupings/' + this.cg_id + '/delete_characters/',
           { characters: [char_id] }
         ).then(
           (response) => {
-            console.log(response);
-            this.$asyncComputed.selected_cg.update();
+            console.log(response)
+            this.$asyncComputed.selected_cg.update()
           },
           (error) => {
-            console.log(error);
+            console.log(error)
           }
-        );
+        )
       }
     },
     toggle_create: function () {
-      this.new_cg_card.show = !this.new_cg_card.show;
+      this.new_cg_card.show = !this.new_cg_card.show
     },
     create_group: function (obj) {
-      this.new_cg_card.show = false;
+      this.new_cg_card.show = false
       const payload = {
         label: obj.label,
         notes: obj.notes,
         characters: [],
-      };
-      return HTTP.post("/character_groupings/", payload).then(
+      }
+      return HTTP.post('/character_groupings/', payload).then(
         (response) => {
-          this.refresh_cg_menu();
-          this.cg_id = response.data.id;
+          this.refresh_cg_menu()
+          this.cg_id = response.data.id
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
     delete_group: function () {
       return HTTP.delete(
-        "/character_groupings/" + this.selected_cg.id + "/"
+        '/character_groupings/' + this.selected_cg.id + '/'
       ).then(
         (response) => {
-          console.log(response);
-          this.refresh_cg_menu();
-          this.cg_id = null;
-          this.selected_cg = null;
+          console.log(response)
+          this.refresh_cg_menu()
+          this.cg_id = null
+          this.selected_cg = null
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
     edit_group: function (id, field, content) {
-      var payload = {};
-      payload[field] = content;
-      return HTTP.patch("/character_groupings/" + id + "/", payload).then(
+      var payload = {}
+      payload[field] = content
+      return HTTP.patch('/character_groupings/' + id + '/', payload).then(
         (response) => {
-          this.refresh_cg_menu();
-          this.cg_id = response.data.id;
+          this.refresh_cg_menu()
+          this.cg_id = response.data.id
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
     refresh_cg_menu: function () {
-      this.cg_menu_key += 1;
+      this.cg_menu_key += 1
     },
   },
   created() {
-    this.book = this.$route.query.book;
-    this.order = this.$route.query.order;
-    this.character_run = this.$route.query.character_run;
-    this.character_class = this.$route.query.character_class;
-    this.char_agreement = this.$route.query.char_agreement;
-    this.page_range = this.$route.query.page_range;
-    this.show_damaged_characters = this.$route.query.show_damaged_characters;
+    this.book = this.$route.query.book
+    this.order = this.$route.query.order
+    this.character_run = this.$route.query.character_run
+    this.character_class = this.$route.query.character_class
+    this.char_agreement = this.$route.query.char_agreement
+    this.page_range = this.$route.query.page_range
+    this.show_damaged_characters = this.$route.query.show_damaged_characters
   },
   updated() {
     this.$router.push({
-      name: "CharacterGroupingView",
+      name: 'CharacterGroupingView',
       query: this.view_params,
-    });
+    })
   },
-};
+}
 </script>

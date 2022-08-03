@@ -9,36 +9,36 @@
 </template>
 
 <script>
-import { HTTP } from "../../main";
-import _ from "lodash";
+import { HTTP } from '../../main'
+import _ from 'lodash'
 
 export default {
-  name: "CharacterGroupingSelect",
+  name: 'CharacterGroupingSelect',
   props: {
     value: String,
   },
   data() {
-    return {};
+    return {}
   },
   asyncComputed: {
     character_groupings() {
-      return HTTP.get("/character_groupings/", { params: { limit: 200 } }).then(
+      return HTTP.get('/character_groupings/', { params: { limit: 200 } }).then(
         (response) => {
           return _.concat(
             {
-              text: "Select character grouping",
+              text: 'Select character grouping',
               value: null,
             },
             response.data.results.map((x) => {
-              return { value: x.id, text: x.label };
+              return { value: x.id, text: x.label }
             })
-          );
+          )
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
   },
-};
+}
 </script>

@@ -51,27 +51,27 @@
 </template>
 
 <script>
-import { HTTP } from "./main";
+import { HTTP } from './main'
 export default {
-  name: "app",
+  name: 'app',
   data() {
     return {
       logged_in: false,
-    };
+    }
   },
   methods: {},
   mounted: function () {
-    return HTTP.get("/", {}).then(
+    return HTTP.get('/', {}).then(
       (response) => {
-        this.logged_in = !!response;
+        this.logged_in = !!response
       },
       (error) => {
-        console.log(error);
-        this.logged_in = false;
+        console.log(error)
+        this.logged_in = false
       }
-    );
+    )
   },
-};
+}
 </script>
 
 <style>

@@ -20,17 +20,17 @@
 
 <script>
 export default {
-  name: "PageImage",
+  name: 'PageImage',
   props: {
     page: Object,
     header: String,
     footer: String,
     link: {
       type: Object,
-      default: null
-    }
-  }
-};
+      default: null,
+    },
+  },
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

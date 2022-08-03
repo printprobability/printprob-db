@@ -15,41 +15,41 @@
 </template>
 
 <script>
-import { HTTP } from "../../main";
+import { HTTP } from '../../main'
 
 export default {
-  name: "CharacterRunSelect",
+  name: 'CharacterRunSelect',
   props: {
     value: {
       type: String,
-      default: null
+      default: null,
     },
     book: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
-    return {};
+    return {}
   },
   asyncComputed: {
     character_runs() {
-      return HTTP.get("/runs/characters/", {
-        params: { book: this.book }
+      return HTTP.get('/runs/characters/', {
+        params: { book: this.book },
       }).then(
-        response => {
-          return response.data.results.map(x => {
+        (response) => {
+          return response.data.results.map((x) => {
             return {
               text: x.date_started,
-              value: x.id
-            };
-          });
+              value: x.id,
+            }
+          })
         },
-        error => {
-          console.log(error);
+        (error) => {
+          console.log(error)
         }
-      );
-    }
-  }
-};
+      )
+    },
+  },
+}
 </script>

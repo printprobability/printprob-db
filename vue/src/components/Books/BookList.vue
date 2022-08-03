@@ -286,13 +286,13 @@
 </template>
 
 <script>
-import BookResults from "./BookResults";
-import VueSlider from "vue-slider-component";
-import "vue-slider-component/theme/default.css";
-import _ from "lodash";
+import BookResults from './BookResults'
+import VueSlider from 'vue-slider-component'
+import 'vue-slider-component/theme/default.css'
+import _ from 'lodash'
 
 export default {
-  name: "BookList",
+  name: 'BookList',
   components: {
     BookResults,
     VueSlider,
@@ -305,14 +305,14 @@ export default {
       vid_search: null,
       tcp_search: null,
       estc_search: null,
-      publisher_search: "",
-      title_search: "",
-      author_search: "",
-      pp_publisher_search: "",
-      pp_printer_search: "",
-      colloq_printer_search: "",
-      pp_author_search: "",
-      pp_repository_search: "",
+      publisher_search: '',
+      title_search: '',
+      author_search: '',
+      pp_publisher_search: '',
+      pp_printer_search: '',
+      colloq_printer_search: '',
+      pp_author_search: '',
+      pp_repository_search: '',
       pq_year_range: [1500, 1800],
       pq_year_min: 1500,
       pq_year_max: 1800,
@@ -320,15 +320,15 @@ export default {
       year_late: null,
       starred: null,
       has_characters: null,
-    };
+    }
   },
   watch: {
     pq_year_range: _.debounce(function () {
-      this.pq_year_min = this.pq_year_range[0];
-      this.pq_year_max = this.pq_year_range[1];
+      this.pq_year_min = this.pq_year_range[0]
+      this.pq_year_max = this.pq_year_range[1]
     }, 750),
   },
-};
+}
 </script>
 
 <style scoped>

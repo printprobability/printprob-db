@@ -2,7 +2,7 @@
   <div>
     <b-pagination
       v-model="sequence"
-      :total-rows="n_pages-1"
+      :total-rows="n_pages - 1"
       :per-page="1"
       aria-controls="page-results"
     />
@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import LineImage from "../Lines/LineImage";
-import { HTTP } from "../../main";
+import LineImage from '../Lines/LineImage'
+import { HTTP } from '../../main'
 
 export default {
-  name: "LineList",
+  name: 'LineList',
   components: {
     LineImage,
   },
@@ -37,29 +37,29 @@ export default {
     return {
       lines: [],
       sequence: 0,
-    };
+    }
   },
   methods: {
     get_line_run: function (id, sequence) {
-      return HTTP.get("/lines/", {
+      return HTTP.get('/lines/', {
         params: { created_by_run: id, page_sequence: sequence },
       }).then(
         (response) => {
-          this.lines = response.data.results;
+          this.lines = response.data.results
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
   },
   watch: {
     sequence: function () {
-      this.get_line_run(this.line_run_id, this.sequence);
+      this.get_line_run(this.line_run_id, this.sequence)
     },
   },
   created() {
-    this.get_line_run(this.line_run_id, this.sequence);
+    this.get_line_run(this.line_run_id, this.sequence)
   },
-};
+}
 </script>

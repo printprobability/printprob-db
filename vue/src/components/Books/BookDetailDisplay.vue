@@ -70,9 +70,9 @@
 
 <script>
 export default {
-  name: "BookDetailDisplay",
+  name: 'BookDetailDisplay',
   props: {
     book: null,
   },
-};
+}
 </script>

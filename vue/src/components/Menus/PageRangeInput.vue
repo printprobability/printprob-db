@@ -10,12 +10,12 @@
 
 <script>
 export default {
-  name: "PageRangeInput",
+  name: 'PageRangeInput',
   props: {
     page_range: {
       type: Array,
       default() {
-        return [];
+        return []
       },
     },
   },
@@ -23,24 +23,24 @@ export default {
     return {
       gte: null,
       lte: null,
-    };
+    }
   },
   methods: {
     renderRange() {
-      this.$emit("input", [this.gte, this.lte]);
+      this.$emit('input', [this.gte, this.lte])
     },
   },
   watch: {
     gte() {
-      this.renderRange();
+      this.renderRange()
     },
     lte() {
-      this.renderRange();
+      this.renderRange()
     },
   },
   created() {
-    this.gte = this.page_range[0];
-    this.lte = this.page_range[1];
+    this.gte = this.page_range[0]
+    this.lte = this.page_range[1]
   },
-};
+}
 </script>

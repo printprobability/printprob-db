@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import CharacterCard from "./CharacterCard";
+import CharacterCard from './CharacterCard'
 export default {
-  name: "CharacterImage",
+  name: 'CharacterImage',
   components: {
     CharacterCard,
   },
@@ -48,35 +48,35 @@ export default {
   data() {
     return {
       pop_delay: { show: 1000, hide: 200 },
-    };
+    }
   },
   computed: {
     size_actual() {
-      return this.image_size == "actual";
+      return this.image_size == 'actual'
     },
     size_bound100() {
-      return this.image_size == "bound100";
+      return this.image_size == 'bound100'
     },
     size_bound300() {
-      return this.image_size == "bound300";
+      return this.image_size == 'bound300'
     },
     character_tooltip() {
       return (
         this.character.label +
-        "hu class: " +
+        'hu class: ' +
         this.character.human_character_class
-      );
+      )
     },
     character_link() {
       return {
-        name: "CharacterDetailView",
+        name: 'CharacterDetailView',
         params: {
           id: this.character.id,
         },
-      };
+      }
     },
   },
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

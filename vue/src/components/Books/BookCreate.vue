@@ -136,33 +136,33 @@
 </template>
 
 <script>
-import { HTTP } from "../../main";
-import moment from "moment";
+import { HTTP } from '../../main'
+import moment from 'moment'
 export default {
-  name: "BookCreate",
+  name: 'BookCreate',
   data() {
     return {
       eebo: null,
       vid: null,
-      tcp: "",
-      estc: "",
-      title: "",
-      publisher: "",
-      colloq_printer: "",
-      pp_printer: "",
-      author: "",
-      repository: "",
-      date_early: "",
-      date_late: "",
-      pp_notes: "",
-    };
+      tcp: '',
+      estc: '',
+      title: '',
+      publisher: '',
+      colloq_printer: '',
+      pp_printer: '',
+      author: '',
+      repository: '',
+      date_early: '',
+      date_late: '',
+      pp_notes: '',
+    }
   },
   methods: {
     cancel() {
-      this.$router.push({ name: "BookListView" });
+      this.$router.push({ name: 'BookListView' })
     },
     date_to_number(d) {
-      return Number(moment(new Date(d)).format("YYYY"));
+      return Number(moment(new Date(d)).format('YYYY'))
     },
     populate(
       retrieved_book,
@@ -174,109 +174,109 @@ export default {
         title: retrieved_book.pq_title,
         autoHideDelay: 5000,
         appendToast: true,
-        variant: "success",
-      });
+        variant: 'success',
+      })
       if (update_vid) {
-        this.vid = retrieved_book.vid;
+        this.vid = retrieved_book.vid
       }
       if (update_eebo) {
-        this.eebo = retrieved_book.eebo;
+        this.eebo = retrieved_book.eebo
       }
       if (update_estc) {
-        this.estc = retrieved_book.estc;
+        this.estc = retrieved_book.estc
       }
-      this.tcp = retrieved_book.tcp;
-      this.title = retrieved_book.pq_title;
+      this.tcp = retrieved_book.tcp
+      this.title = retrieved_book.pq_title
       this.publisher = !!retrieved_book.pq_publisher
         ? retrieved_book.pq_publisher
-        : retrieved_book.pp_publisher;
+        : retrieved_book.pp_publisher
       this.author = !!retrieved_book.pq_author
         ? retrieved_book.pq_author
-        : retrieved_book.pp_author;
-      this.repository = retrieved_book.repository;
-      this.colloq_printer = retrieved_book.colloq_printer;
-      this.date_early = `${retrieved_book.pq_year_early}-01-01`;
-      this.date_late = `${retrieved_book.pq_year_late}-12-31`;
+        : retrieved_book.pp_author
+      this.repository = retrieved_book.repository
+      this.colloq_printer = retrieved_book.colloq_printer
+      this.date_early = `${retrieved_book.pq_year_early}-01-01`
+      this.date_late = `${retrieved_book.pq_year_late}-12-31`
     },
     populate_from_vid(vid) {
       if (!!vid) {
-        HTTP.get("/books/", { params: { vid: vid } }).then(
+        HTTP.get('/books/', { params: { vid: vid } }).then(
           (response) => {
             if (response.data.count >= 1) {
-              const retrieved_book = response.data.results[0];
-              this.populate(retrieved_book, { skip_vid: true });
+              const retrieved_book = response.data.results[0]
+              this.populate(retrieved_book, { skip_vid: true })
             } else {
               this.$bvToast.toast(`Failed`, {
                 title: `No book with VID ${vid}`,
                 autoHideDelay: 5000,
                 appendToast: true,
-                variant: "warning",
-              });
+                variant: 'warning',
+              })
             }
           },
           (error) => {
             this.$bvToast.toast(error, {
-              title: "Error",
+              title: 'Error',
               autoHideDelay: 5000,
               appendToast: true,
-              variant: "danger",
-            });
+              variant: 'danger',
+            })
           }
-        );
+        )
       }
     },
     populate_from_eebo(eebo) {
       if (!!eebo) {
-        HTTP.get("/books/", { params: { eebo: eebo } }).then(
+        HTTP.get('/books/', { params: { eebo: eebo } }).then(
           (response) => {
             if (response.data.count >= 1) {
-              const retrieved_book = response.data.results[0];
-              this.populate(retrieved_book, { skip_eebo: true });
+              const retrieved_book = response.data.results[0]
+              this.populate(retrieved_book, { skip_eebo: true })
             } else {
               this.$bvToast.toast(`Failed`, {
                 title: `No book with EEBO ${eebo}`,
                 autoHideDelay: 5000,
                 appendToast: true,
-                variant: "warning",
-              });
+                variant: 'warning',
+              })
             }
           },
           (error) => {
             this.$bvToast.toast(error, {
-              title: "Error",
+              title: 'Error',
               autoHideDelay: 5000,
               appendToast: true,
-              variant: "danger",
-            });
+              variant: 'danger',
+            })
           }
-        );
+        )
       }
     },
     populate_from_estc(estc) {
       if (!!estc) {
-        HTTP.get("/books/", { params: { estc: estc } }).then(
+        HTTP.get('/books/', { params: { estc: estc } }).then(
           (response) => {
             if (response.data.count >= 1) {
-              const retrieved_book = response.data.results[0];
-              this.populate(retrieved_book, { skip_estc: true });
+              const retrieved_book = response.data.results[0]
+              this.populate(retrieved_book, { skip_estc: true })
             } else {
               this.$bvToast.toast(`Failed`, {
                 title: `No book with ESTC ${estc}`,
                 autoHideDelay: 5000,
                 appendToast: true,
-                variant: "warning",
-              });
+                variant: 'warning',
+              })
             }
           },
           (error) => {
             this.$bvToast.toast(error, {
-              title: "Error",
+              title: 'Error',
               autoHideDelay: 5000,
               appendToast: true,
-              variant: "danger",
-            });
+              variant: 'danger',
+            })
           }
-        );
+        )
       }
     },
     submit() {
@@ -296,32 +296,32 @@ export default {
         date_early: this.date_early,
         date_late: this.date_late,
         pp_notes: this.pp_notes,
-      };
-      HTTP.post("/books/", payload).then(
+      }
+      HTTP.post('/books/', payload).then(
         (response) => {
           this.$bvToast.toast(`Book created`, {
             title: response.data.pq_title,
             autoHideDelay: 5000,
             appendToast: true,
-            variant: "success",
-          });
+            variant: 'success',
+          })
           this.$router.push({
-            name: "BookDetailView",
+            name: 'BookDetailView',
             params: { id: response.data.id },
-          });
+          })
         },
         (error) => {
           for (let [k, v] of Object.entries(error.response.data)) {
             this.$bvToast.toast(v, {
-              title: error.response.status + ": " + k,
+              title: error.response.status + ': ' + k,
               autoHideDelay: 5000,
               appendToast: true,
-              variant: "danger",
-            });
+              variant: 'danger',
+            })
           }
         }
-      );
+      )
     },
   },
-};
+}
 </script>

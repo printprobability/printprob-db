@@ -6,16 +6,16 @@
 </template>
 
 <script>
-import { HTTP } from "../../main";
-import AnnotatedImage from "../Interfaces/AnnotatedImage";
+import { HTTP } from '../../main'
+import AnnotatedImage from '../Interfaces/AnnotatedImage'
 
 export default {
-  name: "SpreadDetail",
+  name: 'SpreadDetail',
   components: {
-    AnnotatedImage
+    AnnotatedImage,
   },
   props: {
-    id: String
+    id: String,
   },
   data() {
     return {
@@ -24,28 +24,27 @@ export default {
         { x: 20, y: 30 },
         { x: 350, y: 40 },
         { x: 340, y: 520 },
-        { x: 50, y: 500 }
-      ]
-    };
-  },
-  methods: {
-    get_spread: function(id) {
-      return HTTP.get("/spreads/" + id + "/").then(
-        response => {
-          this.spread = response.data;
-        },
-        error => {
-          console.log(error);
-        }
-      );
+        { x: 50, y: 500 },
+      ],
     }
   },
+  methods: {
+    get_spread: function (id) {
+      return HTTP.get('/spreads/' + id + '/').then(
+        (response) => {
+          this.spread = response.data
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+    },
+  },
   created() {
-    this.get_spread(this.id);
-  }
-};
+    this.get_spread(this.id)
+  },
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
+<style scoped></style>

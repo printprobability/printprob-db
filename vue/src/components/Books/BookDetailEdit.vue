@@ -183,48 +183,48 @@
 </template>
 
 <script>
-import { HTTP } from "../../main";
+import { HTTP } from '../../main'
 
 export default {
-  name: "BookDetailEdit",
+  name: 'BookDetailEdit',
   props: {
     book: null,
   },
   computed: {
     readonly() {
-      return this.book.is_eebo_book;
+      return this.book.is_eebo_book
     },
   },
   methods: {
     conditional_edit_group(fieldname, content) {
       if (!this.readonly) {
-        this.edit_group(fieldname, content);
+        this.edit_group(fieldname, content)
       }
     },
     edit_group: function (fieldname, content) {
-      var payload = {};
-      payload[fieldname] = content;
-      return HTTP.patch("/books/" + this.book.id + "/", payload).then(
+      var payload = {}
+      payload[fieldname] = content
+      return HTTP.patch('/books/' + this.book.id + '/', payload).then(
         (response) => {
           this.$bvToast.toast(`${fieldname} updated`, {
             title: response.data.id,
             autoHideDelay: 5000,
             appendToast: true,
-            variant: "success",
-          });
+            variant: 'success',
+          })
         },
         (error) => {
           for (let [k, v] of Object.entries(error.response.data)) {
             this.$bvToast.toast(v, {
-              title: error.response.status + ": " + k,
+              title: error.response.status + ': ' + k,
               autoHideDelay: 5000,
               appendToast: true,
-              variant: "danger",
-            });
+              variant: 'danger',
+            })
           }
         }
-      );
+      )
     },
   },
-};
+}
 </script>

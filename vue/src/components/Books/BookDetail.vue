@@ -104,16 +104,16 @@
 </template>
 
 <script>
-import BookDetailDisplay from "./BookDetailDisplay";
-import BookDetailEdit from "./BookDetailEdit";
-import SpreadList from "../Spreads/SpreadList";
-import PageList from "../Pages/PageList";
-import LineList from "../Lines/LineList";
-import moment from "moment";
-import { HTTP } from "../../main";
+import BookDetailDisplay from './BookDetailDisplay'
+import BookDetailEdit from './BookDetailEdit'
+import SpreadList from '../Spreads/SpreadList'
+import PageList from '../Pages/PageList'
+import LineList from '../Lines/LineList'
+import moment from 'moment'
+import { HTTP } from '../../main'
 
 export default {
-  name: "BookDetail",
+  name: 'BookDetail',
   components: {
     SpreadList,
     PageList,
@@ -128,21 +128,21 @@ export default {
     return {
       book: null,
       edit_mode: false,
-      display_fields: ["date_started", "count", "erase"],
+      display_fields: ['date_started', 'count', 'erase'],
       detail_show: null,
       selected_run: null,
       selected_run_id: null,
-    };
+    }
   },
   computed: {
     readonly() {
-      return this.book.is_eebo_book;
+      return this.book.is_eebo_book
     },
     title_card_header() {
       if (this.readonly) {
-        return "Title";
+        return 'Title'
       } else {
-        return "Title (click to edit)";
+        return 'Title (click to edit)'
       }
     },
   },
@@ -152,54 +152,54 @@ export default {
         title: `"Deleting ${this.book.pq_title}"`,
         autoHideDelay: 5000,
         appendToast: true,
-        variant: "info",
-      });
-      HTTP.delete("/books/" + this.book.id + "/").then(
+        variant: 'info',
+      })
+      HTTP.delete('/books/' + this.book.id + '/').then(
         (response) => {
-          this.$router.push({ name: "BookListView" });
+          this.$router.push({ name: 'BookListView' })
           this.$root.$bvToast.toast(`"${this.book.pq_title}" deleted`, {
             title: response.data.id,
             autoHideDelay: 5000,
             appendToast: true,
-            variant: "success",
-          });
+            variant: 'success',
+          })
         },
         (error) => {
           for (let [k, v] of Object.entries(error.response.data)) {
             this.$bvToast.toast(v, {
-              title: error.response.status + ": " + k,
+              title: error.response.status + ': ' + k,
               autoHideDelay: 5000,
               appendToast: true,
-              variant: "danger",
-            });
+              variant: 'danger',
+            })
           }
         }
-      );
+      )
     },
     run_delete: function (runtype, id) {
-      console.log(runtype + " " + id);
-      HTTP.delete("/runs/" + runtype + "/" + id + "/").then(
+      console.log(runtype + ' ' + id)
+      HTTP.delete('/runs/' + runtype + '/' + id + '/').then(
         (results) => {
-          this.get_book(this.id);
-          return results;
+          this.get_book(this.id)
+          return results
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
     get_book: function (id) {
-      return HTTP.get("/books/" + id + "/").then(
+      return HTTP.get('/books/' + id + '/').then(
         (response) => {
-          this.book = response.data;
+          this.book = response.data
         },
         (error) => {
-          console.log(error);
+          console.log(error)
         }
-      );
+      )
     },
     display_date: function (date) {
-      return moment(new Date(date)).format("MM-DD-YY, h:mm a");
+      return moment(new Date(date)).format('MM-DD-YY, h:mm a')
     },
     run_table_formatter: function (run, runtype) {
       return run.map((r) => {
@@ -208,38 +208,38 @@ export default {
           type: runtype,
           date_started: this.display_date(r.date_started),
           count: r.component_count,
-        };
-      });
+        }
+      })
     },
     select_run: function (payload) {
-      const run_type = payload.type;
-      const run_id = payload.id;
-      if (run_type == "characters") {
+      const run_type = payload.type
+      const run_id = payload.id
+      if (run_type == 'characters') {
         this.$router.push({
-          name: "CharacterGroupingView",
+          name: 'CharacterGroupingView',
           query: { book: this.book.id, character_run: run_id },
-        });
-      } else if (run_type == "lines") {
-        this.detail_show = run_type;
-        this.selected_run_id = run_id;
+        })
+      } else if (run_type == 'lines') {
+        this.detail_show = run_type
+        this.selected_run_id = run_id
       } else {
-        return HTTP.get("/runs/" + run_type + "/" + run_id + "/").then(
+        return HTTP.get('/runs/' + run_type + '/' + run_id + '/').then(
           (response) => {
-            this.selected_run = response.data;
-            this.selected_run_id = run_id;
-            this.detail_show = run_type;
+            this.selected_run = response.data
+            this.selected_run_id = run_id
+            this.detail_show = run_type
           },
           (error) => {
-            console.log(error);
+            console.log(error)
           }
-        );
+        )
       }
     },
   },
   created: function () {
-    this.get_book(this.id);
+    this.get_book(this.id)
   },
-};
+}
 </script>
 
 <style scoped>

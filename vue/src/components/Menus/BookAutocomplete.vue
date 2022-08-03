@@ -34,21 +34,21 @@
 </template>
 
 <script>
-import Autocomplete from "./Autocomplete";
+import Autocomplete from './Autocomplete'
 
 const BookSearchField = Object.freeze({
   title: {
-    query: "pq_title",
-    label: "Source book by title",
+    query: 'pq_title',
+    label: 'Source book by title',
   },
   printer: {
-    query: "printer_like",
-    label: "Source book by printer name",
+    query: 'printer_like',
+    label: 'Source book by printer name',
   },
-});
+})
 
 export default {
-  name: "BookAutocomplete",
+  name: 'BookAutocomplete',
   components: {
     Autocomplete,
   },
@@ -60,34 +60,34 @@ export default {
   },
   computed: {
     label() {
-      return this.bookSearchField[this.source_type].label;
+      return this.bookSearchField[this.source_type].label
     },
     queryField() {
-      return this.bookSearchField[this.source_type].query;
+      return this.bookSearchField[this.source_type].query
     },
   },
   methods: {
     displayLabel(book) {
-      const bookTitle = book["pq_title"];
-      if (this.source_type === "title") {
-        return this.addPrefixToLabel(book, bookTitle);
+      const bookTitle = book['pq_title']
+      if (this.source_type === 'title') {
+        return this.addPrefixToLabel(book, bookTitle)
       }
-      const printerName = book["pp_printer"] || book["colloq_printer"];
-      return this.addPrefixToLabel(book, `${printerName} - ${bookTitle}`);
+      const printerName = book['pp_printer'] || book['colloq_printer']
+      return this.addPrefixToLabel(book, `${printerName} - ${bookTitle}`)
     },
     fireInputEvent(bookId) {
-      this.$emit("input", bookId);
+      this.$emit('input', bookId)
     },
     addPrefixToLabel: function (book, displayLabel) {
-      return `${this.prefix_field} ${book[this.prefix_field]}: ${displayLabel}`;
+      return `${this.prefix_field} ${book[this.prefix_field]}: ${displayLabel}`
     },
   },
   data: function () {
     return {
       bookSearchField: BookSearchField,
-      prefix_field: "vid",
-      source_type: "title",
-    };
+      prefix_field: 'vid',
+      source_type: 'title',
+    }
   },
-};
+}
 </script>

@@ -12,24 +12,24 @@
 
 <script>
 export default {
-  name: "NewCharacterGrouping",
+  name: 'NewCharacterGrouping',
   data() {
     return {
-      label: "",
-      notes: "",
-    };
+      label: '',
+      notes: '',
+    }
   },
   computed: {
     label_state: function () {
-      return this.label.length > 1;
+      return this.label.length > 1
     },
   },
   methods: {
     create_new_group: function () {
-      this.$emit("new_group", { label: this.label, notes: this.notes });
-      this.label = "";
-      this.notes = "";
+      this.$emit('new_group', { label: this.label, notes: this.notes })
+      this.label = ''
+      this.notes = ''
     },
   },
-};
+}
 </script>

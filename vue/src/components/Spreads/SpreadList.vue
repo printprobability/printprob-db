@@ -14,15 +14,15 @@
 </template>
 
 <script>
-import SpreadImage from "../Spreads/SpreadImage";
+import SpreadImage from '../Spreads/SpreadImage'
 
 export default {
-  name: "SpreadList",
+  name: 'SpreadList',
   components: {
-    SpreadImage
+    SpreadImage,
   },
   props: {
-    spreads: Array
-  }
-};
+    spreads: Array,
+  },
+}
 </script>
