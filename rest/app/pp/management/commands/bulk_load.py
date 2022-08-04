@@ -181,6 +181,9 @@ class BookLoader:
         # Create list of character objects
         character_list = []
         for i, character in enumerate(characters_json):
+            # skip characters that have no `character_class`
+            if not character["character_class"]:
+                continue
             try:
                 cmodel = models.Character(
                     id=character["id"],
