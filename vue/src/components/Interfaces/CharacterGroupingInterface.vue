@@ -86,7 +86,7 @@
               v-if="selected_cg.characters.length > 0"
             >
               <CharacterImage
-                v-for="character in selected_cg.characters"
+                v-for="character in selected_cg_ordered_chars"
                 :key="character.id"
                 :character="character"
                 :highlight="intersecting_images.includes(character.id)"
@@ -188,6 +188,16 @@ export default {
       } else {
         return []
       }
+    },
+    selected_cg_ordered_chars: function () {
+      if (!!this.selected_cg) {
+        return _.orderBy(
+          this.selected_cg.characters,
+          [(character) => character.character_class.toLowerCase()],
+          ['asc']
+        )
+      }
+      return []
     },
     view_params() {
       return {
