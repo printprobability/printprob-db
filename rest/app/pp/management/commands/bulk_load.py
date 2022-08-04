@@ -66,6 +66,8 @@ class CharacterClasses:
             models.CharacterClass.objects.create(
                 classname=ocular_code, label=ocular_code
             )
+            # update the existing dict
+            self.data[ocular_code] = ocular_code
 
 
 class BookLoader:
