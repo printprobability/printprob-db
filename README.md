@@ -51,6 +51,15 @@ npm run serve
 
 The local frontend will be available at `http://localhost:4000`. You must first log in to the test account at `http://localhost/api/auth/login` to test the frontend locally.
 
+For building for deployment, you must create  `vue/.env` and define the envvars
+
+```
+VUE_APP_PP_ENDPOINT=https://printprobdb.psc.edu/api
+VUE_HOME=https://printprobdb.psc.edu
+```
+
+These will properly set the API endpoint and the home page location for the frontend when you run `npm run build`.
+
 ## Updating dependencies
 
 We use [poetry](https://python-poetry.org/) to pin python package versions and calculate all dependencies for local development, however the docker container itself (and production deployment) only reads `requirements.txt`. Use poetry to update this file automatically:
