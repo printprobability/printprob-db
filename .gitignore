@@ -9,3 +9,5 @@ bkp/
 default.conf
 *.cer
 ppdb_venv
+.idea
+nginx/certs

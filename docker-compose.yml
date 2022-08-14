@@ -8,6 +8,8 @@ services:
     expose:
       - ${POSTGRES_PORT}
     env_file: .env
+    ports:
+      - "5433:5432"
 
   web:
     build: rest
@@ -32,6 +34,7 @@ services:
       - ppstatic:/vol/static_files:z
       - ${REAL_IMAGE_DIR}:/vol/img:z
       - ./nginx:/etc/nginx/conf.d:z
+      - ./nginx/certs:/etc/nginx/conf.d/certs
     ports:
       - "443:443"
       - "80:80"
@@ -56,3 +59,5 @@ services:
 volumes:
   pp:
   ppstatic:
+  pp-images:
+  iiif:
