@@ -15,6 +15,22 @@ library.add(fasStar, farStar)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
+// Ignore error during router push for duplicate navigation
+// More details here - https://github.com/vuejs/vue-router/issues/2881#issuecomment-520554378
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject)
+    return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch((err) => {
+    if (VueRouter.isNavigationFailure(err)) {
+      // resolve err
+      return err
+    }
+    // rethrow error
+    return Promise.reject(err)
+  })
+}
+
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(AsyncComputed)
