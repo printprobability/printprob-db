@@ -29,9 +29,13 @@ export default {
               text: 'Select character grouping',
               value: null,
             },
-            response.data.results.map((x) => {
-              return { value: x.id, text: x.label }
-            })
+            _.sortBy(
+              response.data.results.map((x) => ({
+                value: x.id,
+                text: x.label,
+              })),
+              'text'
+            )
           )
         },
         (error) => {
