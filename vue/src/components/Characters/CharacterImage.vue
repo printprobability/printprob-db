@@ -2,9 +2,9 @@
   <div>
     <img
       :id="character.id"
-      :src="character.image.web_url"
+      src="https://printprobdb.psc.edu/iiif//books/shakespeare/thodgkin_R15282_njpsc_2_worksofbenjonson1692/lines_color/thodgkin_R15282_njpsc_2_worksofbenjonson1692-0006_page1r.tif/416,115,25,41/full/0/default.jpg"
       class="character-image m-1"
-      @click="$emit('char_clicked', character.id)"
+      @click="onCharacterSelection"
       v-on:dblclick="$emit('char_double_clicked', character.id)"
       :class="{
         highligted: highlight,
@@ -13,10 +13,12 @@
         actual: size_actual,
         bound100: size_bound100,
         bound300: size_bound300,
+        selected: selected,
       }"
       @mouseover="$emit('hover', $event)"
     />
     <b-popover
+      v-if="!editMode"
       :target="character.id"
       :title="character.label"
       triggers="hover"
@@ -36,6 +38,10 @@ export default {
     CharacterCard,
   },
   props: {
+    editMode: {
+      type: Boolean,
+      default: false,
+    },
     character: Object,
     highlight: Boolean,
     bad: Boolean,
@@ -49,9 +55,13 @@ export default {
   data() {
     return {
       pop_delay: { show: 1000, hide: 200 },
+      selected: false,
     }
   },
   computed: {
+    selectedForEdit() {
+      return this.selected
+    },
     size_actual() {
       return this.image_size == 'actual'
     },
@@ -77,6 +87,12 @@ export default {
       }
     },
   },
+  methods: {
+    onCharacterSelection() {
+      this.$emit('char_clicked', this.character.id)
+      this.selected = !!!this.selected
+    },
+  },
 }
 </script>
 
@@ -99,6 +115,10 @@ img.bound300 {
   max-width: 300px;
   max-height: 300px;
   min-height: 300px;
+}
+
+img.selected {
+  filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(180deg);
 }
 
 img.highligted {

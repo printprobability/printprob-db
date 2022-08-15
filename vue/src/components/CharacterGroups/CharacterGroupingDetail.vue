@@ -24,6 +24,8 @@
               v-for="character in ordered_characters"
               :key="character.id"
               :character="character"
+              :edit-mode="edit_mode"
+              @char_clicked="toggleCharacterSelection"
             />
           </div>
           <b-alert v-else show variant="info">
@@ -54,9 +56,13 @@ export default {
   data() {
     return {
       order: 'character_class',
+      selectedCharacters: {},
     }
   },
   computed: {
+    edit_mode() {
+      return !!this.$route.query.edit
+    },
     ordered_characters() {
       if (this.order.variable == 'bookseq,pageseq,lineseq,sequence') {
         return this.character_group.characters
@@ -95,6 +101,13 @@ export default {
   methods: {
     display_date: function (date) {
       return moment(new Date(date)).format('MM-DD-YY, h:mm a')
+    },
+    toggleCharacterSelection: function (characterId) {
+      this.selectedCharacters[characterId] =
+        !!!this.selectedCharacters[characterId]
+    },
+    isCharSelected: function (characterId) {
+      return this.edit_mode && this.selectedCharacters[characterId]
     },
   },
   created: function () {
