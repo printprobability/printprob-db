@@ -19,5 +19,5 @@ else
 fi
 
 echo -e "ADDING ===> <ESTC No.: ${ESTC_NO}, Book String: ${BOOK_STRING}, Printer Name: ${PRINTER_NAME}>";
-OUTPUT=$(cd /ocean/projects/hum160002p/shared/books/code && python3 add_book_to_api.py ${ESTC_NO} ${BOOK_STRING} --printer ${PRINTER_NAME})
+OUTPUT=$(cd /ocean/projects/hum160002p/shared/books/code && python add_book_to_api.py ${ESTC_NO} ${BOOK_STRING} --printer ${PRINTER_NAME})
 echo $OUTPUT
