@@ -2,7 +2,8 @@
 
 if [ $# -lt 1 ]
 then
-    echo "Insufficient arguments supplied"
+    echo "Missing argument!"
+    echo "Usage: ./add_book.sh <book_string> <optional-printer-name-override>"
     exit 1
 fi
 
