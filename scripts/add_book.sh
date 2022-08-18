@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 
-if [ $# -lt 2 ]
+if [ $# -lt 1 ]
 then
     echo "Insufficient arguments supplied"
     exit 1
 fi
 
-ESTC_NO=$1
-BOOK_STRING=$2
+BOOK_STRING=$1
+IFS='_'; SPLIT_BOOK_STRING_ON_UNDERSCORE=(${BOOK_STRING}); unset IFS;
+ESTC_NO=${SPLIT_BOOK_STRING_ON_UNDERSCORE}[1]
 
-if [ $# -eq 3 ]
+if [ $# -eq 2 ]
 then
-  export PRINTER_NAME=$3
+  export PRINTER_NAME=$2
 else
   echo "Printer name not specified, defaulting to printer name from book string...";
-  IFS='_'; SPLIT_BOOK_STRING_ON_UNDERSCORE=(${BOOK_STRING}); unset IFS;
   PRINTER_NAME=${SPLIT_BOOK_STRING_ON_UNDERSCORE[0]}
 fi
 
