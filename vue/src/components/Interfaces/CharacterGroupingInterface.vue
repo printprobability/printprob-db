@@ -324,7 +324,8 @@ export default {
     this.character_class = this.$route.query.character_class
     this.char_agreement = this.$route.query.char_agreement
     this.page_range = this.$route.query.page_range
-    this.show_damaged_characters = this.$route.query.show_damaged_characters
+    this.show_damaged_characters =
+      this.$route.query.show_damaged_characters === 'true'
   },
   updated() {
     this.$router.push({
