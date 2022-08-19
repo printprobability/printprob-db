@@ -5,6 +5,7 @@
       :src="character.image.web_url"
       class="character-image m-1"
       @click="$emit('char_clicked', character.id)"
+      v-on:dblclick="$emit('char_double_clicked', character.id)"
       :class="{
         highligted: highlight,
         marked_good: good,

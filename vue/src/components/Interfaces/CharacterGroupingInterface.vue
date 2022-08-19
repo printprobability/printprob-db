@@ -90,7 +90,7 @@
                 :key="character.id"
                 :character="character"
                 :highlight="intersecting_images.includes(character.id)"
-                @char_clicked="deregister_character"
+                @char_double_clicked="deregister_character"
               />
             </div>
             <b-alert v-else show variant="info"
