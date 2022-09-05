@@ -241,7 +241,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         #         {"error": "There was an error"}, status=status.HTTP_400_BAD_REQUEST
         #     )
 
-    @action(detail=True, methods=["put"])
+    @action(detail=True, methods=["post"])
     @transaction.atomic
     def bulk_pages_update(self, request, pk=None):
         # try:
@@ -252,7 +252,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
             {"pages created": len(page_list)}, status=status.HTTP_200_OK
         )
 
-    @action(detail=True, methods=["put"])
+    @action(detail=True, methods=["post"])
     @transaction.atomic
     def bulk_lines_update(self, request, pk=None):
         # try:
@@ -262,7 +262,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
             {"lines updated": len(line_list)}, status=status.HTTP_200_OK
         )
 
-    @action(detail=True, methods=["put"])
+    @action(detail=True, methods=["post"])
     @transaction.atomic
     def bulk_characters_update(self, request, pk=None):
         # try:
