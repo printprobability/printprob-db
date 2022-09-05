@@ -249,7 +249,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         tif_root = request.data["tif_root"]
         page_list = BookUpdater.update_pages_for_book(pages_json, tif_root)
         return Response(
-            {"pages created": len(page_list)}, status=status.HTTP_200_OK
+            {"pages updated": len(page_list)}, status=status.HTTP_200_OK
         )
 
     @action(detail=True, methods=["post"])
