@@ -113,11 +113,10 @@ class BookLoader:
             )
         logging.info(f"{len(self.characters)} characters loaded")
 
-    @transaction.atomic
-    def create_pages(self):
-        pages_json = self.pages
+    @staticmethod
+    def create_pages_for_book(pages_json, book, tif_root):
         # Create page run
-        page_run = models.PageRun.objects.create(book=self.book)
+        page_run = models.PageRun.objects.create(book=book)
         # Create list of page objects
         page_list = [
             models.Page(
@@ -125,7 +124,7 @@ class BookLoader:
                 created_by_run=page_run,
                 sequence=page["sequence"],
                 side=page["side"],
-                tif=page["filename"].replace(TIF_ROOT, ""),
+                tif=page["filename"].replace(tif_root, ""),
             )
             for page in pages_json
         ]
@@ -133,14 +132,12 @@ class BookLoader:
         models.Page.objects.bulk_create(
             page_list, batch_size=500, ignore_conflicts=True
         )
-        logging.info({"pages created": len(page_list)})
+        return page_list
 
-    @transaction.atomic
-    def create_lines(self):
-        # try:
-        lines_json = self.lines
+    @staticmethod
+    def create_lines_for_book(lines_json, book):
         # Create line run
-        line_run = models.LineRun.objects.create(book=self.book)
+        line_run = models.LineRun.objects.create(book=book)
         page_objects = models.Page.objects.in_bulk(
             list({line["page_id"] for line in lines_json}), field_name="id"
         )
@@ -160,14 +157,12 @@ class BookLoader:
         models.Line.objects.bulk_create(
             line_list, batch_size=500, ignore_conflicts=True
         )
-        logging.info({"lines created": len(line_list)})
+        return line_list
 
-    @transaction.atomic
-    def create_characters(self):
-
-        characters_json = self.characters
+    @staticmethod
+    def create_characters_for_book(characters_json, book):
         # Create character run
-        character_run = models.CharacterRun.objects.create(book=self.book)
+        character_run = models.CharacterRun.objects.create(book=book)
         # Collect line objects
         line_objects = models.Line.objects.in_bulk(
             list({character["line_id"] for character in characters_json}),
@@ -210,4 +205,21 @@ class BookLoader:
         models.Character.objects.bulk_create(
             character_list, batch_size=500, ignore_conflicts=True
         )
+        return character_list
+
+    @transaction.atomic
+    def create_pages(self):
+        page_list = BookLoader.create_pages_for_book(self.pages, self.book, TIF_ROOT)
+        logging.info({"pages created": len(page_list)})
+
+    @transaction.atomic
+    def create_lines(self):
+        line_list = BookLoader.create_lines_for_book(self.lines, self.book)
+        logging.info({"lines created": len(line_list)})
+
+    @transaction.atomic
+    def create_characters(self):
+        character_list = BookLoader.create_characters_for_book(self.characters, self.book)
         logging.info({"characters created": len(character_list)})
+
+

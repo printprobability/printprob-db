@@ -20,6 +20,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from . import models, serializers
+from .management.commands.bulk_update import BookLoader as BookUpdater
+from .management.commands.bulk_load import BookLoader as BookCreator
 
 
 class GetSerializerClassMixin(object):
@@ -208,23 +210,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         # try:
         pages_json = request.data["pages"]
         tif_root = request.data["tif_root"]
-        # Create page run
-        page_run = models.PageRun.objects.create(book=book)
-        # Create list of page objects
-        page_list = [
-            models.Page(
-                id=page["id"],
-                created_by_run=page_run,
-                sequence=page["sequence"],
-                side=page["side"],
-                tif=page["filename"].replace(tif_root, ""),
-            )
-            for page in pages_json
-        ]
-        # Bulk save to DB
-        models.Page.objects.bulk_create(
-            page_list, batch_size=500, ignore_conflicts=True
-        )
+        page_list = BookCreator.create_pages_for_book(pages_json, book, tif_root)
         return Response(
             {"pages created": len(page_list)}, status=status.HTTP_201_CREATED
         )
@@ -235,27 +221,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         book = self.get_object()
         # try:
         lines_json = request.data["lines"]
-        # Create line run
-        line_run = models.LineRun.objects.create(book=book)
-        page_objects = models.Page.objects.in_bulk(
-            list({line["page_id"] for line in lines_json}), field_name="id"
-        )
-        # Create list of line objects
-        line_list = [
-            models.Line(
-                id=line["id"],
-                created_by_run=line_run,
-                page=page_objects[UUID(line["page_id"])],
-                sequence=line["sequence"],
-                y_min=line["y_start"],
-                y_max=line["y_end"],
-            )
-            for line in lines_json
-        ]
-        # Bulk save to DB
-        models.Line.objects.bulk_create(
-            line_list, batch_size=500, ignore_conflicts=True
-        )
+        line_list = BookCreator.create_lines_for_book(lines_json, book)
         return Response(
             {"lines created": len(line_list)}, status=status.HTTP_201_CREATED
         )
@@ -266,40 +232,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         book = self.get_object()
         # try:
         characters_json = request.data["characters"]
-        # Create character run
-        character_run = models.CharacterRun.objects.create(book=book)
-        # Collect line objects
-        line_objects = models.Line.objects.in_bulk(
-            list({character["line_id"] for character in characters_json}),
-            field_name="id",
-        )
-        # Collect character class objects
-        character_class_objects = models.CharacterClass.objects.in_bulk(
-            models.CharacterClass.objects.all().values_list("classname", flat=True),
-            field_name="classname",
-        )
-        # Create list of page objects
-        character_list = [
-            models.Character(
-                id=character["id"],
-                created_by_run=character_run,
-                line=line_objects[UUID(character["line_id"])],
-                sequence=character["sequence"],
-                y_min=character["y_start"],
-                y_max=character["y_end"],
-                x_min=character["x_start"],
-                x_max=character["x_end"],
-                offset=character["offset"],
-                exposure=character["exposure"],
-                class_probability=character["logprob"],
-                character_class=character_class_objects[character["character_class"]],
-            )
-            for character in characters_json
-        ]
-        # Bulk save to DB
-        models.Character.objects.bulk_create(
-            character_list, batch_size=500, ignore_conflicts=True
-        )
+        character_list = BookCreator.create_characters_for_book(characters_json, book)
         return Response(
             {"lines created": len(character_list)}, status=status.HTTP_201_CREATED
         )
@@ -307,6 +240,37 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         #     return Response(
         #         {"error": "There was an error"}, status=status.HTTP_400_BAD_REQUEST
         #     )
+
+    @action(detail=True, methods=["put"])
+    @transaction.atomic
+    def bulk_pages_update(self, request, pk=None):
+        # try:
+        pages_json = request.data["pages"]
+        tif_root = request.data["tif_root"]
+        page_list = BookUpdater.update_pages_for_book(pages_json, tif_root)
+        return Response(
+            {"pages created": len(page_list)}, status=status.HTTP_200_OK
+        )
+
+    @action(detail=True, methods=["put"])
+    @transaction.atomic
+    def bulk_lines_update(self, request, pk=None):
+        # try:
+        lines_json = request.data["lines"]
+        line_list = BookUpdater.update_lines_for_book(lines_json)
+        return Response(
+            {"lines updated": len(line_list)}, status=status.HTTP_200_OK
+        )
+
+    @action(detail=True, methods=["put"])
+    @transaction.atomic
+    def bulk_characters_update(self, request, pk=None):
+        # try:
+        characters_json = request.data["characters"]
+        character_list = BookUpdater.update_characters_for_book(characters_json)
+        return Response(
+            {"characters updated": len(character_list)}, status=status.HTTP_200_OK
+        )
 
 
 class SpreadFilter(filters.FilterSet):
@@ -430,7 +394,6 @@ class LineFilter(filters.FilterSet):
 
 
 class LineViewSet(CRUDViewSet):
-
     queryset = models.Line.objects.all()
     filterset_class = LineFilter
 
@@ -519,8 +482,8 @@ class CharacterFilter(filters.FilterSet):
             )
             return (
                 queryset.annotate(has_groupings=Exists(groupings))
-                .filter(has_groupings=True)
-                .all()
+                    .filter(has_groupings=True)
+                    .all()
             )
         else:
             return queryset
@@ -535,13 +498,13 @@ class CharacterViewSet(viewsets.ModelViewSet):
             "character_class",
             "human_character_class",
         )
-        .prefetch_related("breakage_types", "charactergroupings")
-        .annotate(
+            .prefetch_related("breakage_types", "charactergroupings")
+            .annotate(
             lineseq=F("line__sequence"),
             pageseq=F("line__page__sequence"),
             bookseq=F("created_by_run__book__id"),
         )
-        .all()
+            .all()
     )
     ordering_fields = [
         "class_probability",
@@ -614,8 +577,8 @@ class CharacterGroupingFilter(filters.FilterSet):
             )
             return (
                 queryset.annotate(chars_from_book=Exists(characters))
-                .filter(chars_from_book=True)
-                .all()
+                    .filter(chars_from_book=True)
+                    .all()
             )
         return queryset
 
@@ -623,8 +586,8 @@ class CharacterGroupingFilter(filters.FilterSet):
 class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
     detail_queryset = (
         models.CharacterGrouping.objects.select_related("created_by")
-        .prefetch_related("characters__line__page")
-        .all()
+            .prefetch_related("characters__line__page")
+            .all()
     )
     list_queryset = models.CharacterGrouping.objects.select_related("created_by").all()
     queryset = detail_queryset
@@ -679,8 +642,8 @@ class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
 
         image_objects = (
             models.Character.objects.filter(charactergroupings=obj)
-            .select_related("line__page")
-            .all()
+                .select_related("line__page")
+                .all()
         )
 
         with TemporaryDirectory(dir=settings.DOWNLOAD_SCRATCH_DIR) as scratch_dir:

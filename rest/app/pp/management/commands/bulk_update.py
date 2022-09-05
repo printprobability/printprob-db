@@ -112,9 +112,8 @@ class BookLoader:
             )
         logging.info(f"{len(self.characters)} characters loaded")
 
-    @transaction.atomic
-    def update_pages(self):
-        pages_json = self.pages
+    @staticmethod
+    def update_pages_for_book(pages_json, tif_root):
         # Retrieve page run
         page_run = models.PageRun.objects.get(pages=pages_json[0]["id"])
         # Create list of page objects
@@ -124,7 +123,7 @@ class BookLoader:
                 created_by_run=page_run,
                 sequence=page["sequence"],
                 side=page["side"],
-                tif=page["filename"].replace(TIF_ROOT, ""),
+                tif=page["filename"].replace(tif_root, ""),
             )
             for page in pages_json
         ]
@@ -134,12 +133,10 @@ class BookLoader:
             batch_size=500,
             fields=["sequence", "side", "tif"],
         )
-        logging.info({"pages updated": len(page_list)})
+        return page_list
 
-    @transaction.atomic
-    def update_lines(self):
-        # try:
-        lines_json = self.lines
+    @staticmethod
+    def update_lines_for_book(lines_json):
         # Create line run
         line_run = models.LineRun.objects.get(lines=lines_json[0]["id"])
         page_objects = models.Page.objects.in_bulk(
@@ -161,12 +158,10 @@ class BookLoader:
         models.Line.objects.bulk_update(
             line_list, batch_size=500, fields=["sequence", "y_min", "y_max"]
         )
-        logging.info({"lines updated": len(line_list)})
+        return line_list
 
-    @transaction.atomic
-    def update_characters(self):
-
-        characters_json = self.characters
+    @staticmethod
+    def update_characters_for_book(characters_json):
         # Create character run
         character_run = models.CharacterRun.objects.get(
             characters=characters_json[0]["id"]
@@ -203,3 +198,18 @@ class BookLoader:
             except:
                 logging.error(f"Failing char object at index {i}: {character}")
                 raise
+
+    @transaction.atomic
+    def update_pages(self):
+        page_list = BookLoader.update_pages_for_book(self.pages, TIF_ROOT)
+        logging.info({"pages updated": len(page_list)})
+
+    @transaction.atomic
+    def update_lines(self):
+        line_list = self.update_lines_for_book(self.lines)
+        logging.info({"lines updated": len(line_list)})
+
+    @transaction.atomic
+    def update_characters(self):
+        characters_list = self.update_characters_for_book(self.characters)
+        logging.info({"characters updated": len(characters_list)})
