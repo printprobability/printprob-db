@@ -267,10 +267,13 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
     def bulk_characters_update(self, request, pk=None):
         # try:
         characters_json = request.data["characters"]
-        character_list = BookUpdater.update_characters_for_book(characters_json)
-        return Response(
-            {"characters updated": len(character_list)}, status=status.HTTP_200_OK
-        )
+        try:
+            character_list = BookUpdater.update_characters_for_book(characters_json)
+            return Response(
+                {"characters updated": len(character_list)}, status=status.HTTP_200_OK
+            )
+        except Exception as ex:
+            return Response({"Error updating characters: ", str(ex)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class SpreadFilter(filters.FilterSet):

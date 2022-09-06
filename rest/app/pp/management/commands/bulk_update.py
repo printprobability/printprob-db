@@ -195,9 +195,9 @@ class BookLoader:
                         character["character_class"]
                     ],
                 )
-            except:
+            except Exception as ex:
                 logging.error(f"Failing char object at index {i}: {character}")
-                raise
+                raise ex
 
     @transaction.atomic
     def update_pages(self):
