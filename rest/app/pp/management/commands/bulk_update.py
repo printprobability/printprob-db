@@ -177,6 +177,7 @@ class BookLoader:
             field_name="classname",
         )
         # Create list of character objects
+        character_count=0
         for i, character in enumerate(tqdm(characters_json)):
             try:
                 models.Character.objects.filter(id=character["id"]).update(
@@ -195,9 +196,11 @@ class BookLoader:
                         character["character_class"]
                     ],
                 )
+                character_count+=1
             except Exception as ex:
                 logging.error(f"Failing char object at index {i}: {character}")
                 raise ex
+        return character_count
 
     @transaction.atomic
     def update_pages(self):
@@ -211,5 +214,5 @@ class BookLoader:
 
     @transaction.atomic
     def update_characters(self):
-        characters_list = self.update_characters_for_book(self.characters)
-        logging.info({"characters updated": len(characters_list)})
+        character_count = self.update_characters_for_book(self.characters)
+        logging.info({"characters updated": character_count})
