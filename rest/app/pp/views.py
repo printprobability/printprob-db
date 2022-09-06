@@ -268,9 +268,9 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         # try:
         characters_json = request.data["characters"]
         try:
-            character_list = BookUpdater.update_characters_for_book(characters_json)
+            characters_count = BookUpdater.update_characters_for_book(characters_json)
             return Response(
-                {"characters updated": len(character_list)}, status=status.HTTP_200_OK
+                {"characters updated": characters_count}, status=status.HTTP_200_OK
             )
         except Exception as ex:
             return Response({"Error updating characters: ", str(ex)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
