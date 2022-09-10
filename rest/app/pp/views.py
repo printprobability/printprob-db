@@ -631,6 +631,27 @@ class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(detail=True, methods=["patch"])
+    def move_characters(self, request, pk=None):
+        target_group_id = request.GET['target_group']
+        if target_group_id is None:
+            return Response("Missing target character group id", status=status.HTTP_400_BAD_REQUEST)
+        target_group = models.CharacterGrouping.objects.get(id=target_group_id)
+        if target_group is None:
+            return Response(f"Target character group not found for id: {target_group_id}",
+                            status=status.HTTP_400_BAD_REQUEST)
+        current_character_group = self.get_object()
+        serializer = serializers.CharacterGroupingCharacterListSerializer(
+            data=request.data
+        )
+        if serializer.is_valid():
+            for char in serializer.data["characters"]:
+                current_character_group.characters.remove(char)
+                target_group.characters.add(char)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"status": "characters moved"})
+
     @action(detail=True, methods=["get"])
     def download(self, request, pk=None):
         obj = self.get_object()

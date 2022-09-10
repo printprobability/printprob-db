@@ -47,18 +47,33 @@
             />
           </div>
           <div class="card-body" v-if="selected_cg">
-            <p>
-              <router-link
-                :to="{
-                  name: 'CharacterGroupingDetail',
-                  params: { id: selected_cg.id },
-                }"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open in separate page
-              </router-link>
-            </p>
+            <dl class="row">
+              <dt class="col-sm-3">
+                <router-link
+                  :to="{
+                    name: 'CharacterGroupingDetail',
+                    params: { id: selected_cg.id },
+                  }"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open in separate page
+                </router-link>
+              </dt>
+              <dt class="col-sm-3">
+                <router-link
+                  :to="{
+                    name: 'CharacterGroupingDetail',
+                    params: { id: selected_cg.id },
+                    query: { edit: true },
+                  }"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Edit in separate page
+                </router-link>
+              </dt>
+            </dl>
             <dl class="row">
               <dt class="col-sm-3">Label</dt>
               <dd

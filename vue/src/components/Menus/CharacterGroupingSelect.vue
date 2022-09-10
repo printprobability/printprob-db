@@ -16,6 +16,11 @@ export default {
   name: 'CharacterGroupingSelect',
   props: {
     value: String,
+    label: {
+      type: String,
+      default: 'Select character grouping',
+    },
+    excludedCharacterGroup: String, // display options excluding this one
   },
   data() {
     return {}
@@ -24,9 +29,9 @@ export default {
     character_groupings() {
       return HTTP.get('/character_groupings/', { params: { limit: 200 } }).then(
         (response) => {
-          return _.concat(
+          const result = _.concat(
             {
-              text: 'Select character grouping',
+              text: this.label,
               value: null,
             },
             _.sortBy(
@@ -37,6 +42,11 @@ export default {
               'text'
             )
           )
+          return !!this.excludedCharacterGroup
+            ? result.filter(
+                (option) => option.value !== this.excludedCharacterGroup
+              )
+            : result
         },
         (error) => {
           console.log(error)

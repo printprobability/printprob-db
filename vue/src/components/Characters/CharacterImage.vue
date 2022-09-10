@@ -4,7 +4,7 @@
       :id="character.id"
       :src="character.image.web_url"
       class="character-image m-1"
-      @click="$emit('char_clicked', character.id)"
+      @click="onCharacterSelection"
       v-on:dblclick="$emit('char_double_clicked', character.id)"
       :class="{
         highligted: highlight,
@@ -13,10 +13,12 @@
         actual: size_actual,
         bound100: size_bound100,
         bound300: size_bound300,
+        selected: isCharSelected,
       }"
       @mouseover="$emit('hover', $event)"
     />
     <b-popover
+      v-if="!editMode"
       :target="character.id"
       :title="character.label"
       triggers="hover"
@@ -36,12 +38,20 @@ export default {
     CharacterCard,
   },
   props: {
+    editMode: {
+      type: Boolean,
+      default: false,
+    },
     character: Object,
     highlight: Boolean,
     bad: Boolean,
     good: Boolean,
     image_size: String,
     popover: {
+      type: Boolean,
+      default: false,
+    },
+    selected: {
       type: Boolean,
       default: false,
     },
@@ -76,6 +86,14 @@ export default {
         },
       }
     },
+    isCharSelected() {
+      return this.selected
+    },
+  },
+  methods: {
+    onCharacterSelection() {
+      this.$emit('char_clicked', this.character.id)
+    },
   },
 }
 </script>
@@ -99,6 +117,10 @@ img.bound300 {
   max-width: 300px;
   max-height: 300px;
   min-height: 300px;
+}
+
+img.selected {
+  filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(180deg);
 }
 
 img.highligted {
