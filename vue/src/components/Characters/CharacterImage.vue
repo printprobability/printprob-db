@@ -2,7 +2,7 @@
   <div>
     <img
       :id="character.id"
-      src="https://printprobdb.psc.edu/iiif//books/shakespeare/thodgkin_R15282_njpsc_2_worksofbenjonson1692/lines_color/thodgkin_R15282_njpsc_2_worksofbenjonson1692-0006_page1r.tif/416,115,25,41/full/0/default.jpg"
+      :src="character.image.web_url"
       class="character-image m-1"
       @click="onCharacterSelection"
       v-on:dblclick="$emit('char_double_clicked', character.id)"
@@ -13,7 +13,7 @@
         actual: size_actual,
         bound100: size_bound100,
         bound300: size_bound300,
-        selected: selected,
+        selected: isCharSelected,
       }"
       @mouseover="$emit('hover', $event)"
     />
@@ -51,17 +51,17 @@ export default {
       type: Boolean,
       default: false,
     },
+    selected: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       pop_delay: { show: 1000, hide: 200 },
-      selected: false,
     }
   },
   computed: {
-    selectedForEdit() {
-      return this.selected
-    },
     size_actual() {
       return this.image_size == 'actual'
     },
@@ -86,11 +86,13 @@ export default {
         },
       }
     },
+    isCharSelected() {
+      return this.selected
+    },
   },
   methods: {
     onCharacterSelection() {
       this.$emit('char_clicked', this.character.id)
-      this.selected = !!!this.selected
     },
   },
 }

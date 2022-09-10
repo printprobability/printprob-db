@@ -1,7 +1,7 @@
 <template>
   <b-container v-if="character_group" fluid class="my-3">
     <b-row>
-      <b-col cols="12">
+      <b-col :cols="edit_mode ? 8 : 12">
         <b-card>
           <template v-slot:header>
             <b-row align-h="between" class="px-3">
@@ -25,6 +25,7 @@
               :key="character.id"
               :character="character"
               :edit-mode="edit_mode"
+              :selected="isCharSelected(character.id)"
               @char_clicked="toggleCharacterSelection"
             />
           </div>
@@ -33,12 +34,47 @@
           </b-alert>
         </b-card>
       </b-col>
+      <b-col v-if="edit_mode" cols="4">
+        <b-card>
+          <template v-slot:header>
+            <b-row align-h="between" class="px-3">
+              <p>Move characters to another group</p>
+            </b-row>
+          </template>
+          <div
+            class="d-flex flex-wrap justify-content-around"
+            v-if="ordered_characters.length > 0"
+          >
+            <b-button-group class="mx-1">
+              <b-button @click="selectAll" variant="success"
+                >Select All</b-button
+              >
+              <b-button @click="deselectAll" variant="warning"
+                >Deselect All</b-button
+              >
+            </b-button-group>
+            <b-input-group class="mx-1">
+              <CharacterGroupingSelect
+                label="Select target group"
+                :excluded-character-group="this.id"
+                v-model="cg_id"
+              />
+              <b-button
+                @click="changeGroup"
+                :disabled="selectedCharCount === 0 || cg_id === null"
+                >Change Group</b-button
+              >
+            </b-input-group>
+          </div>
+        </b-card>
+      </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
 import CharacterImage from '../Characters/CharacterImage'
+import CharacterGroupingSelect from '../Menus/CharacterGroupingSelect'
 import CharacterOrderingSelect from '../Menus/CharacterOrderingSelect'
 import { HTTP } from '../../main'
 import moment from 'moment'
@@ -49,14 +85,17 @@ export default {
   components: {
     CharacterImage,
     CharacterOrderingSelect,
+    CharacterGroupingSelect,
   },
   props: {
     id: String,
   },
   data() {
     return {
+      cg_id: null,
       order: 'character_class',
       selectedCharacters: {},
+      selectedCharCount: 0,
     }
   },
   computed: {
@@ -103,11 +142,46 @@ export default {
       return moment(new Date(date)).format('MM-DD-YY, h:mm a')
     },
     toggleCharacterSelection: function (characterId) {
-      this.selectedCharacters[characterId] =
-        !!!this.selectedCharacters[characterId]
+      const toggleStatus = !!!this.selectedCharacters[characterId]
+      this.selectedCharacters = {
+        ...this.selectedCharacters,
+        [characterId]: toggleStatus,
+      }
+      this.selectedCharCount += toggleStatus ? 1 : -1
+    },
+    selectAll: function () {
+      const allSelected = {}
+      this.ordered_characters.forEach((oc) => {
+        allSelected[oc['id']] = true
+      })
+      this.selectedCharacters = Object.assign({}, allSelected)
+      this.selectedCharCount = Object.keys(this.selectedCharacters).length
+    },
+    deselectAll: function () {
+      const allDeselected = {}
+      this.ordered_characters.forEach((oc) => {
+        allDeselected[oc['id']] = false
+      })
+      this.selectedCharacters = Object.assign({}, allDeselected)
+      this.selectedCharCount = 0
     },
     isCharSelected: function (characterId) {
-      return this.edit_mode && this.selectedCharacters[characterId]
+      return this.selectedCharacters[characterId]
+    },
+    changeGroup: function () {
+      return HTTP.patch(
+        `/character_groupings/${this.id}/move_characters/?target_group=${this.cg_id}`,
+        { characters: Object.keys(this.selectedCharacters) }
+      ).then(
+        (response) => {
+          console.log(response)
+          this.$asyncComputed.character_group.update()
+          this.selectedCharCount = 0
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
     },
   },
   created: function () {
