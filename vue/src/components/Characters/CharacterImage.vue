@@ -18,7 +18,6 @@
       @mouseover="$emit('hover', $event)"
     />
     <b-popover
-      v-if="!editMode"
       :target="character.id"
       :title="character.label"
       triggers="hover"
