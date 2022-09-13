@@ -46,24 +46,39 @@
             v-if="ordered_characters.length > 0"
           >
             <b-button-group class="mx-1">
-              <b-button @click="selectAll" variant="success"
+              <b-button @click="selectAll" variant="primary"
                 >Select All</b-button
               >
-              <b-button @click="deselectAll" variant="warning"
+              <b-button @click="deselectAll" variant="secondary"
                 >Deselect All</b-button
               >
             </b-button-group>
-            <b-input-group class="mx-1">
-              <CharacterGroupingSelect
-                label="Select target group"
-                :excluded-character-group="this.id"
-                v-model="cg_id"
-              />
-              <b-button
-                @click="changeGroup"
-                :disabled="selectedCharCount === 0 || cg_id === null"
-                >Change Group</b-button
-              >
+            <b-input-group class="mx-md-auto">
+              <b-row>
+                <CharacterGroupingSelect
+                  label="Select target group"
+                  :excluded-character-group="this.id"
+                  v-model="cg_id"
+                />
+                <b-col>
+                  <b-button
+                    variant="success"
+                    size="lg"
+                    @click="addToTargetGroup"
+                    :disabled="selectedCharCount === 0 || cg_id === null"
+                    >Copy To Group</b-button
+                  >
+                </b-col>
+                <b-col>
+                  <b-button
+                    variant="success"
+                    size="lg"
+                    @click="changeGroup"
+                    :disabled="selectedCharCount === 0 || cg_id === null"
+                    >Change Group</b-button
+                  >
+                </b-col>
+              </b-row>
             </b-input-group>
           </div>
         </b-card>
@@ -176,6 +191,19 @@ export default {
         (response) => {
           console.log(response)
           this.$asyncComputed.character_group.update()
+          this.selectedCharCount = 0
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+    },
+    addToTargetGroup: function () {
+      return HTTP.patch(`/character_groupings/${this.cg_id}/add_characters/`, {
+        characters: Object.keys(this.selectedCharacters),
+      }).then(
+        (response) => {
+          console.log(response)
           this.selectedCharCount = 0
         },
         (error) => {
