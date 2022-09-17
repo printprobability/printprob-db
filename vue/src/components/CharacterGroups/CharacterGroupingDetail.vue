@@ -189,24 +189,48 @@ export default {
         { characters: Object.keys(this.selectedCharacters) }
       ).then(
         (response) => {
+          this.makeToast(
+            'Successfully moved characters to target group!',
+            'success'
+          )
           console.log(response)
           this.$asyncComputed.character_group.update()
           this.selectedCharCount = 0
         },
         (error) => {
+          this.makeToast(
+            'Error moving characters to target group! Error: ' + error,
+            'danger'
+          )
           console.log(error)
         }
       )
+    },
+    makeToast(body, variant) {
+      this.$bvToast.toast(body, {
+        title: variant === 'danger' ? 'Error!' : 'Success',
+        variant: variant,
+        solid: true,
+        autoHideDelay: 3000,
+      })
     },
     addToTargetGroup: function () {
       return HTTP.patch(`/character_groupings/${this.cg_id}/add_characters/`, {
         characters: Object.keys(this.selectedCharacters),
       }).then(
         (response) => {
+          this.makeToast(
+            'Successfully added characters to target group!',
+            'success'
+          )
           console.log(response)
           this.selectedCharCount = 0
         },
         (error) => {
+          this.makeToast(
+            'Error adding characters to target group! Error: ' + error,
+            'danger'
+          )
           console.log(error)
         }
       )
