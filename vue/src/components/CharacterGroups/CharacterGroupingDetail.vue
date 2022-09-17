@@ -14,8 +14,29 @@
               >
               <p>{{ character_group.notes }}</p>
               <CharacterOrderingSelect v-model="order" />
+              <b-form-group label="Image size">
+                <b-form-radio
+                  v-model="image_size"
+                  name="image-size"
+                  value="actual"
+                  >Actual pixels</b-form-radio
+                >
+                <b-form-radio
+                  v-model="image_size"
+                  name="image-size"
+                  value="bound100"
+                  >100px</b-form-radio
+                >
+                <b-form-radio
+                  v-model="image_size"
+                  name="image-size"
+                  value="bound300"
+                  >300px</b-form-radio
+                >
+              </b-form-group>
             </b-row>
           </template>
+
           <div
             class="d-flex flex-wrap justify-content-around"
             v-if="ordered_characters.length > 0"
@@ -26,6 +47,7 @@
               :character="character"
               :edit-mode="edit_mode"
               :selected="isCharSelected(character.id)"
+              :image_size="image_size"
               @char_clicked="toggleCharacterSelection"
             />
           </div>
@@ -136,6 +158,7 @@ export default {
       selectedCharacters: {},
       selectedCharCount: 0,
       showCreate: false,
+      image_size: 'actual',
     }
   },
   computed: {
