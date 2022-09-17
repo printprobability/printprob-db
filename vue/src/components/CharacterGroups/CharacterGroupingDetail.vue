@@ -54,11 +54,12 @@
               >
             </b-button-group>
             <b-input-group class="mx-md-auto">
-              <b-row>
+              <b-row class="padded-row">
                 <CharacterGroupingSelect
                   label="Select target group"
                   :excluded-character-group="this.id"
                   v-model="cg_id"
+                  :hidden="showCreate"
                 />
                 <b-col>
                   <b-button
@@ -66,6 +67,7 @@
                     size="lg"
                     @click="addToTargetGroup"
                     :disabled="selectedCharCount === 0 || cg_id === null"
+                    :hidden="showCreate"
                     >Copy To Group</b-button
                   >
                 </b-col>
@@ -75,12 +77,32 @@
                     size="lg"
                     @click="changeGroup"
                     :disabled="selectedCharCount === 0 || cg_id === null"
+                    :hidden="showCreate"
                     >Change Group</b-button
                   >
                 </b-col>
               </b-row>
             </b-input-group>
           </div>
+          <b-input-group class="mx-md-1">
+            <b-row class="padded-row">
+              <b-col>
+                <b-button
+                  :variant="showCreate ? 'warning' : 'success'"
+                  size="lg"
+                  @click="toggleCreate"
+                  :disabled="selectedCharCount === 0"
+                  >{{ showCreate ? 'Cancel Create' : 'Create Group' }}</b-button
+                >
+              </b-col>
+            </b-row>
+            <b-row>
+              <NewCharacterGrouping
+                v-show="showCreate"
+                @new_group="create_new_group"
+              />
+            </b-row>
+          </b-input-group>
         </b-card>
       </b-col>
     </b-row>
@@ -91,6 +113,7 @@
 import CharacterImage from '../Characters/CharacterImage'
 import CharacterGroupingSelect from '../Menus/CharacterGroupingSelect'
 import CharacterOrderingSelect from '../Menus/CharacterOrderingSelect'
+import NewCharacterGrouping from '../CharacterGroups/NewCharacterGrouping'
 import { HTTP } from '../../main'
 import moment from 'moment'
 import _ from 'lodash'
@@ -101,6 +124,7 @@ export default {
     CharacterImage,
     CharacterOrderingSelect,
     CharacterGroupingSelect,
+    NewCharacterGrouping,
   },
   props: {
     id: String,
@@ -111,6 +135,7 @@ export default {
       order: 'character_class',
       selectedCharacters: {},
       selectedCharCount: 0,
+      showCreate: false,
     }
   },
   computed: {
@@ -235,9 +260,37 @@ export default {
         }
       )
     },
+    toggleCreate: function () {
+      this.showCreate = !this.showCreate
+    },
+    create_new_group: function (obj) {
+      this.showCreate = false
+      const payload = {
+        label: obj.label,
+        notes: obj.notes,
+        characters: Object.keys(this.selectedCharacters),
+      }
+      return HTTP.post('/character_groupings/', payload).then(
+        (response) => {
+          this.makeToast('Successfully created new group!', 'success')
+          console.log(response)
+          this.selectedCharCount = 0
+        },
+        (error) => {
+          this.makeToast('Error creating new group! Error: ' + error, 'danger')
+          console.log(error)
+        }
+      )
+    },
   },
   created: function () {
     // this.get_book(this.id);
   },
 }
 </script>
+
+<style scoped>
+.padded-row {
+  padding: 5px;
+}
+</style>
