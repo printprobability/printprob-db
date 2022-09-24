@@ -234,7 +234,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         characters_json = request.data["characters"]
         character_list = BookCreator.create_characters_for_book(characters_json, book)
         return Response(
-            {"lines created": len(character_list)}, status=status.HTTP_201_CREATED
+            {"characters created": len(character_list)}, status=status.HTTP_201_CREATED
         )
         # except:
         #     return Response(
