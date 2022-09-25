@@ -212,9 +212,9 @@ class BookLoader:
                 try:
                     result_length = future.result()
                     character_count += result_length
-                    logging.info({"Characters chunk created", result_length})
+                    logging.info({"Characters chunk updated", result_length})
                 except Exception as err:
-                    print('Error in creating character', err, type(err))
+                    print('Error in updating character', err, type(err))
 
         return character_count
 
