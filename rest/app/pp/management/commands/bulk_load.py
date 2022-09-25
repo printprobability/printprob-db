@@ -205,7 +205,7 @@ class BookLoader:
                 logging.error(f"Failing char object at index {i}: {character}")
                 raise
         worker_size = 20
-        chunks = ArrayDivideUtil.divide_into_chunks(character_list, worker_size)
+        chunks = ArrayDivideUtil.divide_into_chunks(character_list, int(round(len(character_list)/worker_size)))
         with concurrent.futures.ThreadPoolExecutor(max_workers=worker_size) as executor:
             def db_bulk_create(characters):
                 # Bulk save to DB
