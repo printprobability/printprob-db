@@ -215,7 +215,7 @@ class BookLoader:
             result_futures = list(map(lambda characters: executor.submit(db_bulk_create, characters), chunks))
             for future in concurrent.futures.as_completed(result_futures):
                 try:
-                    logging.info(f'Characters created: ${len(future.result())}')
+                    logging.info({"Characters chunk created", len(future.result())})
                 except Exception as e:
                     print('Error in creating character', e, type(e))
         return character_list
