@@ -4,6 +4,9 @@ import json
 import logging
 from uuid import UUID
 from django.db import transaction
+import concurrent.futures
+
+from pp.util import ArrayDivideUtil
 
 TIF_ROOT = "/ocean/projects/hum160002p/shared"
 
@@ -201,10 +204,20 @@ class BookLoader:
             except:
                 logging.error(f"Failing char object at index {i}: {character}")
                 raise
-        # Bulk save to DB
-        models.Character.objects.bulk_create(
-            character_list, batch_size=500, ignore_conflicts=True
-        )
+        worker_size = 20
+        chunks = ArrayDivideUtil.divide_into_chunks(character_list, worker_size)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=worker_size) as executor:
+            def db_bulk_create(characters):
+                # Bulk save to DB
+                return models.Character.objects.bulk_create(characters, batch_size=500, ignore_conflicts=True)
+
+            logging.info("Bulk creating characters using a threadpool executor")
+            result_futures = list(map(lambda characters: executor.submit(db_bulk_create, characters), chunks))
+            for future in concurrent.futures.as_completed(result_futures):
+                try:
+                    logging.info('Characters created: ', future.result())
+                except Exception as e:
+                    print('Error in creating character', e, type(e))
         return character_list
 
     @transaction.atomic
@@ -221,5 +234,3 @@ class BookLoader:
     def create_characters(self):
         character_list = BookLoader.create_characters_for_book(self.characters, self.book)
         logging.info({"characters created": len(character_list)})
-
-
