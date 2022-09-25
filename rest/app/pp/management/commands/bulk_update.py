@@ -5,6 +5,8 @@ import logging
 from uuid import UUID
 from django.db import transaction
 from tqdm import tqdm
+import concurrent.futures
+from pp.util import ArrayDivideUtil
 
 TIF_ROOT = "/ocean/projects/hum160002p/shared"
 
@@ -176,30 +178,44 @@ class BookLoader:
             models.CharacterClass.objects.all().values_list("classname", flat=True),
             field_name="classname",
         )
-        # Create list of character objects
-        character_count=0
-        for i, character in enumerate(tqdm(characters_json)):
-            try:
-                models.Character.objects.filter(id=character["id"]).update(
-                    created_by_run=character_run,
-                    line=line_objects[UUID(character["line_id"])],
-                    sequence=character["sequence"],
-                    y_min=character["y_start"],
-                    y_max=character["y_end"],
-                    x_min=character["x_start"],
-                    x_max=character["x_end"],
-                    offset=character["offset"],
-                    exposure=character["exposure"],
-                    class_probability=character["logprob"],
-                    damage_score=character.get("damage_score", None),
-                    character_class=character_class_objects[
-                        character["character_class"]
-                    ],
-                )
-                character_count+=1
-            except Exception as ex:
-                logging.error(f"Failing char object at index {i}: {character}")
-                raise ex
+        worker_size = 20
+        chunks = ArrayDivideUtil.divide_into_chunks(characters_json, int(round(len(characters_json) / worker_size)))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=worker_size) as executor:
+            def db_bulk_update(characters):
+                for character in characters:
+                    try:
+                        models.Character.objects.filter(id=character["id"]).update(
+                            created_by_run=character_run,
+                            line=line_objects[UUID(character["line_id"])],
+                            sequence=character["sequence"],
+                            y_min=character["y_start"],
+                            y_max=character["y_end"],
+                            x_min=character["x_start"],
+                            x_max=character["x_end"],
+                            offset=character["offset"],
+                            exposure=character["exposure"],
+                            class_probability=character["logprob"],
+                            damage_score=character.get("damage_score", None),
+                            character_class=character_class_objects[
+                                character["character_class"]
+                            ],
+                        )
+                    except Exception as ex:
+                        logging.error({"Failing char object": character})
+                        raise ex
+                return len(characters)
+
+            logging.info("Bulk updating characters using a threadpool executor")
+            result_futures = list(map(lambda characters: executor.submit(db_bulk_update, characters), chunks))
+            character_count = 0
+            for future in concurrent.futures.as_completed(result_futures):
+                try:
+                    result_length = future.result()
+                    character_count += result_length
+                    logging.info({"Characters chunk created", result_length})
+                except Exception as err:
+                    print('Error in creating character', err, type(err))
+
         return character_count
 
     @transaction.atomic
