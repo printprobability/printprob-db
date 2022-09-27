@@ -166,6 +166,7 @@ class BookLoader:
     def create_characters_for_book(characters_json, book):
         # Create character run
         character_run = models.CharacterRun.objects.create(book=book)
+
         # Collect line objects
         line_objects = models.Line.objects.in_bulk(
             list({character["line_id"] for character in characters_json}),
@@ -209,6 +210,7 @@ class BookLoader:
         logging.info({"Total number of characters to be added": len(character_list)})
         logging.info({"Number of chunks for characters": len(chunks)})
         try:
+            # Run these threads in an atomic transaction
             with transaction.atomic():
                 with concurrent.futures.ThreadPoolExecutor(max_workers=worker_size) as executor:
                     logging.info("Bulk creating characters using a threadpool executor")
@@ -226,6 +228,8 @@ class BookLoader:
                             logging.error(f'Error in creating character - {str(e)}')
         except DatabaseError as ex:
             logging.error(f"Error saving characters - {str(ex)}")
+            logging.info("Remove existing characterrun")
+            character_run.delete()
             return []
         return character_list
 
@@ -239,7 +243,6 @@ class BookLoader:
         line_list = BookLoader.create_lines_for_book(self.lines, self.book)
         logging.info({"lines created": len(line_list)})
 
-    @transaction.atomic
     def create_characters(self):
         character_list = BookLoader.create_characters_for_book(self.characters, self.book)
         logging.info({"characters created": len(character_list)})
