@@ -205,19 +205,23 @@ class BookLoader:
                 logging.error(f"Failing char object at index {i}: {character}")
                 raise
         worker_size = 20
-        chunks = ArrayDivideUtil.divide_into_chunks(character_list, int(round(len(character_list)/worker_size)))
+        chunks = ArrayDivideUtil.divide_into_chunks(character_list, int(round(len(character_list) / worker_size)))
+        logging.info({"Total number of characters to be added": len(character_list)})
+        logging.info({"Number of chunks for characters": len(chunks)})
         with concurrent.futures.ThreadPoolExecutor(max_workers=worker_size) as executor:
+            logging.info("Bulk creating characters using a threadpool executor")
+
             def db_bulk_create(characters):
+                logging.info("Saving characters to the database")
                 # Bulk save to DB
                 return models.Character.objects.bulk_create(characters, batch_size=500, ignore_conflicts=True)
 
-            logging.info("Bulk creating characters using a threadpool executor")
             result_futures = list(map(lambda characters: executor.submit(db_bulk_create, characters), chunks))
             for future in concurrent.futures.as_completed(result_futures):
                 try:
                     logging.info({"Characters chunk created", len(future.result())})
                 except Exception as e:
-                    print('Error in creating character', e, type(e))
+                    logging.error(f'Error in creating character - {str(e)}')
         return character_list
 
     @transaction.atomic
