@@ -166,6 +166,8 @@ class BookLoader:
     def create_characters_for_book(characters_json, book):
         # Create character run
         character_run = models.CharacterRun.objects.create(book=book)
+        character_run.refresh_from_db()
+        logging.info({"Character Run Saved": character_run.id})
 
         # Collect line objects
         line_objects = models.Line.objects.in_bulk(
