@@ -1,11 +1,12 @@
 import tarfile
 from tempfile import TemporaryDirectory
 from uuid import UUID
+import logging
 
 import requests
 from django import forms
 from django.conf import settings
-from django.db import transaction
+from django.db import transaction, DatabaseError
 from django.db.models import F, Q, Exists, OuterRef, Prefetch
 from django.db.models.query import EmptyQuerySet
 from django.http import FileResponse
@@ -47,8 +48,8 @@ class CRUDViewSet(viewsets.ModelViewSet):
                 # Get the baseline model without pre-joining anything
                 queryset=self.get_queryset().model.objects.all(),
             )
-            .qs.values("pk")
-            .count()
+                .qs.values("pk")
+                .count()
         )
         return Response({"count": ocount})
 
@@ -118,8 +119,8 @@ class BookFilter(filters.FilterSet):
             )
             return (
                 queryset.annotate(has_groupings=Exists(groupings))
-                .filter(has_groupings=True)
-                .all()
+                    .filter(has_groupings=True)
+                    .all()
             )
         return queryset
 
@@ -140,8 +141,8 @@ class BookFilter(filters.FilterSet):
                     has_lines=Exists(lines),
                     has_characters=Exists(characters),
                 )
-                .filter(Q(has_pages=True) | Q(has_lines=True) | Q(has_characters=value))
-                .all()
+                    .filter(Q(has_pages=True) | Q(has_lines=True) | Q(has_characters=value))
+                    .all()
             )
         return queryset
 
@@ -227,19 +228,21 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         )
 
     @action(detail=True, methods=["post"])
-    @transaction.atomic
     def bulk_characters(self, request, pk=None):
         book = self.get_object()
         # try:
         characters_json = request.data["characters"]
-        character_list = BookCreator.create_characters_for_book(characters_json, book)
-        return Response(
-            {"characters created": len(character_list)}, status=status.HTTP_201_CREATED
-        )
-        # except:
-        #     return Response(
-        #         {"error": "There was an error"}, status=status.HTTP_400_BAD_REQUEST
-        #     )
+        # Create character run
+        character_run = models.CharacterRun.objects.create(book=book)
+        character_run.refresh_from_db()
+        logging.info({"Character Run Saved": character_run.id})
+        try:
+            character_list = BookCreator.create_characters_for_book(characters_json, character_run)
+            return Response({"characters created": len(character_list)}, status=status.HTTP_201_CREATED)
+        except DatabaseError:
+            character_run.delete()
+            logging.error("No characters created, error creating character run")
+            return Response({"error": "There was an error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(detail=True, methods=["post"])
     @transaction.atomic

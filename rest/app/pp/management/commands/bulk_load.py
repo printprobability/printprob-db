@@ -246,6 +246,6 @@ class BookLoader:
         try:
             character_list = BookLoader.create_characters_for_book(self.characters, character_run)
             logging.info({"characters created": len(character_list)})
-        except DatabaseError:
+        except DatabaseError as err:
             character_run.delete()
-            return logging.info("No characters created, error creating character run")
+            logging.error(f"No characters created, error creating character run - {str(err)}")
