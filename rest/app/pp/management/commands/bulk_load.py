@@ -163,12 +163,8 @@ class BookLoader:
         return line_list
 
     @staticmethod
-    def create_characters_for_book(characters_json, book):
-        # Create character run
-        character_run = models.CharacterRun.objects.create(book=book)
-        character_run.refresh_from_db()
-        logging.info({"Character Run Saved": character_run.id})
-
+    @transaction.atomic
+    def create_characters_for_book(characters_json, character_run):
         # Collect line objects
         line_objects = models.Line.objects.in_bulk(
             list({character["line_id"] for character in characters_json}),
@@ -213,26 +209,23 @@ class BookLoader:
         logging.info({"Number of chunks for characters": len(chunks)})
         try:
             # Run these threads in an atomic transaction
-            with transaction.atomic():
-                with concurrent.futures.ThreadPoolExecutor(max_workers=worker_size) as executor:
-                    logging.info("Bulk creating characters using a threadpool executor")
+            with concurrent.futures.ThreadPoolExecutor(max_workers=worker_size) as executor:
+                logging.info("Bulk creating characters using a threadpool executor")
 
-                    def db_bulk_create(characters):
-                        logging.info("Saving characters to the database")
-                        # Bulk save to DB
-                        return models.Character.objects.bulk_create(characters, batch_size=500, ignore_conflicts=True)
+                def db_bulk_create(characters):
+                    logging.info("Saving characters to the database")
+                    # Bulk save to DB
+                    return models.Character.objects.bulk_create(characters, batch_size=500, ignore_conflicts=True)
 
-                    result_futures = list(map(lambda characters: executor.submit(db_bulk_create, characters), chunks))
-                    for future in concurrent.futures.as_completed(result_futures):
-                        try:
-                            logging.info({"Characters chunk created", len(future.result())})
-                        except Exception as e:
-                            logging.error(f'Error in creating character - {str(e)}')
+                result_futures = list(map(lambda characters: executor.submit(db_bulk_create, characters), chunks))
+                for future in concurrent.futures.as_completed(result_futures):
+                    try:
+                        logging.info({"Characters chunk created", len(future.result())})
+                    except Exception as e:
+                        logging.error(f'Error in creating character - {str(e)}')
         except DatabaseError as ex:
             logging.error(f"Error saving characters - {str(ex)}")
-            logging.info("Remove existing characterrun")
-            character_run.delete()
-            return []
+            raise
         return character_list
 
     @transaction.atomic
@@ -246,5 +239,13 @@ class BookLoader:
         logging.info({"lines created": len(line_list)})
 
     def create_characters(self):
-        character_list = BookLoader.create_characters_for_book(self.characters, self.book)
-        logging.info({"characters created": len(character_list)})
+        # Create character run
+        character_run = models.CharacterRun.objects.create(book=self.book)
+        character_run.refresh_from_db()
+        logging.info({"Character Run Saved": character_run.id})
+        try:
+            character_list = BookLoader.create_characters_for_book(self.characters, character_run)
+            logging.info({"characters created": len(character_list)})
+        except DatabaseError:
+            character_run.delete()
+            return logging.info("No characters created, error creating character run")
