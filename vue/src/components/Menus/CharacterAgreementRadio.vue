@@ -7,28 +7,28 @@
   >
     <b-form-radio
       size="sm"
-      v-model="value"
+      v-model="selectedOption"
       name="character-agreement"
       value="all"
       >Show all</b-form-radio
     >
     <b-form-radio
       size="sm"
-      v-model="value"
+      v-model="selectedOption"
       name="character-agreement"
       value="unknown"
       >No human classification yet</b-form-radio
     >
     <b-form-radio
       size="sm"
-      v-model="value"
+      v-model="selectedOption"
       name="character-agreement"
       value="disagreement"
       >Disagreements only</b-form-radio
     >
     <b-form-radio
       size="sm"
-      v-model="value"
+      v-model="selectedOption"
       name="character-agreement"
       value="agreement"
       >Agreements only</b-form-radio
@@ -42,9 +42,14 @@ export default {
   props: {
     value: String,
   },
+  data() {
+    return {
+      selectedOption: this.value,
+    }
+  },
   watch: {
-    value() {
-      this.$emit('input', this.value)
+    selectedOption() {
+      this.$emit('input', this.selectedOption)
     },
   },
 }
