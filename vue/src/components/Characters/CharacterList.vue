@@ -129,6 +129,7 @@ import CharacterAgreementRadio from '../Menus/CharacterAgreementRadio'
 import CharacterImage from './CharacterImage'
 import Spinner from '../Interfaces/Spinner'
 import { HTTP } from '../../main'
+import { debounce } from 'lodash'
 
 export default {
   name: 'CharacterList',
@@ -203,8 +204,7 @@ export default {
   },
   asyncComputed: {
     results() {
-      this.progress_spinner = true
-      var payload = {
+      const payload = {
         limit: this.$APIConstants.REST_PAGE_SIZE,
         offset: this.rest_offset,
         character_class: this.character_class,
@@ -217,18 +217,8 @@ export default {
       if (this.show_damaged_characters) {
         payload.damage_score_gte = 0.0
       }
-      return HTTP.get('/characters/', {
-        params: payload,
-      }).then(
-        (response) => {
-          this.progress_spinner = false
-          return response.data
-        },
-        (error) => {
-          this.progress_spinner = false
-          console.log(error)
-        }
-      )
+      // debounced call - we don't want this to trigger too many times
+      return this.getCharacters(payload)
     },
     book_title() {
       if (!!this.book) {
@@ -274,6 +264,22 @@ export default {
     clear_book() {
       this.$emit('book_input', null)
     },
+    getCharacters: debounce(function (payload) {
+      this.progress_spinner = true
+
+      return HTTP.get('/characters/', {
+        params: payload,
+      }).then(
+        (response) => {
+          this.progress_spinner = false
+          return response.data
+        },
+        (error) => {
+          this.progress_spinner = false
+          console.log(error)
+        }
+      )
+    }, 250),
   },
   watch: {
     results() {
