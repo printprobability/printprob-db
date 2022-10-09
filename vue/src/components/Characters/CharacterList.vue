@@ -129,6 +129,7 @@ import CharacterAgreementRadio from '../Menus/CharacterAgreementRadio'
 import CharacterImage from './CharacterImage'
 import Spinner from '../Interfaces/Spinner'
 import { HTTP } from '../../main'
+import axios from 'axios'
 import { debounce } from 'lodash'
 
 export default {
@@ -200,10 +201,16 @@ export default {
       cursor: null,
       page: 1,
       image_size: 'actual',
+      previous_requests: [],
     }
   },
   asyncComputed: {
     results() {
+      // cancel all previous requests
+      this.previous_requests.forEach((request) => {
+        request.cancel('Cancelling in favor of new fetch')
+      })
+      this.previous_requests = []
       const payload = {
         limit: this.$APIConstants.REST_PAGE_SIZE,
         offset: this.rest_offset,
@@ -265,25 +272,32 @@ export default {
       this.$emit('book_input', null)
     },
     getCharacters: debounce(function (payload) {
+      const request = axios.CancelToken.source()
+      this.previous_requests.push(request)
       this.progress_spinner = true
 
       return HTTP.get('/characters/', {
         params: payload,
-      }).then(
-        (response) => {
+        cancelToken: request.token,
+      })
+        .then(
+          (response) => {
+            return response.data
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
+        .finally(() => {
           this.progress_spinner = false
-          return response.data
-        },
-        (error) => {
-          this.progress_spinner = false
-          console.log(error)
-        }
-      )
+        })
     }, 250),
   },
   watch: {
     results() {
-      this.$emit('input', this.results.results)
+      if (this.results) {
+        this.$emit('input', this.results.results)
+      }
     },
     view_params() {
       this.page = 1
