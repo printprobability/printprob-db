@@ -13,8 +13,6 @@
           @char_clicked="toggle_character"
           :good_characters="good_characters"
           :bad_characters="bad_characters"
-          :page="page"
-          @page_input="page = $event"
           :character_class="character_class"
           @character_class_input="character_class = $event"
           :book="book"
@@ -25,8 +23,12 @@
           @order_input="order = $event"
           :character_run="character_run"
           @character_run_input="character_run = $event"
+          :show_damaged_characters="show_damaged_characters"
+          @damaged_characters_input="show_damaged_characters = $event"
           v-model="displayed_images"
           :key="char_list_key"
+          :page_start="page_start"
+          @page_changed="page_start = $event"
         />
       </div>
       <div class="col-5">
@@ -92,13 +94,14 @@ export default {
       displayed_images: [],
       disable_commit: true,
       cl_key: 1,
-      page: 1,
       character_class: null,
       book: null,
       order: 'character_class',
       character_run: null,
       char_agreement: 'unknown',
       char_list_key: 0,
+      show_damaged_characters: false,
+      page_start: 1,
     }
   },
   computed: {
@@ -139,6 +142,8 @@ export default {
         character_run: this.character_run,
         character_class: this.character_class,
         char_agreement: this.char_agreement,
+        show_damaged_characters: this.show_damaged_characters,
+        page: this.page_start,
       }
     },
   },
@@ -211,6 +216,11 @@ export default {
     this.character_run = this.$route.query.character_run
     this.character_class = this.$route.query.character_class
     this.char_agreement = this.$route.query.char_agreement
+    this.show_damaged_characters =
+      this.$route.query.show_damaged_characters === 'true'
+    this.page_start = !!this.$route.query.page
+      ? Number(this.$route.query.page)
+      : 1
   },
   updated() {
     this.$router.push({ name: 'CharacterReviewView', query: this.view_params })

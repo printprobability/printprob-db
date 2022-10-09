@@ -20,12 +20,12 @@
           @char_agreement_input="char_agreement = $event"
           :character_run="character_run"
           @character_run_input="character_run = $event"
-          :page_range="page_range"
-          @page_range_input="page_range = $event"
           :show_damaged_characters="show_damaged_characters"
           @damaged_characters_input="show_damaged_characters = $event"
           v-model="displayed_images"
           @char_clicked="register_character"
+          :page_start="page_start"
+          @page_changed="page_start = $event"
         />
       </div>
       <div class="col-5">
@@ -109,8 +109,8 @@
               />
             </div>
             <b-alert v-else show variant="info"
-              >This group has no characters yet.</b-alert
-            >
+              >This group has no characters yet.
+            </b-alert>
           </div>
           <div
             class="card-footer d-flex justify-content-between"
@@ -129,11 +129,11 @@
                 cg_id +
                 '/download/'
               "
-              >Download ZIP</b-button
-            >
+              >Download ZIP
+            </b-button>
             <b-button v-b-modal.delete-modal variant="danger" size="sm"
-              >Delete</b-button
-            >
+              >Delete
+            </b-button>
             <b-modal
               id="delete-modal"
               title="Delete group?"
@@ -190,7 +190,7 @@ export default {
       character_run: null,
       char_agreement: 'all',
       order: 'character_class',
-      page_range: [null, null],
+      page_start: 1,
       show_damaged_characters: false,
     }
   },
@@ -221,8 +221,8 @@ export default {
         character_run: this.character_run,
         character_class: this.character_class,
         char_agreement: this.char_agreement,
-        page_range: this.page_range,
         show_damaged_characters: this.show_damaged_characters,
+        page: this.page_start,
       }
     },
   },
@@ -338,7 +338,9 @@ export default {
     this.character_run = this.$route.query.character_run
     this.character_class = this.$route.query.character_class
     this.char_agreement = this.$route.query.char_agreement
-    this.page_range = this.$route.query.page_range
+    this.page_start = !!this.$route.query.page
+      ? Number(this.$route.query.page)
+      : 1
     this.show_damaged_characters =
       this.$route.query.show_damaged_characters === 'true'
   },

@@ -5,12 +5,7 @@
     description="Only show characters that have been assigned a damage score?"
     label-size="sm"
   >
-    <b-form-checkbox
-      size="sm"
-      :checked="value"
-      name="show-damaged-characters"
-      @input="$emit('input', $event)"
-    >
+    <b-form-checkbox size="sm" v-model="checked" name="show-damaged-characters">
     </b-form-checkbox>
   </b-form-group>
 </template>
@@ -20,6 +15,16 @@ export default {
   name: 'ShowDamagedCharactersCheckbox',
   props: {
     value: Boolean,
+  },
+  data() {
+    return {
+      checked: this.value,
+    }
+  },
+  watch: {
+    checked() {
+      this.$emit('input', this.checked)
+    },
   },
 }
 </script>

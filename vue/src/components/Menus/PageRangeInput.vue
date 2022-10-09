@@ -21,26 +21,28 @@ export default {
   },
   data() {
     return {
-      gte: null,
-      lte: null,
+      gte: this.page_range[0],
+      lte: this.page_range[1],
     }
   },
   methods: {
     renderRange() {
-      this.$emit('input', [this.gte, this.lte])
+      if (this.gte) {
+        this.$emit('input', [this.gte, this.lte])
+      }
     },
   },
   watch: {
-    gte() {
-      this.renderRange()
+    gte(newVal, prevVal) {
+      if (newVal !== prevVal) {
+        this.renderRange()
+      }
     },
-    lte() {
-      this.renderRange()
+    lte(newVal, prevVal) {
+      if (newVal !== prevVal) {
+        this.renderRange()
+      }
     },
-  },
-  created() {
-    this.gte = this.page_range[0]
-    this.lte = this.page_range[1]
   },
 }
 </script>

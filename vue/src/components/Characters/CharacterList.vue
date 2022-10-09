@@ -39,15 +39,7 @@
               @input="$emit('order_input', $event)"
             />
           </div>
-        </b-row>
-        <b-row>
-          <div class="col-6">
-            <PageRangeInput
-              :value="page_range"
-              @input="$emit('page_range_input', $event)"
-            />
-          </div>
-          <div class="col-6">
+          <div class="col-4">
             <ShowDamagedCharactersCheckbox
               :value="show_damaged_characters"
               @input="$emit('damaged_characters_input', $event)"
@@ -64,7 +56,7 @@
             Characters {{ 1 + (page - 1) * $APIConstants.REST_PAGE_SIZE }} to
             {{ (page - 1) * $APIConstants.REST_PAGE_SIZE + value.length }}
             <span
-              v-if="results.next"
+              v-if="characters.next"
               v-b-tooltip.hover
               title="Arbitrarily counting characters is a very expensive operation, so we only estimate here..."
               >(out of many)</span
@@ -78,6 +70,7 @@
             :total-rows="mock_rows"
             aria-controls="character-results"
             limit="3"
+            @input="$emit('page_changed', $event)"
           />
           <b-form-group label="Image size">
             <b-form-radio v-model="image_size" name="image-size" value="actual"
@@ -121,7 +114,6 @@
 
 <script>
 import ShowDamagedCharactersCheckbox from '../Menus/ShowDamagedCharactersCheckbox'
-import PageRangeInput from '../Menus/PageRangeInput'
 import CharacterClassSelect from '../Menus/CharacterClassSelect'
 import CharacterOrderingSelect from '../Menus/CharacterOrderingSelect'
 import BookAutocomplete from '../Menus/BookAutocomplete'
@@ -169,12 +161,6 @@ export default {
       default: 'character_class',
       type: String,
     },
-    page_range: {
-      type: Array,
-      default: function () {
-        return []
-      },
-    },
     show_damaged_characters: {
       type: Boolean,
       default: true,
@@ -184,10 +170,13 @@ export default {
       type: Array,
       default: () => [],
     },
+    page_start: {
+      type: Number,
+      default: 1,
+    },
   },
   components: {
     ShowDamagedCharactersCheckbox,
-    PageRangeInput,
     CharacterClassSelect,
     CharacterOrderingSelect,
     BookAutocomplete,
@@ -199,9 +188,10 @@ export default {
     return {
       progress_spinner: false,
       cursor: null,
-      page: 1,
       image_size: 'actual',
       previous_requests: [],
+      characters: { results: [], next: null, prev: null },
+      page: this.page_start,
     }
   },
   asyncComputed: {
@@ -218,11 +208,7 @@ export default {
         book: this.book,
         agreement: this.char_agreement,
         ordering: this.order,
-        page_sequence_gte: this.page_range[0],
-        page_sequence_lte: this.page_range[1],
-      }
-      if (this.show_damaged_characters) {
-        payload.damage_score_gte = 0.0
+        damage_score_gte: this.show_damaged_characters ? 0.0 : undefined,
       }
       // debounced call - we don't want this to trigger too many times
       return this.getCharacters(payload)
@@ -230,8 +216,8 @@ export default {
     book_title() {
       if (!!this.book) {
         return HTTP.get('/books/' + this.book + '/').then(
-          (results) => {
-            return results.data.label
+          (response) => {
+            return response.data.label
           },
           (error) => {
             console.log(error)
@@ -249,7 +235,6 @@ export default {
         agreement: this.char_agreement,
         order: this.order,
         cursor: this.cursor,
-        page_range: this.page_range,
         show_damaged_characters: this.show_damaged_characters,
       }
     },
@@ -257,11 +242,11 @@ export default {
       return (this.page - 1) * this.$APIConstants.REST_PAGE_SIZE
     },
     pagination_needed: function () {
-      return !!this.results.next || !!this.results.previous
+      return !!this.characters.next || !!this.characters.previous
     },
     mock_rows: function () {
       var baseline = this.rest_offset + this.value.length
-      if (!!this.results.next) {
+      if (!!this.characters.next) {
         baseline += this.$APIConstants.REST_PAGE_SIZE
       }
       return baseline
@@ -272,6 +257,7 @@ export default {
       this.$emit('book_input', null)
     },
     getCharacters: debounce(function (payload) {
+      console.log('GETTING CHARS')
       const request = axios.CancelToken.source()
       this.previous_requests.push(request)
       this.progress_spinner = true
@@ -282,7 +268,7 @@ export default {
       })
         .then(
           (response) => {
-            return response.data
+            this.characters = response.data
           },
           (error) => {
             console.log(error)
@@ -294,10 +280,8 @@ export default {
     }, 250),
   },
   watch: {
-    results() {
-      if (this.results) {
-        this.$emit('input', this.results.results)
-      }
+    characters() {
+      this.$emit('input', this.characters.results)
     },
     view_params() {
       this.page = 1
