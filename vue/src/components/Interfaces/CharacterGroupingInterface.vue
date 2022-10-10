@@ -24,8 +24,9 @@
           @damaged_characters_input="show_damaged_characters = $event"
           v-model="displayed_images"
           @char_clicked="register_character"
-          :page_start="page_start"
-          @page_changed="page_start = $event"
+          :input_page_start="page_start"
+          :input_page_end="page_end"
+          @page_range_input="update_page_range"
         />
       </div>
       <div class="col-5">
@@ -190,8 +191,9 @@ export default {
       character_run: null,
       char_agreement: 'all',
       order: 'character_class',
-      page_start: 1,
       show_damaged_characters: false,
+      page_start: null,
+      page_end: null,
     }
   },
   computed: {
@@ -222,7 +224,8 @@ export default {
         character_class: this.character_class,
         char_agreement: this.char_agreement,
         show_damaged_characters: this.show_damaged_characters,
-        page: this.page_start,
+        ...(this.page_start && { page_start: this.page_start }),
+        ...(this.page_end && { page_end: this.page_end }),
       }
     },
   },
@@ -331,6 +334,10 @@ export default {
     refresh_cg_menu: function () {
       this.cg_menu_key += 1
     },
+    update_page_range(page_range) {
+      this.page_start = Number(page_range[0])
+      this.page_end = Number(page_range[1])
+    },
   },
   created() {
     this.book = this.$route.query.book
@@ -338,11 +345,14 @@ export default {
     this.character_run = this.$route.query.character_run
     this.character_class = this.$route.query.character_class
     this.char_agreement = this.$route.query.char_agreement
-    this.page_start = !!this.$route.query.page
-      ? Number(this.$route.query.page)
-      : 1
     this.show_damaged_characters =
       this.$route.query.show_damaged_characters === 'true'
+    this.page_start = !!this.$route.query.page_start
+      ? Number(this.$route.query.page_start)
+      : null
+    this.page_end = !!this.$route.query.page_end
+      ? Number(this.$route.query.page_end)
+      : null
   },
   updated() {
     this.$router.push({

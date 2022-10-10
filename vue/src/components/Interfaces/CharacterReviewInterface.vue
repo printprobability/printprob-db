@@ -27,8 +27,9 @@
           @damaged_characters_input="show_damaged_characters = $event"
           v-model="displayed_images"
           :key="char_list_key"
-          :page_start="page_start"
-          @page_changed="page_start = $event"
+          :input_page_start="page_start"
+          :input_page_end="page_end"
+          @page_range_input="update_page_range"
         />
       </div>
       <div class="col-5">
@@ -102,6 +103,7 @@ export default {
       char_list_key: 0,
       show_damaged_characters: false,
       page_start: 1,
+      page_end: undefined,
     }
   },
   computed: {
@@ -143,7 +145,8 @@ export default {
         character_class: this.character_class,
         char_agreement: this.char_agreement,
         show_damaged_characters: this.show_damaged_characters,
-        page: this.page_start,
+        ...(this.page_start && { page_start: this.page_start }),
+        ...(this.page_end && { page_end: this.page_end }),
       }
     },
   },
@@ -209,6 +212,10 @@ export default {
       this.$bvToast.show('success_toast')
       this.char_list_key += 1
     },
+    update_page_range(page_range) {
+      this.page_start = Number(page_range[0])
+      this.page_end = Number(page_range[1])
+    },
   },
   created() {
     this.book = this.$route.query.book
@@ -218,9 +225,12 @@ export default {
     this.char_agreement = this.$route.query.char_agreement
     this.show_damaged_characters =
       this.$route.query.show_damaged_characters === 'true'
-    this.page_start = !!this.$route.query.page
-      ? Number(this.$route.query.page)
-      : 1
+    this.page_start = !!this.$route.query.page_start
+      ? Number(this.$route.query.page_start)
+      : null
+    this.page_end = !!this.$route.query.page_end
+      ? Number(this.$route.query.page_end)
+      : null
   },
   updated() {
     this.$router.push({ name: 'CharacterReviewView', query: this.view_params })

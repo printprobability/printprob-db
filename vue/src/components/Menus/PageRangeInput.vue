@@ -12,23 +12,33 @@
 export default {
   name: 'PageRangeInput',
   props: {
-    page_range: {
-      type: Array,
-      default() {
-        return []
-      },
+    page_start: {
+      type: Number,
+      default: null,
+    },
+    page_end: {
+      type: Number,
+      default: null,
     },
   },
   data() {
     return {
-      gte: this.page_range[0],
-      lte: this.page_range[1],
+      gte: this.page_start,
+      lte: this.page_end,
     }
   },
   methods: {
     renderRange() {
       if (this.gte) {
-        this.$emit('input', [this.gte, this.lte])
+        if (this.lte) {
+          if (this.gte <= this.lte) {
+            this.$emit('input', [this.gte, this.lte])
+          }
+        } else {
+          this.$emit('input', [this.gte, this.lte])
+        }
+      } else {
+        this.$emit('input', [null, null])
       }
     },
   },

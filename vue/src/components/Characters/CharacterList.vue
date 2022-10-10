@@ -39,7 +39,22 @@
               @input="$emit('order_input', $event)"
             />
           </div>
-          <div class="col-4">
+          <div class="col-4" v-if="!!!book">
+            <ShowDamagedCharactersCheckbox
+              :value="show_damaged_characters"
+              @input="$emit('damaged_characters_input', $event)"
+            />
+          </div>
+        </b-row>
+        <b-row v-if="!!book">
+          <div class="col-6">
+            <PageRangeInput
+              :page_start="page_start"
+              :page_end="page_end"
+              @input="$emit('page_range_input', $event)"
+            />
+          </div>
+          <div class="col-6">
             <ShowDamagedCharactersCheckbox
               :value="show_damaged_characters"
               @input="$emit('damaged_characters_input', $event)"
@@ -70,7 +85,6 @@
             :total-rows="mock_rows"
             aria-controls="character-results"
             limit="3"
-            @input="$emit('page_changed', $event)"
           />
           <b-form-group label="Image size">
             <b-form-radio v-model="image_size" name="image-size" value="actual"
@@ -118,6 +132,7 @@ import CharacterClassSelect from '../Menus/CharacterClassSelect'
 import CharacterOrderingSelect from '../Menus/CharacterOrderingSelect'
 import BookAutocomplete from '../Menus/BookAutocomplete'
 import CharacterAgreementRadio from '../Menus/CharacterAgreementRadio'
+import PageRangeInput from '../Menus/PageRangeInput'
 import CharacterImage from './CharacterImage'
 import Spinner from '../Interfaces/Spinner'
 import { HTTP } from '../../main'
@@ -170,13 +185,18 @@ export default {
       type: Array,
       default: () => [],
     },
-    page_start: {
+    input_page_start: {
       type: Number,
-      default: 1,
+      default: null,
+    },
+    input_page_end: {
+      type: Number,
+      default: null,
     },
   },
   components: {
     ShowDamagedCharactersCheckbox,
+    PageRangeInput,
     CharacterClassSelect,
     CharacterOrderingSelect,
     BookAutocomplete,
@@ -191,7 +211,9 @@ export default {
       image_size: 'actual',
       previous_requests: [],
       characters: { results: [], next: null, prev: null },
-      page: this.page_start,
+      page: 1,
+      page_start: this.input_page_start,
+      page_end: this.input_page_end,
     }
   },
   asyncComputed: {
@@ -208,6 +230,8 @@ export default {
         book: this.book,
         agreement: this.char_agreement,
         ordering: this.order,
+        page_sequence_gte: this.input_page_start,
+        page_sequence_lte: this.input_page_end,
         damage_score_gte: this.show_damaged_characters ? 0.0 : undefined,
       }
       // debounced call - we don't want this to trigger too many times
@@ -236,6 +260,8 @@ export default {
         order: this.order,
         cursor: this.cursor,
         show_damaged_characters: this.show_damaged_characters,
+        page_start: this.page_start,
+        page_end: this.page_end,
       }
     },
     rest_offset: function () {
@@ -257,7 +283,6 @@ export default {
       this.$emit('book_input', null)
     },
     getCharacters: debounce(function (payload) {
-      console.log('GETTING CHARS')
       const request = axios.CancelToken.source()
       this.previous_requests.push(request)
       this.progress_spinner = true
