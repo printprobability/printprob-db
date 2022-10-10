@@ -13,8 +13,8 @@
           <div class="col-8">
             <p v-if="!!book">
               <b-button @click="clear_book" variant="danger" size="sm"
-                >x</b-button
-              >
+                >x
+              </b-button>
               <strong>Book:</strong>
               {{ book_title }}
             </p>
@@ -88,20 +88,20 @@
           />
           <b-form-group label="Image size">
             <b-form-radio v-model="image_size" name="image-size" value="actual"
-              >Actual pixels</b-form-radio
-            >
+              >Actual pixels
+            </b-form-radio>
             <b-form-radio
               v-model="image_size"
               name="image-size"
               value="bound100"
-              >100px</b-form-radio
-            >
+              >100px
+            </b-form-radio>
             <b-form-radio
               v-model="image_size"
               name="image-size"
               value="bound300"
-              >300px</b-form-radio
-            >
+              >300px
+            </b-form-radio>
           </b-form-group>
         </div>
         <div show v-else>No matching characters</div>
@@ -230,9 +230,11 @@ export default {
         book: this.book,
         agreement: this.char_agreement,
         ordering: this.order,
-        page_sequence_gte: this.input_page_start,
-        page_sequence_lte: this.input_page_end,
-        damage_score_gte: this.show_damaged_characters ? 0.0 : undefined,
+        ...(this.input_page_start && {
+          page_sequence_gte: this.input_page_start,
+        }),
+        ...(this.input_page_end && { page_sequence_lte: this.input_page_end }),
+        ...(this.show_damaged_characters && { damage_score_gte: 0.0 }),
       }
       // debounced call - we don't want this to trigger too many times
       return this.getCharacters(payload)
