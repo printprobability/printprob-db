@@ -215,7 +215,7 @@ class BookLoader:
                 def db_bulk_create(characters):
                     logging.info("Saving characters to the database")
                     # Bulk save to DB
-                    return models.Character.objects.bulk_create(characters, batch_size=500, ignore_conflicts=True)
+                    return models.Character.objects.bulk_create(characters, batch_size=10000, ignore_conflicts=True)
 
                 result_futures = list(map(lambda characters: executor.submit(db_bulk_create, characters), chunks))
                 for future in concurrent.futures.as_completed(result_futures):
