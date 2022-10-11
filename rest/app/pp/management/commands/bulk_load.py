@@ -203,7 +203,7 @@ class BookLoader:
             except:
                 logging.error(f"Failing char object at index {i}: {character}")
                 raise
-        worker_size = 20
+        worker_size = 40
         chunks = list(ArrayDivideUtil.divide_into_chunks(character_list, int(round(len(character_list) / worker_size))))
         logging.info({"Total number of characters to be added": len(character_list)})
         logging.info({"Number of chunks for characters": len(chunks)})

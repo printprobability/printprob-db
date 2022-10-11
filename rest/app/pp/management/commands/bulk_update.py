@@ -178,7 +178,7 @@ class BookLoader:
             models.CharacterClass.objects.all().values_list("classname", flat=True),
             field_name="classname",
         )
-        worker_size = 20
+        worker_size = 40
         chunks = ArrayDivideUtil.divide_into_chunks(characters_json, int(round(len(characters_json) / worker_size)))
         with concurrent.futures.ThreadPoolExecutor(max_workers=worker_size) as executor:
             def db_bulk_update(characters):
