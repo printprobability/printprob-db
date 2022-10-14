@@ -229,13 +229,15 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
 
     @action(detail=True, methods=["post"])
     def bulk_characters(self, request, pk=None):
-        book = self.get_object()
         # try:
         characters_json = request.data["characters"]
-        # Create character run
-        character_run = models.CharacterRun.objects.create(book=book)
-        character_run.refresh_from_db()
-        logging.info({"Character Run Saved": character_run.id})
+        character_run_id = request.data["character_run_id"]
+        if character_run_id is None or characters_json is None:
+            return Response({"error": "missing character run or characters"}, status=status.HTTP_400_BAD_REQUEST)
+        # Get character run
+        character_run = models.CharacterRun.objects.get(id=character_run_id)
+        if character_run is None:
+            return Response({"error": f"missing character run for id: {character_run_id}"}, status=status.HTTP_400_BAD_REQUEST)
         try:
             character_list = BookCreator.create_characters_for_book(characters_json, character_run)
             return Response({"characters created": len(character_list)}, status=status.HTTP_201_CREATED)
@@ -270,8 +272,16 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
     def bulk_characters_update(self, request, pk=None):
         # try:
         characters_json = request.data["characters"]
+        character_run_id = request.data["character_run_id"]
+        if character_run_id is None or characters_json is None:
+            return Response({"error": "missing character run or characters"}, status=status.HTTP_400_BAD_REQUEST)
+        # Get character run
+        character_run = models.CharacterRun.objects.get(id=character_run_id)
+        if character_run is None:
+            return Response({"error": f"missing character run for id: {character_run_id}"},
+                            status=status.HTTP_400_BAD_REQUEST)
         try:
-            characters_count = BookUpdater.update_characters_for_book(characters_json)
+            characters_count = BookUpdater.update_characters_for_book(characters_json, character_run)
             return Response(
                 {"characters updated": characters_count}, status=status.HTTP_200_OK
             )

@@ -4,9 +4,6 @@ import json
 import logging
 from uuid import UUID
 from django.db import transaction, DatabaseError
-import concurrent.futures
-
-from pp.util import ArrayDivideUtil
 
 TIF_ROOT = "/ocean/projects/hum160002p/shared"
 
@@ -203,29 +200,11 @@ class BookLoader:
             except:
                 logging.error(f"Failing char object at index {i}: {character}")
                 raise
-        worker_size = 40
-        chunks = list(ArrayDivideUtil.divide_into_chunks(character_list, int(round(len(character_list) / worker_size))))
-        logging.info({"Total number of characters to be added": len(character_list)})
-        logging.info({"Number of chunks for characters": len(chunks)})
-        try:
-            # Run these threads in an atomic transaction
-            with concurrent.futures.ThreadPoolExecutor(max_workers=worker_size) as executor:
-                logging.info("Bulk creating characters using a threadpool executor")
-
-                def db_bulk_create(characters):
-                    logging.info("Saving characters to the database")
-                    # Bulk save to DB
-                    return models.Character.objects.bulk_create(characters, batch_size=10000, ignore_conflicts=True)
-
-                result_futures = list(map(lambda characters: executor.submit(db_bulk_create, characters), chunks))
-                for future in concurrent.futures.as_completed(result_futures):
-                    try:
-                        logging.info({"Characters chunk created", len(future.result())})
-                    except Exception as e:
-                        logging.error(f'Error in creating character - {str(e)}')
-        except DatabaseError as ex:
-            logging.error(f"Error saving characters - {str(ex)}")
-            raise
+        # Bulk save to DB
+        models.Character.objects.bulk_create(
+            character_list, batch_size=500, ignore_conflicts=True
+        )
+        logging.info({"Saved characters to the database": len(character_list)})
         return character_list
 
     @transaction.atomic
