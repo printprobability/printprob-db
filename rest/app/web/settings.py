@@ -129,6 +129,7 @@ DATABASES = {
         "PASSWORD": os.environ["POSTGRES_PASSWORD"],
         "HOST": os.environ["POSTGRES_HOST"],
         "PORT": os.environ["POSTGRES_PORT"],
+        "CONN_MAX_AGE": 600, # 10 minutes
     }
 }
 
