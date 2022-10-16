@@ -232,17 +232,23 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         # try:
         characters_json = request.data["characters"]
         character_run_id = request.data["character_run_id"]
+        if character_run_id is None:
+            logging.info("Character run id is missing")
+        if characters_json is None:
+            logging.info("Characters list is missing")
         if character_run_id is None or characters_json is None:
-            return Response({"error": "missing character run or characters"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "missing character run or characters"},
+                            status=status.HTTP_400_BAD_REQUEST)
         # Get character run
         character_run = models.CharacterRun.objects.get(id=character_run_id)
         if character_run is None:
-            return Response({"error": f"missing character run for id: {character_run_id}"}, status=status.HTTP_400_BAD_REQUEST)
+            logging.info({"Missing character run": character_run_id})
+            return Response({"error": f"missing character run for id: {character_run_id}"},
+                            status=status.HTTP_400_BAD_REQUEST)
         try:
             character_list = BookCreator.create_characters_for_book(characters_json, character_run)
             return Response({"characters created": len(character_list)}, status=status.HTTP_201_CREATED)
         except DatabaseError:
-            character_run.delete()
             logging.error("No characters created, error creating character run")
             return Response({"error": "There was an error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
