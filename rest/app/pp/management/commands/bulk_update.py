@@ -186,8 +186,8 @@ class BookLoader:
         index = 0
         # Update one character at a time
         for character in filtered_characters:
+            json_character = char_dict.get(str(character.pk))
             try:
-                json_character = char_dict.get(str(character.pk))
                 character.update(
                     created_by_run=character_run,
                     line=line_objects[UUID(json_character["line_id"])],
