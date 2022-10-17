@@ -182,39 +182,34 @@ class BookLoader:
         filtered_characters = models.Character.objects.filter(id__in=list(char_dict.keys()))
         logging.info("Got filtered characters from database for incoming JSON")
 
-        # update values
+        character_count=0
+        index = 0
+        # Update one character at a time
         for character in filtered_characters:
-            json_character = char_dict.get(str(character.pk))
-
-            character.created_by_run = character_run
-            character.line = line_objects[UUID(json_character["line_id"])]
-            character.sequence = json_character["sequence"]
-            character.y_min = json_character["y_start"]
-            character.y_max = json_character["y_end"]
-            character.x_min = json_character["x_start"]
-            character.x_max = json_character["x_end"]
-            character.offset = json_character["offset"]
-            character.exposure = json_character["exposure"]
-            character.class_probability = json_character["logprob"]
-            character.damage_score = json_character.get("damage_score", None)
-            character.character_class = character_class_objects[
-                json_character["character_class"]
-            ]
-        logging.info("Attempting to bulk update in database")
-        try:
-            # Do bulk update
-            models.Character.objects.bulk_update(filtered_characters,
-                                                 [
-                                                     'created_by_run', 'line', 'sequence',
-                                                     'y_min', 'y_max', 'x_min', 'x_max', 'offset', 'exposure',
-                                                     'class_probability', 'damage_score', 'character_class'
-                                                 ],
-                                                 batch_size=1000)
-        except Exception as ex:
-            logging.error({"Failed to bulk update characters!": str(ex)})
-            raise ex
-
-        character_count = len(filtered_characters)
+            try:
+                json_character = char_dict.get(str(character.pk))
+                character.update(
+                    created_by_run=character_run,
+                    line=line_objects[UUID(json_character["line_id"])],
+                    sequence=json_character["sequence"],
+                    y_min=json_character["y_start"],
+                    y_max=json_character["y_end"],
+                    x_min=json_character["x_start"],
+                    x_max=json_character["x_end"],
+                    offset=json_character["offset"],
+                    exposure=json_character["exposure"],
+                    class_probability=json_character["logprob"],
+                    damage_score=json_character.get("damage_score", None),
+                    character_class=character_class_objects[
+                        json_character["character_class"]
+                    ],
+                )
+                character_count+=1
+            except Exception as ex:
+                logging.error(f"Failing char object at index {index}: {json_character}")
+                raise ex
+            finally:
+                index += 1
         logging.info({"Update complete": character_count})
         return character_count
 
