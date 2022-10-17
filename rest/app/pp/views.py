@@ -278,14 +278,16 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
     def bulk_characters_update(self, request, pk=None):
         # try:
         characters_json = request.data["characters"]
-        character_run_id = request.data["character_run_id"]
-        if character_run_id is None or characters_json is None:
+        if characters_json is None:
             return Response({"error": "missing character run or characters"}, status=status.HTTP_400_BAD_REQUEST)
         # Get character run
+        first_character = models.Character.objects.get(id=characters_json[0]['id'])
+        character_run_id = first_character.created_by_run.pk
         character_run = models.CharacterRun.objects.get(id=character_run_id)
         if character_run is None:
             return Response({"error": f"missing character run for id: {character_run_id}"},
                             status=status.HTTP_400_BAD_REQUEST)
+        logging.info({"Updating character run": character_run_id})
         try:
             characters_count = BookUpdater.update_characters_for_book(characters_json, character_run)
             return Response(
