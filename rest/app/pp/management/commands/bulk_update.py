@@ -173,48 +173,30 @@ class BookLoader:
             field_name="classname",
         )
         logging.info("Updating characters...")
-
-        # create a dictionary from incoming json based on id
-        char_dict = dict({char['id']: char for char in characters_json})
-        logging.info("Created dict from incoming JSON")
-
-        # get all database objects to be updated
-        filtered_characters = models.Character.objects.filter(id__in=list(char_dict.keys()))
-        logging.info("Got filtered characters from database for incoming JSON")
-
-        # update values
-        for character in filtered_characters:
-            json_character = char_dict.get(str(character.pk))
-
-            character.created_by_run = character_run
-            character.line = line_objects[UUID(json_character["line_id"])]
-            character.sequence = json_character["sequence"]
-            character.y_min = json_character["y_start"]
-            character.y_max = json_character["y_end"]
-            character.x_min = json_character["x_start"]
-            character.x_max = json_character["x_end"]
-            character.offset = json_character["offset"]
-            character.exposure = json_character["exposure"]
-            character.class_probability = json_character["logprob"]
-            character.damage_score = json_character.get("damage_score", None)
-            character.character_class = character_class_objects[
-                json_character["character_class"]
-            ]
-        logging.info("Attempting to bulk update in database")
-        try:
-            # Do bulk update
-            models.Character.objects.bulk_update(filtered_characters,
-                                                 [
-                                                     'created_by_run', 'line', 'sequence',
-                                                     'y_min', 'y_max', 'x_min', 'x_max', 'offset', 'exposure',
-                                                     'class_probability', 'damage_score', 'character_class'
-                                                 ],
-                                                 batch_size=500)
-        except Exception as ex:
-            logging.error({"Failed to bulk update characters!": str(ex)})
-            raise ex
-
-        character_count = len(filtered_characters)
+        # Update Characters one at a time
+        character_count = 0
+        for i, character in enumerate(tqdm(characters_json)):
+            try:
+                models.Character.objects.filter(id=character["id"]).update(
+                    created_by_run=character_run,
+                    line=line_objects[UUID(character["line_id"])],
+                    sequence=character["sequence"],
+                    y_min=character["y_start"],
+                    y_max=character["y_end"],
+                    x_min=character["x_start"],
+                    x_max=character["x_end"],
+                    offset=character["offset"],
+                    exposure=character["exposure"],
+                    class_probability=character["logprob"],
+                    damage_score=character.get("damage_score", None),
+                    character_class=character_class_objects[
+                        character["character_class"]
+                    ],
+                )
+                character_count += 1
+            except Exception as ex:
+                logging.error({f"Failing char object at index {i}: {character}": str(ex)})
+                raise
         logging.info({"Update complete": character_count})
         return character_count
 
