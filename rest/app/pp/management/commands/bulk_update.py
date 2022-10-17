@@ -206,7 +206,7 @@ class BookLoader:
                 )
                 character_count+=1
             except Exception as ex:
-                logging.error(f"Failing char object at index {index}: {json_character}")
+                logging.error({f"Failing char object at index {index}: {json_character}": str(ex)})
                 raise ex
             finally:
                 index += 1
