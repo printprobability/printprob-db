@@ -175,7 +175,7 @@ class BookLoader:
         logging.info("Updating characters...")
         # Update Characters one at a time
         character_count = 0
-        for i, character in enumerate(tqdm(characters_json)):
+        for i, character in enumerate(tqdm(characters_json, disable=True)):
             try:
                 models.Character.objects.filter(id=character["id"]).update(
                     created_by_run=character_run,
