@@ -204,7 +204,7 @@ class BookLoader:
         try:
             # Do bulk update
             models.Character.objects.bulk_update(filtered_characters,
-                                                 update_fields=[
+                                                 [
                                                      'created_by_run', 'line', 'sequence',
                                                      'y_min', 'y_max', 'x_min', 'x_max', 'offset', 'exposure',
                                                      'class_probability', 'damage_score', 'character_class'
