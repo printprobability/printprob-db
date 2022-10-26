@@ -68,7 +68,9 @@ export default {
   },
   methods: {
     displayLabel(book) {
-      const bookTitle = book['pq_title']
+      const estcNumber = book['estc']
+      const bookTitle =
+        (estcNumber ? `ESTC: ${estcNumber} - ` : '') + book['pq_title']
       if (this.source_type === 'title') {
         return this.addPrefixToLabel(book, bookTitle)
       }
@@ -79,7 +81,7 @@ export default {
       this.$emit('input', bookId)
     },
     addPrefixToLabel: function (book, displayLabel) {
-      return `${this.prefix_field} ${book[this.prefix_field]}: ${displayLabel}`
+      return `${this.prefix_field} ${book[this.prefix_field]} - ${displayLabel}`
     },
   },
   data: function () {
