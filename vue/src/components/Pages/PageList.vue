@@ -32,7 +32,7 @@ export default {
       return HTTP.get('/pages/', {
         params: {
           created_by_run: this.page_run_id,
-          limit: 1000,
+          limit: 2000,
         },
       }).then(
         (response) => {
