@@ -155,7 +155,7 @@ export default {
       this.displayed_images = imgs
       this.disable_commit = true
     },
-    toggle_character: function (id) {
+    toggle_character: _.debounce(function (id) {
       const i = _.findIndex(this.displayed_images, (x) => x.id == id)
       if (!this.displayed_images[i].human_character_class) {
         this.displayed_images[i].human_character_class = this.new_class
@@ -169,7 +169,7 @@ export default {
         this.displayed_images[i].human_character_class = this.new_class
       }
       this.disable_commit = false
-    },
+    }, 750),
     mark_all_correct() {
       _.each(
         this.displayed_images,

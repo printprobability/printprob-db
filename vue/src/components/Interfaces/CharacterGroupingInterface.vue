@@ -249,7 +249,7 @@ export default {
     display_date: function (date) {
       return moment(new Date(date)).format('MM-DD-YY, h:mm a')
     },
-    register_character: function (char_id) {
+    register_character: _.debounce(function (char_id) {
       if (!!this.cg_id) {
         // Send the add request to the endpoint
         return HTTP.patch(
@@ -265,7 +265,7 @@ export default {
           }
         )
       }
-    },
+    }, 750),
     deregister_character: function (char_id) {
       if (!!this.cg_id) {
         // Send the add request to the endpoint
