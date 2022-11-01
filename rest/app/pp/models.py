@@ -560,11 +560,6 @@ class Character(CroppedModel):
     )
     exposure = models.IntegerField(default=0)
     offset = models.IntegerField(default=0)
-    breakage_types = models.ManyToManyField(
-        BreakageType,
-        related_name="characters",
-        help_text="Types of breakage exhibited by this character.",
-    )
     damage_score = models.FloatField(
         db_index=True,
         null=True,

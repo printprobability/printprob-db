@@ -399,7 +399,6 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
     human_character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
-    breakage_types = BreakageTypeSerializer(many=True)
 
     class Meta:
         model = models.Character
@@ -423,7 +422,6 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
             "damage_score",
             "exposure",
             "offset",
-            "breakage_types",
             "absolute_coords",
             "image",
         ]
@@ -461,7 +459,6 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "damage_score",
             "exposure",
             "offset",
-            "breakage_types",
             "image",
             "pageseq",
             "lineseq",

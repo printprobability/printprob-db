@@ -83,7 +83,6 @@ class RootViewTest(TestCase):
                         "exposure": 0,
                         "offset": 0,
                         "damage_score": 0.08,
-                        "breakage_types": [],
                     },
                     {
                         "id": "0b1f25f9-e2d0-484a-ab52-7301fdbc76c8",
@@ -101,7 +100,6 @@ class RootViewTest(TestCase):
                         "exposure": 0,
                         "offset": 0,
                         "damage_score": 0.24,
-                        "breakage_types": [],
                     },
                 ]
             }

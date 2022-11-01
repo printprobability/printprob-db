@@ -480,9 +480,6 @@ class CharacterFilter(filters.FilterSet):
         method="class_agreement",
         label="Machine/human class agreement",
     )
-    breakage_types = filters.ModelChoiceFilter(
-        queryset=models.BreakageType.objects.all(), widget=forms.TextInput
-    )
     has_grouping = filters.BooleanFilter(
         method="in_any_grouping", label="In at least one grouping?"
     )
@@ -522,7 +519,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
             "character_class",
             "human_character_class",
         )
-            .prefetch_related("breakage_types", "charactergroupings")
+            .prefetch_related("charactergroupings")
             .annotate(
             lineseq=F("line__sequence"),
             pageseq=F("line__page__sequence"),
