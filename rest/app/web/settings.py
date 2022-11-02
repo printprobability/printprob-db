@@ -183,21 +183,33 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 3000000000
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
+# Django Logging Information
 LOGGING = {
+    # Define the logging version
     'version': 1,
+    # Enable the existing loggers
     'disable_existing_loggers': False,
+
+    # Define the handlers
     'handlers': {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'sql.log',
+            'filename': 'djangoapp.log',
+        },
+
+        'console': {
+            'class': 'logging.StreamHandler',
         },
     },
+
+    # Define the loggers
     'loggers': {
-        'django.db.backends': {
+        'django': {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True,
+
         },
     },
 }
