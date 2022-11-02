@@ -182,3 +182,22 @@ DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_ADDRESS")
 DATA_UPLOAD_MAX_MEMORY_SIZE = 3000000000
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'sql.log',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
