@@ -634,7 +634,6 @@ class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
             for char in serializer.data["characters"]:
                 logging.info({"adding character": char})
                 obj.characters.add(char)
-            serializer.save()
             return Response({"status": "characters added"})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -649,7 +648,6 @@ class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
         if serializer.is_valid():
             for char in serializer.data["characters"]:
                 obj.characters.remove(char)
-            serializer.save()
             return Response({"status": "characters removed"})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
