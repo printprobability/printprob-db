@@ -624,6 +624,7 @@ class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
         return serializers.CharacterGroupingCreateSerializer
 
     @action(detail=True, methods=["patch"])
+    @transaction.atomic
     def add_characters(self, request, pk=None):
         obj = self.get_object()
         serializer = serializers.CharacterGroupingCharacterListSerializer(
@@ -637,6 +638,7 @@ class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=["patch"])
+    @transaction.atomic
     def delete_characters(self, request, pk=None):
         obj = self.get_object()
         serializer = serializers.CharacterGroupingCharacterListSerializer(
@@ -650,6 +652,7 @@ class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=["patch"])
+    @transaction.atomic
     def move_characters(self, request, pk=None):
         target_group_id = request.GET['target_group']
         if target_group_id is None:
