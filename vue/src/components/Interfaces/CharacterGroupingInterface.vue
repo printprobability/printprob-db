@@ -256,8 +256,7 @@ export default {
           '/character_groupings/' + this.cg_id + '/add_characters/',
           { characters: [char_id] }
         ).then(
-          (response) => {
-            console.log(response)
+          () => {
             this.$asyncComputed.selected_cg.update()
           },
           (error) => {
@@ -273,8 +272,7 @@ export default {
           '/character_groupings/' + this.cg_id + '/delete_characters/',
           { characters: [char_id] }
         ).then(
-          (response) => {
-            console.log(response)
+          () => {
             this.$asyncComputed.selected_cg.update()
           },
           (error) => {
@@ -307,8 +305,7 @@ export default {
       return HTTP.delete(
         '/character_groupings/' + this.selected_cg.id + '/'
       ).then(
-        (response) => {
-          console.log(response)
+        () => {
           this.refresh_cg_menu()
           this.cg_id = null
           this.selected_cg = null
