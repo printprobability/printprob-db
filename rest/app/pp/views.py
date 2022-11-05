@@ -519,7 +519,6 @@ class CharacterViewSet(viewsets.ModelViewSet):
             "character_class",
             "human_character_class",
         )
-            .prefetch_related("charactergroupings")
             .annotate(
             lineseq=F("line__sequence"),
             pageseq=F("line__page__sequence"),
