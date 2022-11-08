@@ -524,7 +524,8 @@ class CharacterViewSet(viewsets.ModelViewSet):
             pageseq=F("line__page__sequence"),
             bookseq=F("created_by_run__book__id"),
         )
-            .all()
+        .distinct()
+        .all()
     )
     ordering_fields = [
         "class_probability",
@@ -539,9 +540,9 @@ class CharacterViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         if self.action == "create":
-            return models.Character.objects.all().order_by('id')
+            return models.Character.objects.all()
         else:
-            return self.queryset.order_by('id')
+            return self.queryset
 
     def get_serializer_class(self):
         if self.action == "retrieve":
