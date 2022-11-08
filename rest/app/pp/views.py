@@ -539,7 +539,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         if self.action == "create":
-            return models.Character.objects.all()
+            return models.Character.objects.all().order_by('id')
         else:
             return self.queryset.order_by('id')
 
