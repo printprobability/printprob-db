@@ -541,7 +541,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
         if self.action == "create":
             return models.Character.objects.all()
         else:
-            return self.queryset
+            return self.queryset.order_by('id')
 
     def get_serializer_class(self):
         if self.action == "retrieve":
