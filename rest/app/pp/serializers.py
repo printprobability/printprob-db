@@ -67,6 +67,7 @@ class CharacterFlatSerializer(serializers.ModelSerializer):
             "exposure",
             "offset",
             "image",
+            "created_by_run_id"
         ]
 
 

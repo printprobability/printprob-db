@@ -166,15 +166,18 @@ export default {
       return !!this.$route.query.edit
     },
     ordered_characters() {
-      if (this.order.variable == 'bookseq,pageseq,lineseq,sequence') {
-        return this.character_group.characters
-      } else {
-        return _.orderBy(
-          this.character_group.characters,
-          [this.lodash_order.variable],
-          this.lodash_order.direction
-        )
+      // order default by run - associated with a book
+      const orderBy = ['created_by_run_id']
+      const direction = ['asc']
+      if (this.order.variable !== 'bookseq,pageseq,lineseq,sequence') {
+        orderBy.push(this.lodash_order.variable)
+        direction.push(this.lodash_order.direction)
       }
+      return _.orderBy(
+        this.character_group.characters,
+        [this.lodash_order.variable],
+        [this.lodash_order.direction]
+      )
     },
     lodash_order() {
       var direction = 'asc'
