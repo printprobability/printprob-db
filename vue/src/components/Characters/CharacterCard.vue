@@ -10,6 +10,14 @@
       Damage score: {{ character.damage_score }}
     </p>
     <p>
+      Printer:
+      {{ character.book.pp_printer || character.book.colloq_printer }}
+    </p>
+    <p>
+      Published:
+      {{ character.book.pq_year_early || character.book.tx_year_early }}
+    </p>
+    <p>
       <router-link :to="character_link" target="_blank" rel="noopen noreferrer">
         <img class="buffer_preview" :src="character.image.buffer" />
       </router-link>

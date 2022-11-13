@@ -15,22 +15,29 @@
         bound300: size_bound300,
         selected: isCharSelected,
       }"
-      @mouseover="$emit('hover', $event)"
+      @mouseover="onCharacterHover"
     />
     <b-popover
+      :id="character.id"
       :target="character.id"
       :title="character.label"
       triggers="hover"
       placement="top"
       :delay="pop_delay"
+      @hidden="onHidden"
     >
-      <CharacterCard :character="character" />
+      <CharacterCard
+        v-if="hoveredCharacter !== null"
+        :character="hoveredCharacter"
+      />
     </b-popover>
   </div>
 </template>
 
 <script>
 import CharacterCard from './CharacterCard'
+import { HTTP } from '@/main'
+import { debounce } from 'lodash'
 export default {
   name: 'CharacterImage',
   components: {
@@ -58,6 +65,7 @@ export default {
   data() {
     return {
       pop_delay: { show: 1000, hide: 200 },
+      hoveredCharacter: null,
     }
   },
   computed: {
@@ -92,6 +100,21 @@ export default {
   methods: {
     onCharacterSelection() {
       this.$emit('char_clicked', this.character.id)
+    },
+    onCharacterHover: debounce(function (event) {
+      HTTP.get('/characters/' + this.character.id + '/').then(
+        (response) => {
+          this.hoveredCharacter = response.data
+          this.$emit('hover', event)
+        },
+        (error) => {
+          this.hoveredCharacter = null
+          console.log(error)
+        }
+      )
+    }, 500),
+    onHidden() {
+      this.hoveredCharacter = null
     },
   },
 }
