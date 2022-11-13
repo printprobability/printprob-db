@@ -1,21 +1,20 @@
 <template>
   <div>
     <p>
-      Machine: {{ character.character_class }} ({{
-        (character.class_probability * 100).toFixed(2)
-      }}%)
-    </p>
-    <p>Human: {{ character.human_character_class }}</p>
-    <p v-if="character.damage_score >= 0">
-      Damage score: {{ character.damage_score }}
-    </p>
-    <p>
       Printer:
       {{ character.book.pp_printer || character.book.colloq_printer }}
     </p>
     <p>
       Published:
       {{ character.book.pq_year_early || character.book.tx_year_early }}
+    </p>
+    <p v-if="character.damage_score >= 0">
+      Damage score: {{ character.damage_score }}
+    </p>
+    <p>
+      Machine: {{ character.character_class }} ({{
+        (character.class_probability * 100).toFixed(2)
+      }}%)
     </p>
     <p>
       <router-link :to="character_link" target="_blank" rel="noopen noreferrer">
