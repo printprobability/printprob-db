@@ -119,6 +119,7 @@
           :bad="bad_characters.includes(character.id)"
           :good="good_characters.includes(character.id)"
           :image_size="image_size"
+          parent-component="character_list"
           @char_clicked="$emit('char_clicked', $event)"
         />
       </div>

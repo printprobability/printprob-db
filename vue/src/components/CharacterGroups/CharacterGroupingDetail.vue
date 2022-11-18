@@ -48,6 +48,7 @@
               :edit-mode="edit_mode"
               :selected="isCharSelected(character.id)"
               :image_size="image_size"
+              parent-component="character_grouping_detail"
               @char_clicked="toggleCharacterSelection"
             />
           </div>

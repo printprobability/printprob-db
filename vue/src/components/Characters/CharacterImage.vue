@@ -1,7 +1,7 @@
 <template>
   <div>
     <img
-      :id="character.id"
+      :id="parentComponent + '_' + character.id"
       :src="character.image.web_url"
       class="character-image m-1"
       @click="onCharacterSelection"
@@ -18,8 +18,7 @@
       @mouseover="onCharacterHover"
     />
     <b-popover
-      :id="character.id"
-      :target="character.id"
+      :target="parentComponent + '_' + character.id"
       :title="character.label"
       triggers="hover"
       placement="top"
@@ -44,6 +43,9 @@ export default {
     CharacterCard,
   },
   props: {
+    parentComponent: {
+      type: String,
+    },
     editMode: {
       type: Boolean,
       default: false,

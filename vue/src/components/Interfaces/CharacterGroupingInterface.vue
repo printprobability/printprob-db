@@ -106,6 +106,7 @@
                 :key="character.id"
                 :character="character"
                 :highlight="intersecting_images.includes(character.id)"
+                parent-component="character_grouping"
                 @char_double_clicked="deregister_character"
               />
             </div>
