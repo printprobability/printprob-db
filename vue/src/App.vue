@@ -37,7 +37,7 @@
           <a href="https://library.cmu.edu"
             >Carnegie Mellon University Libraries</a
           >
-          2021. Built by
+          2022. Built by
           <a href="https://matthewlincoln.net">Matthew Lincoln</a>.
         </b-nav-text>
       </b-navbar-nav>
