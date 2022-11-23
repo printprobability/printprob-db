@@ -134,7 +134,7 @@
               >Download ZIP
             </b-button>
             <b-button v-b-modal.delete-modal variant="danger" size="sm"
-              >Delete
+              >Delete Character Grouping
             </b-button>
             <b-modal
               id="delete-modal"
@@ -143,6 +143,7 @@
               ok-title="Delete"
               @ok="delete_group"
             >
+              <p>This will delete the full character grouping!</p>
               <p>Are you sure? This can't be undone.</p>
             </b-modal>
           </div>
