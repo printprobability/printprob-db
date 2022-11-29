@@ -31,21 +31,31 @@
       </div>
       <div class="col-5">
         <div class="card sticky-top">
-          <div class="card-header">
-            <div class="d-inline-flex align-items-center">
-              <b-button
-                @click="toggle_create"
-                size="sm"
-                class="mr-2"
-                :variant="new_cg_card.button_variant[new_cg_card.show]"
-                >{{ new_cg_card.button_text[new_cg_card.show] }}
-              </b-button>
-              <CharacterGroupingSelect v-model="cg_id" :key="cg_menu_key" />
-            </div>
-            <NewCharacterGrouping
-              v-show="new_cg_card.show"
-              @new_group="create_group"
-            />
+          <div class="card-header inline-flex">
+            <dl class="row">
+              <dt class="col-sm-6">
+                <div class="d-inline-flex align-items-center">
+                  <b-button
+                    @click="toggle_create"
+                    size="sm"
+                    class="mr-2"
+                    :variant="new_cg_card.button_variant[new_cg_card.show]"
+                    >{{ new_cg_card.button_text[new_cg_card.show] }}
+                  </b-button>
+                  <CharacterGroupingSelect v-model="cg_id" :key="cg_menu_key" />
+                </div>
+                <NewCharacterGrouping
+                  v-show="new_cg_card.show"
+                  @new_group="create_group"
+                />
+              </dt>
+              <dt class="col-sm-6">
+                <CharacterOrderingSelect
+                  v-model="cgCharactersOrdering"
+                  @input="cgCharactersOrdering = $event"
+                />
+              </dt>
+            </dl>
           </div>
           <div class="card-body" v-if="selected_cg">
             <dl class="row">
@@ -156,6 +166,7 @@
 <script>
 import CharacterGroupingSelect from '../Menus/CharacterGroupingSelect'
 import NewCharacterGrouping from '../CharacterGroups/NewCharacterGrouping'
+import CharacterOrderingSelect from '../Menus/CharacterOrderingSelect'
 import CharacterImage from '../Characters/CharacterImage'
 import CharacterList from '../Characters/CharacterList'
 import { HTTP } from '../../main'
@@ -166,6 +177,7 @@ export default {
   name: 'CharacterGroupingInterface',
   components: {
     CharacterGroupingSelect,
+    CharacterOrderingSelect,
     NewCharacterGrouping,
     CharacterImage,
     CharacterList,
@@ -196,6 +208,8 @@ export default {
       show_damaged_characters: false,
       page_start: null,
       page_end: null,
+      cgCharactersOrdering: 'character_class',
+      cg_characters: [],
     }
   },
   computed: {
@@ -210,13 +224,34 @@ export default {
     },
     selected_cg_ordered_chars: function () {
       if (!!this.selected_cg) {
-        return _.orderBy(
-          this.selected_cg.characters,
-          [(character) => character.character_class.toLowerCase()],
-          ['asc']
-        )
+        if (this.lodash_order.variable === 'bookseq,pageseq,lineseq,sequence') {
+          return this.selected_cg.characters
+        } else {
+          const defaultOrderByBook = [
+            (character) =>
+              character.book.label.substring(
+                character.book.label.indexOf(' ') + 1
+              ),
+          ]
+          return _.orderBy(
+            this.selected_cg.characters,
+            [...defaultOrderByBook, this.lodash_order.variable],
+            ['asc', this.lodash_order.direction]
+          )
+        }
       }
       return []
+    },
+    lodash_order() {
+      var direction = 'asc'
+      if (this.cgCharactersOrdering.includes('-')) {
+        direction = 'desc'
+      }
+      const clean_string = this.cgCharactersOrdering.replace('-', '')
+      return {
+        variable: clean_string,
+        direction: direction,
+      }
     },
     view_params() {
       return {

@@ -157,6 +157,7 @@ export default {
       cg_id: null,
       order: 'character_class',
       selectedCharacters: {},
+      ordered_characters: [],
       selectedCharCount: 0,
       showCreate: false,
       image_size: 'actual',
@@ -165,20 +166,6 @@ export default {
   computed: {
     edit_mode() {
       return !!this.$route.query.edit
-    },
-    ordered_characters() {
-      // order default by run - associated with a book
-      const orderBy = ['created_by_run_id']
-      const direction = ['asc']
-      if (this.order.variable !== 'bookseq,pageseq,lineseq,sequence') {
-        orderBy.push(this.lodash_order.variable)
-        direction.push(this.lodash_order.direction)
-      }
-      return _.orderBy(
-        this.character_group.characters,
-        [this.lodash_order.variable],
-        [this.lodash_order.direction]
-      )
     },
     lodash_order() {
       var direction = 'asc'
@@ -205,6 +192,23 @@ export default {
     },
   },
   methods: {
+    order_characters() {
+      if (this.lodash_order.variable === 'bookseq,pageseq,lineseq,sequence') {
+        return this.character_group.characters
+      } else {
+        const defaultOrderByBook = [
+          (character) =>
+            character.book.label.substring(
+              character.book.label.indexOf(' ') + 1
+            ),
+        ]
+        return _.orderBy(
+          this.character_group.characters,
+          [...defaultOrderByBook, this.lodash_order.variable],
+          ['asc', this.lodash_order.direction]
+        )
+      }
+    },
     display_date: function (date) {
       return moment(new Date(date)).format('MM-DD-YY, h:mm a')
     },
@@ -310,8 +314,17 @@ export default {
       )
     },
   },
-  created: function () {
-    // this.get_book(this.id);
+  watch: {
+    // everytime order changes, re-order the characters
+    order: function () {
+      this.ordered_characters = this.order_characters()
+    },
+    character_group: function (val) {
+      // first time initialization on load
+      if (val) {
+        this.ordered_characters = this.order_characters()
+      }
+    },
   },
 }
 </script>
