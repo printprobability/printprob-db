@@ -183,6 +183,17 @@ export default {
     edit_mode() {
       return !!this.$route.query.edit
     },
+    lodash_order() {
+      var direction = 'asc'
+      if (this.order.includes('-')) {
+        direction = 'desc'
+      }
+      const clean_string = this.order.replace('-', '')
+      return {
+        variable: clean_string,
+        direction: direction,
+      }
+    },
   },
   asyncComputed: {
     character_group() {
@@ -218,17 +229,6 @@ export default {
           orderingFields,
           orderingDirection
         )
-      }
-    },
-    lodash_order() {
-      var direction = 'asc'
-      if (this.order.includes('-')) {
-        direction = 'desc'
-      }
-      const clean_string = this.order.replace('-', '')
-      return {
-        variable: clean_string,
-        direction: direction,
       }
     },
     display_date: function (date) {
