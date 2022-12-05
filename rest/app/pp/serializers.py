@@ -40,7 +40,17 @@ class LineFlatSerializer(serializers.ModelSerializer):
         fields = ["url", "id", "label", "sequence", "image"]
 
 
+class BookNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Book
+        fields = [
+            "id",
+            "label",
+        ]
+
+
 class CharacterFlatSerializer(serializers.ModelSerializer):
+    book = BookNameSerializer(many=False)
     character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
@@ -67,7 +77,8 @@ class CharacterFlatSerializer(serializers.ModelSerializer):
             "exposure",
             "offset",
             "image",
-            "created_by_run_id"
+            "created_by_run_id",
+            "book",
         ]
 
 
