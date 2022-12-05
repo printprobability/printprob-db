@@ -13,7 +13,10 @@
                 {{ display_date(character_group.date_created) }}</small
               >
               <p>{{ character_group.notes }}</p>
-              <CharacterOrderingSelect v-model="order" />
+              <CharacterOrderingSelect
+                v-model="order"
+                @input="order = $event"
+              />
               <b-form-group
                 id="sort-primary-by-book"
                 label="Primary sort by book title"
