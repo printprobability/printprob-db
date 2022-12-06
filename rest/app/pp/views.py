@@ -23,6 +23,7 @@ from rest_framework.response import Response
 from . import models, serializers
 from .management.commands.bulk_update import BookLoader as BookUpdater
 from .management.commands.bulk_load import BookLoader as BookCreator
+from .management.commands.refresh_labels import Command as LabelRefresher
 
 
 class GetSerializerClassMixin(object):
@@ -295,6 +296,17 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
             )
         except Exception as ex:
             return Response({"Error updating characters: ", str(ex)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    @action(detail=True, methods=["get"])
+    @transaction.atomic
+    def refresh_character_labels(self, request, pk=None):
+        characters = models.Character.objects.filter(
+            created_by_run__book=pk
+        )
+        LabelRefresher.update_labels(characters)
+        return Response(
+            {"character labels updated for book: ": pk}, status=status.HTTP_200_OK
+        )
 
 
 class SpreadFilter(filters.FilterSet):

@@ -34,3 +34,8 @@ class Command(BaseCommand):
                 qs = m.objects.all()
             for i in tqdm(qs, total=qs.count()):
                 i.save()
+
+    @staticmethod
+    def update_labels(characters):
+        for i, char in enumerate(characters):
+            char.save()
