@@ -37,5 +37,6 @@ class Command(BaseCommand):
 
     @staticmethod
     def update_labels(characters):
-        for i, char in enumerate(characters):
-            char.save()
+        for char in characters:
+            char.label = char.labeller()
+        models.Character.objects.bulk_update(characters, fields=['label'])
