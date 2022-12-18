@@ -506,3 +506,20 @@ class CharacterAnnotateSerializer(serializers.Serializer):
     human_character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all(), many=False, allow_null=True
     )
+
+
+class CharacterMatchSerializer(serializers.ModelSerializer):
+    character_class = serializers.PrimaryKeyRelatedField(
+        queryset=models.CharacterClass.objects.all()
+    )
+
+    class Meta:
+        model = models.Character
+        fields = [
+            "id",
+            "character_class",
+            "sequence",
+            "image",
+        ]
+
+

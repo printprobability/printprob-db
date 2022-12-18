@@ -2,6 +2,7 @@ import tarfile
 from tempfile import TemporaryDirectory
 from uuid import UUID
 import logging
+import os
 
 import requests
 from django import forms
@@ -24,6 +25,9 @@ from . import models, serializers
 from .management.commands.bulk_update import BookLoader as BookUpdater
 from .management.commands.bulk_load import BookLoader as BookCreator
 from .management.commands.refresh_labels import Command as LabelRefresher
+from .matches.find_matching_chars import get_matched_characters, get_match_directories
+
+BASE_PATH = '/ocean/projects/hum160002p/shared/'
 
 
 class GetSerializerClassMixin(object):
@@ -308,6 +312,34 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
             {"character labels updated for book: ": pk}, status=status.HTTP_200_OK
         )
 
+    @action(detail=True, methods=["get"])
+    @transaction.atomic
+    def matched_directories(self, request, pk=None):
+        one_page = models.Page.objects.filter(
+            created_by_run__book=pk, tif__isnull=False
+        )[0]
+        split_parts = (one_page.tif.split('/')[0:4])
+        matches_path = os.path.join(BASE_PATH, *split_parts)
+        match_directories = get_match_directories(matches_path)
+        return Response({"match_directories": match_directories}, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=["post"])
+    @transaction.atomic
+    def matched_characters(self, request, pk=None):
+        one_page = models.Page.objects.filter(
+            created_by_run__book=pk, tif__isnull=False
+        )[0]
+        split_parts = (one_page.tif.split('/')[0:4])
+        matches_path = os.path.join(BASE_PATH, *split_parts)
+        matches_dir = request.data["dir"]
+        character_class = request.data['character_class']
+        characters = models.Character.objects.filter(
+            created_by_run__book=pk
+        )
+        character_class_dir = os.path.join(matches_path, matches_dir, character_class)
+        matched_characters = get_matched_characters(request, character_class_dir, characters)
+        return Response({"matched_characters": matched_characters}, status=status.HTTP_200_OK)
+
 
 class SpreadFilter(filters.FilterSet):
     book = filters.ModelChoiceFilter(
@@ -536,8 +568,8 @@ class CharacterViewSet(viewsets.ModelViewSet):
             pageseq=F("line__page__sequence"),
             bookseq=F("created_by_run__book__id"),
         )
-        .distinct()
-        .all()
+            .distinct()
+            .all()
     )
     ordering_fields = [
         "class_probability",
