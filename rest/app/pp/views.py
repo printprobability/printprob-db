@@ -20,6 +20,8 @@ from rest_framework import (
 )
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from glob import glob
+import csv
 
 from . import models, serializers
 from .management.commands.bulk_update import BookLoader as BookUpdater
@@ -28,6 +30,7 @@ from .management.commands.refresh_labels import Command as LabelRefresher
 from .matches.find_matching_chars import get_matched_characters, get_match_directories
 
 BASE_PATH = '/ocean/projects/hum160002p/shared/'
+TOP_K_CSV_SUFFIX = '*_topk.csv'
 
 
 class GetSerializerClassMixin(object):
@@ -326,6 +329,8 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
     @action(detail=True, methods=["post"])
     @transaction.atomic
     def matched_characters(self, request, pk=None):
+        limit = request.POST.get("limit", 10)
+        offset = request.POST.get("offset", 0)
         one_page = models.Page.objects.filter(
             created_by_run__book=pk, tif__isnull=False
         )[0]
@@ -335,8 +340,18 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         character_class = request.data['character_class']
         character_class_dir = os.path.join(matches_path, matches_dir, character_class)
         logging.info({"Character class folder: ", character_class_dir})
-        matched_characters = get_matched_characters(request, character_class_dir)
-        return Response({"matched_characters": matched_characters}, status=status.HTTP_200_OK)
+        csv_path = os.path.join(character_class_dir, TOP_K_CSV_SUFFIX)
+        topk_csv_files = list(glob(csv_path))
+        logging.info(topk_csv_files)
+        if len(topk_csv_files) == 0:
+            return Response({"No matching CSV found:", csv_path})
+        if len(topk_csv_files) > 1:
+            return Response({"More than one CSV matching:", csv_path})
+        topk_csv_file = topk_csv_files[0]
+        with open(topk_csv_file, newline='') as csvfile:
+            topk_reader = csv.reader(csvfile, delimiter=',')
+            matched_characters = get_matched_characters(request, topk_reader, limit, offset)
+            return Response({"result": matched_characters}, status=status.HTTP_200_OK)
 
 
 class SpreadFilter(filters.FilterSet):

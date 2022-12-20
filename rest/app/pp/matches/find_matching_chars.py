@@ -2,7 +2,6 @@ import json
 import re
 from glob import glob
 import os
-import csv
 from django.db.models import Q
 import logging
 import subprocess
@@ -11,7 +10,6 @@ from rest_framework.renderers import JSONRenderer
 from subprocess import check_call, STDOUT
 from tempfile import NamedTemporaryFile
 
-TOP_K_CSV_SUFFIX = '*_topk.csv'
 JSON_OUTPUT_DIR = '/ocean/projects/hum160002p/shared/ocr_results/json_output'
 
 
@@ -59,23 +57,25 @@ def get_match_directories(matches_path):
     return matches
 
 
-def get_matched_characters(request, character_class_dir):
-    topk_csv_files = list(glob(os.path.join(character_class_dir, TOP_K_CSV_SUFFIX)))
-    logging.info(topk_csv_files)
+def get_matched_characters(request, topk_reader, limit, offset):
     result = []
-    if len(topk_csv_files) > 0:
-        topk_csv_file = topk_csv_files[0]
-        with open(topk_csv_file, newline='') as csvfile:
-            topk_reader = csv.reader(csvfile, delimiter=',')
-            for idx, row in enumerate(topk_reader):
-                logging.info(f"Fetching characters for row number: {idx+1}")
-                matched_image_characters = [_find_character_for_path(image)
-                                            for image in row[0:10]]
-                result.append({})
-                result[idx]['target'] = matched_image_characters[0]
-                result[idx]['matches'] = matched_image_characters[1:10]
-        for res in result:
-            res['target'] = models.Character.objects.get(id=res['target'])
-            res['matches'] = [models.Character.objects.get(id=match) for match in res['matches']]
+    limit_count = 0
+    for idx, row in enumerate(topk_reader):
+        # continue till offset
+        if idx < offset:
+            continue
+        limit_count += 1
+        # have we got all the rows we wanted ?
+        if limit_count == limit:
+            break
+        logging.info(f"Fetching characters for row number: {idx+1}")
+        matched_image_characters = [_find_character_for_path(image)
+                                    for image in row[0:10]]
+        result.append({})
+        result[idx]['target'] = matched_image_characters[0]
+        result[idx]['matches'] = matched_image_characters[1:10]
+    for res in result:
+        res['target'] = models.Character.objects.get(id=res['target'])
+        res['matches'] = [models.Character.objects.get(id=match) for match in res['matches']]
     serializer = serializers.CharacterMatchSerializer(result, context={'request': request})
     return JSONRenderer().render(serializer.data)
