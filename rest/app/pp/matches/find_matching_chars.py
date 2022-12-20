@@ -31,7 +31,7 @@ def _find_character_for_path(path):
     json_file = f"{json_output_folder}/chars.json"
     grep_command = f"grep -A1 {grep_part} {json_file} | grep -v {grep_part}"
     try:
-        matched_id_line = subprocess.check_output(grep_command)
+        matched_id_line = subprocess.check_output(["/bin/sh", "-c", grep_command], stderr=subprocess.STDOUT)
         if matched_id_line is not None:
             character_id = (str(matched_id_line).split(':'))[1].split(',')[0].replace('"', '').strip()
             logging.info({"Found character": character_id})
