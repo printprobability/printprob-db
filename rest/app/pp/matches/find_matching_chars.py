@@ -18,7 +18,9 @@ def _get_immediate_subdirectories(a_dir, starting_with=None):
 def _find_character_for_path(request, path, characters):
     # Incoming path is of the format -
     # .../rroberts_R6026_uscu_2_kingsloo1699-0042_page1rline13_char23_G_uc_aligned.tif
-    split_parts = path.split('-', 1)
+    split_path = path.split('/')
+    final_part = split_path[len(split_path)-1]
+    split_parts = final_part.split('-', 1)
     sequence_parts = split_parts[1].split('_')
     page_number = int(sequence_parts[0])
     line_number = int(sequence_parts[1].split('line')[1])
