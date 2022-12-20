@@ -28,7 +28,6 @@ from .management.commands.refresh_labels import Command as LabelRefresher
 from .matches.find_matching_chars import get_matched_characters, get_match_directories
 
 BASE_PATH = '/ocean/projects/hum160002p/shared/'
-JSON_OUTPUT_DIR = '/ocean/projects/hum160002p/shared/ocr_results/json_output'
 
 
 class GetSerializerClassMixin(object):
@@ -334,12 +333,9 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         matches_path = os.path.join(BASE_PATH, *split_parts)
         matches_dir = request.data["dir"]
         character_class = request.data['character_class']
-        book_string = split_parts[3]+'_color'
-        json_output_folder = os.path.join(JSON_OUTPUT_DIR, book_string)
-        logging.info({"JSON output folder: ", json_output_folder})
         character_class_dir = os.path.join(matches_path, matches_dir, character_class)
         logging.info({"Character class folder: ", character_class_dir})
-        matched_characters = get_matched_characters(request, character_class_dir, json_output_folder)
+        matched_characters = get_matched_characters(request, character_class_dir)
         return Response({"matched_characters": matched_characters}, status=status.HTTP_200_OK)
 
 
