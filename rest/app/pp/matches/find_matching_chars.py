@@ -17,18 +17,19 @@ def _get_immediate_subdirectories(a_dir, starting_with=None):
             if os.path.isdir(os.path.join(a_dir, name)) and (starting_with is None or name.startswith(starting_with))]
 
 
-def _find_character_for_path(path, json_file):
+def _find_character_for_path(path, json_output_folder):
     # Incoming path is of the format -
     # .../rroberts_R6026_uscu_2_kingsloo1699-0042_page1rline13_char23_G_uc_aligned.tif
     split_path = path.split('/')
     final_part = split_path[len(split_path)-1]
     grep_part = final_part.split('_aligned')[0]
-    for line in json_file:
-        if re.search(grep_part, line):
-            next_line = next(json_file)
-            character_id = next_line.split('"')[3]
-            logging.info({"Found character": character_id})
-            return character_id
+    with open(f"{json_output_folder}/chars.json","r") as json_file:
+        for line in json_file:
+            if re.search(grep_part, line):
+                next_line = next(json_file)
+                character_id = next_line.split('"')[3]
+                logging.info({"Found character": character_id})
+                return character_id
 
 
 def get_match_directories(matches_path):
@@ -50,20 +51,19 @@ def get_matched_characters(request, character_class_dir, json_output_folder):
     result = []
     if len(topk_csv_files) > 0:
         topk_csv_file = topk_csv_files[0]
-        with open(f"{json_output_folder}/chars.json","r") as json_file:
-            with open(topk_csv_file, newline='') as csvfile:
-                topk_reader = csv.reader(csvfile, delimiter=',')
-                for idx, row in enumerate(topk_reader):
-                    target_image = row[0]
-                    target_character = _find_character_for_path(target_image, json_file)
-                    result.append({})
-                    if target_character is None:
-                        continue
-                    matched_images = row[1:10]
-                    result[idx]['target'] = target_character
-                    matched_image_characters = [_find_character_for_path(image, json_file)
-                                                for image in matched_images]
-                    result[idx]['matches'] = matched_image_characters
+        with open(topk_csv_file, newline='') as csvfile:
+            topk_reader = csv.reader(csvfile, delimiter=',')
+            for idx, row in enumerate(topk_reader):
+                target_image = row[0]
+                target_character = _find_character_for_path(target_image, json_output_folder)
+                result.append({})
+                if target_character is None:
+                    continue
+                matched_images = row[1:10]
+                result[idx]['target'] = target_character
+                matched_image_characters = [_find_character_for_path(image, json_output_folder)
+                                            for image in matched_images]
+                result[idx]['matches'] = matched_image_characters
         for res in result:
             res['target'] = models.Character.objects.get(id=res['target'])
             res['matches'] = [models.Character.objects.get(id=match) for match in res['matches']]
