@@ -63,16 +63,11 @@ def get_matched_characters(request, character_class_dir):
         with open(topk_csv_file, newline='') as csvfile:
             topk_reader = csv.reader(csvfile, delimiter=',')
             for idx, row in enumerate(topk_reader):
-                target_image = row[0]
-                target_character = _find_character_for_path(target_image)
-                result.append({})
-                if target_character is None:
-                    continue
-                matched_images = row[1:10]
-                result[idx]['target'] = target_character
                 matched_image_characters = [_find_character_for_path(image)
-                                            for image in matched_images]
-                result[idx]['matches'] = matched_image_characters
+                                            for image in row[0:10]]
+                result.append({})
+                result[idx]['target'] = matched_image_characters[0]
+                result[idx]['matches'] = matched_image_characters[1:10]
         for res in result:
             res['target'] = models.Character.objects.get(id=res['target'])
             res['matches'] = [models.Character.objects.get(id=match) for match in res['matches']]
