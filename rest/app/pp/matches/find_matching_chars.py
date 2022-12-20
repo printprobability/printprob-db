@@ -23,15 +23,15 @@ def _find_character_for_path(path):
     # Incoming path is of the format -
     # .../rroberts_R6026_uscu_2_kingsloo1699-0042_page1rline13_char23_G_uc_aligned.tif
     split_path = path.split('/')
-    final_part = split_path[len(split_path)-1]
+    final_part = split_path[len(split_path) - 1]
     split_parts = final_part.split('-', 1)
     grep_part = final_part.split('_aligned')[0]
-    book_string = split_parts[0]+'_color'
+    book_string = split_parts[0] + '_color'
     json_output_folder = os.path.join(JSON_OUTPUT_DIR, book_string)
-    logging.info({"JSON output folder: ", json_output_folder})
     json_file = f"{json_output_folder}/chars.json"
+    grep_command = f"grep -A1 {grep_part} {json_file} | grep -v {grep_part}"
     try:
-        matched_id_line = subprocess.check_output(f"grep -A1 {grep_part} {json_file} | grep -v {grep_part}", shell=True)
+        matched_id_line = subprocess.check_output(grep_command, shell=True, env={'LC_ALL': 'C'})
         if matched_id_line is not None:
             character_id = (str(matched_id_line).split(':'))[1].split(',')[0].replace('"', '').strip()
             logging.info({"Found character": character_id})
