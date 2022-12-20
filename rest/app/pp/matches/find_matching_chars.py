@@ -66,7 +66,6 @@ def get_matched_characters(request, character_class_dir, json_output_folder):
                     result[idx]['matches'] = matched_image_characters
         for res in result:
             res['target'] = models.Character.objects.get(id=res['target'])
-            for idx, match in enumerate(res['matches']):
-                res['target']['matches'][idx] = models.Character.objects.get(id=res['target']['matches'][idx])
+            res['matches'] = [models.Character.objects.get(id=match) for match in res['matches']]
     serializer = serializers.CharacterMatchSerializer(result, context={'request': request})
     return JSONRenderer().render(serializer.data)
