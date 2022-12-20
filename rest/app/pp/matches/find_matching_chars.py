@@ -22,7 +22,7 @@ def _find_character_for_path(request, path, characters):
     final_part = split_path[len(split_path)-1]
     split_parts = final_part.split('-', 1)
     sequence_parts = split_parts[1].split('_')
-    page_number = int(sequence_parts[0])
+    page_number = int(sequence_parts[0].split('c')[0])
     line_number = int(sequence_parts[1].split('line')[1])
     character_number = int(sequence_parts[2].split('char')[1]) # get the character sequence number
     character_class = sequence_parts[3] + '_' + sequence_parts[4] # character class e.g. G_uc
