@@ -333,11 +333,8 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         matches_path = os.path.join(BASE_PATH, *split_parts)
         matches_dir = request.data["dir"]
         character_class = request.data['character_class']
-        characters = models.Character.objects.filter(
-            created_by_run__book=pk
-        )
         character_class_dir = os.path.join(matches_path, matches_dir, character_class)
-        matched_characters = get_matched_characters(request, character_class_dir, characters)
+        matched_characters = get_matched_characters(request, character_class_dir)
         return Response({"matched_characters": matched_characters}, status=status.HTTP_200_OK)
 
 
