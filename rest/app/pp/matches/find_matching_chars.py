@@ -18,21 +18,22 @@ def _get_immediate_subdirectories(a_dir, starting_with=None):
 def _find_character_for_path(request, path, characters):
     # Incoming path is of the format -
     # .../rroberts_R6026_uscu_2_kingsloo1699-0042_page1rline13_char23_G_uc_aligned.tif
-    split_parts = path.split('line', 1)
-    page_number_side = list(split_parts[0].split('page', 1)[1]) # e.g. ['1', 'r']
-    line_char = split_parts[1].split('_')  # get everything after 'line'
-    line_number = line_char[0]
-    character_number = line_char[1].split('char')[1] # get the character sequence number
-    character_class = line_char[2] + '_' + line_char[3] # character class e.g. G_uc
-    qs_filter = (Q(line__page__sequence=page_number_side[0]) &
-                 Q(line__page__side=page_number_side[1]) &
+    split_parts = path.split('-', 1)
+    sequence_parts = split_parts[1].split('_')
+    page_number = int(sequence_parts[0])
+    line_number = int(sequence_parts[1].split('line')[1])
+    character_number = int(sequence_parts[2].split('char')[1]) # get the character sequence number
+    character_class = sequence_parts[3] + '_' + sequence_parts[4] # character class e.g. G_uc
+    qs_filter = (Q(line__page__sequence=page_number) &
                  Q(line__sequence=line_number) &
                  Q(sequence=character_number) & Q(character_class=character_class))
     character = characters.filter(qs_filter)
     if character is None or len(character) == 0:
         return None
+    if len(character) > 1:
+        logging.error({"found multiple characters matching path": path})
+        return None
     serializer = serializers.CharacterMatchSerializer(character[0], context={'request': request})
-    logging.info(JSONRenderer().render(serializer.data))
     return JSONRenderer().render(serializer.data)
 
 
