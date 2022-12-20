@@ -30,9 +30,7 @@ def _find_character_for_path(request, path, characters):
         logging.error({"found multiple characters matching path": path})
         return None
     logging.info({"Found character": character[0]})
-    character_obj = models.Character.objects.get(id=character[0]['id'])
-    serializer = serializers.CharacterMatchSerializer(character_obj, context={'request': request})
-    return JSONRenderer().render(serializer.data)
+    return character[0]['id']
 
 
 def get_match_directories(matches_path):
@@ -78,4 +76,9 @@ def get_matched_characters(request, character_class_dir):
                 matched_image_characters = [_find_character_for_path(request, image, characters)
                                             for image in matched_images]
                 result[idx]['matches'] = matched_image_characters
-    return result
+        for res in result:
+            res['target'] = models.Character.objects.get(id=res['target'])
+            for idx, match in enumerate(res['matches']):
+                res['target']['matches'][idx] = models.Character.objects.get(id=res['target']['matches'][idx])
+    serializer = serializers.CharacterMatchSerializer(result, context={'request': request})
+    return JSONRenderer().render(serializer.data)
