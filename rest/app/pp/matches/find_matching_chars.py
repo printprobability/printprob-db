@@ -5,6 +5,7 @@ import os
 import csv
 from django.db.models import Q
 import logging
+import subprocess
 from .. import serializers, models
 from rest_framework.renderers import JSONRenderer
 
@@ -23,13 +24,12 @@ def _find_character_for_path(path, json_output_folder):
     split_path = path.split('/')
     final_part = split_path[len(split_path)-1]
     grep_part = final_part.split('_aligned')[0]
-    with open(f"{json_output_folder}/chars.json","r") as json_file:
-        for line in json_file:
-            if re.search(grep_part, line):
-                next_line = next(json_file)
-                character_id = next_line.split('"')[3]
-                logging.info({"Found character": character_id})
-                return character_id
+    json_file = f"{json_output_folder}/chars.json"
+    matched_id_line = subprocess.check_output(f"grep -A1 {grep_part} {json_file} | grep -v {grep_part}", shell=True)
+    if matched_id_line is not None:
+        character_id = (str(matched_id_line).split(':'))[1].split(',')[0].replace('"', '').strip()
+        logging.info({"Found character": character_id})
+        return character_id
 
 
 def get_match_directories(matches_path):
