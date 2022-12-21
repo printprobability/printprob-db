@@ -74,9 +74,9 @@ def get_matched_characters(request, topk_reader, limit, offset):
             result.append({})
             result[idx]['target'] = matched_image_characters[0]
             result[idx]['matches'] = matched_image_characters[1:10]
-        # have we got all the rows we wanted ?
-        if limit_count > limit:
-            break
+            # have we got all the rows we wanted ?
+            if limit_count == limit:
+                break
     for res in result:
         res['target'] = _serialize_char(request, models.Character.objects.get(id=res['target']))
         res['matches'] = [_serialize_char(request, models.Character.objects.get(id=match))
