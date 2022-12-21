@@ -6,7 +6,6 @@ from django.db.models import Q
 import logging
 import subprocess
 from .. import serializers, models
-from rest_framework.renderers import JSONRenderer
 from subprocess import check_call, STDOUT
 from tempfile import NamedTemporaryFile
 
@@ -54,11 +53,11 @@ def get_match_directories(matches_path):
     return matches
 
 
-def _serialize_char(request, json_renderer, obj):
+def _serialize_char(request, obj):
     if obj is None:
         return {}
     serializer = serializers.CharacterMatchSerializer(obj, context={'request': request})
-    return json_renderer.render(serializer.data)
+    return json.dumps(serializer.data)
 
 
 def get_matched_characters(request, topk_reader, limit, offset):
@@ -78,9 +77,8 @@ def get_matched_characters(request, topk_reader, limit, offset):
         if matched_image_characters[0] is not None:
             result[idx]['target'] = matched_image_characters[0]
             result[idx]['matches'] = matched_image_characters[1:10]
-    json_renderer = JSONRenderer()
     for res in result:
-        res['target'] = _serialize_char(request, json_renderer, models.Character.objects.get(id=res['target']))
-        res['matches'] = [_serialize_char(request, json_renderer, models.Character.objects.get(id=match))
+        res['target'] = _serialize_char(request, models.Character.objects.get(id=res['target']))
+        res['matches'] = [_serialize_char(request, models.Character.objects.get(id=match))
                           for match in res['matches']]
     return result
