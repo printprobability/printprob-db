@@ -67,16 +67,16 @@ def get_matched_characters(request, topk_reader, limit, offset):
         # continue till offset
         if idx < offset:
             continue
-        limit_count += 1
+        matched_image_characters = [_find_character_for_path(image)
+                                    for image in row[0:10]]
+        if matched_image_characters[0] is not None:
+            limit_count += 1
+            result.append({})
+            result[idx]['target'] = matched_image_characters[0]
+            result[idx]['matches'] = matched_image_characters[1:10]
         # have we got all the rows we wanted ?
         if limit_count == limit:
             break
-        matched_image_characters = [_find_character_for_path(image)
-                                    for image in row[0:10]]
-        result.append({})
-        if matched_image_characters[0] is not None:
-            result[idx]['target'] = matched_image_characters[0]
-            result[idx]['matches'] = matched_image_characters[1:10]
     for res in result:
         res['target'] = _serialize_char(request, models.Character.objects.get(id=res['target']))
         res['matches'] = [_serialize_char(request, models.Character.objects.get(id=match))
