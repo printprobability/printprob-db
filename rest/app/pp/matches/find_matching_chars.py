@@ -31,14 +31,11 @@ def _find_character_for_path(path):
     json_file = f"{json_output_folder}/chars.json"
     grep_command = f"grep -A1 {grep_part} {json_file} | grep -v {grep_part}"
     try:
-        with NamedTemporaryFile() as f:
-            check_call(["/bin/sh", "-c", grep_command], stdout=f, stderr=STDOUT)
-            f.seek(0)
-            matched_id_line = f.read()
-            if matched_id_line is not None:
-                character_id = (str(matched_id_line).split(':'))[1].split(',')[0].replace('"', '').strip()
-                logging.info({"Found character": character_id})
-                return character_id
+        matched_id_line = subprocess.check_output(grep_command, shell=True)
+        if matched_id_line is not None:
+            character_id = (str(matched_id_line).split(':'))[1].split(',')[0].replace('"', '').strip()
+            logging.info({"Found character": character_id})
+            return character_id
     except:
         logging.error({"Error finding character: ", path})
         return None
@@ -77,5 +74,5 @@ def get_matched_characters(request, topk_reader, limit, offset):
     for res in result:
         res['target'] = models.Character.objects.get(id=res['target'])
         res['matches'] = [models.Character.objects.get(id=match) for match in res['matches']]
-    serializer = serializers.CharacterMatchSerializer(result, context={'request': request})
+    serializer = serializers.CharacterMatchSerializer(result, context={'request': request}, many=True)
     return JSONRenderer().render(serializer.data)
