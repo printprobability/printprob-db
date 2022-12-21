@@ -33,6 +33,7 @@ def _find_character_for_path(path):
     try:
         proc = subprocess.Popen(grep_command, stdout=subprocess.PIPE, stderr=None, shell=True)
         matched_id_line, err = proc.communicate()
+        logging.info(matched_id_line)
         if not matched_id_line:
             character_id = (str(matched_id_line).split(':'))[1].split(',')[0].replace('"', '').strip()
             logging.info({"Found character": character_id})
