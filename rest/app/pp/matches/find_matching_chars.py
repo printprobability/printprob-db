@@ -30,9 +30,9 @@ def _find_character_for_path(path):
     json_output_folder = os.path.join(JSON_OUTPUT_DIR, book_string)
     json_file = f"{json_output_folder}/chars.json"
     try:
-        result = subprocess.run(["grep", "-A1", grep_part, json_file, "|", "grep", "-v", grep_part],
-                                capture_output=True, stderr=None, text=True)
-        matched_id_line = result.stdout
+        proc = subprocess.Popen(["grep", "-A1", grep_part, json_file, "|", "grep", "-v", grep_part],
+                                stdout=subprocess.PIPE, stderr=None)
+        matched_id_line, err = proc.communicate()
         if not matched_id_line:
             character_id = (str(matched_id_line).split(':'))[1].split(',')[0].replace('"', '').strip()
             logging.info({"Found character": character_id})
