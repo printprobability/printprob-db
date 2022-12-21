@@ -33,10 +33,8 @@ def _find_character_for_path(path):
     try:
         proc = subprocess.Popen(grep_command, stdout=subprocess.PIPE, stderr=None, shell=True)
         matched_id_line, err = proc.communicate()
-        logging.info(matched_id_line)
         if matched_id_line is not None and matched_id_line != '':
             character_id = (str(matched_id_line).split(':'))[1].split(',')[0].replace('"', '').strip()
-            logging.info({"Found character": character_id})
             return character_id
     except:
         logging.error({"Error finding character: ", path})
@@ -74,7 +72,6 @@ def get_matched_characters(request, topk_reader, limit, offset):
         # have we got all the rows we wanted ?
         if limit_count == limit:
             break
-        logging.info(f"Fetching characters for row number: {idx+1}")
         matched_image_characters = [_find_character_for_path(image)
                                     for image in row[0:10]]
         result.append({})
