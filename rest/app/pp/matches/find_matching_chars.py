@@ -34,7 +34,7 @@ def _find_character_for_path(path):
         proc = subprocess.Popen(grep_command, stdout=subprocess.PIPE, stderr=None, shell=True)
         matched_id_line, err = proc.communicate()
         logging.info(matched_id_line)
-        if not matched_id_line:
+        if matched_id_line is not None and matched_id_line != '':
             character_id = (str(matched_id_line).split(':'))[1].split(',')[0].replace('"', '').strip()
             logging.info({"Found character": character_id})
             return character_id
@@ -57,6 +57,8 @@ def get_match_directories(matches_path):
 
 
 def _serialize_char(request, json_renderer, obj):
+    if obj is None:
+        return {}
     serializer = serializers.CharacterMatchSerializer(obj, context={'request': request})
     return json_renderer.render(serializer.data)
 
@@ -76,8 +78,9 @@ def get_matched_characters(request, topk_reader, limit, offset):
         matched_image_characters = [_find_character_for_path(image)
                                     for image in row[0:10]]
         result.append({})
-        result[idx]['target'] = matched_image_characters[0]
-        result[idx]['matches'] = matched_image_characters[1:10]
+        if matched_image_characters[0] is not None:
+            result[idx]['target'] = matched_image_characters[0]
+            result[idx]['matches'] = matched_image_characters[1:10]
     json_renderer = JSONRenderer()
     for res in result:
         res['target'] = _serialize_char(request, json_renderer, models.Character.objects.get(id=res['target']))
