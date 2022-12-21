@@ -57,7 +57,7 @@ def _serialize_char(request, obj):
     if obj is None:
         return {}
     serializer = serializers.CharacterMatchSerializer(obj, context={'request': request})
-    return json.dumps(serializer.data)
+    return json.loads(json.dumps(serializer.data))
 
 
 def get_matched_characters(request, topk_reader, limit, offset):
