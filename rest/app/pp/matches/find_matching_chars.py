@@ -29,9 +29,9 @@ def _find_character_for_path(path):
     book_string = split_parts[0] + '_color'
     json_output_folder = os.path.join(JSON_OUTPUT_DIR, book_string)
     json_file = f"{json_output_folder}/chars.json"
+    grep_command = f"grep -A1 {grep_part} {json_file} | grep -v {grep_part}"
     try:
-        proc = subprocess.Popen(["grep", "-A1", grep_part, json_file, "|", "grep", "-v", grep_part],
-                                stdout=subprocess.PIPE, stderr=None)
+        proc = subprocess.Popen(grep_command, stdout=subprocess.PIPE, stderr=None, shell=True)
         matched_id_line, err = proc.communicate()
         if not matched_id_line:
             character_id = (str(matched_id_line).split(':'))[1].split(',')[0].replace('"', '').strip()
