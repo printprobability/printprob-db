@@ -48,11 +48,19 @@
       <tbody>
         <tr v-for="(row, index) in matched_characters" :key="index">
           <td :key="row['target'].id">
-            <CharacterImage :character="row['target']" image_size="bound100" />
+            <CharacterImage
+              :character="row['target']"
+              image_size="bound100"
+              parentComponent="character_match_query"
+            />
           </td>
           <template v-for="match in row['matches']">
             <td :key="match.id">
-              <CharacterImage :character="match" image_size="bound100" />
+              <CharacterImage
+                :character="match"
+                image_size="bound100"
+                parentComponent="character_match_matches"
+              />
             </td>
           </template>
         </tr>
