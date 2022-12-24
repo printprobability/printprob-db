@@ -68,12 +68,12 @@ def get_matched_characters(request, topk_reader, limit, offset):
         if idx < offset:
             continue
         matched_image_characters = [_find_character_for_path(image)
-                                    for image in row[0:10]]
+                                    for image in row[0:11]]
         if matched_image_characters[0] is not None:
             limit_count += 1
             result.append({})
             result[idx]['target'] = matched_image_characters[0]
-            result[idx]['matches'] = matched_image_characters[1:10]
+            result[idx]['matches'] = matched_image_characters[1:11]
             # have we got all the rows we wanted ?
             if limit_count == limit:
                 break
