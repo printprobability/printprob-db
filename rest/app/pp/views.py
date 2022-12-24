@@ -351,7 +351,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         with open(topk_csv_file, newline='') as csvfile:
             topk_reader = csv.reader(csvfile, delimiter=',')
             matched_characters = get_matched_characters(request, topk_reader, limit, offset)
-            return Response({"result": matched_characters}, status=status.HTTP_200_OK)
+            return Response({"matched_characters": matched_characters}, status=status.HTTP_200_OK)
 
 
 class SpreadFilter(filters.FilterSet):
