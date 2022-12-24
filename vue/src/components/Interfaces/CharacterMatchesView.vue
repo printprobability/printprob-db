@@ -124,6 +124,22 @@ export default {
       }
     },
   },
+  created() {
+    this.book = this.$route.query.book
+  },
+  updated() {
+    this.$router.push({
+      name: 'CharacterMatchesView',
+      query: this.view_params,
+    })
+  },
+  computed: {
+    view_params() {
+      return {
+        book: this.book,
+      }
+    },
+  },
   methods: {
     clear_book() {
       this.book = null
