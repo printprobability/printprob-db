@@ -45,6 +45,7 @@ import CharacterGroupingDetail from './components/CharacterGroups/CharacterGroup
 import CharacterReviewInterface from './components/Interfaces/CharacterReviewInterface'
 import SpreadDetail from './components/Spreads/SpreadDetail'
 import CharacterDetail from './components/Characters/CharacterDetail'
+import CharacterMatchesView from '@/components/Interfaces/CharacterMatchesView'
 
 Vue.prototype.$APIConstants = {
   REST_PAGE_SIZE: 100,
@@ -98,6 +99,14 @@ const routes = [
       book: !!route.query.book ? route.query.book : null,
       order: route.query.order,
       character_run: route.query.character_run,
+    }),
+  },
+  {
+    path: '/review_character_matches',
+    name: 'CharacterMatchesView',
+    component: CharacterMatchesView,
+    props: (route) => ({
+      book: !!route.query.book ? route.query.book : null,
     }),
   },
   {

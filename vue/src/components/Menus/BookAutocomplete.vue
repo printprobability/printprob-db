@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-form-group
-      label="Source books by:"
+      label="Source book by:"
       label-cols-sm="3"
       label-align-sm="left"
       label-size="md"

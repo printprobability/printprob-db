@@ -15,6 +15,9 @@
             <b-dropdown-item to="/group_characters"
               >Edit Groupings</b-dropdown-item
             >
+            <!--            <b-dropdown-item to="/review_character_matches"-->
+            <!--              >Review Character Matches</b-dropdown-item-->
+            <!--            >-->
           </b-nav-dropdown>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
