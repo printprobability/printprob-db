@@ -161,6 +161,8 @@ export default {
     },
     directory_selected(event) {
       this.matched_directory = event
+      this.matched_character_class = null
+      this.matched_characters = []
       const character_classes = this.match_directories.find(
         (d) => (d.dir = this.matched_directory)
       ).character_classes
@@ -170,9 +172,13 @@ export default {
           text: character_class,
         })
       )
+      this.character_class_options = [
+        { value: null, text: 'Please select a character class' },
+      ].concat(this.character_class_options)
     },
     character_class_selected(event) {
       this.matched_character_class = event
+      this.matched_characters = []
       this.progress_spinner = true
       HTTP.post('/books/' + this.book + '/matched_characters/', {
         dir: this.matched_directory,
