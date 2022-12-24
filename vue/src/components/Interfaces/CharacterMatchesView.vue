@@ -46,23 +46,26 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, index) in matched_characters" :key="index">
-          <td :key="row['target'].id">
+        <tr v-for="(row, row_index) in matched_characters" :key="row_index">
+          <td>
             <CharacterImage
+              :key="row_index + row['target'].id"
               :character="row['target']"
               image_size="bound100"
-              parentComponent="character_match_query"
+              :parentComponent="parentComponent(row_index)"
             />
           </td>
-          <template v-for="match in row['matches']">
-            <td :key="match.id">
-              <CharacterImage
-                :character="match"
-                image_size="bound100"
-                parentComponent="character_match_matches"
-              />
-            </td>
-          </template>
+          <td
+            v-for="(match, col_index) in row['matches']"
+            :key="row_index + col_index"
+          >
+            <CharacterImage
+              :key="row_index + col_index + match.id"
+              :character="match"
+              image_size="bound100"
+              :parentComponent="parentComponent(row_index, col_index)"
+            />
+          </td>
         </tr>
       </tbody>
     </table>
@@ -185,6 +188,12 @@ export default {
           this.progress_spinner = false
         }
       )
+    },
+    parentComponent(row, col) {
+      if (row && !col) {
+        return `character_match_${row}`
+      }
+      return `character_match_${row}_${col}`
     },
   },
 }
