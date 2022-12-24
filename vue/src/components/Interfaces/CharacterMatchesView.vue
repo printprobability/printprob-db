@@ -52,7 +52,7 @@
               :key="row_index + row['target'].id"
               :character="row['target']"
               image_size="bound100"
-              :parentComponent="parentComponent(row_index)"
+              :parentComponent="parentComponent(row_index, undefined)"
             />
           </td>
           <td
@@ -205,7 +205,7 @@ export default {
       )
     },
     parentComponent(row, col) {
-      if (row && !col) {
+      if (col === undefined) {
         return `character_match_${row}`
       }
       return `character_match_${row}_${col}`
