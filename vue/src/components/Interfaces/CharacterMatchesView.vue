@@ -150,7 +150,7 @@ export default {
     },
     directory_selected(event) {
       this.matched_directory = event
-      const character_classes = this.match_directories.first(
+      const character_classes = this.match_directories.find(
         (d) => (d.dir = this.matched_directory)
       ).character_classes
       this.character_class_options = character_classes.map(
