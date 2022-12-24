@@ -138,6 +138,9 @@ export default {
       this.character_class_options = []
     },
     book_selected(event) {
+      if (event == null) {
+        return
+      }
       this.book = event
       this.progress_spinner = true
       HTTP.get('/books/' + this.book + '/matched_directories').then(
@@ -160,6 +163,9 @@ export default {
       )
     },
     directory_selected(event) {
+      if (event == null) {
+        return
+      }
       this.matched_directory = event
       this.matched_character_class = null
       this.matched_characters = []
@@ -177,6 +183,9 @@ export default {
       ].concat(this.character_class_options)
     },
     character_class_selected(event) {
+      if (event == null) {
+        return
+      }
       this.matched_character_class = event
       this.matched_characters = []
       this.progress_spinner = true
