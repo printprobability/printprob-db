@@ -512,9 +512,6 @@ class CharacterMatchSerializer(serializers.ModelSerializer):
     character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
-    human_character_class = serializers.PrimaryKeyRelatedField(
-        queryset=models.CharacterClass.objects.all(), many=False, allow_null=True
-    )
 
     class Meta:
         model = models.Character
@@ -522,6 +519,5 @@ class CharacterMatchSerializer(serializers.ModelSerializer):
             "id",
             "label",
             "character_class",
-            "human_character_class",
             "image",
         ]
