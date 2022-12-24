@@ -163,7 +163,7 @@ export default {
     character_class_selected(event) {
       this.matched_character_class = event
       this.progress_spinner = true
-      HTTP.post('/books/' + this.book + '/matched_characters', {
+      HTTP.post('/books/' + this.book + '/matched_characters/', {
         dir: this.matched_directory,
         character_class: this.matched_character_class,
       }).then(
