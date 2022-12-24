@@ -126,6 +126,9 @@ export default {
   },
   created() {
     this.book = this.$route.query.book
+    if (this.book) {
+      this.update_directories()
+    }
   },
   updated() {
     this.$router.push({
@@ -153,12 +156,7 @@ export default {
       this.directory_options = []
       this.character_class_options = []
     },
-    book_selected(event) {
-      if (event == null) {
-        return
-      }
-      this.book = event
-      this.progress_spinner = true
+    update_directories() {
       HTTP.get('/books/' + this.book + '/matched_directories').then(
         (response) => {
           this.match_directories = response.data.match_directories
@@ -177,6 +175,14 @@ export default {
           this.progress_spinner = false
         }
       )
+    },
+    book_selected(event) {
+      if (event == null) {
+        return
+      }
+      this.book = event
+      this.progress_spinner = true
+      this.update_directories()
     },
     directory_selected(event) {
       if (event == null) {
