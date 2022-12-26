@@ -304,7 +304,7 @@ export default {
       this.fetch_characters()
     },
     fetch_characters() {
-      const offset = (this.page - 1) * this.per_page + 1
+      const offset = (this.page - 1) * this.per_page
       this.progress_spinner = true
       HTTP.post(
         '/books/' +
