@@ -36,84 +36,91 @@
         </div>
       </div>
     </div>
-    <Spinner v-if="progress_spinner" />
-    <table v-if="matched_characters.length">
-      <thead>
-        <tr>
-          <th v-for="column in columnHeadings" :key="column">
-            {{ column }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(row, row_index) in matched_characters" :key="row_index">
-          <td>
-            <span>{{ row['target']['name'] }}</span>
-            <CharacterImage
-              :key="row_index + row['target']['obj'].id"
-              :character="row['target']['obj']"
-              image_size="bound100"
-              :parentComponent="parentComponent(row_index, undefined)"
-            />
-          </td>
-          <td
-            v-for="(match, col_index) in row['matches']"
-            :key="row_index + col_index"
-          >
-            <div v-if="match['obj'] !== null">
-              <span>{{ match['name'] }}</span>
-              <CharacterImage
-                :key="row_index + col_index + match['obj'].id"
-                :character="match['obj']"
-                image_size="bound100"
-                :parentComponent="parentComponent(row_index, col_index)"
-              />
-            </div>
-            <div v-else>
-              <span>{{ match['name'] }}</span>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      <b-table
+        sticky-header
+        :fields="fields"
+        :items="items"
+        responsive="sm"
+        :busy="progress_spinner"
+      >
+        <template #table-busy>
+          <div class="text-center text-danger my-2">
+            <b-spinner class="align-middle"></b-spinner>
+            <strong>Loading...</strong>
+          </div>
+        </template>
+        <template #cell(query)="data">
+          <CharacterMatchImage :data="data" />
+        </template>
+        <template #cell(match1)="data">
+          <CharacterMatchImage :data="data" />
+        </template>
+        <template #cell(match2)="data">
+          <CharacterMatchImage :data="data" />
+        </template>
+        <template #cell(match3)="data">
+          <CharacterMatchImage :data="data" />
+        </template>
+        <template #cell(match4)="data">
+          <CharacterMatchImage :data="data" />
+        </template>
+        <template #cell(match5)="data">
+          <CharacterMatchImage :data="data" />
+        </template>
+        <template #cell(match6)="data">
+          <CharacterMatchImage :data="data" />
+        </template>
+        <template #cell(match7)="data">
+          <CharacterMatchImage :data="data" />
+        </template>
+        <template #cell(match8)="data">
+          <CharacterMatchImage :data="data" />
+        </template>
+        <template #cell(match9)="data">
+          <CharacterMatchImage :data="data" />
+        </template>
+        <template #cell(match10)="data">
+          <CharacterMatchImage :data="data" />
+        </template>
+      </b-table>
+    </div>
   </div>
 </template>
 
 <script>
-import CharacterImage from '../Characters/CharacterImage'
+import CharacterMatchImage from '../Characters/CharacterMatchImage'
 import BookAutocomplete from '../Menus/BookAutocomplete'
-import Spinner from '../Interfaces/Spinner'
 import { HTTP } from '@/main'
 
 export default {
   name: 'CharacterMatchesView',
   components: {
-    CharacterImage,
+    CharacterMatchImage,
     BookAutocomplete,
-    Spinner,
   },
   data() {
     return {
       matched_directory: null,
       matched_character_class: null,
-      matched_characters: [],
       match_directories: [],
       progress_spinner: false,
       directory_options: [],
       character_class_options: [],
       book: null,
-      columnHeadings: [
-        'Query',
-        'Match1',
-        'Match2',
-        'Match3',
-        'Match4',
-        'Match5',
-        'Match6',
-        'Match7',
-        'Match8',
-        'Match9',
-        'Match10',
+      items: [],
+      fields: [
+        'query',
+        'match1',
+        'match2',
+        'match3',
+        'match4',
+        'match5',
+        'match6',
+        'match7',
+        'match8',
+        'match9',
+        'match10',
       ],
     }
   },
@@ -157,7 +164,6 @@ export default {
       this.directory_options = []
       this.matched_directory = null
       this.matched_character_class = null
-      this.matched_characters = []
       this.match_directories = []
       this.progress_spinner = false
       this.directory_options = []
@@ -197,7 +203,7 @@ export default {
       }
       this.matched_directory = event
       this.matched_character_class = null
-      this.matched_characters = []
+      this.items = []
       const character_classes = this.match_directories.find(
         (d) => (d.dir = this.matched_directory)
       ).character_classes
@@ -211,63 +217,40 @@ export default {
         { value: null, text: 'Please select a character class' },
       ].concat(this.character_class_options)
     },
+    format_response_for_table(matched_characters_response) {
+      const formatted_items = []
+      for (const matched_character in matched_characters_response) {
+        const item = {
+          query: matched_character['target'],
+        }
+        for (let i = 0; i < matched_character['matches'].length; i++) {
+          item[`match${i + 1}`] = matched_character['matches'][i]
+        }
+        formatted_items.push(item)
+      }
+      this.items = formatted_items
+    },
     character_class_selected(event) {
       if (event == null) {
         return
       }
       this.matched_character_class = event
-      this.matched_characters = []
       this.progress_spinner = true
       HTTP.post('/books/' + this.book + '/matched_characters/', {
         dir: this.matched_directory,
         character_class: this.matched_character_class,
       }).then(
         (response) => {
-          this.matched_characters = response.data.matched_characters
+          this.format_response_for_table(response.data.matched_characters)
           this.progress_spinner = false
         },
         (error) => {
           console.log(error)
-          this.matched_characters = []
+          this.items = []
           this.progress_spinner = false
         }
       )
     },
-    parentComponent(row, col) {
-      if (col === undefined) {
-        return `character_match_${row}`
-      }
-      return `character_match_${row}_${col}`
-    },
   },
 }
 </script>
-
-<style>
-table {
-  border: 2px solid black;
-  border-radius: 3px;
-  background-color: #fff;
-}
-
-td {
-  background-color: #f9f9f9;
-}
-
-th {
-  background-color: #42b983;
-  color: rgba(255, 255, 255, 0.66);
-  user-select: none;
-}
-
-th,
-td {
-  min-width: 120px;
-  padding: 10px 10px;
-  max-width: 140px;
-}
-span {
-  display: inline-block;
-  word-break: break-word;
-}
-</style>
