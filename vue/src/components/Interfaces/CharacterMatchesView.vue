@@ -402,8 +402,27 @@ export default {
       }
     },
     on_page_change(page) {
+      this.save_matches()
       this.page = page
       this.fetch_characters()
+    },
+    save_matches() {
+      const payload = this.selected_matches.map((match, idx) => ({
+        query: this.items[idx]['query'],
+        match,
+      }))
+      HTTP.post('/books/' + this.book + `/save_matched_characters/`, {
+        matches: payload,
+      }).then(
+        (response) => {
+          console.log(response)
+          this.selected_matches = []
+        },
+        (error) => {
+          console.log(error)
+          this.selected_matches = []
+        }
+      )
     },
     clear_book() {
       this.book = null

@@ -28,6 +28,7 @@ from .management.commands.bulk_update import BookLoader as BookUpdater
 from .management.commands.bulk_load import BookLoader as BookCreator
 from .management.commands.refresh_labels import Command as LabelRefresher
 from .matches.find_matching_chars import get_matched_characters, get_match_directories
+from .matches.save_matching_chars import save_matched_characters_in_db
 
 BASE_PATH = '/ocean/projects/hum160002p/shared/'
 TOP_K_CSV_SUFFIX = '*_topk.csv'
@@ -353,6 +354,23 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         matched_characters = get_matched_characters(request, topk_csv_file, limit, offset)
         return Response({"matched_characters": matched_characters, "total_count": number_of_lines},
                         status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=["post"])
+    @transaction.atomic
+    def save_matched_characters(self, request, pk=None):
+        matches = request.data['matches']
+        if matches is None:
+            return Response({"error": "missing matches"}, status=status.HTTP_400_BAD_REQUEST)
+        if len(matches) == 0:
+            return Response(status=status.HTTP_200_OK)
+        logging.info({"Incoming char match payload: ": matches})
+        try:
+            book = self.get_object()
+            # save_matched_characters_in_db(book, matches)
+        except Exception as err:
+            logging.error({'Error saving match: ': err})
+            return Response("Error saving matches", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response("Saved matches successfully!", status=status.HTTP_200_OK)
 
 
 class SpreadFilter(filters.FilterSet):
