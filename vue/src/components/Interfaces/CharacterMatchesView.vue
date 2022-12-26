@@ -396,7 +396,7 @@ export default {
   methods: {
     char_selected(event) {
       if (this.selected_matches[event['row_idx']] === event['id']) {
-        this.selected_matches.splice(event['row_idx'], 1, undefined)
+        this.selected_matches.splice(event['row_idx'], 1, null)
       } else {
         this.selected_matches.splice(event['row_idx'], 1, event['id'])
       }
