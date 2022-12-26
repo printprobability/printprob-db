@@ -36,7 +36,9 @@
         </div>
       </div>
     </div>
-    <div v-if="!!matched_character_class">
+    <div
+      v-if="!!matched_character_class && items.length > 0 && fields.length > 0"
+    >
       <b-table
         responsive
         sticky-header="70vh"
@@ -161,6 +163,105 @@
             is_match_image
           />
         </template>
+        <template #cell(match11)="data">
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="11"
+            :character_row="data.value"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
+          />
+        </template>
+        <template #cell(match12)="data">
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="12"
+            :character_row="data.value"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
+          />
+        </template>
+        <template #cell(match13)="data">
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="13"
+            :character_row="data.value"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
+          />
+        </template>
+        <template #cell(match14)="data">
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="14"
+            :character_row="data.value"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
+          />
+        </template>
+        <template #cell(match15)="data">
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="15"
+            :character_row="data.value"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
+          />
+        </template>
+        <template #cell(match16)="data">
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="16"
+            :character_row="data.value"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
+          />
+        </template>
+        <template #cell(match17)="data">
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="17"
+            :character_row="data.value"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
+          />
+        </template>
+        <template #cell(match18)="data">
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="18"
+            :character_row="data.value"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
+          />
+        </template>
+        <template #cell(match19)="data">
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="19"
+            :character_row="data.value"
+            :selected="selected_matches"
+            is_match_image
+          />
+        </template>
+        <template #cell(match20)="data">
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="20"
+            :character_row="data.value"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
+          />
+        </template>
       </b-table>
       <b-pagination
         v-model="page"
@@ -202,19 +303,7 @@ export default {
       total_count: 0,
       per_page: 10,
       page: 1,
-      fields: [
-        'query',
-        'match1',
-        'match2',
-        'match3',
-        'match4',
-        'match5',
-        'match6',
-        'match7',
-        'match8',
-        'match9',
-        'match10',
-      ],
+      fields: [],
     }
   },
   asyncComputed: {
@@ -332,6 +421,7 @@ export default {
         }
         formatted_items.push(item)
       }
+      this.fields = Object.keys(formatted_items[0])
       this.items = formatted_items
       this.selected_matches = Array(this.items.length)
     },
@@ -362,6 +452,7 @@ export default {
         (error) => {
           console.log(error)
           this.items = []
+          this.fields = []
           this.selected_matches = []
           this.progress_spinner = false
         }

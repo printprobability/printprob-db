@@ -80,14 +80,21 @@ def get_matched_characters(request, csv_file, limit, offset):
                 idx += 1
                 continue
             row = line.split(',')
+            logging.info({'row length:': len(row)})
+            if len(row) == 21:
+                last_char_index = 11
+                last_distance_index = 21
+            if len(row) == 41:
+                last_char_index = 21
+                last_distance_index = 41
             matched_image_characters = [_find_character_for_path(image)
-                                        for image in row[0:11]]
-            distances = row[11:21]
+                                        for image in row[0:last_char_index]]
+            distances = row[last_char_index:last_distance_index]
             if matched_image_characters[0] is not None:
                 limit_count += 1
                 result.append({})
                 result[limit_count-1]['target'] = matched_image_characters[0]
-                result[limit_count-1]['matches'] = matched_image_characters[1:11]
+                result[limit_count-1]['matches'] = matched_image_characters[1:last_char_index]
                 result[limit_count-1]['distances'] = distances
                 # have we got all the rows we wanted ?
                 if limit_count == limit:
