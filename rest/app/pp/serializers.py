@@ -521,3 +521,23 @@ class CharacterMatchSerializer(serializers.ModelSerializer):
             "character_class",
             "image",
         ]
+
+
+class ExistingCharacterMatchSerializer(serializers.Serializer):
+    query = serializers.PrimaryKeyRelatedField(
+        queryset=models.Character.objects.all(), many=False
+    )
+    match = serializers.PrimaryKeyRelatedField(
+        queryset=models.Character.objects.all(), many=False
+    )
+    book = serializers.PrimaryKeyRelatedField(
+        queryset=models.Character.objects.all(), many=False
+    )
+
+    class Meta:
+        model = models.CharacterMatch
+        fields = [
+            "book_id",
+            "query_id",
+            "match_id",
+        ]

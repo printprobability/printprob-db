@@ -338,7 +338,9 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         logging.info({"Incoming char query payload: ": queries})
         book = self.get_object()
         existing_matches = existing_matched_characters(book, queries)
-        return Response({"existing_matches": existing_matches}, status=status.HTTP_200_OK)
+        serializer = serializers.ExistingCharacterMatchSerializer(existing_matches,
+                                                                  context={'request': request}, many=True)
+        return Response({"existing_matches": serializer.data}, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=["post"])
     @transaction.atomic
