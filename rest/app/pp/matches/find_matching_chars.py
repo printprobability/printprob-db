@@ -94,5 +94,6 @@ def get_matched_characters(request, csv_file, limit, offset):
             if res['target'] is None:
                 continue
             res['matches'] = [_serialize_char(request, match) for match in res['matches']]
+            serialized_result.append({})
             serialized_result[idx] = res
     return serialized_result
