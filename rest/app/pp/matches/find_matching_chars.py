@@ -87,7 +87,8 @@ def get_matched_characters(request, csv_file, limit, offset):
                 res['target'] = _serialize_char(request, models.Character.objects.get(id=res['target']))
                 res['matches'] = [_serialize_char(request, models.Character.objects.get(id=match))
                                   for match in res['matches']]
-            except models.Character.ObjectDoesNotExist as err:
+                logging.info({"Done matching: ": res})
+            except models.Character.DoesNotExist as err:
                 logging.error({"Error in finding matched characters on row: ": idx})
                 logging.error(err)
 
