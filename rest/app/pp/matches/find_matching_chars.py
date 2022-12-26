@@ -107,3 +107,12 @@ def get_matched_characters(request, csv_file, limit, offset):
             serialized_result.append({})
             serialized_result[idx] = res
     return serialized_result
+
+
+def existing_matched_characters(book, queries):
+    result = []
+    for query in queries:
+        existing = models.CharacterMatch.objects.filter(book=book, query=query).first()
+        if existing is not None:
+            result.append(existing)
+    return result

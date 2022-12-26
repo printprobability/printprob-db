@@ -27,7 +27,7 @@ from . import models, serializers
 from .management.commands.bulk_update import BookLoader as BookUpdater
 from .management.commands.bulk_load import BookLoader as BookCreator
 from .management.commands.refresh_labels import Command as LabelRefresher
-from .matches.find_matching_chars import get_matched_characters, get_match_directories
+from .matches.find_matching_chars import get_matched_characters, get_match_directories, existing_matched_characters
 from .matches.save_matching_chars import save_matched_characters_in_db
 
 BASE_PATH = '/ocean/projects/hum160002p/shared/'
@@ -326,6 +326,19 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         matches_path = os.path.join(BASE_PATH, *split_parts)
         match_directories = get_match_directories(matches_path)
         return Response({"match_directories": match_directories}, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=["post"])
+    @transaction.atomic
+    def existing_matched_characters(self, request, pk=None):
+        queries = request.data['queries']
+        if queries is None:
+            return Response({"error": "missing queries"}, status=status.HTTP_400_BAD_REQUEST)
+        if len(queries) == 0:
+            return Response(status=status.HTTP_200_OK)
+        logging.info({"Incoming char query payload: ": queries})
+        book = self.get_object()
+        existing_matches = existing_matched_characters(book, queries)
+        return Response({"existing_matches": existing_matches}, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=["post"])
     @transaction.atomic
