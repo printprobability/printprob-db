@@ -1,11 +1,11 @@
 <template>
   <div>
-    <span>{{ data['name'] }}</span>
+    <span>{{ character_row['name'] }}</span>
     <CharacterImage
-      :key="data.index + data['name']"
-      :character="data['obj']"
+      :key="index + character_row['name']"
+      :character="character"
       image_size="bound100"
-      :parentComponent="parentComponent(data.index, undefined)"
+      :parentComponent="parentComponent(index, col_index)"
     />
   </div>
 </template>
@@ -19,11 +19,13 @@ export default {
     CharacterImage,
   },
   props: {
-    data: Object,
+    index: Number,
+    col_index: Number,
+    character_row: Object,
   },
   data() {
     return {
-      character: this.data['obj'],
+      character: this.character_row['obj'],
     }
   },
   methods: {

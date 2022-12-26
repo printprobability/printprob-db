@@ -38,12 +38,17 @@
     </div>
     <div>
       <b-table
-        sticky-header
+        responsive
+        sticky-header="70vh"
         :fields="fields"
         :items="items"
-        responsive="sm"
         :busy="progress_spinner"
+        head-variant="light"
+        :no-border-collapse="true"
       >
+        <template #head(name)="data">
+          <span class="text-info">{{ data.label.toUpperCase() }}</span>
+        </template>
         <template #table-busy>
           <div class="text-center text-danger my-2">
             <b-spinner class="align-middle"></b-spinner>
@@ -51,37 +56,81 @@
           </div>
         </template>
         <template #cell(query)="data">
-          <CharacterMatchImage :data="data" />
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="0"
+            :character_row="data.value"
+          />
         </template>
         <template #cell(match1)="data">
-          <CharacterMatchImage :data="data" />
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="1"
+            :character_row="data.value"
+          />
         </template>
         <template #cell(match2)="data">
-          <CharacterMatchImage :data="data" />
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="2"
+            :character_row="data.value"
+          />
         </template>
         <template #cell(match3)="data">
-          <CharacterMatchImage :data="data" />
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="3"
+            :character_row="data.value"
+          />
         </template>
         <template #cell(match4)="data">
-          <CharacterMatchImage :data="data" />
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="4"
+            :character_row="data.value"
+          />
         </template>
         <template #cell(match5)="data">
-          <CharacterMatchImage :data="data" />
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="5"
+            :character_row="data.value"
+          />
         </template>
         <template #cell(match6)="data">
-          <CharacterMatchImage :data="data" />
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="6"
+            :character_row="data.value"
+          />
         </template>
         <template #cell(match7)="data">
-          <CharacterMatchImage :data="data" />
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="7"
+            :character_row="data.value"
+          />
         </template>
         <template #cell(match8)="data">
-          <CharacterMatchImage :data="data" />
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="8"
+            :character_row="data.value"
+          />
         </template>
         <template #cell(match9)="data">
-          <CharacterMatchImage :data="data" />
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="9"
+            :character_row="data.value"
+          />
         </template>
         <template #cell(match10)="data">
-          <CharacterMatchImage :data="data" />
+          <CharacterMatchImage
+            :index="data.index + 1"
+            col_index="10"
+            :character_row="data.value"
+          />
         </template>
       </b-table>
     </div>
@@ -217,9 +266,9 @@ export default {
         { value: null, text: 'Please select a character class' },
       ].concat(this.character_class_options)
     },
-    format_response_for_table(matched_characters_response) {
+    format_response_for_table(matched_characters) {
       const formatted_items = []
-      for (const matched_character in matched_characters_response) {
+      for (const matched_character of matched_characters) {
         const item = {
           query: matched_character['target'],
         }
@@ -241,8 +290,7 @@ export default {
         character_class: this.matched_character_class,
       }).then(
         (response) => {
-          const matched_characters = response.data.matched_characters
-          this.format_response_for_table(matched_characters)
+          this.format_response_for_table(response.data.matched_characters)
           this.progress_spinner = false
         },
         (error) => {
