@@ -263,6 +263,11 @@ th {
 th,
 td {
   min-width: 120px;
-  padding: 10px 20px;
+  padding: 10px 10px;
+  max-width: 140px;
+}
+span {
+  display: inline-block;
+  word-break: break-word;
 }
 </style>
