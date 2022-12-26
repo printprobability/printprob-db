@@ -80,7 +80,6 @@ def get_matched_characters(request, csv_file, limit, offset):
                 idx += 1
                 continue
             row = line.split(',')
-            logging.info({'row length:': len(row)})
             if len(row) == 21:
                 last_char_index = 11
                 last_distance_index = 21
