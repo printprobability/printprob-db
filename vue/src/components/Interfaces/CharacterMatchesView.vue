@@ -33,6 +33,28 @@
               :options="character_class_options"
             />
           </div>
+          <div class="col-2" v-if="items.length > 0">
+            <b-form-group label="Image size">
+              <b-form-radio
+                v-model="image_size"
+                name="image-size"
+                value="actual"
+                >Actual pixels
+              </b-form-radio>
+              <b-form-radio
+                v-model="image_size"
+                name="image-size"
+                value="bound100"
+                >100px
+              </b-form-radio>
+              <b-form-radio
+                v-model="image_size"
+                name="image-size"
+                value="bound300"
+                >300px
+              </b-form-radio>
+            </b-form-group>
+          </div>
         </div>
       </div>
     </div>
@@ -60,6 +82,7 @@
             :index="data.index + 1"
             col_index="0"
             :character_row="data.value"
+            :image_size="image_size"
           />
         </template>
         <template #cell(match1)="data">
@@ -70,6 +93,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match2)="data">
@@ -80,6 +104,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match3)="data">
@@ -90,6 +115,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match4)="data">
@@ -100,6 +126,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match5)="data">
@@ -110,6 +137,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match6)="data">
@@ -120,6 +148,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match7)="data">
@@ -130,6 +159,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match8)="data">
@@ -140,6 +170,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match9)="data">
@@ -149,6 +180,7 @@
             :character_row="data.value"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match10)="data">
@@ -159,6 +191,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match11)="data">
@@ -169,6 +202,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match12)="data">
@@ -179,6 +213,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match13)="data">
@@ -189,6 +224,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match14)="data">
@@ -199,6 +235,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match15)="data">
@@ -209,6 +246,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match16)="data">
@@ -219,6 +257,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match17)="data">
@@ -229,6 +268,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match18)="data">
@@ -239,6 +279,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match19)="data">
@@ -248,6 +289,7 @@
             :character_row="data.value"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
         <template #cell(match20)="data">
@@ -258,6 +300,7 @@
             @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
+            :image_size="image_size"
           />
         </template>
       </b-table>
@@ -299,6 +342,7 @@ export default {
       book: null,
       items: [],
       total_count: 0,
+      image_size: 'bound100',
       per_page: 5,
       page: 1,
       fields: [
@@ -374,6 +418,7 @@ export default {
       this.items = []
     },
     update_directories() {
+      this.progress_spinner = true
       HTTP.get('/books/' + this.book + '/matched_directories').then(
         (response) => {
           this.match_directories = response.data.match_directories
@@ -398,7 +443,6 @@ export default {
         return
       }
       this.book = event
-      this.progress_spinner = true
       this.update_directories()
     },
     directory_selected(event) {
@@ -461,8 +505,14 @@ export default {
         }
       ).then(
         (response) => {
-          this.format_response_for_table(response.data.matched_characters)
-          this.total_count = response.data.total_count
+          if (response.data.matched_characters.length > 0) {
+            this.format_response_for_table(response.data.matched_characters)
+            this.total_count = response.data.total_count
+          } else {
+            this.items = []
+            this.fields = []
+            this.selected_matches = []
+          }
           this.progress_spinner = false
         },
         (error) => {

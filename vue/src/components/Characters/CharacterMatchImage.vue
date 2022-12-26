@@ -3,7 +3,7 @@
     <CharacterImage
       :key="index + name"
       :character="character"
-      image_size="bound100"
+      :image_size="image_size"
       :selected="is_match_image && is_char_selected"
       :parentComponent="parentComponent(index, col_index)"
       @char_clicked="
@@ -30,6 +30,10 @@ export default {
     col_index: Number,
     character_row: Object,
     selected: Object,
+    image_size: {
+      type: String,
+      default: 'bound100',
+    },
   },
   computed: {
     is_char_selected() {
