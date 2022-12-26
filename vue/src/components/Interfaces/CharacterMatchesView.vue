@@ -359,6 +359,7 @@ export default {
         'match9',
         'match10',
       ],
+      existing_matches: [],
     }
   },
   asyncComputed: {
@@ -487,10 +488,12 @@ export default {
     },
     format_response_for_table(matched_characters) {
       const formatted_items = []
+      const queries = []
       for (const matched_character of matched_characters) {
         const item = {
           query: matched_character['target'],
         }
+        queries.push(matched_character['target']['obj'].id)
         for (let i = 0; i < matched_character['matches'].length; i++) {
           const match_obj = matched_character['matches'][i]
           if (matched_character['distances']) {
@@ -504,6 +507,7 @@ export default {
       this.fields[0] = { key: 'query', stickyColumn: true, variant: 'info' }
       this.items = formatted_items
       this.selected_matches = Array(this.items.length)
+      this.fetch_existing_matches(queries)
     },
     character_class_selected(event) {
       if (event == null) {
@@ -543,6 +547,42 @@ export default {
           this.progress_spinner = false
         }
       )
+    },
+    fetch_existing_matches(queries) {
+      return HTTP.post(
+        '/books/' + this.book + `/existing_matched_characters/`,
+        {
+          queries: queries,
+        }
+      ).then(
+        (response) => {
+          console.log('existing matched characters: ', response)
+          this.existing_matches = response.data.existing_matches
+          this.update_selected_matches()
+        },
+        (error) => {
+          console.log(error)
+          this.existing_matches = []
+        }
+      )
+    },
+    update_selected_matches() {
+      this.items.forEach((item, idx) => {
+        const query = item['query']
+        const existing_match = this.existing_matches.find(
+          (em) => em['query'] === query['obj'].id
+        )
+        if (existing_match !== undefined) {
+          for (const [k, v] of Object.entries(item)) {
+            if (k === 'query') continue
+            const char_id = v['obj'].id
+            if (char_id === existing_match['match']) {
+              this.selected_matches.splice(idx, 1, char_id)
+            }
+          }
+        }
+      })
+      console.log('Updated selected matches: ', this.selected_matches)
     },
   },
 }
