@@ -290,7 +290,11 @@ export default {
           query: matched_character['target'],
         }
         for (let i = 0; i < matched_character['matches'].length; i++) {
-          item[`match${i + 1}`] = matched_character['matches'][i]
+          const match_obj = matched_character['matches'][i]
+          if (matched_character['distances']) {
+            match_obj['distance'] = matched_character['distances'][i]
+          }
+          item[`match${i + 1}`] = match_obj
         }
         formatted_items.push(item)
       }

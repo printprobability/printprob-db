@@ -1,12 +1,13 @@
 <template>
   <div>
-    <span>{{ character_row['name'] }}</span>
+    <span>{{ name }}</span>
     <CharacterImage
-      :key="index + character_row['name']"
+      :key="index + name"
       :character="character"
       image_size="bound100"
       :parentComponent="parentComponent(index, col_index)"
     />
+    <span v-if="distance">{{ distance }}</span>
   </div>
 </template>
 
@@ -25,7 +26,9 @@ export default {
   },
   data() {
     return {
+      name: this.character_row['name'],
       character: this.character_row['obj'],
+      distance: this.character_row['distance'],
     }
   },
   methods: {
