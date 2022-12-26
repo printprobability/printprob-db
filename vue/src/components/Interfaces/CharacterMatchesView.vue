@@ -322,6 +322,7 @@
 import CharacterMatchImage from '../Characters/CharacterMatchImage'
 import BookAutocomplete from '../Menus/BookAutocomplete'
 import { HTTP } from '@/main'
+import axios from 'axios'
 
 export default {
   name: 'CharacterMatchesView',
@@ -358,6 +359,8 @@ export default {
         'match9',
         'match10',
       ],
+      save_cancel_token: null,
+      fetch_characters_cancel_token: null,
     }
   },
   asyncComputed: {
@@ -407,13 +410,23 @@ export default {
       this.fetch_characters()
     },
     save_matches() {
+      if (this.save_cancel_token) {
+        this.save_cancel_token.cancel('Canceling in favor of new request')
+      }
+      this.save_cancel_token = axios.CancelToken.source()
       const payload = this.selected_matches.map((match, idx) => ({
         query: this.items[idx]['query']['obj'].id,
         match,
       }))
-      HTTP.post('/books/' + this.book + `/save_matched_characters/`, {
-        matches: payload,
-      }).then(
+      HTTP.post(
+        '/books/' + this.book + `/save_matched_characters/`,
+        {
+          matches: payload,
+        },
+        {
+          cancelToken: this.save_cancel_token,
+        }
+      ).then(
         (response) => {
           console.log(response)
           this.selected_matches = []
@@ -512,6 +525,12 @@ export default {
       this.fetch_characters()
     },
     fetch_characters() {
+      if (this.fetch_characters_cancel_token) {
+        this.fetch_characters_cancel_token.cancel(
+          'Canceling in favor of new request'
+        )
+      }
+      this.fetch_characters_cancel_token = axios.CancelToken.source()
       const offset = (this.page - 1) * this.per_page
       this.progress_spinner = true
       HTTP.post(
@@ -521,7 +540,8 @@ export default {
         {
           dir: this.matched_directory,
           character_class: this.matched_character_class,
-        }
+        },
+        { cancelToken: this.fetch_characters_cancel_token }
       ).then(
         (response) => {
           if (response.data.matched_characters.length > 0) {
