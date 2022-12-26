@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="character">
     <CharacterImage
       :key="index + name"
       :character="character"

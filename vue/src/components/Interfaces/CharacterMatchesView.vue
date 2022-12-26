@@ -36,9 +36,7 @@
         </div>
       </div>
     </div>
-    <div
-      v-if="!!matched_character_class && items.length > 0 && fields.length > 0"
-    >
+    <div v-if="!!matched_character_class">
       <b-table
         responsive
         sticky-header="70vh"
@@ -301,9 +299,21 @@ export default {
       book: null,
       items: [],
       total_count: 0,
-      per_page: 10,
+      per_page: 5,
       page: 1,
-      fields: [],
+      fields: [
+        { key: 'query', stickyColumn: true, variant: 'info' },
+        'match1',
+        'match2',
+        'match3',
+        'match4',
+        'match5',
+        'match6',
+        'match7',
+        'match8',
+        'match9',
+        'match10',
+      ],
     }
   },
   asyncComputed: {
@@ -353,7 +363,6 @@ export default {
     },
     clear_book() {
       this.book = null
-      this.progress_spinner = false
       this.directory_options = []
       this.matched_directory = null
       this.matched_character_class = null
@@ -361,6 +370,8 @@ export default {
       this.progress_spinner = false
       this.directory_options = []
       this.character_class_options = []
+      this.total_count = 0
+      this.items = []
     },
     update_directories() {
       HTTP.get('/books/' + this.book + '/matched_directories').then(
@@ -426,6 +437,7 @@ export default {
         formatted_items.push(item)
       }
       this.fields = Object.keys(formatted_items[0])
+      this.fields[0] = { key: 'query', stickyColumn: true, variant: 'info' }
       this.items = formatted_items
       this.selected_matches = Array(this.items.length)
     },
