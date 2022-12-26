@@ -82,6 +82,8 @@ def get_matched_characters(request, csv_file, limit, offset):
             row = line.split(',')
             matched_image_characters = [_find_character_for_path(image)
                                         for image in row[0:11]]
+            distances = row[11:21]
+            logging.info(distances)
             if matched_image_characters[0] is not None:
                 limit_count += 1
                 result.append({})
