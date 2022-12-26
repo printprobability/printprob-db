@@ -5,7 +5,9 @@
       :key="index + name"
       :character="character"
       image_size="bound100"
+      :selected="selected"
       :parentComponent="parentComponent(index, col_index)"
+      @char_clicked="$emit('char_clicked', $event)"
     />
     <span v-if="distance">{{ distance }}</span>
   </div>
@@ -23,6 +25,7 @@ export default {
     index: Number,
     col_index: Number,
     character_row: Object,
+    selected: Boolean,
   },
   data() {
     return {
@@ -37,9 +40,6 @@ export default {
         return `character_match_${row}`
       }
       return `character_match_${row}_${col}`
-    },
-    onCharacterSelection() {
-      this.$emit('char_clicked', this.character.id)
     },
   },
 }
