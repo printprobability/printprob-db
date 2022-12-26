@@ -640,3 +640,13 @@ class CharacterGrouping(UserBasedModel):
 
     def labeller(self):
         return self.label
+
+
+class CharacterMatch(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE,
+                             related_name="book_character_match",
+                             help_text="Book corresponding to this character match")
+    query = models.ForeignKey(Character, on_delete=models.CASCADE, related_name="query_character",
+                              help_text="Query character corresponding to this character match")
+    match = models.ForeignKey(Character, on_delete=models.SET_NULL, related_name="match_character",
+                              help_text="Match character corresponding to this character query", null=True)
