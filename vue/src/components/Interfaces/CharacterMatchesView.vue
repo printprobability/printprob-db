@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div v-if="!!matched_character_class">
       <b-table
         responsive
         sticky-header="70vh"
@@ -133,6 +133,16 @@
           />
         </template>
       </b-table>
+      <b-pagination
+        v-model="page"
+        :total-rows="total_count"
+        :per-page="per_page"
+        first-text="First"
+        prev-text="Prev"
+        next-text="Next"
+        last-text="Last"
+        @change="on_page_change"
+      />
     </div>
   </div>
 </template>
@@ -158,6 +168,9 @@ export default {
       character_class_options: [],
       book: null,
       items: [],
+      total_count: 0,
+      per_page: 10,
+      page: 1,
       fields: [
         'query',
         'match1',
@@ -207,6 +220,9 @@ export default {
     },
   },
   methods: {
+    on_page_change() {
+      this.fetch_characters()
+    },
     clear_book() {
       this.book = null
       this.progress_spinner = false
@@ -284,13 +300,23 @@ export default {
         return
       }
       this.matched_character_class = event
+      this.fetch_characters()
+    },
+    fetch_characters() {
+      const offset = (this.page - 1) * this.per_page + 1
       this.progress_spinner = true
-      HTTP.post('/books/' + this.book + '/matched_characters/', {
-        dir: this.matched_directory,
-        character_class: this.matched_character_class,
-      }).then(
+      HTTP.post(
+        '/books/' +
+          this.book +
+          `/matched_characters/?offset=${offset}&limit=${this.per_page}`,
+        {
+          dir: this.matched_directory,
+          character_class: this.matched_character_class,
+        }
+      ).then(
         (response) => {
           this.format_response_for_table(response.data.matched_characters)
+          this.total_count = response.data.total_count
           this.progress_spinner = false
         },
         (error) => {
