@@ -341,7 +341,11 @@ export default {
   },
   methods: {
     char_selected(event) {
-      this.selected_matches.splice(event['row_idx'], 1, event['id'])
+      if (this.selected_matches[event['row_idx']] === event['id']) {
+        this.selected_matches.splice(event['row_idx'], 1, undefined)
+      } else {
+        this.selected_matches.splice(event['row_idx'], 1, event['id'])
+      }
     },
     on_page_change(page) {
       this.page = page
