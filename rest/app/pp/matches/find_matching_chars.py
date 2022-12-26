@@ -79,7 +79,6 @@ def get_matched_characters(request, csv_file, limit, offset):
             if idx < offset:
                 idx += 1
                 continue
-            logging.info({"Row index": idx})
             row = line.split(',')
             matched_image_characters = [_find_character_for_path(image)
                                         for image in row[0:11]]
@@ -92,8 +91,6 @@ def get_matched_characters(request, csv_file, limit, offset):
                 if limit_count == limit:
                     break
             idx += 1
-        logging.info({"final idx value:": idx})
-        logging.info({"Number of results": len(result)})
         for idx, res in enumerate(result):
             res['target'] = _serialize_char(request, res['target'])
             if res['target'] is None:

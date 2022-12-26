@@ -331,8 +331,6 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
     def matched_characters(self, request, pk=None):
         limit = request.GET.get("limit", 10)
         offset = request.GET.get("offset", 0)
-        logging.info({"Offset: ": offset})
-        logging.info({"Limit: ": limit})
         one_page = models.Page.objects.filter(
             created_by_run__book=pk, tif__isnull=False
         )[0]
