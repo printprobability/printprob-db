@@ -241,7 +241,8 @@ export default {
         character_class: this.matched_character_class,
       }).then(
         (response) => {
-          this.format_response_for_table(response.data.matched_characters)
+          const matched_characters = response.data.matched_characters
+          this.format_response_for_table(matched_characters)
           this.progress_spinner = false
         },
         (error) => {
