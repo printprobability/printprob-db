@@ -53,7 +53,13 @@ def get_match_directories(matches_path):
     return matches
 
 
-def _serialize_char(request, obj):
+def _serialize_char(request, character_id):
+    obj = None
+    try:
+        obj = models.Character.objects.get(id=character_id)
+    except models.Character.DoesNotExist as err:
+        logging.error({"Error in finding matched character ": character_id})
+        logging.error(err)
     if obj is None:
         return {}
     serializer = serializers.CharacterMatchSerializer(obj, context={'request': request})
@@ -83,13 +89,7 @@ def get_matched_characters(request, csv_file, limit, offset):
                     break
             idx += 1
         for res in result:
-            try:
-                res['target'] = _serialize_char(request, models.Character.objects.get(id=res['target']))
-                res['matches'] = [_serialize_char(request, models.Character.objects.get(id=match))
-                                  for match in res['matches']]
-                logging.info({"Done matching: ": res})
-            except models.Character.DoesNotExist as err:
-                logging.error({"Error in finding matched characters on row: ": idx})
-                logging.error(err)
+            res['target'] = _serialize_char(request, res['target'])
+            res['matches'] = [_serialize_char(request, match) for match in res['matches']]
 
     return result
