@@ -48,9 +48,10 @@
       <tbody>
         <tr v-for="(row, row_index) in matched_characters" :key="row_index">
           <td>
+            <span>{{ row['target']['name'] }}</span>
             <CharacterImage
-              :key="row_index + row['target'].id"
-              :character="row['target']"
+              :key="row_index + row['target']['obj'].id"
+              :character="row['target']['obj']"
               image_size="bound100"
               :parentComponent="parentComponent(row_index, undefined)"
             />
@@ -59,12 +60,18 @@
             v-for="(match, col_index) in row['matches']"
             :key="row_index + col_index"
           >
-            <CharacterImage
-              :key="row_index + col_index + match.id"
-              :character="match"
-              image_size="bound100"
-              :parentComponent="parentComponent(row_index, col_index)"
-            />
+            <div v-if="match['obj'] !== null">
+              <span>{{ match['name'] }}</span>
+              <CharacterImage
+                :key="row_index + col_index + match['obj'].id"
+                :character="match['obj']"
+                image_size="bound100"
+                :parentComponent="parentComponent(row_index, col_index)"
+              />
+            </div>
+            <div v-else>
+              <span>{{ match['name'] }}</span>
+            </div>
           </td>
         </tr>
       </tbody>
