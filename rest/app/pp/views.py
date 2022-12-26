@@ -21,6 +21,7 @@ from rest_framework import (
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from glob import glob
+import csv
 
 from . import models, serializers
 from .management.commands.bulk_update import BookLoader as BookUpdater
@@ -346,8 +347,11 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
             return Response({"No matching CSV found:", csv_path})
         if len(topk_csv_files) > 1:
             return Response({"More than one CSV matching:", csv_path})
-        matched_characters = get_matched_characters(request, topk_csv_files[0], limit, offset)
-        return Response({"matched_characters": matched_characters}, status=status.HTTP_200_OK)
+        topk_csv_file = topk_csv_files[0]
+        with open(topk_csv_file, newline='') as csvfile:
+            topk_reader = csv.reader(csvfile, delimiter=',')
+            matched_characters = get_matched_characters(request, topk_reader, limit, offset)
+            return Response({"matched_characters": matched_characters}, status=status.HTTP_200_OK)
 
 
 class SpreadFilter(filters.FilterSet):
