@@ -329,8 +329,8 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
     @action(detail=True, methods=["post"])
     @transaction.atomic
     def matched_characters(self, request, pk=None):
-        limit = request.GET.get("limit", 10)
-        offset = request.GET.get("offset", 0)
+        limit = int(request.GET.get("limit", 10))
+        offset = int(request.GET.get("offset", 0))
         one_page = models.Page.objects.filter(
             created_by_run__book=pk, tif__isnull=False
         )[0]
