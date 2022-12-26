@@ -348,10 +348,8 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         if len(topk_csv_files) > 1:
             return Response({"More than one CSV matching:", csv_path})
         topk_csv_file = topk_csv_files[0]
-        with open(topk_csv_file, newline='') as csvfile:
-            topk_reader = csv.reader(csvfile, delimiter=',')
-            matched_characters = get_matched_characters(request, topk_reader, limit, offset)
-            return Response({"matched_characters": matched_characters}, status=status.HTTP_200_OK)
+        matched_characters = get_matched_characters(request, topk_csv_files[0], limit, offset)
+        return Response({"matched_characters": matched_characters}, status=status.HTTP_200_OK)
 
 
 class SpreadFilter(filters.FilterSet):

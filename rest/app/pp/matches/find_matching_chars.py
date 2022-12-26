@@ -60,25 +60,30 @@ def _serialize_char(request, obj):
     return json.loads(json.dumps(serializer.data))
 
 
-def get_matched_characters(request, topk_reader, limit, offset):
+def get_matched_characters(request, csv_file, limit, offset):
     result = []
     limit_count = 0
-    for idx, row in enumerate(topk_reader):
-        # continue till offset
-        if idx < offset:
-            continue
-        matched_image_characters = [_find_character_for_path(image)
-                                    for image in row[0:11]]
-        if matched_image_characters[0] is not None:
-            limit_count += 1
-            result.append({})
-            result[idx]['target'] = matched_image_characters[0]
-            result[idx]['matches'] = matched_image_characters[1:11]
-            # have we got all the rows we wanted ?
-            if limit_count == limit:
-                break
-    for res in result:
-        res['target'] = _serialize_char(request, models.Character.objects.get(id=res['target']))
-        res['matches'] = [_serialize_char(request, models.Character.objects.get(id=match))
-                          for match in res['matches']]
+    idx = 0
+    with open(csv_file, 'r') as csvfile:
+        for line in csvfile:
+            # continue till offset
+            if idx < offset:
+                idx += 1
+                continue
+            row = line.split(',')
+            matched_image_characters = [_find_character_for_path(image)
+                                        for image in row[0:11]]
+            if matched_image_characters[0] is not None:
+                limit_count += 1
+                result.append({})
+                result[idx]['target'] = matched_image_characters[0]
+                result[idx]['matches'] = matched_image_characters[1:11]
+                # have we got all the rows we wanted ?
+                if limit_count == limit:
+                    break
+            idx += 1
+        for res in result:
+            res['target'] = _serialize_char(request, models.Character.objects.get(id=res['target']))
+            res['matches'] = [_serialize_char(request, models.Character.objects.get(id=match))
+                              for match in res['matches']]
     return result
