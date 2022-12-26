@@ -23,6 +23,7 @@ def _find_character_for_path(path):
     # .../rroberts_R6026_uscu_2_kingsloo1699-0042_page1rline13_char23_G_uc_aligned.tif
     split_path = path.split('/')
     final_part = split_path[len(split_path) - 1]
+    char_path = final_part.split('_aligned', 1)[0]
     split_parts = final_part.split('-', 1)
     grep_part = final_part.split('_aligned')[0]
     book_string = split_parts[0] + '_color'
@@ -34,10 +35,11 @@ def _find_character_for_path(path):
         matched_id_line, err = proc.communicate()
         if matched_id_line is not None and matched_id_line != '':
             character_id = (str(matched_id_line).split(':'))[1].split(',')[0].replace('"', '').strip()
-            return character_id
-    except:
+            return {'name': char_path, 'id': character_id}
+    except Exception as err:
         logging.error({"Error finding character: ", path})
-        return None
+        logging.error(err)
+        return {'name': char_path, 'id': None}
 
 
 def get_match_directories(matches_path):
@@ -53,17 +55,17 @@ def get_match_directories(matches_path):
     return matches
 
 
-def _serialize_char(request, character_id):
+def _serialize_char(request, character):
     obj = None
     try:
-        obj = models.Character.objects.get(id=character_id)
+        obj = models.Character.objects.get(id=character['id'])
     except models.Character.DoesNotExist as err:
-        logging.error({"Error in finding matched character ": character_id})
+        logging.error({"Error in finding matched character ": character['id']})
         logging.error(err)
     if obj is None:
-        return None
+        return {'name': character['name'], 'obj': None}
     serializer = serializers.CharacterMatchSerializer(obj, context={'request': request})
-    return json.loads(json.dumps(serializer.data))
+    return {'name': character['name'], 'obj': json.loads(json.dumps(serializer.data))}
 
 
 def get_matched_characters(request, csv_file, limit, offset):
