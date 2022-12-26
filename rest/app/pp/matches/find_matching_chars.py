@@ -61,7 +61,7 @@ def _serialize_char(request, character_id):
         logging.error({"Error in finding matched character ": character_id})
         logging.error(err)
     if obj is None:
-        return {}
+        return None
     serializer = serializers.CharacterMatchSerializer(obj, context={'request': request})
     return json.loads(json.dumps(serializer.data))
 
@@ -70,6 +70,7 @@ def get_matched_characters(request, csv_file, limit, offset):
     result = []
     limit_count = 0
     idx = 0
+    serialized_result = []
     with open(csv_file, 'r') as csvfile:
         for line in csvfile:
             # continue till offset
@@ -88,8 +89,10 @@ def get_matched_characters(request, csv_file, limit, offset):
                 if limit_count == limit:
                     break
             idx += 1
-        for res in result:
+        for idx, res in enumerate(result):
             res['target'] = _serialize_char(request, res['target'])
+            if res['target'] is None:
+                continue
             res['matches'] = [_serialize_char(request, match) for match in res['matches']]
-
-    return result
+            serialized_result[idx] = res
+    return serialized_result
