@@ -8,6 +8,7 @@ import subprocess
 from .. import serializers, models
 from subprocess import check_call, STDOUT
 from tempfile import NamedTemporaryFile
+import pandas as pd
 
 JSON_OUTPUT_DIR = '/ocean/projects/hum160002p/shared/ocr_results/json_output'
 
@@ -60,23 +61,19 @@ def _serialize_char(request, obj):
     return json.loads(json.dumps(serializer.data))
 
 
-def get_matched_characters(request, topk_reader, limit, offset):
+def get_matched_characters(request, csv_file, limit, offset):
+    df = pd.read_csv(csv_file, engine="pyarrow", header=None)
     result = []
-    limit_count = 0
-    for idx, row in enumerate(topk_reader):
-        # continue till offset
-        if idx < offset:
-            continue
+    start = offset
+    end = offset + limit
+    df_range = df.iloc[start:end]
+    for idx, row in df_range.iterrows():
         matched_image_characters = [_find_character_for_path(image)
                                     for image in row[0:11]]
         if matched_image_characters[0] is not None:
-            limit_count += 1
             result.append({})
             result[idx]['target'] = matched_image_characters[0]
             result[idx]['matches'] = matched_image_characters[1:11]
-            # have we got all the rows we wanted ?
-            if limit_count == limit:
-                break
     for res in result:
         res['target'] = _serialize_char(request, models.Character.objects.get(id=res['target']))
         res['matches'] = [_serialize_char(request, models.Character.objects.get(id=match))
