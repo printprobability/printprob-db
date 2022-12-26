@@ -220,7 +220,8 @@ export default {
     },
   },
   methods: {
-    on_page_change() {
+    on_page_change(page) {
+      this.page = page
       this.fetch_characters()
     },
     clear_book() {
