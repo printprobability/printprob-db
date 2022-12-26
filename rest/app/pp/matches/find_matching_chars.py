@@ -85,8 +85,8 @@ def get_matched_characters(request, csv_file, limit, offset):
             if matched_image_characters[0] is not None:
                 limit_count += 1
                 result.append({})
-                result[idx]['target'] = matched_image_characters[0]
-                result[idx]['matches'] = matched_image_characters[1:11]
+                result[limit_count-1]['target'] = matched_image_characters[0]
+                result[limit_count-1]['matches'] = matched_image_characters[1:11]
                 # have we got all the rows we wanted ?
                 if limit_count == limit:
                     break
