@@ -366,7 +366,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         logging.info({"Incoming char match payload: ": matches})
         try:
             book = self.get_object()
-            # save_matched_characters_in_db(book, matches)
+            save_matched_characters_in_db(book, matches)
         except Exception as err:
             logging.error({'Error saving match: ': err})
             return Response("Error saving matches", status=status.HTTP_500_INTERNAL_SERVER_ERROR)

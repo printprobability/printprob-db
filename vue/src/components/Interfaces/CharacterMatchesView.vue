@@ -408,7 +408,7 @@ export default {
     },
     save_matches() {
       const payload = this.selected_matches.map((match, idx) => ({
-        query: this.items[idx]['query'],
+        query: this.items[idx]['query']['obj'].id,
         match,
       }))
       HTTP.post('/books/' + this.book + `/save_matched_characters/`, {
