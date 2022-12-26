@@ -22,6 +22,7 @@ def save_matched_characters_in_db(book, matched_chars):
                     else:
                         match = models.Character.objects.get(id=matched_char['match'])
                         logging.info("Updating existing match")
-                        existing.update(match=match)
+                        existing.match = match
+                        existing.save()
             except Exception as err:
                 raise err
