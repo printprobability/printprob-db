@@ -1,6 +1,5 @@
 <template>
   <div>
-    <span>{{ name }}</span>
     <CharacterImage
       :key="index + name"
       :character="character"
@@ -12,6 +11,7 @@
           $emit('char_clicked', { id: character.id, row_idx: index - 1 })
       "
     />
+    <span>{{ name }}</span>
     <span v-if="distance">{{ distance }}</span>
   </div>
 </template>
