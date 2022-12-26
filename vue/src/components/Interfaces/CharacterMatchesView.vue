@@ -67,8 +67,9 @@
             :index="data.index + 1"
             col_index="1"
             :character_row="data.value"
-            :selected="is_current_query(data.value.id, data.index, 1)"
-            @char_clicked="query_selected(data.value.id, data.index, 1)"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
           />
         </template>
         <template #cell(match2)="data">
@@ -76,8 +77,9 @@
             :index="data.index + 1"
             col_index="2"
             :character_row="data.value"
-            :selected="is_current_query(data.value.id, data.index, 2)"
-            @char_clicked="query_selected(data.value.id, data.index, 2)"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
           />
         </template>
         <template #cell(match3)="data">
@@ -85,8 +87,9 @@
             :index="data.index + 1"
             col_index="3"
             :character_row="data.value"
-            :selected="is_current_query(data.value.id, data.index, 3)"
-            @char_clicked="query_selected(data.value.id, data.index, 3)"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
           />
         </template>
         <template #cell(match4)="data">
@@ -94,8 +97,9 @@
             :index="data.index + 1"
             col_index="4"
             :character_row="data.value"
-            :selected="is_current_query(data.value.id, data.index, 4)"
-            @char_clicked="query_selected(data.value.id, data.index, 4)"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
           />
         </template>
         <template #cell(match5)="data">
@@ -103,8 +107,9 @@
             :index="data.index + 1"
             col_index="5"
             :character_row="data.value"
-            :selected="is_current_query(data.value.id, data.index, 5)"
-            @char_clicked="query_selected(data.value.id, data.index, 5)"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
           />
         </template>
         <template #cell(match6)="data">
@@ -112,8 +117,9 @@
             :index="data.index + 1"
             col_index="6"
             :character_row="data.value"
-            :selected="is_current_query(data.value.id, data.index, 6)"
-            @char_clicked="query_selected(data.value.id, data.index, 6)"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
           />
         </template>
         <template #cell(match7)="data">
@@ -121,8 +127,9 @@
             :index="data.index + 1"
             col_index="7"
             :character_row="data.value"
-            :selected="is_current_query(data.value.id, data.index, 7)"
-            @char_clicked="query_selected(data.value.id, data.index, 7)"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
           />
         </template>
         <template #cell(match8)="data">
@@ -130,8 +137,9 @@
             :index="data.index + 1"
             col_index="8"
             :character_row="data.value"
-            :selected="is_current_query(data.value.id, data.index, 8)"
-            @char_clicked="query_selected(data.value.id, data.index, 8)"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
           />
         </template>
         <template #cell(match9)="data">
@@ -139,8 +147,8 @@
             :index="data.index + 1"
             col_index="9"
             :character_row="data.value"
-            :selected="is_current_query(data.value.id, data.index, 9)"
-            @char_clicked="query_selected(data.value.id, data.index, 9)"
+            :selected="selected_matches"
+            is_match_image
           />
         </template>
         <template #cell(match10)="data">
@@ -148,8 +156,9 @@
             :index="data.index + 1"
             col_index="10"
             :character_row="data.value"
-            :selected="is_current_query(data.value.id, data.index, 10)"
-            @char_clicked="query_selected(data.value.id, data.index, 10)"
+            @char_clicked="char_selected($event)"
+            :selected="selected_matches"
+            is_match_image
           />
         </template>
       </b-table>
@@ -242,17 +251,8 @@ export default {
     },
   },
   methods: {
-    query_selected(character_id, row_index, col_index) {
-      this.selected_matches[row_index] = {
-        character_id: character_id,
-        col_index: col_index,
-      }
-    },
-    is_current_query(character_id, row_index, col_index) {
-      return (
-        this.selected_matches[row_index].character_id === character_id &&
-        this.selected_matches[row_index].col_index === col_index
-      )
+    char_selected(event) {
+      this.selected_matches.splice(event['row_idx'], 1, event['id'])
     },
     on_page_change(page) {
       this.page = page
@@ -333,7 +333,7 @@ export default {
         formatted_items.push(item)
       }
       this.items = formatted_items
-      this.selected_matches = Array(this.items.length).fill({})
+      this.selected_matches = Array(this.items.length)
     },
     character_class_selected(event) {
       if (event == null) {
