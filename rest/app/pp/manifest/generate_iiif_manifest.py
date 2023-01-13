@@ -11,6 +11,7 @@ from django.conf import settings
 def generate_iiif_manifest(book, pages, images_path, images_dir_path):
     logging.info({"Generating manifest for images path : ", images_path})
     factory = ManifestFactory()
+    factory.set_iiif_image_info(2.0, 2) # Version, ComplianceLevel
     factory.set_base_prezi_uri(settings.IMAGE_BASEURL+images_path)
     factory.set_base_image_uri(settings.IMAGE_BASEURL+images_path)
     factory.set_base_image_dir(images_dir_path)
