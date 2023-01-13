@@ -15,8 +15,10 @@ def generate_iiif_manifest(book, pages, images_path, images_dir_path):
     factory.set_base_image_dir(images_dir_path)
 
     manifest = factory.manifest(label=f'Manifest for book - {book.id}')
-    manifest.set_metadata({"Date":  date.today()})
+    manifest.set_metadata({"Date":  str(date.today())})
     manifest.viewingDirection = "left-to-right"
+    manifest.viewingHint = "paged"
+    manifest.description = "manifest"
     seq = manifest.sequence(ident="normal", label="Normal Order")
     for i, page in enumerate(pages):
         cvs = seq.canvas(ident="page-%s" % i, label="Page %s" % i)
