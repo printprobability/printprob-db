@@ -11,11 +11,11 @@ def generate_iiif_manifest(book, pages, book_path):
     logging.info({"Generating manifest for book path : ", book_path})
     factory = ManifestFactory()
     factory.set_iiif_image_info(2.0, 2) # Version, ComplianceLevel
-    factory.set_base_image_uri(settings.IMAGE_BASEURL)
-    factory.set_base_prezi_uri(settings.IMAGE_BASEURL)
     image_dir = os.path.join(book_path, 'originals')
     logging.info({"Setting book images directory as : ", image_dir})
     factory.set_base_image_dir(image_dir)
+    factory.set_base_prezi_uri(settings.IMAGE_BASEURL)
+    factory.set_base_image_uri(settings.IMAGE_BASEURL+image_dir)
 
     manifest = factory.manifest(label=f'Manifest for book - {book.id}')
     manifest.set_metadata({"Date":  date.today()})
