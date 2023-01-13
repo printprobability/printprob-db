@@ -18,9 +18,8 @@ def generate_iiif_manifest(book, pages, images_path, images_dir_path):
     manifest.set_metadata({"Date":  date.today()})
     manifest.viewingDirection = "left-to-right"
     seq = manifest.sequence(ident="normal", label="Normal Order")
-    for page in pages:
-        page_number = page.sequence
-        cvs = seq.canvas(ident="page-%s" % page_number, label="Page %s" % page_number)
+    for i, page in enumerate(pages):
+        cvs = seq.canvas(ident="page-%s" % i, label="Page %s" % i)
         cvs.set_image_annotation(page.tif.split('/')[-1], iiif=False)
     logging.info("Finished generating manifest")
     return manifest.toFile(compact=False)
