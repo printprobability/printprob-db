@@ -402,6 +402,8 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         try:
             book = self.get_object()
             manifest = generate_iiif_manifest(book, pages, images_path, images_dir_path)
+            if manifest is None:
+                return Response("Could not find original images for book to create manifest", status=status.HTTP_200_OK)
         except Exception as err:
             logging.error({'Error generating manifest: ': err})
             return Response("Error generating manifest", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
