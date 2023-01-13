@@ -14,9 +14,9 @@ JSON_OUTPUT_DIR = '/ocean/projects/hum160002p/shared/ocr_results/json_output'
 
 def _get_immediate_subdirectories(a_dir, starting_with=None):
     all_match_directories = os.listdir(a_dir)
+    all_match_directories.sort(key=os.path.getmtime, reverse=True)
     return [name for name in all_match_directories
-            if os.path.isdir(os.path.join(a_dir, name)) and
-            (starting_with is None or name.startswith(starting_with))].sort(key=os.path.getmtime, reverse=True)
+            if os.path.isdir(os.path.join(a_dir, name)) and (starting_with is None or name.startswith(starting_with))]
 
 
 def _find_character_for_path(path):
