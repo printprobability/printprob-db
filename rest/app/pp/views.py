@@ -398,9 +398,10 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
             return Response("No pages in book", status=status.HTTP_200_OK)
         split_parts = (pages[0].tif.split('/')[0:5])
         images_path = os.path.join(*split_parts)
+        images_dir_path = os.path.join(BASE_PATH, *split_parts)
         try:
             book = self.get_object()
-            manifest = generate_iiif_manifest(book, pages, images_path)
+            manifest = generate_iiif_manifest(book, pages, images_path, images_dir_path)
         except Exception as err:
             logging.error({'Error generating manifest: ': err})
             return Response("Error generating manifest", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
