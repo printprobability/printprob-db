@@ -22,4 +22,4 @@ def generate_iiif_manifest(book, pages, images_path, images_dir_path):
         cvs = seq.canvas(ident="page-%s" % i, label="Page %s" % i)
         cvs.set_image_annotation(page.tif.split('/')[-1], iiif=False)
     logging.info("Finished generating manifest")
-    return manifest.toFile(compact=False)
+    return manifest.toString(compact=False)
