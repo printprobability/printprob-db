@@ -27,6 +27,7 @@ from . import models, serializers
 from .management.commands.bulk_update import BookLoader as BookUpdater
 from .management.commands.bulk_load import BookLoader as BookCreator
 from .management.commands.refresh_labels import Command as LabelRefresher
+from .manifest.generate_iiif_manifest import generate_iiif_manifest
 from .matches.find_matching_chars import get_matched_characters, get_match_directories, existing_matched_characters
 from .matches.save_matching_chars import save_matched_characters_in_db
 
@@ -386,6 +387,24 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
             logging.error({'Error saving match: ': err})
             return Response("Error saving matches", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response("Saved matches successfully!", status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=["get"])
+    @transaction.atomic
+    def generate_manifest(self, request, pk=None):
+        pages = models.Page.objects.filter(
+            created_by_run__book=pk, tif__isnull=False
+        )
+        if len(pages) == 0:
+            return Response("No pages in book", status=status.HTTP_200_OK)
+        split_parts = (pages[0].tif.split('/')[0:4])
+        book_path = os.path.sep + os.path.join(*split_parts)
+        try:
+            book = self.get_object()
+            manifest = generate_iiif_manifest(book, pages, book_path)
+        except Exception as err:
+            logging.error({'Error generating manifest: ': err})
+            return Response("Error generating manifest", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(manifest, status=status.HTTP_200_OK)
 
 
 class SpreadFilter(filters.FilterSet):
