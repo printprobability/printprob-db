@@ -322,7 +322,6 @@
 import CharacterMatchImage from '../Characters/CharacterMatchImage'
 import BookAutocomplete from '../Menus/BookAutocomplete'
 import { HTTP } from '@/main'
-import axios from 'axios'
 
 export default {
   name: 'CharacterMatchesView',
