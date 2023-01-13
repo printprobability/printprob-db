@@ -7,7 +7,7 @@ from iiif_prezi.factory import ManifestFactory
 
 from django.conf import settings
 
-from rest.app.pp.views import BASE_PATH
+BASE_PATH = '/ocean/projects/hum160002p/shared/'
 
 
 def _fix_originals_path(input_path):
