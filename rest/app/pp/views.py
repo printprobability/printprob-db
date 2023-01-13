@@ -406,7 +406,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         except Exception as err:
             logging.error({'Error generating manifest: ': err})
             return Response("Error generating manifest", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response(manifest, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK)
 
 
 class SpreadFilter(filters.FilterSet):

@@ -37,6 +37,7 @@ def generate_iiif_manifest(book, pages, images_dir_path):
     factory = ManifestFactory()
     factory.set_iiif_image_info(2.0, 2) # Version, ComplianceLevel
     factory.set_base_prezi_uri(settings.IMAGE_BASEURL+images_path)
+    factory.set_base_prezi_dir(images_dir_path)
     factory.set_base_image_uri(settings.IMAGE_BASEURL+images_path)
     factory.set_base_image_dir(images_dir_path)
 
@@ -57,4 +58,4 @@ def generate_iiif_manifest(book, pages, images_dir_path):
         cvs.set_image_annotation(original_image, iiif=True)
     logging.info("Finished generating manifest")
     ssl._create_default_https_context = ctx
-    return manifest.toString(compact=False)
+    return manifest.toFile(compact=False)
