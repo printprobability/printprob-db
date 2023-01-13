@@ -7,6 +7,8 @@ from iiif_prezi.factory import ManifestFactory
 
 from django.conf import settings
 
+from rest.app.pp.views import BASE_PATH
+
 
 def _fix_originals_path(input_path):
     to_replace = 'lines_color'
@@ -20,12 +22,12 @@ def _fix_originals_path(input_path):
     return originals_path
 
 
-def generate_iiif_manifest(book, pages, images_path, images_dir_path):
+def generate_iiif_manifest(book, pages, images_dir_path):
     page_images = False
-    if 'pages_color' in images_path:
+    if 'pages_color' in images_dir_path:
         page_images = True
-    images_path = _fix_originals_path(images_path)
     images_dir_path = _fix_originals_path(images_dir_path)
+    images_path = images_dir_path.split(BASE_PATH)[1]
     if images_path is None or images_dir_path is None:
         logging.error({ "Image path not found": images_dir_path})
         return None

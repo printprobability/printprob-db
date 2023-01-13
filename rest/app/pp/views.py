@@ -397,11 +397,10 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         if len(pages) == 0:
             return Response("No pages in book", status=status.HTTP_200_OK)
         split_parts = (pages[0].tif.split('/')[0:5])
-        images_path = os.path.join(*split_parts)
         images_dir_path = os.path.join(BASE_PATH, *split_parts)
         try:
             book = self.get_object()
-            manifest = generate_iiif_manifest(book, pages, images_path, images_dir_path)
+            manifest = generate_iiif_manifest(book, pages, images_dir_path)
             if manifest is None:
                 return Response("Could not find original images for book to create manifest", status=status.HTTP_200_OK)
         except Exception as err:
