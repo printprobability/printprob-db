@@ -744,7 +744,6 @@ class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
         )
         if serializer.is_valid():
             for char in serializer.data["characters"]:
-                logging.info({"adding character": char})
                 obj.characters.add(char)
             return Response({"status": "characters added"})
         else:
