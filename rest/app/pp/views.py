@@ -14,6 +14,8 @@ from django.db.models.query import EmptyQuerySet
 from django.http import FileResponse
 from django.utils.text import slugify
 from django_filters import rest_framework as filters
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from drf_tweaks.pagination import NoCountsLimitOffsetPagination
 from rest_framework import (
     viewsets,
@@ -390,6 +392,8 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
         return Response("Saved matches successfully!", status=status.HTTP_200_OK)
 
     @action(detail=True, methods=["get"], permission_classes=[], authentication_classes=[])
+    # cache requested url for each user for 2 hours
+    @method_decorator(cache_page(60*60*2))
     @transaction.atomic
     def generate_manifest(self, request, pk=None):
         pages = models.Page.objects.filter(
