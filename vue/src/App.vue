@@ -40,8 +40,9 @@
           <a href="https://library.cmu.edu"
             >Carnegie Mellon University Libraries</a
           >
-          2022. Built by
-          <a href="https://matthewlincoln.net">Matthew Lincoln</a>.
+          2023. Built by
+          <a href="https://matthewlincoln.net">Matthew Lincoln</a>,
+          <a href="https://sriramviswanathan.com">Sriram Viswanathan</a>.
         </b-nav-text>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
