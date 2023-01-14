@@ -69,8 +69,11 @@ export default {
   methods: {
     displayLabel(book) {
       const estcNumber = book['estc']
+      const date = book['pq_year_early'] || book['tx_year_early']
       const bookTitle =
-        (estcNumber ? `ESTC: ${estcNumber} - ` : '') + book['pq_title']
+        (estcNumber ? `ESTC: ${estcNumber} - ` : '') +
+        (date ? `Published: ${date} - ` : '') +
+        book['pq_title']
       if (this.source_type === 'title') {
         return this.addPrefixToLabel(book, bookTitle)
       }
