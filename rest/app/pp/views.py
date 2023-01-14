@@ -1,3 +1,4 @@
+import json
 import tarfile
 from tempfile import TemporaryDirectory
 from uuid import UUID
@@ -403,10 +404,11 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
             manifest = generate_iiif_manifest(book, pages, images_dir_path)
             if manifest is None:
                 return Response("Could not find original images for book to create manifest", status=status.HTTP_200_OK)
+            result = json.loads(manifest)
+            return Response(result, status=status.HTTP_200_OK)
         except Exception as err:
             logging.error({'Error generating manifest: ': err})
             return Response("Error generating manifest", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response(status=status.HTTP_200_OK)
 
 
 class SpreadFilter(filters.FilterSet):
