@@ -389,7 +389,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
             return Response("Error saving matches", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response("Saved matches successfully!", status=status.HTTP_200_OK)
 
-     @action(detail=True, methods=["get"], permission_classes=[])
+    @action(detail=True, methods=["get"], permission_classes=[], authentication_classes=[])
     @transaction.atomic
     def generate_manifest(self, request, pk=None):
         pages = models.Page.objects.filter(
