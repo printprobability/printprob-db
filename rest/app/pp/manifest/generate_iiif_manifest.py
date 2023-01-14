@@ -58,4 +58,4 @@ def generate_iiif_manifest(book, pages, images_dir_path):
         cvs.set_image_annotation(original_image, iiif=True)
     logging.info("Finished generating manifest")
     ssl._create_default_https_context = ctx
-    return manifest.toString(compact=False)
+    return manifest.toString(compact=True)
