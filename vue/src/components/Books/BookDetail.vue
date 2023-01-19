@@ -255,10 +255,8 @@ export default {
         function () {
           console.log(this.$refs)
           this.$refs[ref].$el.scrollIntoView({
-            block: 'center',
-            inline: 'center',
+            block: 'start',
             behavior: 'smooth',
-            alignToTop: false,
           })
         }.bind(this)
       )
