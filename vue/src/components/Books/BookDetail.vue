@@ -46,7 +46,7 @@
               <h5>spreads</h5>
               <p
                 v-if="book.spreads.length > 0"
-                @click="detail_show = 'spreads'"
+                @click="showSpreads"
                 class="clickable"
               >
                 {{ book.spreads.length }} spreads
@@ -93,10 +93,19 @@
         </b-card>
       </b-col>
     </b-row>
-    <SpreadList v-if="detail_show == 'spreads'" :spreads="book.spreads" />
-    <PageList v-if="detail_show == 'pages'" :page_run_id="selected_run_id" />
+    <SpreadList
+      ref="spreads"
+      v-if="detail_show === 'spreads'"
+      :spreads="book.spreads"
+    />
+    <PageList
+      ref="pages"
+      v-if="detail_show === 'pages'"
+      :page_run_id="selected_run_id"
+    />
     <LineList
-      v-if="detail_show == 'lines'"
+      ref="lines"
+      v-if="detail_show === 'lines'"
       :line_run_id="selected_run_id"
       :n_pages="book.all_runs.pages.slice(-1)[0].component_count"
     />
@@ -222,18 +231,37 @@ export default {
       } else if (run_type == 'lines') {
         this.detail_show = run_type
         this.selected_run_id = run_id
+        this.scrollToElement(run_type)
       } else {
         return HTTP.get('/runs/' + run_type + '/' + run_id + '/').then(
           (response) => {
             this.selected_run = response.data
             this.selected_run_id = run_id
             this.detail_show = run_type
+            this.scrollToElement(run_type)
           },
           (error) => {
             console.log(error)
           }
         )
       }
+    },
+    showSpreads() {
+      this.detail_show = 'spreads'
+      this.scrollToElement('spreads')
+    },
+    scrollToElement(ref) {
+      this.$nextTick(
+        function () {
+          console.log(this.$refs)
+          this.$refs[ref].$el.scrollIntoView({
+            block: 'center',
+            inline: 'center',
+            behavior: 'smooth',
+            alignToTop: false,
+          })
+        }.bind(this)
+      )
     },
   },
   created: function () {
