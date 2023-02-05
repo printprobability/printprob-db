@@ -3,6 +3,7 @@
     <VueBootstrapTypeahead
       class="auto_select"
       :minMatchingChars="min_matching_chars"
+      :max-matches="max_matches"
       v-if="character_groupings.length"
       :data="character_groupings"
       :serializer="(item) => item.text"
@@ -35,6 +36,7 @@ export default {
     return {
       character_groupings: [],
       min_matching_chars: 1,
+      max_matches: 1000,
     }
   },
   mounted() {
@@ -63,6 +65,6 @@ export default {
 
 <style scoped>
 .auto_select {
-  width: 15em;
+  width: 20em;
 }
 </style>
