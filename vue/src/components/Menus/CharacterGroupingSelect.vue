@@ -4,7 +4,6 @@
       class="auto_select"
       :minMatchingChars="min_matching_chars"
       :max-matches="max_matches"
-      v-if="!!character_groupings"
       :data="character_groupings"
       :serializer="(item) => item.text"
       :value="value"
