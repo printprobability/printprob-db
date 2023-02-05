@@ -10,18 +10,18 @@
           <b-nav-item to="/books">Browse Books</b-nav-item>
           <b-nav-dropdown text="Tasks">
             <b-dropdown-item to="/character_review"
-              >Review Characters</b-dropdown-item
-            >
+              >Review Characters
+            </b-dropdown-item>
             <b-dropdown-item to="/group_characters"
-              >Edit Groupings</b-dropdown-item
-            >
+              >Edit Groupings
+            </b-dropdown-item>
             <!--            <b-dropdown-item to="/review_character_matches"-->
             <!--              >Review Character Matches</b-dropdown-item-->
             <!--            >-->
+            <b-dropdown-item to="/review_character_matches"
+              >Character Matches Review
+            </b-dropdown-item>
           </b-nav-dropdown>
-          <b-dropdown-item to="/review_character_matches"
-            >Character Matches Review</b-dropdown-item
-          >
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-dropdown text="API">
@@ -29,8 +29,8 @@
             <b-dropdown-item href="/api/docs">Documentation</b-dropdown-item>
           </b-nav-dropdown>
           <b-nav-item v-if="logged_in" :href="$APIConstants.API_LOGOUT"
-            >Logout</b-nav-item
-          >
+            >Logout
+          </b-nav-item>
           <b-nav-item v-else :href="$APIConstants.API_LOGIN">Login</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -50,8 +50,8 @@
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item href="https://github.com/cmu-lib/printprob-db"
-          >GitHub</b-nav-item
-        >
+          >GitHub
+        </b-nav-item>
       </b-navbar-nav>
     </nav>
   </b-container>
@@ -59,6 +59,7 @@
 
 <script>
 import { HTTP } from './main'
+
 export default {
   name: 'app',
   data() {
