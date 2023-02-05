@@ -65,6 +65,6 @@ export default {
 
 <style scoped>
 .auto_select {
-  width: 15em;
+  width: 18em;
 }
 </style>
