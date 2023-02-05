@@ -19,6 +19,9 @@
             <!--              >Review Character Matches</b-dropdown-item-->
             <!--            >-->
           </b-nav-dropdown>
+          <b-dropdown-item to="/review_character_matches"
+            >Character Matches Review</b-dropdown-item
+          >
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-dropdown text="API">
