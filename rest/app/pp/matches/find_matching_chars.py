@@ -91,9 +91,9 @@ def get_matched_characters(request, csv_file, limit, offset):
                 last_distance_index = 21
             if len(row) == 41:
                 last_char_index = 21
-                last_distance_index = 41
+                last_distance_index = 31 # we only want to show 10 matching images
             matched_image_characters = [_find_character_for_path(image)
-                                        for image in row[0:last_char_index]]
+                                        for image in row[0:11]]
             distances = row[last_char_index:last_distance_index]
             if matched_image_characters[0] is not None:
                 limit_count += 1
