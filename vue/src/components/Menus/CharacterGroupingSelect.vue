@@ -1,27 +1,33 @@
 <template>
-  <b-form-group class="my-4">
-    <VueBootstrapTypeahead
-      class="auto_select"
-      :minMatchingChars="min_matching_chars"
-      :max-matches="max_matches"
-      :data="character_groupings"
-      :serializer="(item) => item.text"
-      :value="value"
-      :placeholder="label"
-      @hit="$emit('input', $event.value)"
-    />
-  </b-form-group>
+  <div class="ui vertical segment">
+    <div class="flexbox">
+      <div class="flex-content">
+        <b-form-group class="my-4">
+          <model-select
+            class="auto_select"
+            v-if="$asyncComputed.character_groupings.success"
+            :options="character_groupings"
+            v-model="value"
+            :placeholder="label"
+            @input="$emit('input', $event)"
+          >
+          </model-select>
+        </b-form-group>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { HTTP } from '../../main'
 import _ from 'lodash'
-import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+import { ModelSelect } from 'vue-search-select'
+import 'vue-search-select/dist/VueSearchSelect.css'
 
 export default {
   name: 'CharacterGroupingSelect',
   components: {
-    VueBootstrapTypeahead,
+    ModelSelect,
   },
   props: {
     value: String,
@@ -65,6 +71,6 @@ export default {
 
 <style scoped>
 .auto_select {
-  width: 18em;
+  width: 18em !important;
 }
 </style>
