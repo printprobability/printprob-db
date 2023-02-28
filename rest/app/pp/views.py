@@ -35,7 +35,7 @@ from .matches.find_matching_chars import get_matched_characters, get_match_direc
 from .matches.save_matching_chars import save_matched_characters_in_db
 
 BASE_PATH = '/ocean/projects/hum160002p/shared/'
-TOP_K_CSV_SUFFIX = '*_topk.csv'
+TOP_K_CSV_SUFFIX = '*_topk_uuid.csv'
 
 
 class GetSerializerClassMixin(object):

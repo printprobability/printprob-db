@@ -492,7 +492,7 @@ export default {
         const item = {
           query: matched_character['target'],
         }
-        queries.push(matched_character['target']['obj'].id)
+        queries.push(matched_character['target'].id)
         for (let i = 0; i < matched_character['matches'].length; i++) {
           const match_obj = matched_character['matches'][i]
           if (matched_character['distances']) {
@@ -569,12 +569,12 @@ export default {
       this.items.forEach((item, idx) => {
         const query = item['query']
         const existing_match = this.existing_matches.find(
-          (em) => em['query'] === query['obj'].id
+          (em) => em['query'] === query.id
         )
         if (existing_match !== undefined) {
           for (const [k, v] of Object.entries(item)) {
             if (k === 'query') continue
-            const char_id = v['obj'].id
+            const char_id = v.id
             if (char_id === existing_match['match']) {
               this.selected_matches.splice(idx, 1, char_id)
             }
