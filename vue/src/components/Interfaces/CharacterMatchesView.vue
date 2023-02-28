@@ -343,7 +343,7 @@ export default {
       items: [],
       total_count: 0,
       image_size: 'bound100',
-      per_page: 5,
+      per_page: 10,
       page: 1,
       fields: [
         { key: 'query', stickyColumn: true, variant: 'info' },
