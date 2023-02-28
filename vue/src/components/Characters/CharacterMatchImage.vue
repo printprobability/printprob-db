@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       name: this.character_row['name'],
-      character: this.character_row['obj'],
+      character: this.character_row,
       distance: this.character_row['distance'],
     }
   },

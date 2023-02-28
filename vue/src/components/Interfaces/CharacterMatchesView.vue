@@ -357,6 +357,16 @@ export default {
         'match8',
         'match9',
         'match10',
+        'match11',
+        'match12',
+        'match13',
+        'match14',
+        'match15',
+        'match16',
+        'match17',
+        'match18',
+        'match19',
+        'match20',
       ],
       existing_matches: [],
     }
@@ -409,7 +419,7 @@ export default {
     },
     save_matches() {
       const payload = this.selected_matches.map((match, idx) => ({
-        query: this.items[idx]['query']['obj'].id,
+        query: this.items[idx]['query'].id,
         match,
       }))
       HTTP.post('/books/' + this.book + `/save_matched_characters/`, {
@@ -528,8 +538,8 @@ export default {
         }
       ).then(
         (response) => {
-          if (response.data.matched_characters.length > 0) {
-            this.format_response_for_table(response.data.matched_characters)
+          if (response.data['matched_characters'].length > 0) {
+            this.format_response_for_table(response.data['matched_characters'])
             this.total_count = response.data.total_count
           } else {
             this.items = []
