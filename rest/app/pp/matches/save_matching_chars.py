@@ -13,7 +13,7 @@ def save_matched_characters_in_db(book, matched_chars):
                     if matched_char['matches'] is None or len(matched_char['matches']) == 0:  # nothing to save
                         continue
                     logging.info("Saving new match")
-                    models.CharacterMatch.objects.create(book=book, query=query, matches=matched_char['matches'])
+                    models.CharacterMatch.objects.create(book=book, query=query, matches=list(matched_char['matches']))
                 else:
                     logging.info({"Existing:": existing})
                     if matched_char['matches'] is None or len(matched_char['matches']) == 0:
@@ -21,7 +21,7 @@ def save_matched_characters_in_db(book, matched_chars):
                         existing.delete()
                     else:
                         logging.info("Updating existing match")
-                        existing.matches = matched_char['matches']
+                        existing.matches = list(matched_char['matches'])
                         existing.save()
             except Exception as err:
                 raise err

@@ -406,32 +406,31 @@ export default {
   },
   methods: {
     char_selected(event) {
-      if (this.selected_matches[event['row_idx']] === event['id']) {
-        this.selected_matches.splice(event['row_idx'], 1, null)
+      let row_matches = this.selected_matches[event['row_idx']]
+      if (row_matches.has(event['id'])) {
+        row_matches.delete(event['id'])
       } else {
-        this.selected_matches.splice(event['row_idx'], 1, event['id'])
+        row_matches.add(event['id'])
       }
+      this.save_matches()
     },
     on_page_change(page) {
-      this.save_matches()
       this.page = page
       this.fetch_characters()
     },
     save_matches() {
-      const payload = this.selected_matches.map((match, idx) => ({
+      const payload = this.selected_matches.map((matches, idx) => ({
         query: this.items[idx]['query'].id,
-        match,
+        matches: Array.from(matches),
       }))
       HTTP.post('/books/' + this.book + `/save_matched_characters/`, {
         matches: payload,
       }).then(
         (response) => {
           console.log(response)
-          this.selected_matches = []
         },
         (error) => {
           console.log(error)
-          this.selected_matches = []
         }
       )
     },
@@ -515,7 +514,7 @@ export default {
       this.fields = Object.keys(formatted_items[0])
       this.fields[0] = { key: 'query', stickyColumn: true, variant: 'info' }
       this.items = formatted_items
-      this.selected_matches = Array(this.items.length)
+      this.selected_matches = this.items.map(() => new Set())
       this.fetch_existing_matches(queries)
     },
     character_class_selected(event) {
@@ -577,19 +576,21 @@ export default {
     },
     update_selected_matches() {
       this.items.forEach((item, idx) => {
+        let matches = new Set()
         const query = item['query']
-        const existing_match = this.existing_matches.find(
+        const existing_matches = this.existing_matches.find(
           (em) => em['query'] === query.id
         )
-        if (existing_match !== undefined) {
+        if (existing_matches !== undefined) {
           for (const [k, v] of Object.entries(item)) {
             if (k === 'query') continue
             const char_id = v.id
-            if (char_id === existing_match['match']) {
-              this.selected_matches.splice(idx, 1, char_id)
+            if (existing_matches['matches'].includes(char_id)) {
+              matches.add(char_id)
             }
           }
         }
+        this.selected_matches[idx] = matches
       })
       console.log('Updated selected matches: ', this.selected_matches)
     },

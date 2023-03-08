@@ -27,9 +27,9 @@ export default {
   props: {
     index: Number,
     is_match_image: Boolean,
-    col_index: Number,
+    col_index: String,
     character_row: Object,
-    selected: Object,
+    selected: Array,
     image_size: {
       type: String,
       default: 'bound100',
@@ -38,7 +38,10 @@ export default {
   computed: {
     is_char_selected() {
       return (
-        this.selected && this.selected[this.index - 1] === this.character.id
+        this.selected &&
+        this.selected.length > this.index - 1 &&
+        this.selected[this.index - 1] &&
+        this.selected[this.index - 1].has(this.character.id)
       )
     },
   },

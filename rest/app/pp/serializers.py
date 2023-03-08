@@ -1,7 +1,6 @@
-from rest_framework import serializers
-from rest_framework.reverse import reverse
-from django.db import transaction
 from django.contrib.auth.models import User
+from rest_framework import serializers
+
 from . import models
 
 
@@ -527,8 +526,8 @@ class ExistingCharacterMatchSerializer(serializers.Serializer):
     query = serializers.PrimaryKeyRelatedField(
         queryset=models.Character.objects.all(), many=False
     )
-    matches = serializers.PrimaryKeyRelatedField(
-        queryset=models.Character.objects.all(), many=True
+    matches = serializers.ListField(
+        child=serializers.UUIDField()
     )
 
     class Meta:
