@@ -1,5 +1,6 @@
-from .. import models
 import logging
+
+from .. import models
 
 
 def save_matched_characters_in_db(book, matched_chars):
@@ -9,20 +10,18 @@ def save_matched_characters_in_db(book, matched_chars):
                 query = models.Character.objects.get(id=matched_char['query'])
                 existing = models.CharacterMatch.objects.filter(book=book, query=query).first()
                 if existing is None:
-                    if matched_char['match'] is None: # nothing to save
+                    if matched_char['matches'] is None or len(matched_char['matches']) == 0:  # nothing to save
                         continue
                     logging.info("Saving new match")
-                    match = models.Character.objects.get(id=matched_char['match'])
-                    models.CharacterMatch.objects.create(book=book, query=query, match=match)
+                    models.CharacterMatch.objects.create(book=book, query=query, matches=matched_char['matches'])
                 else:
                     logging.info({"Existing:": existing})
-                    if matched_char['match'] is None:
+                    if matched_char['matches'] is None or len(matched_char['matches']) == 0:
                         logging.info("Deleting existing match")
                         existing.delete()
                     else:
-                        match = models.Character.objects.get(id=matched_char['match'])
                         logging.info("Updating existing match")
-                        existing.match = match
+                        existing.matches = matched_char['matches']
                         existing.save()
             except Exception as err:
                 raise err
