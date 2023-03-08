@@ -1,9 +1,11 @@
-from django.db import models
-from django.contrib.auth.models import User
 import uuid
-from datetime import date
-from django.conf import settings
 from abc import abstractmethod
+from datetime import date
+
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
+from django.db import models
 
 
 class uuidModel(models.Model):
@@ -648,5 +650,5 @@ class CharacterMatch(models.Model):
                              help_text="Book corresponding to this character match")
     query = models.ForeignKey(Character, on_delete=models.CASCADE, related_name="query_character",
                               help_text="Query character corresponding to this character match")
-    match = models.ForeignKey(Character, on_delete=models.SET_NULL, related_name="match_character",
-                              help_text="Match character corresponding to this character query", null=True)
+    matches = ArrayField(models.UUIDField(help_text="Matched characters corresponding to a character query"),
+                         blank=True, size=20, default=list)

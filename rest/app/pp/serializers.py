@@ -527,13 +527,13 @@ class ExistingCharacterMatchSerializer(serializers.Serializer):
     query = serializers.PrimaryKeyRelatedField(
         queryset=models.Character.objects.all(), many=False
     )
-    match = serializers.PrimaryKeyRelatedField(
-        queryset=models.Character.objects.all(), many=False
+    matches = serializers.PrimaryKeyRelatedField(
+        queryset=models.Character.objects.all(), many=True
     )
 
     class Meta:
         model = models.CharacterMatch
         fields = [
             "query_id",
-            "match_id",
+            "matches",
         ]
