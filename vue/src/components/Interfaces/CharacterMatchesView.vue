@@ -412,6 +412,7 @@ export default {
       } else {
         row_matches.add(event['id'])
       }
+      this.selected_matches.splice(event['row_idx'], 1, row_matches)
       this.save_matches()
     },
     on_page_change(page) {
@@ -590,7 +591,7 @@ export default {
             }
           }
         }
-        this.selected_matches[idx] = matches
+        this.selected_matches.splice(idx, 1, matches)
       })
       console.log('Updated selected matches: ', this.selected_matches)
     },

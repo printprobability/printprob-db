@@ -37,12 +37,7 @@ export default {
   },
   computed: {
     is_char_selected() {
-      return (
-        this.selected &&
-        this.selected.length > this.index - 1 &&
-        this.selected[this.index - 1] &&
-        this.selected[this.index - 1].has(this.character.id)
-      )
+      return this.selected[this.index - 1].has(this.character.id)
     },
   },
   data() {
