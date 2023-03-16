@@ -1,3 +1,4 @@
+import json
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -13,7 +14,9 @@ SECRET_KEY = os.environ["SECRET"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ["DEBUG_STATUS"] == "True"
 
-ALLOWED_HOSTS = [os.environ["ALLOWED_HOSTS"], f"{os.environ['ALLOWED_HOSTS']}:8080"]
+ALLOWED_HOSTS = []
+for host in json.loads(os.environ["ALLOWED_HOSTS"]):
+    ALLOWED_HOSTS.extend([host, f"{host}:8080"])
 
 IMAGE_BASEURL = os.environ["IMAGE_BASEURL"]
 REAL_IMAGE_BASEDIR = "/vol/img"
