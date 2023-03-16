@@ -14,9 +14,9 @@ SECRET_KEY = os.environ["SECRET"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ["DEBUG_STATUS"] == "True"
 
-ALLOWED_HOSTS = []
-for host in json.loads(os.environ["ALLOWED_HOSTS"]):
-    ALLOWED_HOSTS.extend([host, f"{host}:8080"])
+ALLOWED_HOSTS = ['*']
+# for host in json.loads(os.environ["ALLOWED_HOSTS"]):
+#     ALLOWED_HOSTS.extend([host, f"{host}:8080"])
 
 IMAGE_BASEURL = os.environ["IMAGE_BASEURL"]
 REAL_IMAGE_BASEDIR = "/vol/img"
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = [f"http://{ah}" for ah in ALLOWED_HOSTS]
 CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 CORS_ALLOW_CREDENTIALS = True
