@@ -213,7 +213,7 @@ export default {
       },
       cg_menu_key: 0,
       book: null,
-      character_class: null,
+      character_class: [],
       character_run: null,
       char_agreement: 'all',
       order: 'character_class',
