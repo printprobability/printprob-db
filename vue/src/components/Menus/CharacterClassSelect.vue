@@ -8,9 +8,8 @@
   >
     <b-form-select
       size="sm"
-      :multiple="multiple"
       id="character-class-id"
-      :value="multiple ? values : value"
+      :value="value"
       :options="character_classes"
       @input="$emit('input', $event)"
     />
@@ -24,17 +23,9 @@ import _ from 'lodash'
 export default {
   name: 'CharacterClassSelect',
   props: {
-    multiple: {
-      type: Boolean,
-      default: false
-    },
     value: {
-      type: String,
       default: null,
-    },
-    values: {
-      default: () => [],
-      type: Array,
+      type: String,
     },
     label: {
       default: 'Character Class',

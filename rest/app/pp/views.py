@@ -61,8 +61,8 @@ class CRUDViewSet(viewsets.ModelViewSet):
                 # Get the baseline model without pre-joining anything
                 queryset=self.get_queryset().model.objects.all(),
             )
-            .qs.values("pk")
-            .count()
+                .qs.values("pk")
+                .count()
         )
         return Response({"count": ocount})
 
@@ -132,8 +132,8 @@ class BookFilter(filters.FilterSet):
             )
             return (
                 queryset.annotate(has_groupings=Exists(groupings))
-                .filter(has_groupings=True)
-                .all()
+                    .filter(has_groupings=True)
+                    .all()
             )
         return queryset
 
@@ -154,8 +154,8 @@ class BookFilter(filters.FilterSet):
                     has_lines=Exists(lines),
                     has_characters=Exists(characters),
                 )
-                .filter(Q(has_pages=True) | Q(has_lines=True) | Q(has_characters=value))
-                .all()
+                    .filter(Q(has_pages=True) | Q(has_lines=True) | Q(has_characters=value))
+                    .all()
             )
         return queryset
 
@@ -393,7 +393,7 @@ class BookViewSet(CRUDViewSet, GetSerializerClassMixin):
 
     @action(detail=True, methods=["get"], permission_classes=[], authentication_classes=[])
     # cache requested url for each user for 2 hours
-    @method_decorator(cache_page(60 * 60 * 2))
+    @method_decorator(cache_page(60*60*2))
     @transaction.atomic
     def generate_manifest(self, request, pk=None):
         pages = models.Page.objects.filter(
@@ -578,9 +578,7 @@ class CharacterFilter(filters.FilterSet):
         queryset=models.CharacterRun.objects.all(), widget=forms.TextInput
     )
     character_class = filters.ModelChoiceFilter(
-        queryset=models.CharacterClass.objects.all(),
-        widget=forms.TextInput,
-        method="character_classes_in_query",
+        queryset=models.CharacterClass.objects.all(), widget=forms.TextInput
     )
     human_character_class = filters.ModelChoiceFilter(
         queryset=models.CharacterClass.objects.all(), widget=forms.TextInput
@@ -604,16 +602,6 @@ class CharacterFilter(filters.FilterSet):
         method="in_any_grouping", label="In at least one grouping?"
     )
 
-    def character_classes_in_query(self, queryset, name, value):
-        if value:
-            character_classes_in_req = self.request.query_params.getlist('character_class')
-            logging.info({"Incoming character class value: ": character_classes_in_req})
-            character_classes = models.CharacterClass.objects.filter(
-                classname__in=character_classes_in_req
-            )
-            return queryset.filter(character_class__in=character_classes)
-        return queryset
-
     def class_agreement(self, queryset, name, value):
         if value == "unknown":
             return queryset.filter(human_character_class__isnull=True)
@@ -633,8 +621,8 @@ class CharacterFilter(filters.FilterSet):
             )
             return (
                 queryset.annotate(has_groupings=Exists(groupings))
-                .filter(has_groupings=True)
-                .all()
+                    .filter(has_groupings=True)
+                    .all()
             )
         else:
             return queryset
@@ -649,13 +637,13 @@ class CharacterViewSet(viewsets.ModelViewSet):
             "character_class",
             "human_character_class",
         )
-        .annotate(
+            .annotate(
             lineseq=F("line__sequence"),
             pageseq=F("line__page__sequence"),
             bookseq=F("created_by_run__book__id"),
         )
-        .distinct()
-        .all()
+            .distinct()
+            .all()
     )
     ordering_fields = [
         "class_probability",
@@ -728,8 +716,8 @@ class CharacterGroupingFilter(filters.FilterSet):
             )
             return (
                 queryset.annotate(chars_from_book=Exists(characters))
-                .filter(chars_from_book=True)
-                .all()
+                    .filter(chars_from_book=True)
+                    .all()
             )
         return queryset
 
@@ -737,8 +725,8 @@ class CharacterGroupingFilter(filters.FilterSet):
 class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
     detail_queryset = (
         models.CharacterGrouping.objects.select_related("created_by")
-        .prefetch_related("characters__line__page")
-        .all()
+            .prefetch_related("characters__line__page")
+            .all()
     )
     list_queryset = models.CharacterGrouping.objects.select_related("created_by").all()
     queryset = detail_queryset
@@ -817,8 +805,8 @@ class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
 
         image_objects = (
             models.Character.objects.filter(charactergroupings=obj)
-            .select_related("line__page")
-            .all()
+                .select_related("line__page")
+                .all()
         )
 
         with TemporaryDirectory(dir=settings.DOWNLOAD_SCRATCH_DIR) as scratch_dir:

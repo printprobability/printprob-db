@@ -37,7 +37,6 @@
           <div class="card-body">
             <CharacterClassSelect
               v-model="new_class"
-              :multiple="false"
               label="Replacement class"
               description="New class to replace the machine assignment"
             />
@@ -96,7 +95,7 @@ export default {
       displayed_images: [],
       disable_commit: true,
       cl_key: 1,
-      character_class: [],
+      character_class: null,
       book: null,
       order: 'character_class',
       character_run: null,
