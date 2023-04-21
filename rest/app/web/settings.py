@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_tweaks",
     # "silk",
+    'ip_logger',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'ip_logger.middleware.LogIPMiddleware',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
