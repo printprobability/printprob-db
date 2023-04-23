@@ -134,7 +134,7 @@ DATABASES = {
         "PASSWORD": os.environ["POSTGRES_PASSWORD"],
         "HOST": os.environ["POSTGRES_HOST"],
         "PORT": os.environ["POSTGRES_PORT"],
-        "CONN_MAX_AGE": 600, # 10 minutes
+        "CONN_MAX_AGE": 0, # Close connections immediately after the transaction completes
     }
 }
 
