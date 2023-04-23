@@ -8,6 +8,9 @@
     </p>
     <div class="row">
       <div class="col-7">
+        <b-alert variant="info" show
+        >Please select a book to filter characters.</b-alert
+        >
         <CharacterList
           :highlighted_characters="intersecting_images"
           :character_class="character_class"

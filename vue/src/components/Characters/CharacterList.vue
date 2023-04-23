@@ -220,6 +220,9 @@ export default {
   },
   asyncComputed: {
     results() {
+      if (!!!this.book) {
+        return
+      }
       // cancel all previous requests
       this.previous_requests.forEach((request) => {
         request.cancel('Cancelling in favor of new fetch')

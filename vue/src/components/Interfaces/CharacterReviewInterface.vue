@@ -8,6 +8,9 @@
           >Do not change filter settings if you have any pending annotations.
           Make sure to commit the annotations to the database first.</b-alert
         >
+        <b-alert variant="info" show
+          >Please select a book to filter characters.</b-alert
+        >
         <CharacterList
           @update="update_displayed_images"
           @char_clicked="toggle_character"
