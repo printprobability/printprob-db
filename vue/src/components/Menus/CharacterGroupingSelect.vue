@@ -45,7 +45,7 @@ export default {
   },
   asyncComputed: {
     character_groupings() {
-      return HTTP.get('/character_groupings/', { params: { limit: 200 } }).then(
+      return HTTP.get('/character_groupings/', { params: { limit: 500 } }).then(
         (response) => {
           const result = _.sortBy(
             response.data.results.map((x) => ({
