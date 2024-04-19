@@ -671,6 +671,16 @@ class CharacterViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         if self.action == "create":
             return models.Character.objects.all()
+        elif self.action == "list":
+            queryset = models.Character.objects.all()
+
+            # Retrieve the 'character_run' parameter from the request
+            character_run = self.request.query_params.get("character_run")
+
+            if character_run:
+                queryset = self.queryset.filter(created_by_run_id=character_run)
+
+            return queryset
         else:
             return self.queryset
 
