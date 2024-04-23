@@ -27,15 +27,14 @@
       "path": "file:///usr/local/images"
     },
     "cache": {
-      "name": "Memory",
-      "ttl": 8000,
-      "limit": 500
+      "name": "Blob",
+      "path": "file:///usr/local"
     }
   },
   "derivatives": {
     "cache": {
       "name": "Blob",
-      "path": "file:///usr/local"
+      "path": "file:///usr/local/images/iiif-server/cache"
     }
   }
 }
