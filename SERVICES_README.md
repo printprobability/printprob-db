@@ -3,7 +3,7 @@
 
 # Workbench Services
 
-The Print & Probability 'workbench' site is comprised of a number of services as seen in the diagram below. The site utilizes Django, a Python app that interfaces with an underlying PostgreSQL database that maintains the project's data tables as well as admin tables for the site. Gunicorn acts as the HTTP web server that communicates with Django and Nginx acts as a proxy server to the outside web. A Vue front end (shown below as 'Front-end Artifacts') communicates the interactions of the site's visitors to the Django app. The workbench also uses an IIIF server to serve the site images. The Django App, Gunicorn, and the PostgreSQL database run on Bridges virtual machine `vm012.bridges2.psc.edu` while the IIIF server runs on Bridges virtual machine `vm013.bridges2.psc.edu`. The IIIF server itself runs within a singularity instance `iiif1`. In order to log onto any of these virtual machines type `ssh <your_bridges_username>@vm<vm_number>.bridges2.psc.edu`.
+The Print & Probability 'workbench' site is comprised of a number of services as seen in the diagram above. The site utilizes Django, a Python app that interfaces with an underlying PostgreSQL database that maintains the project's data tables as well as admin tables for the site. Gunicorn acts as the HTTP web server that communicates with Django and Nginx acts as a proxy server to the outside web. A Vue front end (shown below as 'Front-end Artifacts') communicates the interactions of the site's visitors to the Django app. The workbench also uses an IIIF server to serve the site images. The Django App, Gunicorn, and the PostgreSQL database run on Bridges virtual machine `vm012.bridges2.psc.edu` while the IIIF server runs on Bridges virtual machine `vm013.bridges2.psc.edu`. The IIIF server itself runs within a singularity instance `iiif1`. In order to log onto any of these virtual machines type `ssh <your_bridges_username>@vm<vm_number>.bridges2.psc.edu`.
 
 ## Vue/Django/Gunicorn
 
@@ -71,6 +71,3 @@ Backup steps
 5. `nohup singularity run --env VIPS_DISC_THRESHOLD=250m instance://iiif1 > iiif.log &` - Activate the IIIF server inside the contianer
 
 NOTE: The new argument `--env VIPS_DISC_THRESHOLD=250m` is necessary for an image memory cap we were exceeding with the IIIF server. This sets the environment variable `VIPS_DISC_THRESHOLD` inside the singularity instance in which the IIIF server program is running.
-
-
-# Vue Frontend Development and Deployment
