@@ -56,12 +56,15 @@ def get_matched_characters(request, csv_file, limit, offset):
                 idx += 1
                 continue
             row = line.split(',')
-            if len(row) == 21:
-                last_char_index = 11
-                last_distance_index = 21
-            if len(row) == 41:
-                last_char_index = 21
-                last_distance_index = 41
+            # rows have [query_uuids] + topk_uuid + dists
+            # e.g., for top 10:
+            # 11 + 10 = 21 -> 11
+            # for top 20:
+            # 21 + 20 = 41 -> 21
+            # for top 5:
+            # 6 + 5 = 11 -> 5
+            last_char_index = len(row) // 2 + 1
+            last_distance_index = len(row)
             limit_count += 1
             result.append({})
             result[limit_count - 1]['target'] = _serialize_char(request, row[0])
