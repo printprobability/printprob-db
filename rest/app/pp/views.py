@@ -669,7 +669,6 @@ class CharacterViewSet(viewsets.ModelViewSet):
         "damage_score",
     ]
     filterset_class = CharacterFilter
-    pagination_class = NoCountsLimitOffsetPagination
 
     def get_queryset(self):
         if self.action == "create":
