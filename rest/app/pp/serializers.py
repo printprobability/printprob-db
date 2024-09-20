@@ -438,6 +438,7 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
 
 
 class CharacterListSerializer(serializers.ModelSerializer):
+    book = BookListSerializer(many=False)
     character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
@@ -452,6 +453,7 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "id",
             "label",
             "created_by_run",
+            "book",
             "sequence",
             "x_min",
             "x_max",
