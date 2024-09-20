@@ -444,8 +444,6 @@ class CharacterListSerializer(serializers.ModelSerializer):
     human_character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
-    pageseq = serializers.IntegerField()
-    lineseq = serializers.IntegerField()
 
     class Meta:
         model = models.Character
@@ -465,9 +463,8 @@ class CharacterListSerializer(serializers.ModelSerializer):
             "damage_score",
             "exposure",
             "offset",
+            "absolute_coords",
             "image",
-            "pageseq",
-            "lineseq",
         ]
 
 

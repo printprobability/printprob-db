@@ -603,6 +603,9 @@ class CharacterFilter(filters.FilterSet):
     has_grouping = filters.BooleanFilter(
         method="in_any_grouping", label="In at least one grouping?"
     )
+    printer_like = filters.CharFilter(field_name='created_by_run__book__pp_printer', lookup_expr='icontains')
+    pq_year_early = filters.NumberFilter(field_name='created_by_run__book__pq_year_early', lookup_expr='gte')
+    pq_year_late = filters.NumberFilter(field_name='created_by_run__book__pq_year_late', lookup_expr='lte')
 
     def character_classes_in_query(self, queryset, name, value):
         if value:
