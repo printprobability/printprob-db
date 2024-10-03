@@ -715,6 +715,10 @@ class CharacterClassFilter(filters.FilterSet):
         help_text="Partial text match for character class label",
         lookup_expr="icontains",
     )
+    group = filters.CharFilter(
+        help_text="Exact match for group",
+        lookup_expr="exact",
+    )
 
 
 class CharacterClassViewset(CRUDViewSet):
