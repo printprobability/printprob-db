@@ -436,9 +436,46 @@ class CharacterDetailSerializer(serializers.ModelSerializer):
             "image",
         ]
 
+class CharacterBookListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Book
+        fields = [
+            "url",
+            "id",
+            "eebo",
+            "vid",
+            "tcp",
+            "estc",
+            "zipfile",
+            "zip_path",
+            "label",
+            "pp_publisher",
+            "pp_author",
+            "pq_publisher",
+            "pq_title",
+            "pq_url",
+            "pq_author",
+            "pq_year_verbatim",
+            "pq_year_early",
+            "pq_year_late",
+            "tx_year_early",
+            "tx_year_late",
+            "date_early",
+            "date_late",
+            "pdf",
+            "starred",
+            "ignored",
+            "is_eebo_book",
+            "prefix",
+            "repository",
+            "pp_printer",
+            "colloq_printer",
+            "pp_notes",
+        ]
 
 class CharacterListSerializer(serializers.ModelSerializer):
-    book = BookListSerializer(many=False)
+    book = CharacterBookListSerializer(many=False)
     character_class = serializers.PrimaryKeyRelatedField(
         queryset=models.CharacterClass.objects.all()
     )
