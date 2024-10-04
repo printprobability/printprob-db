@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     "drf_tweaks",
     # "silk",
     'ip_logger',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -169,7 +171,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 STATIC_ROOT = os.environ["STATIC_ROOT"]
 CA_CERT_ROUTE = os.environ["CA_CERT_ROUTE"]
 if (
@@ -218,3 +220,24 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 #         },
 #     },
 # }
+
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+
+if os.environ["USE_DOCKER"] == "True":
+    import socket
+
+    try:
+        hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+        INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
+        # Since our requests will be routed to Django via the nginx container, include
+        # the nginx IP address as internal as well
+        hostname, _, nginx_ips = socket.gethostbyname_ex("nginx")
+        INTERNAL_IPS += nginx_ips
+        print(INTERNAL_IPS)
+    except socket.gaierror:
+        # The node container isn't started (yet?)
+        pass

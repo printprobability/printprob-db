@@ -22,4 +22,5 @@ urlpatterns = [
     path("api/accounts/", include("django.contrib.auth.urls")),
     path("api/auth/", include("rest_framework.urls")),
     # path("api/silk/", include("silk.urls", namespace="silk")),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
