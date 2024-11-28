@@ -12,7 +12,7 @@ django-filter==21.1; python_version >= "3.6"
 django-ip-logger==1.0.1; python_version >= "3.6"
 django-rest-swagger==2.2.0
 django-silk==4.4.1; python_version >= "3.7"
-django==3.2.16; python_version >= "3.6"
+django==3.2.18; python_version >= "3.6"
 djangorestframework==3.14.0; python_version >= "3.6"
 drf-tweaks==0.9.7
 drf-yasg==1.21.4; python_version >= "3.6"
