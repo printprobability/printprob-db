@@ -17,20 +17,20 @@ cd /ocean/projects/hum160002p/shared/iiif-server/
 singularity instance stop iiif1
 ```
 
-### Step 2: Create the Singularity instance
+### Step 3: Create the Singularity instance
 ```bash
 singularity instance start --contain -B /ocean/projects/hum160002p/shared:/usr/local/images,config:/etc/iiif-server go-iiif-vips_latest.sif iiif1
 ```
 
-### Step 3: Activate the IIIF server inside the container
+### Step 4: Activate the IIIF server inside the container
 ```bash
 nohup singularity run --env VIPS_DISC_THRESHOLD=250m instance://iiif1 > iiif.log &
 ```
 
-### Step 4: Check that images are loading
+### Step 5: Check that images are loading
 Visit: [https://printprobdb.psc.edu/books](https://printprobdb.psc.edu/books)
 
-### Step 5: Logout of the shell
+### Step 6: Logout of the shell
 ```bash
 exit
 ```
