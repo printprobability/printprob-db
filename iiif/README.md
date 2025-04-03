@@ -7,7 +7,12 @@ This guide provides instructions on how to start, restart, and stop the IIIF ser
 
 ## 🚀 Start and Auto-Restart the IIIF Server
 
-### Step 1: Stop any currently-running instance
+### Step 1: Go to directory
+```bash
+cd /ocean/projects/hum160002p/shared/iiif-server/
+```
+
+### Step 2: Stop any currently-running instance
 ```bash
 singularity instance stop iiif1
 ```
