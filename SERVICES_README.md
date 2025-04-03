@@ -64,6 +64,11 @@ Backup steps
 
 *Restarting*
 
+### UPDATE
+
+See [iiif/README.md](https://github.com/printprobability/printprob-db/blob/master/iiif/README.md) for more up-to-date instructions
+
+### OLD
 1. Log into `vm013.bridges2.psc.edu`
 2. `cd /ocean/projects/hum160002p/shared/iiif-server`
 3. `singularity instance stop iiif1` - Stop any currently-running instance
