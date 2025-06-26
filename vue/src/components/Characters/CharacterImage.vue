@@ -71,23 +71,22 @@ export default {
     }
   },
   computed: {
-  fullCharacterLabel() {
-  const c = this.character;
-  const b = c.book || {};
+    fullCharacterLabel() {
+      const c = this.character;
+      const b = c.book || {};
 
-  const className = c.character_class || 'Unclassified';
-  const vid = b.vid || 'VID?';
-  const title = b.label || b.pq_title || 'Untitled';
+      const className = c.character_class || 'Unclassified';
+      const vid = b.vid || 'VID?';
+      const title = b.label || b.pq_title || 'Untitled';
 
-  const page = c.page_number ? `p. ${c.page_number}` : '';
-  const line = c.line_number ? `l. ${c.line_number}` : '';
-  const col = c.column_number ? `c. ${c.column_number}` : '';
+      const page = c.page_number ? `p. ${c.page_number}` : '';
+      const line = c.line_number ? `l. ${c.line_number}` : '';
+      const col = c.column_number ? `c. ${c.column_number}` : '';
 
-  const location = [page, line, col].filter(Boolean).join(' ');
+      const location = [page, line, col].filter(Boolean).join(' ');
 
-  return `${className} – (${vid}) ${title}${location ? ', ' + location : ''}`;
-}
-    
+      return `${className} – (${vid}) ${title}${location ? ', ' + location : ''}`;
+    },
     size_actual() {
       return this.image_size == 'actual'
     },
