@@ -419,7 +419,7 @@ import {
   parseMatchDir,
   describeRunShort,
   describeRunLong,
-  shortCharacterLabel,
+  characterCaption,
 } from '@/utils/matchRuns'
 
 function emptyDeclare() {
@@ -669,8 +669,14 @@ export default {
       const directory = this.match_directories.find(
         (d) => d.dir === this.matched_directory
       )
-      // the server omits character_classes for a run folder with no letter subfolders
-      const character_classes = (directory && directory.character_classes) || []
+      // the server omits character_classes for a run folder with no letter subfolders,
+      // and lists them by folder modification time, so sort them for the dropdown
+      const character_classes = (
+        (directory && directory.character_classes) ||
+        []
+      )
+        .slice()
+        .sort()
       this.character_class_options = character_classes.map(
         (character_class) => ({
           value: character_class,
@@ -794,13 +800,13 @@ export default {
           id: value.id,
           rank: parseInt(key.replace('match', '')),
           distance: value.distance,
-          text: `${shortCharacterLabel(value.label)} (rank ${parseInt(
+          text: `${characterCaption(value)} (rank ${parseInt(
             key.replace('match', '')
           )}, d=${value.distance})`,
-          short: shortCharacterLabel(value.label),
+          short: characterCaption(value),
         }))
         .sort((a, b) => a.rank - b.rank)
-      const query_short = shortCharacterLabel(query.label)
+      const query_short = characterCaption(query)
       const run_text = this.current_run
         ? describeRunShort(this.current_run, this.book_title)
         : this.matched_directory

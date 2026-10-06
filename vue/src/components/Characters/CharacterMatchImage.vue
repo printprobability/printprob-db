@@ -27,7 +27,7 @@
 
 <script>
 import CharacterImage from './CharacterImage'
-import { shortCharacterLabel } from '@/utils/matchRuns'
+import { characterCaption } from '@/utils/matchRuns'
 
 export default {
   name: 'CharacterMatchImage',
@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     caption() {
-      return shortCharacterLabel(this.character.label)
+      return characterCaption(this.character)
     },
     is_char_selected() {
       return this.selected[this.index - 1].has(this.character.id)
