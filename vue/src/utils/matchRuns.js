@@ -16,6 +16,12 @@ const BOOK_NAMES = {
   everingham: 'Everingham books',
   everingham_english: 'Everingham English books',
   everingham_english_redo: 'Everingham English books',
+  // title slugs from image folder names (<printer>_<ESTC>_<library>_<format>_<titleslug><year>)
+  spinozatheologicalpolitical: 'Spinoza TTP',
+  twotreatisesofgov: 'Locke, Two Treatises',
+  Lockeletterconcerningtoler: 'Locke, Letter on Toleration',
+  criticalenquiriesinto: 'Critical Enquiries',
+  plutarchmorals: 'Plutarch, Morals',
 }
 
 const MONTHS = [
@@ -190,4 +196,31 @@ export function shortCharacterLabel(label) {
   )
   if (!m) return label
   return `${m[1]} · p.${m[2]} l.${m[3]} c.${m[4]}`
+}
+
+// Book folder + page from a character's IIIF image URL, e.g.
+// .../books/redo/tbraddyll_R23639_mdp_8_religionandreasonREDO1688/pages_color/...-0342.tif/... -> "Religion and Reason (R23639) · p.342"
+// (folders are <printer>_<ESTC>_<library>_<format>_<titleslug>[REDO]<year>; line/char are not in the URL)
+function captionFromImage(image) {
+  const url = image && (image.web_url || image.thumbnail || image.buffer)
+  if (!url) return ''
+  const m =
+    /\/books\/[^/]+\/([^/]+)\/pages[^/]*\/[^/]*?-(\d{3,4})(?:_page\w*)?\.tif/.exec(
+      url
+    )
+  if (!m) return ''
+  const parts = m[1].split('_')
+  const estc = parts.find((p) => /^[RT]\d+$/.test(p))
+  const slug = (parts[4] || parts[parts.length - 1])
+    .replace(/REDO|FAIL/g, '')
+    .replace(/\d{4}$/, '')
+  return `${bookName(slug)}${estc ? ` (${estc})` : ''} · p.${parseInt(m[2])}`
+}
+
+// Caption for a character: its database label when it has one, otherwise book and page from its image URL.
+export function characterCaption(character) {
+  if (!character) return ''
+  return (
+    shortCharacterLabel(character.label) || captionFromImage(character.image)
+  )
 }
