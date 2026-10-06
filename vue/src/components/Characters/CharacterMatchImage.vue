@@ -12,12 +12,22 @@
       "
     />
     <span>{{ name }}</span>
-    <span v-if="distance">{{ distance }}</span>
+    <span v-if="distance" class="d-block small">
+      <template v-if="is_match_image">rank {{ col_index }} · </template>d={{
+        distance
+      }}
+    </span>
+    <span
+      class="d-block small text-muted match-caption"
+      :title="character.label"
+      >{{ caption }}</span
+    >
   </div>
 </template>
 
 <script>
 import CharacterImage from './CharacterImage'
+import { shortCharacterLabel } from '@/utils/matchRuns'
 
 export default {
   name: 'CharacterMatchImage',
@@ -36,6 +46,9 @@ export default {
     },
   },
   computed: {
+    caption() {
+      return shortCharacterLabel(this.character.label)
+    },
     is_char_selected() {
       return this.selected[this.index - 1].has(this.character.id)
     },
@@ -62,5 +75,9 @@ export default {
 span {
   display: inline-block;
   word-break: break-word;
+}
+.match-caption {
+  max-width: 11rem;
+  line-height: 1.2;
 }
 </style>
