@@ -227,6 +227,7 @@
             :index="data.index + 1"
             col_index="9"
             :character_row="data.value"
+            @char_clicked="char_selected($event)"
             :selected="selected_matches"
             is_match_image
             :image_size="image_size"
