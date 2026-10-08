@@ -677,6 +677,7 @@ export default {
       }
       this.matched_directory = event
       this.matched_character_class = null
+      this.page = 1
       this.items = []
       const directory = this.match_directories.find(
         (d) => d.dir === this.matched_directory
@@ -727,6 +728,7 @@ export default {
         return
       }
       this.matched_character_class = event
+      this.page = 1 // a new letter starts on its first page
       this.fetch_characters()
     },
     fetch_characters() {
