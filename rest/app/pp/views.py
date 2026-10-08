@@ -760,9 +760,15 @@ class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
     list_queryset = models.CharacterGrouping.objects.select_related("created_by").all()
     queryset = detail_queryset
 
-    # the list only shows labels and notes, so it must not prefetch every grouping's characters
-    queryset_action_classes = {"list": list_queryset}
     filterset_class = CharacterGroupingFilter
+
+    def get_queryset(self):
+        # The list only shows labels and notes, so it must not prefetch every grouping's
+        # characters (10 s for 364 groupings). Defined here because CRUDViewSet comes before
+        # GetSerializerClassMixin in the bases, so the mixin's get_queryset is never reached.
+        if self.action == "list":
+            return self.list_queryset.all()
+        return super().get_queryset()
 
     def get_serializer_class(self):
         if self.action == "retrieve":
