@@ -423,6 +423,17 @@ import {
   characterCaption,
 } from '@/utils/matchRuns'
 
+// the group last declared into, offered first next time (per browser)
+const LAST_GROUP_KEY = 'pp.declare_last_group'
+
+function lastDeclareGroup() {
+  try {
+    return window.localStorage.getItem(LAST_GROUP_KEY)
+  } catch (e) {
+    return null
+  }
+}
+
 function emptyDeclare() {
   return {
     show: false,
@@ -815,6 +826,7 @@ export default {
       this.declare = {
         ...emptyDeclare(),
         show: true,
+        group_id: lastDeclareGroup(),
         query_id: query.id,
         query_text: query_short,
         matches: matches,
@@ -873,6 +885,11 @@ export default {
       request.then(
         (group) => {
           this.$set(this.declared, this.declare.query_id, group.label)
+          try {
+            window.localStorage.setItem(LAST_GROUP_KEY, group.id)
+          } catch (e) {
+            // storage blocked: the menu just starts empty next time
+          }
           this.$bvToast.toast(
             `Added ${characters.length} glyphs to "${group.label}".`,
             {

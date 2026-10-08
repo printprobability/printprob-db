@@ -41,7 +41,8 @@ TOP_K_CSV_SUFFIX = '*_topk_uuid.csv'
 class GetSerializerClassMixin(object):
     def get_queryset(self):
         try:
-            return self.queryset_action_classes[self.action]
+            # .all() gives each request a fresh copy of the class-level queryset
+            return self.queryset_action_classes[self.action].all()
         except (KeyError, AttributeError):
             return super().get_queryset()
 
@@ -759,7 +760,8 @@ class CharacterGroupingViewSet(CRUDViewSet, GetSerializerClassMixin):
     list_queryset = models.CharacterGrouping.objects.select_related("created_by").all()
     queryset = detail_queryset
 
-    serializer_action_classes = {"list": list_queryset, "detail": detail_queryset}
+    # the list only shows labels and notes, so it must not prefetch every grouping's characters
+    queryset_action_classes = {"list": list_queryset}
     filterset_class = CharacterGroupingFilter
 
     def get_serializer_class(self):
